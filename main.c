@@ -51,7 +51,7 @@ while(1)
 		{
 				
 				tokens = line_parser(trimed);	
-				printf("%d",is_exec(findpath(environ),tokens[0]));
+				printf("%d",path_resolver(findpath(environ),tokens[0],environ));
 				if(find_token(trimed,"exit"))
 			{
 				free(trimed);

@@ -3,29 +3,43 @@
 #include <sys/stat.h>
 
 
-int is_exec(char *env,char *program) 
+int path_trigger(char *path,char **env )
+{
+int pid;
+int status;
+
+pid = fork();
+	if(pid < 0)
+		perror("FORK  ERROR");
+	if(pid > 0)
+	{
+		printf(" execve failed ;( %d",execve(path,env,env));
+		
+
+	}
+	waitpid(pid, &status, WEXITED);
+
+
+return(0);
+}
+int path_resolver(char *path_bin,char *program , char **env) 
 {
 	char **paths;
 	char *temp;
-	struct  stat stats;
-
 	int inc;
 
 	inc = -1;
-	paths = ft_split(env,':');
+	paths = ft_split(path_bin,':');
 while(paths[++inc])
 	{
 	temp = ft_str3join(paths[inc],"/",program);
-			if(stat(temp,&stats) &&  S_ISREG(stats.st_mode) == 1)
-		{
-			if(S_IEXEC)
+			if(execve(temp,NULL,env) == -1) 
 			{
-			printf("yes\n");
-			free(temp);
-			freelist(paths);
-				return 0;
+						free(temp);
+						printf("failed");
+						temp = NULL;			
 			}
-		}
+		if(temp)
 			free(temp);
 	}
 	printf("command not found %s\n", program);

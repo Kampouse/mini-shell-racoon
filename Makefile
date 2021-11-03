@@ -22,7 +22,7 @@ leak: all
 clean:
 	    ${RM} ${OBJS}	
 git:
-		@git add ${SRCS} push_swap.h Makefile
+		@git add ${SRCS} minishell.h Makefile
 
 fclean: clean
 	@${RM} ${NAME}
