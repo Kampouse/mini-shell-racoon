@@ -13,5 +13,5 @@ char	*ft_strend(char *base, char *to_find);
 char	*ft_str3join(const char *first, const char *second, const char *third);
 char	*findpath(char **environ);
 char	freelist(char **list);
-int path_resolver(char *path_bin,char *program , char **env);
+int path_resolver(char *path_bin,char **program_args , char **env);
 #endif 

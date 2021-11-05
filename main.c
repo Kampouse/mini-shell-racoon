@@ -51,13 +51,16 @@ while(1)
 		{
 				
 				tokens = line_parser(trimed);	
-				printf("%d",path_resolver(findpath(environ),tokens[0],environ));
 				if(find_token(trimed,"exit"))
 			{
+			
+				printf("exit\n");
 				free(trimed);
 				freelist(tokens);
+				
 				return(0);
 			}
+			path_resolver(findpath(environ),tokens,environ);
 		free(trimed);
 		freelist(tokens);
 		}
