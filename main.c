@@ -1,21 +1,31 @@
-#include "stdio.h"
-#include "readline/readline.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/07 14:36:20 by jemartel          #+#    #+#             */
+/*   Updated: 2021/11/07 17:22:55 by jemartel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft/libft.h"
 #include "minishell.h"
-#include "readline/history.h"
-#define GREEN "\002\e[0;32m\002"
-#define RESET   "\001\e[0m\002"
+
 extern char ** environ;
+
+/* this will chop string in substring until it find a a pipe or other  a redirection... */
 char **line_parser(char *line)
 {
-char **tokens;
-
+	char	**tokens;
 
 	tokens  = ft_split(line,' ');
 
 return(tokens);
 }
-
+/* this  will  function yet to be functionnal will
+determine a index that  will excute a set function such as exit_please */
 int find_token(char *line, char *token) 
 {
 const int len = ft_strlen(line);
@@ -25,37 +35,13 @@ if(ft_strnstr(line,token,len))
 
 return(0);
 }
-int exit_please(char **tokens,char *trimed)
-{
-	if(trimed && tokens)
-	{
-	if(find_token(tokens[0],"exit"))
-	{
-				printf("exit\n");
-				free(trimed);
-				freelist(tokens);
-				return(1);
-	}
-	}
-return(0);
-}
- char	freelist(char **list )
-{
-	int index;
-	index = 0;
-	while (list[index])
-	{
-		free((void *) list[index]);
-		index++;
-	}
-	free(list);
-	return (0);
-}
 
+
+/* main  entry point of minishell where jobs  
+will be created(yet to be implemented) and  (executed WORKING)  */
 
 int read_wrapper(void)
 {
-
 char *line;
 char *trimed;
 char **tokens;
@@ -79,8 +65,6 @@ while(1)
 }
 return (0);
 }
-
-
 
 int main (void)
 {

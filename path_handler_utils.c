@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 10:50:06 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/03 11:24:50 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/11/07 17:18:57 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ char	*ft_str3join(const char *first, const char *second, const char *third)
 	return (output);
 }
 
+/* search the path  and  return the path for the excutables */
 char	*findpath(char **environ)
 {
 	int		i;
