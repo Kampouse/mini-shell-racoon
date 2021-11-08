@@ -7,11 +7,16 @@
 # include "readline/history.h"
 # include <sys/types.h>
 # include <dirent.h>
+# define GREEN "\002\e[0;32m\002"
+# define RESET   "\001\e[0m\002"
+
 
 
 char	*ft_strend(char *base, char *to_find);
 char	*ft_str3join(const char *first, const char *second, const char *third);
 char	*findpath(char **environ);
 char	freelist(char **list);
-int path_resolver(char *path_bin,char **program_args , char **env);
+int		path_resolver(char *path_bin,char **program_args , char **env);
+int		find_token(char *line, char *token);
+int		exit_please(char **tokens,char *trimed);
 #endif 
