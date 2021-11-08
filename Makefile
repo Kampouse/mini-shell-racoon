@@ -1,26 +1,38 @@
-NAME = push_swap
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/11/08 01:39:03 by jean-phil         #+#    #+#              #
+#    Updated: 2021/11/08 02:04:59 by jean-phil        ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = minishell
 
 FLAGS = -Wall -Wextra -Werror
 SRCS =  main.c path_handler_utils.c path_handle.c
-RM =  rm -rf 
+RM =  rm -rf
 .c.o:
 	@gcc ${FLAGS}  -c $< -o ${<:.c=.o}
 
 OBJS = ${SRCS:.c=.o}
-CC = gcc 
+CC = gcc
 all: ${NAME}
-${NAME}:${OBJS} 
+${NAME}:${OBJS}
 		@$(MAKE) -C libft
-		@${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  -L./libft -lft -lcurses -o ${NAME}
-	
+		@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}
+
 run: all
-		./$(NAME) 
+		./$(NAME)
 leak: all
 		leaks --atExit -- ./$(NAME)
 		./$(NAME)
 
 clean:
-	    ${RM} ${OBJS}	
+		${RM} ${OBJS}
 git:
 		@git add ${SRCS} minishell.h Makefile
 
@@ -29,6 +41,6 @@ fclean: clean
 	@$(MAKE) -C ft_printf fclean
 	@$(MAKE) -C libft fclean
 re: fclean all
-	
+
 .PHONY: clean fclean re all
 

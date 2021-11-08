@@ -1,8 +1,10 @@
 #include "libft/libft.h"
 #include "minishell.h"
 #include <stdio.h>
+#include "time.h"
 #include <sys/stat.h>
-
+#include <sys/types.h>
+#include <sys/wait.h>
 
 /* last stage of exection of the command if not built in */
 int exec_the_bin(char **paths,char **program, char **env)
@@ -32,11 +34,9 @@ return(0);
 int path_resolver(char *path_bin,char **program_args ,char **env) 
 {
 	char **paths;
-	int inc;
 	int pid;
 	int status;
 
-	inc = -1;
 	paths = ft_split(path_bin,':');
 	pid = fork();
 	if(pid < 0)
