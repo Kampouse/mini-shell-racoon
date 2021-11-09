@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 14:36:20 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/07 17:22:55 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:43:10 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ extern char ** environ;
 char **line_parser(char *line)
 {
 	char	**tokens;
-
+	if(!line)
+		return(NULL);
 	tokens  = ft_split(line,' ');
 
 return(tokens);
 }
 /* this  will  function yet to be functionnal will
-determine a index that  will excute a set function such as exit_please */
+determine a index that  will excute a set function such as exit_please  */
 int find_token(char *line, char *token) 
 {
 const int len = ft_strlen(line);
@@ -56,7 +57,10 @@ while(1)
 				tokens = line_parser(trimed);	
 				if(exit_please(tokens,trimed) == 1)
 					return (1);
-			path_resolver(findpath(environ),tokens,environ);
+				if(is_reddir(trimed) == 1)
+					printf("yes");
+				else
+					path_resolver(findpath(environ),tokens,environ);
 		free(trimed);
 		freelist(tokens);
 		}

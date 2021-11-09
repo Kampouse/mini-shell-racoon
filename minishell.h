@@ -19,4 +19,6 @@ char	freelist(char **list);
 int		path_resolver(char *path_bin,char **program_args , char **env);
 int		find_token(char *line, char *token);
 int		exit_please(char **tokens,char *trimed);
+int until_space(char *str);
+int is_reddir(char *str);
 #endif 

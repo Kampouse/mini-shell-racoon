@@ -6,10 +6,11 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 14:29:29 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/07 17:19:01 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/11/09 15:58:06 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/libft.h"
 #include "minishell.h"
 /* should clean all the data structures left
  on the  heap also return a status?*/
@@ -27,6 +28,55 @@ int	exit_please(char **tokens, char *trimed)
 		}
 	}
 	return (0);
+}
+
+int ft_isspace(char elm)
+{
+if(!elm)
+	return(0);
+if(elm == ' ' || elm == '\t' )
+	return(1);
+else if(elm == '\n' || elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
+	return(1);
+return(0);
+}
+
+int until_space(char *str)
+{
+	int inc;
+	inc = 0;
+	if(!str)
+		return(0);
+	while(!ft_isspace(str[inc]) && str[inc])
+	{
+		inc++;
+
+	}
+	
+return(inc);
+}
+
+int is_reddir(char *str)
+{
+	int inc;
+	const char *trimed  = ft_substr(str,0,until_space(str));
+
+	char *tokens[5] = { ">", ">>","<", "<<",NULL};
+	inc = 0;
+	if(!str)
+		return(-1);
+	while(tokens[inc])
+	{
+			 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(str)) == 0)
+		{
+
+				free((char *) trimed);
+			 return(1);
+		}
+		 inc++;
+	}
+	free((char *) trimed);
+	return(0);
 }
 
 char	freelist(char **list)
