@@ -5,6 +5,7 @@ SRCS =  main.c \
 		utils.c\
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
+		Makefile
 		
 RM =  rm -rf 
 .c.o:
