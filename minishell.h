@@ -12,11 +12,11 @@
 # define GREEN "\002\e[0;32m\002"
 # define RESET   "\001\e[0m\002"
 
-typedef struct s_env
-{
-    char            *env_node;
-    struct s_env    *next;
-} t_env;
+// typedef struct s_env
+// {
+//     char            *env_node;
+//     struct s_env    *next;
+// } t_env;
 
 typedef struct s_export
 {
@@ -26,7 +26,7 @@ typedef struct s_export
 
 typedef struct s_exec
 {
-    t_env           *env;
+    char            **env;
     t_export        *export;
     int             stdin;
     int             stdout;

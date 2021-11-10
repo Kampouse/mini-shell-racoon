@@ -1,7 +1,11 @@
 NAME = minishell
 
 FLAGS = -Wall -Wextra -Werror
-SRCS =  main.c path_handler_utils.c path_handle.c utils.c
+SRCS =  main.c \
+		utils.c\
+		./parsing/path_handler_utils.c \
+		./parsing/path_handle.c \
+		
 RM =  rm -rf 
 .c.o:
 	@gcc ${FLAGS}  -c $< -o ${<:.c=.o}

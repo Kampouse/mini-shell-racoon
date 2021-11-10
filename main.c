@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 14:36:20 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/10 12:02:42 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:36:50 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int find_token(char *line, char *token)
 /* main  entry point of minishell where jobs  
 will be created(yet to be implemented) and  (executed WORKING)  */
 
-int read_wrapper(char **environ)
+int read_wrapper(char **envp)
 {
 	char *line;
 	char *trimed;
@@ -63,7 +63,7 @@ int read_wrapper(char **environ)
 				return (1);
 			else
 			{
-				path_resolver(findpath(environ), tokens, environ);
+				path_resolver(findpath(envp), tokens, envp);
 				free(trimed);
 				freelist(tokens);
 			}
@@ -74,11 +74,10 @@ int read_wrapper(char **environ)
 	return (0);
 }
 
-int main(int argc, char **argv, char **environ)
+int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	printf("%s\n", environ[1]);
-	if(read_wrapper(environ) == 1)
+	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }
