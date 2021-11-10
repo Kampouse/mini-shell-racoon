@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 14:36:20 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/10 11:34:53 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/11/10 12:02:42 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,20 @@ int read_wrapper(char **environ)
 	    free(line);	
 		if(trimed && ft_strlen(trimed) > 0)
 		{
-			tokens = line_parser(trimed);// just a split 	
-			if(exit_please(tokens,trimed) == 1)
+			tokens = line_parser(trimed); 	
+			if(is_reddir(trimed))
+			{
+				free(trimed);
+				freelist(tokens);
+			}
+			else if(exit_please(tokens,trimed) == 1)
 				return (1);
-			path_resolver(findpath(environ), tokens, environ);
-			free(trimed);
-			freelist(tokens);
+			else
+			{
+				path_resolver(findpath(environ), tokens, environ);
+				free(trimed);
+				freelist(tokens);
+			}
 		}
 		else if(trimed)
 			free(trimed);
