@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 14:36:20 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/10 12:02:42 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/11/10 14:22:35 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,28 @@
 t_exec g_state = {0};
 
 /* this will chop string in substring until it find a a pipe or other  a redirection... */
-char **line_parser(char *line)
+int line_parser(char *trimed,char **environ)
 {
 	char	**tokens;
-
-	tokens  = ft_split(line,' ');
-
-	return(tokens);
+	int		type;
+	
+	type = -2;
+	tokens  = ft_split(trimed,' ');
+				type = is_reddir(trimed);
+			if(type >= 0 )
+			{
+				//require of the trime in the next scope;
+				freelist(tokens);
+			}
+			else if(exit_please(tokens,trimed) == 1)
+				 exit(0);
+			else
+			{
+				path_resolver(findpath(environ), tokens, environ);
+				free(trimed);
+				freelist(tokens);
+			}
+	return(type);
 }
 /* this  will  function yet to be functionnal will
 determine a index that  will excute a set function such as exit_please */
@@ -44,32 +59,21 @@ int read_wrapper(char **environ)
 {
 	char *line;
 	char *trimed;
-	char **tokens;
+	int type;
 	
+	type = -2;
 	while(1)
 	{
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line," ");
 	    free(line);	
 		if(trimed && ft_strlen(trimed) > 0)
-		{
-			tokens = line_parser(trimed); 	
-			if(is_reddir(trimed))
-			{
-				free(trimed);
-				freelist(tokens);
-			}
-			else if(exit_please(tokens,trimed) == 1)
-				return (1);
-			else
-			{
-				path_resolver(findpath(environ), tokens, environ);
-				free(trimed);
-				freelist(tokens);
-			}
-		}
+			type = line_parser(trimed,environ); 	
 		else if(trimed)
 			free(trimed);
+	if(type >= 0)
+	//this is the place where its " < > >> <<  echo env export will be evaluated 
+		printf("type :%d",type);
 	}
 	return (0);
 }
