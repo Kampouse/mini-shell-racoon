@@ -2,6 +2,7 @@
 #include "../minishell.h"
 #include <stdio.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 
 /* last stage of exection of the command if not built in */
@@ -32,11 +33,9 @@ int exec_the_bin(char **paths,char **program, char **envp)
 int path_resolver(char *path_bin, char **program_args, char **envp) 
 {
 	char **paths;
-	int inc;
 	int pid;
 	int status;
 
-	inc = -1;
 	paths = ft_split(path_bin,':');
 	pid = fork();
 	if(pid < 0)
