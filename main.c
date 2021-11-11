@@ -4,29 +4,7 @@
 t_exec g_state = {0};
 
 /* this will chop string in substring until it find a a pipe or other  a redirection... */
-int line_parser(char *trimed,char **environ)
-{
-	char	**tokens;
-	int		type;
-	
-	type = -2;
-	tokens  = ft_split(trimed,' ');
-				type = is_reddir(trimed);
-			if(type >= 0 )
-			{
-				//require of the trime in the next scope;
-				freelist(tokens);
-			}
-			else if(exit_please(tokens,trimed) == 1)
-				 exit(0);
-			else
-			{
-				path_resolver(findpath(environ), tokens, environ);
-				free(trimed);
-				freelist(tokens);
-			}
-	return(type);
-}
+
 /* this  will  function yet to be functionnal will
 determine a index that  will excute a set function such as exit_please */
 int find_token(char *line, char *token) 
@@ -59,9 +37,6 @@ int read_wrapper(char **environ)
 			type = line_parser(trimed,environ); 	
 		else if(trimed)
 			free(trimed);
-	if(type >= 0)
-	//this is the place where its " < > >> <<  echo env export will be evaluated 
-		printf("type :%d",type);
 	}
 	return (0);
 }

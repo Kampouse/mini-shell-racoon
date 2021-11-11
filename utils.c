@@ -45,28 +45,6 @@ int until_space(char *str)
 return(inc);
 }
 
-int is_reddir(char *str)
-{
-	int inc;
-	const char *trimed  = ft_substr(str,0,until_space(str));
-
-	char *tokens[8] = { ">", ">>","<", "<<","echo","env","export",NULL};
-	inc = 0;
-	if(!str)
-		return(-1);
-	while(tokens[inc])
-	{
-			 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(str)) == 0)
-		{
-				free((char *) trimed);
-			 return(inc);
-		}
-		 inc++;
-	}
-	free((char *) trimed);
-	return(-2);
-}
-
 char	freelist(char **list)
 {
 	int	index;

@@ -5,7 +5,7 @@ SRCS =  main.c \
 		utils.c\
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
-		Makefile
+		./parsing/tokens_jobs.c \
 		
 RM =  rm -rf 
 .c.o:
@@ -36,4 +36,5 @@ fclean: clean
 re: fclean all
 	
 .PHONY: clean fclean re all
+
 

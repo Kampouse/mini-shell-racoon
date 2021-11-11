@@ -27,7 +27,7 @@ typedef struct s_export
 typedef struct s_exec
 {
     char            **env;
-    t_export        *export;
+    t_export        *exported;
     int             stdin;
     int             stdout;
     unsigned int    output;
@@ -45,9 +45,11 @@ char	*ft_strend(char *base, char *to_find);
 char	*ft_str3join(const char *first, const char *second, const char *third);
 char	*findpath(char **environ);
 char	freelist(char **list);
-int		path_resolver(char *path_bin,char **program_args , char **env);
+int path_resolver(char *path_bin, char **program_args, char **envp);
 int		find_token(char *line, char *token);
 int		exit_please(char **tokens,char *trimed);
 int until_space(char *str);
-int is_reddir(char *str);
+int token_scanner(char *str);
+int line_parser(char *trimed,char **environ);
+
 #endif 
