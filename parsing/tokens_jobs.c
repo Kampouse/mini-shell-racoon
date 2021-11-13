@@ -14,6 +14,47 @@ int token_valid(char **tokens,char *trimed,int type)
 
 return(0);
 }
+
+
+char *find_second(char *str, int state)
+{
+ char *last;
+ int inc;
+ inc  = 0;
+		last   = ft_strchr(str,state);
+		if(last)	
+		{
+			while(&str[inc] != last)
+				inc++;
+			//this malloc the string....
+			last = ft_substr(str,0,inc);
+		//printf("\n output:%s \n",last);
+		}
+		//printf("(%s)",str);
+return(last);
+}
+
+char *find_partner(char *str)
+{
+	int inc;
+	char *first;
+
+	inc  = -1;
+	while(str[++inc])
+	{
+		first = ft_strchr("\'\"",str[inc]);
+		if(first && first[0] == 39)
+			return find_second(&str[inc + 1],39);
+		else if(first && first[0] == 34)
+			return find_second(&str[inc + 1],34);
+	}
+	return (0);
+}
+
+
+
+
+/* chop the string into token */
 int line_parser(char *trimed,char **environ)
 {
 	char	**tokens;
@@ -21,7 +62,8 @@ int line_parser(char *trimed,char **environ)
 	
 	type = -2;
 	tokens  = ft_split(trimed,' ');
-				type = token_scanner(trimed);
+	type = token_scanner(trimed);
+	printf("%s \n",find_partner(trimed));
 			if(type >= 0 )
 			{
 				token_valid(tokens,trimed,type);
@@ -30,7 +72,9 @@ int line_parser(char *trimed,char **environ)
 			}
 			else
 			{
-				path_resolver(findpath(environ), tokens, environ);
+				//path_resolver(findpath(environ), tokens, environ);
+				//printf("%s: is  not a good student\n",trimed);
+				environ++;
 				free(trimed);
 				freelist(tokens);
 			}
@@ -41,8 +85,7 @@ int token_scanner(char *str)
 {
 	int inc;
 	const char *trimed  = ft_substr(str,0,until_space(str));
-
-	char *tokens[9] = { ">", ">>","<", "<<","echo","env","export","exit",NULL};
+	char *tokens[10] = { ">", ">>","<", "<<","echo","env","export","exit","|",NULL};
 	inc = 0;
 	if(!str)
 		return(-1);
