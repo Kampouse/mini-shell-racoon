@@ -51,5 +51,5 @@ int		exit_please(char **tokens,char *trimed);
 int until_space(char *str);
 int token_scanner(char *str);
 int line_parser(char *trimed,char **environ);
-
+int ft_isspace(char elm);
 #endif 
