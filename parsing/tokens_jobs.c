@@ -17,33 +17,23 @@ return(0);
 }
 
 
-char *token_builder(char *str ,int state)
+char *token_builder(char *str)
 {
 	int inc;
 		inc = 0;
 		char *created;
-state++;
-
-
-
 //find element until its not a space noar a quote 
 //also  create a string  of that size try to join the quoted element that might be there 
 //the same fonctionallity could be applied on the quoted side.....
-
-while(!ft_strchr("\'\"",str[inc]) && str[inc] && !ft_isspace(str[inc]) )
-inc++;
+if(!str)
+	return(NULL);
+while(!ft_strchr("\'\" \n\v\f\r",str[inc]))
+	inc++;
+if(inc == 0)
+	return(NULL);
 created = ft_substr(str,0,inc);
-if( str[inc] != '\0' &&find_partner(&str[inc]))
-{
-printf("%s%s",created,find_partner(&str[inc]));
-
-
-}
-
 return created;
 }
-
-
 char *find_second(char *str, int state)
 {
  char *last;
@@ -61,7 +51,7 @@ char *find_second(char *str, int state)
 		}
 		else
 		{
-			printf("unclosed %c",state);
+			//printf("unclosed %c",state);
 			//this could leak mem if it return null :(
 		}
 		//printf("(%s)",str);
@@ -91,7 +81,40 @@ char *find_partner(char *str)
 	return (first);
 }
 
+/* join and free ?*/
+char *line_handler(char *str,char *storage)
+{
+	char *quoted;
+	  char *temp;
+	 quoted  = token_builder(str);
+	 if(quoted)
+	 {
+		temp = ft_strjoin(storage,quoted);
+		if(storage)
+			free(storage);
+		//free quote ;
+		storage = temp;
+		if(ft_strlen(quoted) == ft_strlen(str))
+			return storage;
+		return line_handler(str + ft_strlen(quoted),storage);
 
+	 }
+	 else
+	 {
+		 quoted = find_partner(str);
+		 if(quoted)
+		 {
+			temp = ft_strjoin(storage,quoted);
+			if(storage)
+				free(storage);
+			storage = temp;
+		if(ft_strlen(quoted) + 2 == ft_strlen(str))
+			return storage;
+		return line_handler(str + ft_strlen(quoted) + 2,storage);
+		 }
+	 }
+	return  storage;
+}
 
 
 /* chop the string into token */
@@ -99,12 +122,13 @@ int line_parser(char *trimed,char **environ)
 {
 	char	**tokens;
 	int		type;
-	
+	char *stuff;
+	stuff  = NULL;
 	type = -2;
 	tokens  = ft_split(trimed,' ');
 	type = token_scanner(trimed);
-	printf("%s \n",find_partner(trimed));
-	printf("----%s \n",token_builder(trimed,0));
+	//printf("%s\n",find_partner(trimed));
+	printf("----%s\n",line_handler(trimed,stuff));
 	//printf("%ld \n",ft_strlen(find_partner(trimed)));
 			if(type >= 0 )
 			{
