@@ -66,6 +66,8 @@ char *find_partner(char *str)
 	inc  = -1;
 	while(str[++inc])
 	{
+		if(until_space(&str[inc]) == 0)
+			return NULL;
 		first = ft_strchr("\'\"",str[inc]);
 		if(first && first[0] == 39)
 		{
