@@ -1,6 +1,6 @@
 NAME = minishell
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS =  -g -Wall -Wextra -Werror 
 SRCS =  main.c \
 		utils.c\
 		./parsing/path_handler_utils.c \
@@ -17,7 +17,7 @@ all: ${NAME}
 ${NAME}:${OBJS}
 
 		@$(MAKE) -C libft
-		@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  ./libft/libft.a  -L./ncurses/lib -lncurses -o ${NAME}
+		@${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
 
 run: all
 		./$(NAME)
