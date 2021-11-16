@@ -114,7 +114,6 @@ char *line_no_string(char *str)
 	return(storage);
 }
 
-
 char *line_handler(char *str,unsigned int *len )
 {
 	char *temp;
@@ -152,6 +151,7 @@ tempon = 0;
 			break;
 		//printf("%d",tempon);
 		temp = ft_strjoin(folded,stuff);		
+				free(stuff);	
 		if(folded) 
 			free(folded);
 		folded = temp;	
