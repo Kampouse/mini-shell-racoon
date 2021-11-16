@@ -49,9 +49,9 @@ char *find_second(char *str, int state,unsigned int *len)
 				inc++;
 			last = ft_substr(str,0,inc);
 			if(state == 39)
-				*len= ft_strlen(last);
+				*len = ft_strlen(last);
 			else
-				*len= ft_strlen(last) + 2;
+				*len = ft_strlen(last) + 2;
 			return(last);
 		}
 		len = NULL;
@@ -69,22 +69,22 @@ char *find_dquoted(char *str,unsigned int *len)
 	last = NULL;
 	lenn = *len;
 	inc = 0;
-	if(str[0] == 34 && ft_strchr(str + 1,34))
+	if(ft_strchr(str,34))
 	{
-		last = ft_strchr(str + 1,34);	
+		last = ft_strchr(str,34);	
 		if(last)
 		{
-			
 				while(str[inc] != *last)
 					inc++;	
 					//retun the string that as been evalutated;
 			inc = inc + 2;
 			lenn += inc;
+			printf("--%u\n",lenn);
+			return(0);
 		}
 	}
 	else
 		printf("missing quote common");
-	
 return(0);
 }
 char *find_partner(char *str,unsigned int *len)
@@ -108,7 +108,7 @@ char *find_partner(char *str,unsigned int *len)
 		else if(first && first[0] == 34)
 		{
 			temp = find_second(&str[inc + 1],34,len);
-			find_dquoted(str + 1,len);
+			find_dquoted(&str[inc + 1],len);
 			break;
 		}
 	}
