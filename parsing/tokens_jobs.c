@@ -2,7 +2,7 @@
 
 char *line_handler(char *str,unsigned int *len);
 
-char *find_partner(char *str);
+char *find_partner(char *str,unsigned int *len);
 int token_valid(char **tokens,char *trimed,int type)
 {
 
@@ -36,7 +36,7 @@ if(inc == 0)
 created = ft_substr(str,0,inc);
 return created;
 }
-char *find_second(char *str, int state)
+char *find_second(char *str, int state,unsigned int *len)
 {
  char *last;
  int inc;
@@ -47,15 +47,47 @@ char *find_second(char *str, int state)
 		{
 			while(&str[inc] != last)
 				inc++;
-			//this malloc the string....
 			last = ft_substr(str,0,inc);
-		//printf("\n output:%s \n",last);
+			if(state == 39)
+				*len= ft_strlen(last);
+			else
+				*len= ft_strlen(last) + 2;
+			return(last);
 		}
+		len = NULL;
 		//printf("(%s)",str);
 return(last);
 }
 
-char *find_partner(char *str)
+char *find_dquoted(char *str,unsigned int *len)
+{
+	char *last;
+	 unsigned int inc;
+	 unsigned int lenn;
+	 //lenn is useless here;
+
+	last = NULL;
+	lenn = *len;
+	inc = 0;
+	if(str[0] == 34 && ft_strchr(str + 1,34))
+	{
+		last = ft_strchr(str + 1,34);	
+		if(last)
+		{
+			
+				while(str[inc] != *last)
+					inc++;	
+					//retun the string that as been evalutated;
+			inc = inc + 2;
+			lenn += inc;
+		}
+	}
+	else
+		printf("missing quote common");
+	
+return(0);
+}
+char *find_partner(char *str,unsigned int *len)
 {
 	int inc;
 	char *first;
@@ -70,17 +102,19 @@ char *find_partner(char *str)
 		first = ft_strchr("\'\"",str[inc]);
 		if(first && first[0] == 39)
 		{
-			temp = find_second(&str[inc + 1],39);
+			temp = find_second(&str[inc + 1],39,len);
 			break;
 		}
 		else if(first && first[0] == 34)
 		{
-			temp = find_second(&str[inc + 1],34);
+			temp = find_second(&str[inc + 1],34,len);
+			find_dquoted(str + 1,len);
 			break;
 		}
 	}
 		if(!temp)
-			printf("erro");
+			printf("missid a quote");
+		printf("%u",*len);
 	return (temp);
 }
 
@@ -88,37 +122,26 @@ char *find_partner(char *str)
 
 
 
-char *line_no_string(char *str)
+char *line_no_string(char *str,unsigned int *len)
 {
 	char *quoted;
-	char *temp;
-	char *storage;
-	unsigned int len;
 
-	storage  = NULL;
 	 quoted  = token_builder(str);
 	 if(quoted)
 	 {
-		 len = ft_strlen(quoted);
-		temp = ft_strjoin(storage,quoted);
-		free(quoted);
-		if(storage)
-			free(storage);
-		storage = temp;
-		if(len == ft_strlen(str))
-			return storage;
-		return storage;
-	}
+		 *len = ft_strlen(quoted);
+		
+	 }
 		else 
 			return(NULL);
-	return(storage);
+	return(quoted);
 }
 
 char *line_handler(char *str,unsigned int *len )
 {
 	char *temp;
 
-	temp = line_no_string(str);
+	temp = line_no_string(str,len);
 	if(temp)	
 	{
 		*len = ft_strlen(temp);
@@ -126,7 +149,7 @@ char *line_handler(char *str,unsigned int *len )
 	}
 	else
 	{
-		 temp = find_partner(str);	
+		 temp = find_partner(str,len);	
 		 if(temp)
 		{
 		*len = ft_strlen(temp) + 2;
@@ -146,6 +169,12 @@ tempon = 0;
 	while(1)
 	{
 		stuff = line_handler(str + tempon,&len);
+		if(!len)
+		{
+			if(folded)
+				free(folded);
+			return(NULL);
+		}
 			tempon += len;	
 		if(len == 0)
 			break;
