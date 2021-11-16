@@ -104,11 +104,7 @@ char *find_partner(char *str,unsigned int *len)
 			printf("missid a (%c) \n",first[0]);
 	return (temp);
 }
-
 /* join and free ?*/
-
-
-
 char *line_no_string(char *str,unsigned int *len)
 {
 	char *quoted;
@@ -146,13 +142,29 @@ char *line_handler(char *str,unsigned int *len )
 	*len = 0;
 	return  0;
 }
-char *line_handler_util(char *folded,char *str,unsigned len)
+
+
+ int line_handler_bool(char *str,unsigned int *len)
+{
+
+	const char *temp = (const char *)line_handler(str,len);
+		
+	if(temp)
+	{
+		free((void *)temp);
+
+		return(1);
+	}
+
+	return(0);
+
+}
+
+char *line_handler_util(char *folded,char *str,unsigned len,unsigned int tempon)
 {
 char *stuff;
 char *temp;
-unsigned int tempon;
 
-tempon = 0;
 	while(1)
 	{
 		stuff = line_handler(str + tempon,&len);
@@ -165,13 +177,12 @@ tempon = 0;
 			tempon += len;	
 		if(len == 0)
 			break;
-		//printf("%d",tempon);
 		temp = ft_strjoin(folded,stuff);		
 				free(stuff);	
-		if(folded) 
-			free(folded);
-		folded = temp;	
-		if(tempon == ft_strlen(str))
+	if(folded) 
+		free(folded);
+	folded = temp;	
+	if(ft_strlen(str + tempon ) == 0 || line_handler_bool(str + tempon, &len) == 0)
 			break;
 	}
 	return(folded);	
@@ -189,8 +200,8 @@ int line_parser(char *trimed,char **environ)
 	tokens  = ft_split(trimed,' ');
 	type = token_scanner(trimed);
 	//printf("%s\n",find_partner(trimed));
-	stuff = line_handler_util(stuff,trimed,0);
-	printf("%s",stuff);
+	stuff = line_handler_util(stuff,trimed,0,0);
+	printf("%s\n",stuff);
 		free(stuff);
 			if(type >= 0 )
 			{
