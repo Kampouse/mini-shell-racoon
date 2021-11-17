@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strjoinv2.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/12 20:45:18 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/11/15 11:07:07 by jemartel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 #include "libft.h"
-
 char	*ft_strjoin( char *first, char *second)
 {
 	char		*output;
@@ -30,4 +18,5 @@ char	*ft_strjoin( char *first, char *second)
 		ft_memcpy(output + len, second, len2 + 1);
 	}
 	return (output);
+
 }	

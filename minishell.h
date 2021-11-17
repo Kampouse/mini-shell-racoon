@@ -18,14 +18,6 @@
 //     struct s_env    *next;
 // } t_env;
 
-typedef struct t_dlist
-{
-	void			*content;
-	struct t_dlist	*next;
-	struct t_dlist	*prev;
-}					t_dlist;	
-
-
 typedef struct s_export
 {
     char            *export_node;
@@ -34,24 +26,37 @@ typedef struct s_export
 
 typedef struct s_exec
 {
+    t_export        *exprt;
+    // t_env           *env;
     char            **env;
-    t_export        *exported;
     int             stdin;
     int             stdout;
     unsigned int    output;
 } t_exec;
 
+
+
+typedef struct t_dlist
+{
+	void			*content;
+	struct t_dlist	*next;
+	struct t_dlist	*prev;
+}		t_dlist;
+
+
+
 extern t_exec g_state;
 
-
-
-
-
+void create_env(char **envp);
+void print_env(char **envp);
 int type_string(char *str,size_t *len);
 t_dlist	*ft_lst_lastnode(t_dlist *currlist);
 t_dlist	*ft_lstnewl(void *content);
 void	free_list(t_dlist *head);
 void	ft_lst_add_backd(t_dlist **currlist, t_dlist *node);
+// void create_env(char **envp);
+// void print_env(t_exec g_state);
+
 char	*ft_strend(char *base, char *to_find);
 char	*ft_str3join(const char *first, const char *second, const char *third);
 char	*findpath(char **environ);

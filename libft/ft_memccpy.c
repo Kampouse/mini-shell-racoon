@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memccpy.c                                          :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 23:06:39 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/06/07 15:46:08 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/05/10 13:08:22 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/17 18:42:26 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "stdlib.h"
 
-void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
+#include "libft.h"
+
+void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	unsigned char	*helper_src;
-	unsigned char	*helper_dest;
+	size_t				i;
+	unsigned char		*cdest;
+	unsigned char		*csrc;
 
-	helper_src = (unsigned char *)src;
-	helper_dest = (unsigned char *)dst;
-	while (n > 0 && *helper_src != (unsigned char) c)
+	cdest = (unsigned char *) dest;
+	csrc = (unsigned char *) src;
+	i = 0;
+	while (i < n)
 	{
-		n--;
-		*helper_dest++ = *helper_src++;
+		cdest[i] = csrc[i];
+		if (csrc[i] == (unsigned char)c)
+			return (dest + i + 1);
+		i++;
 	}
-	if (n > 0)
-	{
-		*helper_dest++ = (unsigned char)*helper_src++;
-		return ((void *)helper_dest);
-	}
-	else
-		return (NULL);
+	return (NULL);
 }

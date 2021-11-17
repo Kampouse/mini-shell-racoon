@@ -3,30 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/09 17:20:26 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/06/14 08:56:57 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/05/10 14:17:14 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/08/03 11:01:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdlib.h"
 
-char	*ft_strchr(const char *str, int compared)
+char	*ft_strchr(const char *str, int ch)
 {
-	unsigned int	value;
-
-	value = 0;
-	while (str[value])
+	while (*str != ch)
 	{
-		if (str[value] == (unsigned char)compared)
-		{
-			return ((char *)&str[value]);
-		}
-		value++;
-	}	
-	if ((char)compared == str[value])
-		return ((char *)&str[value]);
-	return (NULL);
+		if (!*str)
+			return (NULL);
+		str++;
+	}
+	return ((char *) str);
 }
+
+/* char				*ft_strchr(const char *str, int ch)
+{
+	while (*str != '\0')
+	{
+		if (ch == *str)
+			return ((char *)str);
+		str++;
+	}
+	if (ch == '\0' && *str == '\0')
+		return ((char *)str);
+	return (NULL);
+} */

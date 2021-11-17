@@ -3,38 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/20 16:43:21 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/09/28 19:06:09 by jemartel         ###   ########.fr       */
+/*   Created: 2021/05/10 13:45:34 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/28 12:09:14 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" 
-#include "stdlib.h" 
+#include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, unsigned long len)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned char		*dst1;
-	const unsigned char	*src1;
+	char	*cdest;
+	char	*csrc;
 
-	dst1 = (unsigned char *)dst;
-	src1 = (const unsigned char *)src;
-	if (dst1 == src1)
-		return (dst);
-	else if (dst1 > src1)
+	cdest = (char *)dest;
+	csrc = (char *)src;
+	if (dest == src)
+		return (dest);
+	if (csrc < cdest)
 	{
-		src1 = src1 + len - 1;
-		dst1 = dst1 + len - 1;
-		while (len > 0)
-		{
-			*dst1 = *src1;
-			dst1--;
-			src1--;
-			len--;
-		}
+		while (n--)
+			*(cdest + n) = *(csrc + n);
+		return (dest);
 	}
-	else
-		dst = ft_memcpy(dst1, src1, len);
-	return (dst);
+	while (n--)
+		*cdest++ = *csrc++;
+	return (dest);
 }

@@ -3,107 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/06 12:30:28 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/06/10 14:58:04 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/05/13 09:29:30 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/08/12 09:44:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
 #include "libft.h"
-#include "stdio.h"
 
-static char	freelist(char **list, int index)
+int	ft_num_of_lines(char const *s1, char c)
 {
-	while (index > 0)
-	{
-		free((void *) list[index]);
-		index--;
-	}
-	free(list);
-	return (0);
-}
+	int	lines;
+	int	comp;
 
-static char	*strmaker(const char *str, int index, int offset)
-{
-	char	*output;
-
-	output = malloc(sizeof(char) * offset + 1);
-	if (!output)
+	lines = 0;
+	comp = 0;
+	if (!*s1)
 		return (0);
-	ft_strlcpy(output, &str[index], offset + 1);
-	return (output);
-}
-
-static char	**listmaker(const char *str, char **list, char cmp, int counter)
-{
-	int	index;
-	int	offset;
-
-	offset = 0;
-	index = 0;
-	while (str[index])
+	while (*s1)
 	{
-		while (str[index + offset] != cmp && str[index + offset])
-			offset++;
-		if (offset == 0)
-			index++;
-		else
+		if (*s1 == c)
+			comp = 0;
+		else if (comp == 0)
 		{
-			list[counter] = strmaker(str, index, offset);
-			if (!list[counter])
-			{
-				freelist(list, counter);
-				return (0);
-			}
-			counter++;
+			comp = 1;
+			lines++;
 		}
-		index += offset;
-		offset = 0;
+		s1++;
 	}
-	return (list);
+	return (lines);
 }
 
-static int	strcount(char const *str, char cmp)
+int	ft_num_of_chars(char const *s2, char c, int i)
 {
-	unsigned int	inc;
-	unsigned int	nb_strs;
+	int	lenght;
 
-	if (!str[0])
-		return (0);
-	inc = 0;
-	nb_strs = 0;
-	while (str[inc] && str[inc] == cmp)
-		inc++;
-	while (str[inc])
+	lenght = 0;
+	while (s2[i] != c && s2[i])
 	{
-		if (str[inc] == cmp)
-		{
-			nb_strs++;
-			while (str[inc] && str[inc] == cmp)
-				inc++;
-			continue ;
-		}
-		inc++;
+		lenght++;
+		i++;
 	}
-	if (str[inc - 1] != cmp)
-		nb_strs++;
-	return (nb_strs);
+	return (lenght);
 }
 
-char	**ft_split(const char *str, char sep)
+static char	**ft_array(char const *s, char **dst, char c, int l)
 {
-	char	**list;
-	int		lenght;
+	int	i;
+	int	y;
+	int	k;
 
-	lenght = strcount(str, sep);
-	if (!str)
+	i = 0;
+	y = 0;
+	while (s[i] && y < l)
+	{
+		k = 0;
+		while (s[i] == c)
+			i++;
+		dst[y] = malloc(sizeof(char) * ft_num_of_chars(s, c, i) + 1);
+		if (!dst[y])
+			return (NULL);
+		while (s[i] && s[i] != c)
+			dst[y][k++] = s[i++];
+		dst[y][k] = '\0';
+		y++;
+	}
+	dst[y] = 0;
+	return (dst);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char	**dst;
+	int		n;
+
+	if (s == NULL)
 		return (NULL);
-	list = malloc(sizeof(char *) * (lenght + 1));
-	if (!list)
+	n = ft_num_of_lines(s, c);
+	dst = (char **)malloc(sizeof(char *) * (n + 1));
+	if (!dst)
 		return (NULL);
-	list = listmaker(str, list, sep, 0);
-	list[lenght] = NULL;
-	return (list);
+	return (ft_array(s, dst, c, n));
 }

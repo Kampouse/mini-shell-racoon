@@ -3,34 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/16 14:51:25 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/09/28 19:18:53 by jemartel         ###   ########.fr       */
+/*   Created: 2021/05/12 11:06:06 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/17 18:42:15 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strmapi(const char *str, char (*fnptr)( unsigned int, char))
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int				i;
-	unsigned int	len;
-	char			*ptr;
-	char			*copy;
+	int		i;
+	char	*cstr;
 
-	i = 0;
-	len = ft_strlen(str) + 1;
-	copy = malloc(sizeof(char) * len);
-	if (!copy)
+	if (!s || !f)
 		return (NULL);
-	ptr = copy;
-	while (str[i])
+	cstr = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!cstr)
+		return (NULL);
+	i = 0;
+	while (s[i])
 	{
-		*copy = (*fnptr)(i, str[i]);
+		cstr[i] = (*f)(i, s[i]);
 		i++;
-		copy++;
 	}
-	*copy = '\0';
-	return (ptr);
+	cstr[i] = '\0';
+	return (cstr);
 }

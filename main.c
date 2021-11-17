@@ -21,11 +21,11 @@ int find_token(char *line, char *token)
 /* main  entry point of minishell where jobs  
 will be created(yet to be implemented) and  (executed WORKING)  */
 
-int read_wrapper(char **environ)
+int read_wrapper(char **envp)
 {
 	char *line;
 	char *trimed;
-	//int type;
+	int type;
 	
 	//jtype = -2;
 	while(1)
@@ -34,17 +34,19 @@ int read_wrapper(char **environ)
 		trimed = ft_strtrim(line," ");
 	    free(line);	
 		if(trimed && ft_strlen(trimed) > 0)
-			 line_parser(trimed,environ); 	
+			type = line_parser(trimed,envp); 	
 		else if(trimed)
 			free(trimed);
 	}
 	return (0);
 }
 
-int main(int argc, char **argv, char **environ)
+int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	if(read_wrapper(environ) == 1)
+	create_env(envp);
+	print_env(envp);
+	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }

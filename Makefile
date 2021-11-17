@@ -1,8 +1,11 @@
+
 NAME = minishell
 
 FLAGS =  -g -Wall -Wextra -Werror 
+
 SRCS =  main.c \
 		utils.c\
+		env.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \
@@ -10,7 +13,8 @@ SRCS =  main.c \
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
 
-RM =  rm -rf
+		
+RM =  rm -rf 
 .c.o:
 	@gcc ${FLAGS}  -c $< -o ${<:.c=.o}
 
@@ -29,7 +33,10 @@ leak: all
 		./$(NAME)
 
 clean:
-		${RM} ${OBJS}
+
+	    ${RM} ${OBJS}
+		@make -C libft/ clean
+
 git:
 		@git add ${SRCS} minishell.h Makefile
 
@@ -41,3 +48,6 @@ re: fclean all
 .PHONY: clean fclean re all
 
 
+re: fclean all
+	
+.PHONY: clean fclean re all
