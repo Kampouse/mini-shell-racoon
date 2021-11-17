@@ -26,8 +26,9 @@ typedef struct s_export
 
 typedef struct s_exec
 {
+    t_export        *exprt;
+    // t_env           *env;
     char            **env;
-    t_export        *export;
     int             stdin;
     int             stdout;
     unsigned int    output;
@@ -35,11 +36,11 @@ typedef struct s_exec
 
 extern t_exec g_state;
 
+void create_env(char **envp);
+void print_env(char **envp);
 
-
-
-
-
+// void create_env(char **envp);
+// void print_env(t_exec g_state);
 
 char	*ft_strend(char *base, char *to_find);
 char	*ft_str3join(const char *first, const char *second, const char *third);

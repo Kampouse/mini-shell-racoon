@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c	                                    :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/17 16:45:57 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/06/07 16:49:30 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/05/10 15:24:12 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/17 18:42:21 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_tolower(int str)
+int	ft_tolower(int c)
 {
-	if (str >= 'A' && str <= 'Z')
-		return (str + 32);
-	return (str);
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
+	return (c);
 }

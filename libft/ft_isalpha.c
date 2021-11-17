@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c	                                    :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 14:56:30 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/08/12 15:44:09 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/05/10 12:55:20 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/17 18:41:56 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_isalpha(int str)
-
+int	ft_isalpha(int c)
 {
-	return ((str >= 'A' && str <= 'Z') || (str >= 'a' && str <= 'z'));
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }

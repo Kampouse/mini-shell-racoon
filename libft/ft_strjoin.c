@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoinv2.c                                     :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/12 20:45:18 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/10/05 13:20:38 by jemartel         ###   ########.fr       */
+/*   Created: 2021/05/11 16:52:55 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/09/29 15:49:18 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-char	*ft_strjoin( char *first, char *second)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char		*output;
-	size_t		len;
-	size_t		len2;
+	int		i;
+	int		j;
+	char	*sjoin;
 
-	len = ft_strlen(first);
-	len2 = ft_strlen(second);
-	output = malloc(sizeof(char) * len + len2 + 1);
-	if (output)
+	if (!s1 || !s2)
+		return (NULL);
+	sjoin = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!sjoin)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		ft_memcpy(output, first, len);
-		ft_memcpy(output + len, second, len2 + 1);
+		sjoin[i] = s1[i];
+		i++;
 	}
-	return (output);
-}	
+	j = 0;
+	while (s2[j])
+	{
+		sjoin[i + j] = s2[j];
+		j++;
+	}
+	sjoin[i + j] = '\0';
+	return (sjoin);
+}

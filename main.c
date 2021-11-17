@@ -4,7 +4,7 @@
 t_exec g_state = {0};
 
 /* this will chop string in substring until it find a a pipe or other  a redirection... */
-int line_parser(char *trimed,char **environ)
+int line_parser(char *trimed,char **envp)
 {
 	char	**tokens;
 	int		type;
@@ -21,7 +21,7 @@ int line_parser(char *trimed,char **environ)
 				 exit(0);
 			else
 			{
-				path_resolver(findpath(environ), tokens, environ);
+				path_resolver(findpath(envp), tokens, envp);
 				free(trimed);
 				freelist(tokens);
 			}
@@ -43,7 +43,7 @@ int find_token(char *line, char *token)
 /* main  entry point of minishell where jobs  
 will be created(yet to be implemented) and  (executed WORKING)  */
 
-int read_wrapper(char **environ)
+int read_wrapper(char **envp)
 {
 	char *line;
 	char *trimed;
@@ -56,7 +56,7 @@ int read_wrapper(char **environ)
 		trimed = ft_strtrim(line," ");
 	    free(line);	
 		if(trimed && ft_strlen(trimed) > 0)
-			type = line_parser(trimed,environ); 	
+			type = line_parser(trimed,envp); 	
 		else if(trimed)
 			free(trimed);
 	if(type >= 0)
@@ -66,10 +66,12 @@ int read_wrapper(char **environ)
 	return (0);
 }
 
-int main(int argc, char **argv, char **environ)
+int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	if(read_wrapper(environ) == 1)
+	create_env(envp);
+	print_env(envp);
+	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }

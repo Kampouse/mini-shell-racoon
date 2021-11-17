@@ -3,37 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/12 16:37:15 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/10/18 11:04:50 by jemartel         ###   ########.fr       */
+/*   Created: 2021/05/11 10:31:05 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/09/29 15:48:58 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
-char	*ft_substr(char const *src, unsigned int start, size_t ln)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*output;
-	size_t	lenght;
-	size_t	inc;
+	size_t	i;
+	size_t	j;
+	char	*subs;
 
-	inc = 0;
-	if (!src)
+	i = 0;
+	j = 0;
+	subs = malloc(sizeof(char) * (len + 1));
+	if (!s || !subs)
 		return (NULL);
-	lenght = ft_strlen(src + start);
-	if (ft_strlen(src) < start)
-		return (ft_strdup(""));
-	if (lenght < ln)
-		ln = lenght;
-	output = malloc(sizeof(char) * ln + 1);
-	if (!output)
-		return (NULL);
-	while (inc < ln)
+	while (s[i])
 	{
-		output[inc] = src[start + inc];
-		inc++;
+		if (i >= start && j < len)
+		{
+			subs[j] = s[i];
+			j++;
+		}
+		i++;
 	}
-	output[inc] = '\0';
-	return (output);
+	subs[j] = '\0';
+	return (subs);
 }

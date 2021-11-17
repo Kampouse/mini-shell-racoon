@@ -1,11 +1,13 @@
+
 NAME = minishell
 
 FLAGS = -Wall -Wextra -Werror
+
 SRCS =  main.c \
 		utils.c\
+		env.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
-		Makefile
 		
 RM =  rm -rf 
 .c.o:
@@ -31,9 +33,8 @@ git:
 
 fclean: clean
 	@${RM} ${NAME}
-	@$(MAKE) -C ft_printf fclean
+# @$(MAKE) -C ft_printf fclean
 	@$(MAKE) -C libft fclean
 re: fclean all
 	
 .PHONY: clean fclean re all
-

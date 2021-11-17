@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 07:58:55 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/09/11 19:23:13 by jemartel         ###   ########.fr       */
+/*   Created: 2021/05/10 10:10:06 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/10/14 11:28:06 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *value)
+int	ft_atoi(const char *str)
 {
-	int			base;
-	int			nbr;
-	const char	*ptr;
+	long			num;
+	int				i;
+	int				sign;
 
-	nbr = 0;
-	base = 1;
-	ptr = value;
-	while (*ptr == ' ' || (*ptr >= 9 && *ptr <= 13))
-		ptr++;
-	if (*ptr == '-' || *ptr == '+')
-	{	
-		if (*ptr == '-')
-			base *= -1;
-		ptr++;
-	}
-	while (*ptr >= '0' && *ptr <= '9')
+	sign = 1;
+	i = 0;
+	num = 0;
+	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+		if (str[i++] == '-')
+			sign = -1;
+	while (str[i] >= '0' && str[i] <= '9')
 	{
-		nbr *= 10;
-		nbr += (int)(*ptr - '0');
-		ptr++;
+		num = num * 10 + (str[i] - '0');
+		i++;
+		if (num * sign > 2147483647)
+			return (-1);
+		if (num * sign < -2147483648)
+			return (0);
 	}
-	return (nbr * base);
+	return ((long)(sign * num));
 }

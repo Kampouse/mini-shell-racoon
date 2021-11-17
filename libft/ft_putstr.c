@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/11 10:23:43 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/06/11 11:04:50 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/07/06 14:06:54 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/08/03 11:31:49 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstlast(t_list *currlist)
+void    ft_putstr(char *str)
 {
-	while (currlist)
-	{
-		currlist = currlist->next;
-	}
-	return (currlist);
+    write(1, &*str, ft_strlen(str));
 }

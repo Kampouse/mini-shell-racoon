@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/22 07:46:10 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/06/08 09:38:21 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/05/10 14:09:01 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/17 18:42:46 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "unistd.h"
 #include "libft.h"
 
-static void	ft_putchar(char input, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	write(fd, &input, 1);
-}
+	char	ch;
 
-void	ft_putnbr_fd(int input, int fd)
-{
-	unsigned int	nbr;
-
-	if (input < 0)
-	{
-		nbr = (unsigned int)(-1 * input);
-		ft_putchar('-', fd);
-	}
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
 	else
-		nbr = (unsigned int)input;
-	if (nbr >= 10)
 	{
-		ft_putnbr_fd(nbr / 10, fd);
-		ft_putnbr_fd(nbr % 10, fd);
+		if (n < 0)
+		{
+			write(fd, "-", 1);
+			n = -n;
+			ft_putnbr_fd(n, fd);
+		}
+		else if (n < 10)
+		{
+			ch = n + '0';
+			write(fd, &ch, 1);
+		}
+		else
+		{
+			ft_putnbr_fd(n / 10, fd);
+			ch = (n % 10) + '0';
+			write(fd, &ch, 1);
+		}
 	}
-	else
-		ft_putchar(nbr + '0', fd);
 }

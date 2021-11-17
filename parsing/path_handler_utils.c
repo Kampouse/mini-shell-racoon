@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 10:50:06 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/10 12:54:19 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/11/17 10:33:39 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ char	*ft_str3join(const char *first, const char *second, const char *third)
 }
 
 /* search the path  and  return the path for the excutables */
-char	*findpath(char **environ)
+char	*findpath(char **envp)
 {
 	int		i;
 	char	*path;
 
 	path = NULL;
 	i = 0;
-	while (environ[i])
+	while (envp[i])
 	{
 		if (path)
 			break ;
-		path = ft_strend(environ[i], "PATH=/");
+		path = ft_strend(envp[i], "PATH=/");
 		i++;
 	}
 	path += ft_strlen("PATH=");

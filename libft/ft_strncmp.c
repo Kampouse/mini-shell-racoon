@@ -3,32 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 17:06:49 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/10/18 11:03:23 by jemartel         ###   ########.fr       */
+/*   Created: 2021/05/11 10:04:34 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/08/13 10:28:44 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "stdlib.h"
-
-int	ft_strncmp(const char *str1, const char *str2, size_t len)
+int	ft_strncmp(const char *str1, const char *str2, unsigned int n)
 {
-	unsigned int	val;
+	unsigned int	i;
 
-	val = 0;
-	while (str1[val] != '\0' && str2[val] != '\0' && val < len)
-	{
-		if (str1[val] != str2[val])
-		{
-			return ((unsigned char) str1[val] - (unsigned char) str2[val]);
-		}
-		val++;
-	}	
-	if (str1[val] != str2[val] && val != len)
-	{
-		return ((unsigned char) str1[val] - (unsigned char) str2[val]);
-	}
-	return (0);
+	i = 0;
+	if (!n)
+		return (0);
+	while ((unsigned char)str1[i]
+		   	 && (unsigned char)str1[i] == (unsigned char)str2[i] && i < n - 1)
+		i++;
+	return ((unsigned char)str1[i] - (unsigned char)str2[i]);
 }
