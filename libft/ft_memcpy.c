@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memcpy.c                                           :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 21:28:42 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/10/18 11:03:00 by jemartel         ###   ########.fr       */
+/*   Created: 2021/05/10 13:25:28 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/17 18:42:02 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdlib.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t			i;
-	unsigned char	*heler_src;
-	unsigned char	*heler_dest;
+	char			*cdst;
+	char			*csrc;
 
-	i = 0;
-	if (!dest && !src)
+	cdst = (char *) dst;
+	csrc = (char *) src;
+	if (!dst && !src)
 		return (NULL);
-	heler_src = (unsigned char *)src;
-	heler_dest = (unsigned char *)dest;
+	i = 0;
 	while (i < n)
 	{
-		heler_dest[i] = heler_src[i];
+		cdst[i] = csrc[i];
 		i++;
 	}
-	return (dest);
+	return (dst);
 }

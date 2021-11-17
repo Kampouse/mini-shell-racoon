@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bzero.c                                           	:+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/05 18:26:34 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/08/12 15:41:38 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/05/10 10:16:07 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/09/20 12:58:30 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "libft.h"
 
-void	*ft_bzero(void *ptr, size_t num)
-
+void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*pted;
+	size_t			i;
+	unsigned char	*pstr;
 
-	pted = ptr;
-	while (num--)
+	i = 0;
+	pstr = (unsigned char *)s;
+	while (i < n)
 	{
-		*pted++ = '\0';
+		pstr[i] = 0;
+		i++;
 	}
-	return (ptr);
+	s = pstr;
 }

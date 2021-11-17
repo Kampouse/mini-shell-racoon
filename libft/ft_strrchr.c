@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchar.c                                      :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 15:57:56 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/09/28 19:17:32 by jemartel         ###   ########.fr       */
+/*   Created: 2021/05/10 15:11:09 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/17 18:42:17 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"	
-#include "stdlib.h"	
+#include "libft.h"
 
-char	*ft_strrchr(const char *str, int compared)
+char	*ft_strrchr(const char *s, int c)
 {
-	int		value;
-	char	*last;
+	int	i;
 
-	last = (char *)str;
-	value = ft_strlen(str);
-	while (value >= 0)
+	i = 0;
+	while (s[i])
+		i++;
+	if (!c)
+		return ((char *)s + i);
+	while (i--)
 	{
-		if (str[value] == (unsigned char)compared)
-			return (&last[value]);
-		value--;
+		if (s[i] == c)
+			return ((char *)(s + i));
 	}
-	return (NULL);
+	return (0);
 }

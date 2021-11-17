@@ -4,29 +4,7 @@
 t_exec g_state = {0};
 
 /* this will chop string in substring until it find a a pipe or other  a redirection... */
-int line_parser(char *trimed,char **environ)
-{
-	char	**tokens;
-	int		type;
-	
-	type = -2;
-	tokens  = ft_split(trimed,' ');
-				type = is_reddir(trimed);
-			if(type >= 0 )
-			{
-				//require of the trime in the next scope;
-				freelist(tokens);
-			}
-			else if(exit_please(tokens,trimed) == 1)
-				 exit(0);
-			else
-			{
-				path_resolver(findpath(environ), tokens, environ);
-				free(trimed);
-				freelist(tokens);
-			}
-	return(type);
-}
+
 /* this  will  function yet to be functionnal will
 determine a index that  will excute a set function such as exit_please */
 int find_token(char *line, char *token) 
@@ -43,33 +21,32 @@ int find_token(char *line, char *token)
 /* main  entry point of minishell where jobs  
 will be created(yet to be implemented) and  (executed WORKING)  */
 
-int read_wrapper(char **environ)
+int read_wrapper(char **envp)
 {
 	char *line;
 	char *trimed;
 	int type;
 	
-	type = -2;
+	//jtype = -2;
 	while(1)
 	{
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line," ");
 	    free(line);	
 		if(trimed && ft_strlen(trimed) > 0)
-			type = line_parser(trimed,environ); 	
+			type = line_parser(trimed,envp); 	
 		else if(trimed)
 			free(trimed);
-	if(type >= 0)
-	//this is the place where its " < > >> <<  echo env export will be evaluated 
-		printf("type :%d",type);
 	}
 	return (0);
 }
 
-int main(int argc, char **argv, char **environ)
+int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	if(read_wrapper(environ) == 1)
+	create_env(envp);
+	print_env(envp);
+	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }

@@ -1,19 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascci.c                                       :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jean-phil <jemartel@student.42quebec>      +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/11 17:35:47 by jean-phil         #+#    #+#             */
-/*   Updated: 2021/06/07 16:59:20 by jean-phil        ###   ########.fr       */
+/*   Created: 2021/05/10 12:58:08 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/05/17 18:41:58 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-int	ft_isascii(int str)
+int	ft_isascii(int c)
 {
-	if (str == 127)
-		return (1);
-	return (str >= 0 && str < 127);
+	return ((c >= 0 && c <= 127));
 }
