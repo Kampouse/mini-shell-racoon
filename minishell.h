@@ -9,6 +9,7 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include "./executing/executing.h"
+# include "./parsing/parsing.h"
 
 # define GREEN "\002\e[0;32m\002"
 # define RESET   "\001\e[0m\002"

@@ -5,13 +5,13 @@ FLAGS =  -g -Wall -Wextra -Werror
 
 SRCS =  main.c \
 		utils.c\
-		env.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \
 		./parsing/token_typer.c \
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
+		./executing/env.c
 
 		
 RM =  rm -rf 
@@ -38,7 +38,10 @@ clean:
 		@make -C libft/ clean
 
 git:
-		@git add ${SRCS} minishell.h Makefile
+		@git add ${SRCS} minishell.h Makefile  ./executing/executing.h \
+		./executing/executing.h \
+		./parsing/parsing.h
+
 
 fclean: clean
 	@${RM} ${NAME}
