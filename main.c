@@ -1,4 +1,3 @@
-#include "libft/libft.h"
 #include "minishell.h"
 
 t_exec g_state = {0};
