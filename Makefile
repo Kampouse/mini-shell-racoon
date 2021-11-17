@@ -27,7 +27,9 @@ leak: all
 		./$(NAME)
 
 clean:
-	    ${RM} ${OBJS}	
+	    ${RM} ${OBJS}
+		@make -C libft/ clean
+
 git:
 		@git add ${SRCS} minishell.h Makefile
 
