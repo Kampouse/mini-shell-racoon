@@ -18,6 +18,14 @@
 //     struct s_env    *next;
 // } t_env;
 
+typedef struct t_dlist
+{
+	void			*content;
+	struct t_dlist	*next;
+	struct t_dlist	*prev;
+}					t_dlist;	
+
+
 typedef struct s_export
 {
     char            *export_node;
@@ -39,8 +47,11 @@ extern t_exec g_state;
 
 
 
-
-
+int type_string(char *str,size_t *len);
+t_dlist	*ft_lst_lastnode(t_dlist *currlist);
+t_dlist	*ft_lstnewl(void *content);
+void	free_list(t_dlist *head);
+void	ft_lst_add_backd(t_dlist **currlist, t_dlist *node);
 char	*ft_strend(char *base, char *to_find);
 char	*ft_str3join(const char *first, const char *second, const char *third);
 char	*findpath(char **environ);
@@ -52,4 +63,5 @@ int until_space(char *str);
 int token_scanner(char *str);
 int line_parser(char *trimed,char **environ);
 int ft_isspace(char elm);
+char *find_dquoted(char *str,size_t *len);
 #endif 

@@ -6,6 +6,9 @@ SRCS =  main.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \
+		./parsing/token_typer.c \
+		./dblink/dblink.c \
+		./dblink/dblink_utils.c \
 
 RM =  rm -rf
 .c.o:

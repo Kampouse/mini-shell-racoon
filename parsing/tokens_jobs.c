@@ -1,8 +1,8 @@
 #include "../minishell.h"
 
-char *line_handler(char *str,unsigned int *len);
+char *line_handler(char *str,size_t *len);
 
-char *find_partner(char *str,unsigned int *len);
+char *find_partner(char *str,size_t *len);
 int token_valid(char **tokens,char *trimed,int type)
 {
 
@@ -36,7 +36,7 @@ if(inc == 0)
 created = ft_substr(str,0,inc);
 return created;
 }
-char *find_single(char *str,unsigned int *len)
+char *find_single(char *str,size_t *len)
 {
  char *last;
  int inc;
@@ -55,10 +55,10 @@ char *find_single(char *str,unsigned int *len)
 return(last);
 }
 
-char *find_dquoted(char *str,unsigned int *len)
+char *find_dquoted(char *str,size_t *len)
 {
 	char *last;
-	 unsigned int inc;
+	 size_t inc;
 
 	last = NULL;
 	inc = 0;
@@ -76,7 +76,8 @@ char *find_dquoted(char *str,unsigned int *len)
 	}
 return(0);
 }
-char *find_partner(char *str,unsigned int *len)
+
+char *find_partner(char *str,size_t *len)
 {
 	int inc;
 	char *first;
@@ -104,8 +105,12 @@ char *find_partner(char *str,unsigned int *len)
 			printf("missid a (%c) \n",first[0]);
 	return (temp);
 }
+
+
+
+
 /* join and free ?*/
-char *line_no_string(char *str,unsigned int *len)
+char *line_no_string(char *str,size_t *len)
 {
 	char *quoted;
 
@@ -120,7 +125,7 @@ char *line_no_string(char *str,unsigned int *len)
 	return(quoted);
 }
 
-char *line_handler(char *str,unsigned int *len )
+char *line_handler(char *str,size_t *len )
 {
 	char *temp;
 
@@ -133,6 +138,7 @@ char *line_handler(char *str,unsigned int *len )
 	else
 	{
 		 temp = find_partner(str,len);	
+		 printf("--%d",type_string(str,len));
 		 if(temp)
 		{
 		*len = ft_strlen(temp) + 2;
@@ -144,7 +150,7 @@ char *line_handler(char *str,unsigned int *len )
 }
 
 
- int line_handler_bool(char *str,unsigned int *len)
+ int token_bool(char *str, size_t *len)
 {
 
 	const char *temp = (const char *)line_handler(str,len);
@@ -159,34 +165,44 @@ char *line_handler(char *str,unsigned int *len )
 	return(0);
 
 }
-
-char *line_handler_util(char *folded,char *str,unsigned len,unsigned int tempon)
+/* loop that create token until it find space or string end */
+char *token_loop(char *result, char *str, size_t len, size_t offset)
 {
-char *stuff;
+char *sub_token;
 char *temp;
 
 	while(1)
 	{
-		stuff = line_handler(str + tempon,&len);
+		sub_token = line_handler(str + offset, &len);
 		if(!len)
 		{
-			if(folded)
-				free(folded);
+			if(result)
+				free(result);
 			return(NULL);
 		}
-			tempon += len;	
+		offset += len;	
 		if(len == 0)
 			break;
-		temp = ft_strjoin(folded,stuff);		
-				free(stuff);	
-	if(folded) 
-		free(folded);
-	folded = temp;	
-	if(ft_strlen(str + tempon ) == 0 || line_handler_bool(str + tempon, &len) == 0)
+		temp = ft_strjoin(result, sub_token);		
+				free(sub_token);	
+	if (result) 
+		free(result);
+	result = temp;	
+		if(ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
 			break;
 	}
-	return(folded);	
+	return (result);	
 }
+
+
+
+
+
+
+
+
+
+
 
 /* chop the string into token */
 int line_parser(char *trimed,char **environ)
@@ -199,11 +215,10 @@ int line_parser(char *trimed,char **environ)
 	type = -2;
 	tokens  = ft_split(trimed,' ');
 	type = token_scanner(trimed);
-	//printf("%s\n",find_partner(trimed));
-	stuff = line_handler_util(stuff,trimed,0,0);
-	printf("%s\n",stuff);
+	stuff = token_loop(stuff,trimed,0,0);
+		printf("%s\n",stuff);
 		free(stuff);
-			if(type >= 0 )
+			if(type >= 0)
 			{
 				token_valid(tokens,trimed,type);
 				freelist(tokens);
