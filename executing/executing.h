@@ -20,4 +20,11 @@ extern t_exec g_state;
 
 void create_env(char **envp);
 void print_env(char **envp);
+char **alloc_tab(char **envp);
+
+
+// UTILS FUNCTION
+int ft_tab_len(char **tab);
+char **ft_sort_tab(char **tab);
+
 #endif

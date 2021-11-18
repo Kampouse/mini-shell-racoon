@@ -45,7 +45,9 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	create_env(envp);
-	print_env(envp);
+	g_state.env = ft_sort_tab(envp);
+	print_env(g_state.env);
+	printf("%d\n", ft_tab_len(g_state.env));
 	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }

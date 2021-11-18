@@ -5,7 +5,8 @@ FLAGS =  -g -Wall -Wextra -Werror
 
 SRCS =  main.c \
 		utils.c\
-		env.c \
+		./executing/env.c \
+		./executing/export.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \
