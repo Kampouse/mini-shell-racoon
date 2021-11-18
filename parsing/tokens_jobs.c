@@ -42,13 +42,13 @@ char *find_single(char *str,size_t *len)
  int inc;
 
  inc  = 0;
-		last   = ft_strchr(str,39);
+		last   = ft_strchr(str + 1,39);
 		if(last)	
 		{
-			while(&str[inc] != last)
+			while(&str[inc + 1] != last)
 				inc++;
-			last = ft_substr(str,0,inc);
-			*len = ft_strlen(last) + 2;
+			last = ft_substr(str,0,inc + 2);
+			*len += ft_strlen(last) -  3;
 			return(last);
 		}
 		len = NULL;
@@ -62,16 +62,16 @@ char *find_dquoted(char *str,size_t *len)
 
 	last = NULL;
 	inc = 0;
-	if(ft_strchr(str,34))
+	if(ft_strchr(str + 1,34))
 	{
-		last = ft_strchr(str,34);	
+		last = ft_strchr(str + 1,34);	
 		if(last)
 		{
-				while(str[inc] != *last)
+				while(str[inc + 1] != *last)
 					inc++;	
-			*len  += (inc  + 2);
-			//this just a   filler;
-			return(ft_substr(str,0,inc));
+			last = ft_substr(str,0,inc + 2);
+			*len += ft_strlen(last) - 3;
+			return(ft_substr(str,0,inc + 2));
 		}
 	}
 return(0);
@@ -92,12 +92,12 @@ char *find_partner(char *str,size_t *len)
 		first = ft_strchr("\'\"",str[inc]);
 		if(first && first[0] == 39)
 		{
-			temp = find_single(&str[inc + 1],len);
+			temp = find_single(&str[inc],len);
 			break;
 		}
 		else if(first && first[0] == 34)
 		{
-			temp = 	find_dquoted(&str[inc + 1],len);
+			temp = 	find_dquoted(&str[inc],len);
 			break;
 		}
 	}
@@ -141,7 +141,7 @@ char *line_handler(char *str,size_t *len )
 		 printf("--%d",type_string(str,len));
 		 if(temp)
 		{
-		*len = ft_strlen(temp) + 2;
+		*len = ft_strlen(temp);
 			return(temp);
 		}
 	}
@@ -193,10 +193,6 @@ char *temp;
 	}
 	return (result);	
 }
-
-
-
-
 
 
 
