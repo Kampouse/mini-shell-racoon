@@ -1,5 +1,5 @@
 #include "../minishell.h"
-
+#include <stdio.h>
 char *line_handler(char *str,size_t *len);
 
 char *find_partner(char *str,size_t *len);
@@ -17,7 +17,6 @@ int token_valid(char **tokens,char *trimed,int type)
 
 return(0);
 }
-
 
 char *token_builder(char *str)
 {
@@ -103,6 +102,7 @@ char *find_partner(char *str,size_t *len)
 	}
 		if(!temp)
 			printf("missid a (%c) \n",first[0]);
+		len = NULL;
 	return (temp);
 }
 
@@ -125,7 +125,7 @@ char *line_no_string(char *str,size_t *len)
 	return(quoted);
 }
 
-char *line_handler(char *str,size_t *len )
+char  *line_handler(char *str,size_t *len )
 {
 	char *temp;
 
@@ -161,6 +161,8 @@ char *line_handler(char *str,size_t *len )
 
 		return(1);
 	}
+	if(!len)
+		printf("broked");
 
 	return(0);
 
@@ -168,12 +170,13 @@ char *line_handler(char *str,size_t *len )
 /* loop that create token until it find space or string end */
 char *token_loop(char *result, char *str, size_t len, size_t offset)
 {
-char *sub_token;
-char *temp;
+t_dlist *token;
+t_dlist *temp;
 
+temp = NULL;
 	while(1)
 	{
-		sub_token = line_handler(str + offset, &len);
+		temp  = node_init( line_handler(str + offset, &len));
 		if(!len)
 		{
 			if(result)
@@ -183,12 +186,14 @@ char *temp;
 		offset += len;	
 		if(len == 0)
 			break;
-		temp = ft_strjoin(result, sub_token);		
-				free(sub_token);	
+		ft_add_frontd(&token,temp);
+		printf("%s",(char *)token->content);
+		//temp = ft_strjoin(result, sub_token);		
+		//		free(sub_token);	
 	if (result) 
 		free(result);
-	result = temp;	
-		if(ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
+	//result = temp;	
+	if(ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
 			break;
 	}
 	return (result);	
@@ -206,14 +211,17 @@ int line_parser(char *trimed,char **environ)
 	char	**tokens;
 	int		type;
 	char *stuff;
-
+	t_dlist *lst;
+	lst = NULL;
 	stuff  = NULL;
 	type = -2;
+	
 	tokens  = ft_split(trimed,' ');
 	type = token_scanner(trimed);
-	stuff = token_loop(stuff,trimed,0,0);
-		printf("%s\n",stuff);
-		free(stuff);
+	 token_loop(stuff,trimed,0,0);
+	ft_add_frontd(&lst,node_init(stuff));
+		printf("%s\n",(char *)lst->content);
+		ft_lstdclear(&lst,free);
 			if(type >= 0)
 			{
 				token_valid(tokens,trimed,type);
