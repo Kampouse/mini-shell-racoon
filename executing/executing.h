@@ -9,7 +9,7 @@ typedef struct s_export
 
 typedef struct s_exec
 {
-    t_export        *exprt;
+    char            **exprt;
     char            **env;
     int             stdin;
     int             stdout;
@@ -17,14 +17,20 @@ typedef struct s_exec
 } t_exec;
 
 extern t_exec g_state;
-
+// ENV
 void create_env(char **envp);
-void print_env(char **envp);
-char **alloc_tab(char **envp);
-
+void print_env(int tab_len);
+//EXPORT
+void create_export(char **envp);
+void print_exprt(int tab_len);
+// VARIABLE
 
 // UTILS FUNCTION
+char **alloc_tab(char **envp);
 int ft_tab_len(char **tab);
 char **ft_sort_tab(char **tab);
+
+
+void print_var(char *var);
 
 #endif

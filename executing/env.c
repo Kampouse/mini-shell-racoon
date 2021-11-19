@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:23 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/11/17 15:57:26 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:49:16 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,11 @@ void create_env(char **envp)
     }
 }
 
-void print_env(char **envp)
+void print_env(int tab_len)
 {
     int i;
 
     i = 0;
-    while (envp[i])
-    {
-        printf("%s\n", g_state.env[i]);
-        i++;
-    }
+    while (i < tab_len)
+        printf("%s\n", g_state.env[i++]);
 }

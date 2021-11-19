@@ -44,10 +44,12 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
+	
 	create_env(envp);
-	g_state.env = ft_sort_tab(envp);
-	print_env(g_state.env);
-	printf("%d\n", ft_tab_len(g_state.env));
+	print_var("$PATH");
+	// create_export(envp);
+	// print_exprt(ft_tab_len(envp));
+	// print_env(ft_tab_len(envp));
 	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }

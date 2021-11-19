@@ -7,6 +7,7 @@ SRCS =  main.c \
 		utils.c\
 		./executing/env.c \
 		./executing/export.c \
+		./executing/variable.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \

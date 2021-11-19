@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/11/18 11:15:22 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/11/18 17:48:02 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char **ft_sort_tab(char **tab)
         j = 0;
         while (j < ft_tab_len(tab))
         {
-            if (ft_strncmp(tab_sorted[i], tab[j], ft_strlen(tab_sorted[i])) > 0)
+            if (ft_strncmp(tab_sorted[i], tab[j], ft_strlen(tab_sorted[i])) < 0)
             {
                 temp_tab[i] = tab_sorted[i];
                 tab_sorted[i] = tab[j];
@@ -50,7 +50,16 @@ char **ft_sort_tab(char **tab)
     return (tab_sorted);
 }
 
-void creat_export()
+void create_export(char **envp)
 {
-    
+    g_state.exprt = ft_sort_tab(envp);
+}
+
+void print_exprt(int tab_len)
+{
+    int i;
+
+    i = 0;
+    while (i < tab_len)
+        printf("declare -x %s\n", g_state.exprt[i++]);
 }
