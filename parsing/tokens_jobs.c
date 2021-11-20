@@ -202,6 +202,27 @@ char *temp;
 *	currently <>| inside a token break it :(
 *
 * */
+
+int is_quoted(char *str)
+{
+	int inc;
+	int state;
+
+	state = 0;
+	inc = 0;
+	
+	while(str[inc])
+	{
+		if(str[inc] == '\''	|| str[inc] == '\"')
+			 state = !state;
+		inc++;
+		if(state == 0 && ft_strchr("<>|",str[inc]))
+			return(inc);
+	}
+	return (inc);
+}
+
+
 char *until_separator(char *str)
 {
 
@@ -212,15 +233,12 @@ char *until_separator(char *str)
 	inc = 0;
 	if(!str)
 		return(NULL);
-	while(!ft_strchr("<>|",str[inc]))
-	{
-		inc++;
-	}
-	until_space(str);
+		 inc = is_quoted(str);
 	if(inc == 0 || until_space(str) < inc)
 		return(NULL);
 	created = ft_strchr("<>|",str[inc]);
-	printf("%d",token_scanner(created));
+	printf("(%d)",is_quoted(str));
+	//	printf("%d",token_scanner(created));
 	created = ft_substr(str,0,inc);
 	result = token_loop(result,created,0,0);
 	free(created);
