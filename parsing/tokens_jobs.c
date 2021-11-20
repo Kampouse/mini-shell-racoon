@@ -197,12 +197,7 @@ char *temp;
 		}
 	return (result);	
 }
-/* function that currently set the pace in where the loop stop going 
- *  that create the token until it find space or a delimter...;
-*	currently <>| inside a token break it :(
-*
-* */
-
+/* return the lenght of what the token   (current implementation  fail when seperaro;*/
 int is_quoted(char *str)
 {
 	int inc;
@@ -210,41 +205,34 @@ int is_quoted(char *str)
 
 	state = 0;
 	inc = 0;
-	
+	printf("%d",token_scanner(str));	
 	while(str[inc])
 	{
 		if(str[inc] == '\''	|| str[inc] == '\"')
 			 state = !state;
-		inc++;
-		if(state == 0 && ft_strchr("<>|",str[inc]))
+		if(state == 0 && ft_strchr("<>|\n\v\f\r ",str[inc]))
 			return(inc);
+		inc++;
 	}
 	return (inc);
 }
 
-
 char *until_separator(char *str)
 {
-
-	int inc;
+		int inc;
 		char *created;
 		char *result;
 	result = NULL;
 	inc = 0;
 	if(!str)
 		return(NULL);
-		 inc = is_quoted(str);
-	if(inc == 0 || until_space(str) < inc)
-		return(NULL);
-	created = ft_strchr("<>|",str[inc]);
-	printf("(%d)",is_quoted(str));
-	//	printf("%d",token_scanner(created));
-	created = ft_substr(str,0,inc);
+	if(token_scanner(str) > 0)
+		 inc = is_quoted(str + 1);
+	created = ft_strchr("<>|\n\v\f\r",str[inc]);
+	created = ft_substr(str + 1,0,inc);
 	result = token_loop(result,created,0,0);
 	free(created);
-	return result;
-
-return(0);
+return(result);
 }
 
 /* chop the string into token */
@@ -289,7 +277,7 @@ int token_scanner(char *str)
 		return(-1);
 	while(tokens[inc])
 	{
-			 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(str)) == 0)
+			 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
 		{
 				free((char *) trimed);
 			 return(inc);
