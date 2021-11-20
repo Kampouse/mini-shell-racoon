@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 10:46:47 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/18 14:41:29 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/11/20 01:54:55 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 t_dlist	*ft_lst_lastnode(t_dlist *currlist)
 {
-	while (currlist->next)
+	if( currlist && currlist->next)
 	{
-		if (!currlist->next)
-			return (currlist);
-		currlist = currlist->next;
+
+		while (currlist->next)
+		{
+			if (!currlist->next)
+				return (currlist);
+			currlist = currlist->next;
+		}
 	}
 	return (currlist);
 }

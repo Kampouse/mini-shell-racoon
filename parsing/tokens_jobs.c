@@ -68,7 +68,6 @@ char *find_dquoted(char *str,size_t *len)
 		{
 				while(str[inc + 1] != *last)
 					inc++;	
-			last = ft_substr(str,0,inc + 2);
 			*len += ft_strlen(last) - 3;
 			return(ft_substr(str,0,inc + 2));
 		}
@@ -138,7 +137,6 @@ char  *line_handler(char *str,size_t *len )
 	else
 	{
 		 temp = find_partner(str,len);	
-		 printf("--%d",type_string(str,len));
 		 if(temp)
 		{
 		*len = ft_strlen(temp);
@@ -167,61 +165,85 @@ char  *line_handler(char *str,size_t *len )
 	return(0);
 
 }
-/* loop that create token until it find space or string end */
+/* loop that create token until it find space or string end 
+* currently	this implentation does not look 
+*
+* */
 char *token_loop(char *result, char *str, size_t len, size_t offset)
 {
-t_dlist *token;
-t_dlist *temp;
+char *sub_token;
+char *temp;
 
-temp = NULL;
 	while(1)
 	{
-		temp  = node_init( line_handler(str + offset, &len));
+		sub_token = line_handler(str + offset, &len);
+
+		offset += len;	
+		if(len == 0)
+			break;
+		temp = ft_strjoin(result, sub_token);		
+				free(sub_token);	
+	if (result) 
+		free(result);
+	result = temp;	
+		if(ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
+			break;
+	}
 		if(!len)
 		{
 			if(result)
 				free(result);
 			return(NULL);
 		}
-		offset += len;	
-		if(len == 0)
-			break;
-		ft_add_frontd(&token,temp);
-		printf("%s",(char *)token->content);
-		//temp = ft_strjoin(result, sub_token);		
-		//		free(sub_token);	
-	if (result) 
-		free(result);
-	//result = temp;	
-	if(ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
-			break;
-	}
 	return (result);	
 }
+/* function that currently set the pace in where the loop stop going 
+ *  that create the token until it find space or a delimter...;
+*	currently <>| inside a token break it :(
+*
+* */
+char *until_separator(char *str)
+{
 
+	int inc;
+		char *created;
+		char *result;
+	result = NULL;
+	inc = 0;
+	if(!str)
+		return(NULL);
+	while(!ft_strchr("<>|",str[inc]))
+	{
+		inc++;
+	}
+	until_space(str);
+	if(inc == 0 || until_space(str) < inc)
+		return(NULL);
+	created = ft_strchr("<>|",str[inc]);
+	printf("%d",token_scanner(created));
+	created = ft_substr(str,0,inc);
+	result = token_loop(result,created,0,0);
+	free(created);
+	return result;
 
-
-
-
-
+return(0);
+}
 
 /* chop the string into token */
 int line_parser(char *trimed,char **environ)
 {
 	char	**tokens;
-	int		type;
 	char *stuff;
-	t_dlist *lst;
-	lst = NULL;
-	stuff  = NULL;
+	int		type;
 	type = -2;
 	
 	tokens  = ft_split(trimed,' ');
 	type = token_scanner(trimed);
-	 token_loop(stuff,trimed,0,0);
-	ft_add_frontd(&lst,node_init(stuff));
-		printf("%s\n",(char *)lst->content);
-		ft_lstdclear(&lst,free);
+	//  stuff = token_loop(stuff,trimed,0,0);
+			stuff = until_separator(trimed);
+			printf("%s",stuff);
+			free(stuff);
+		//ft_lstdclear(&lst,free);
 			if(type >= 0)
 			{
 				token_valid(tokens,trimed,type);
