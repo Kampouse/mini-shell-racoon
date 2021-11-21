@@ -232,7 +232,13 @@ char *until_separator(char *str)
 	free(created);
 return(result);
 }
+char *separtor_token(char *str,int type,int len)
+{
 
+	if(type >= 0)
+		return(ft_substr(str,0,len));
+	return(0);
+}
 /* chop the string into token */
 int line_parser(char *trimed,char **environ)
 {
@@ -245,9 +251,13 @@ int line_parser(char *trimed,char **environ)
 	
 	tokens  = ft_split(trimed,' ');
 	type = token_scanner(trimed,&len);
+
 	printf("(%d,%lu) \n",type,len);
+		stuff = separtor_token(trimed,type,len);
+	if(!stuff)	
 		stuff = until_separator(trimed);
-			printf("%s",stuff);
+
+			printf("%s\n",stuff);
 			free(stuff);
 		//ft_lstdclear(&lst,free);
 			if(type >= 0)
@@ -285,6 +295,7 @@ int token_scanner(char *str,size_t *token_size)
 		}
 		 inc++;
 	}
+	*token_size = 0;
 	free((char *) trimed);
 	return(-2);
 }
