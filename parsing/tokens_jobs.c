@@ -215,66 +215,94 @@ int is_quoted(char *str)
 /* there should be function  that deal with seperator separatly */
 char *until_separator(char *str)
 {
-		int inc;
-		char *created;
-		char *result;
-		size_t len;
-		len  = 0;
-	result = NULL;
-	inc = 0;
-	if(!str)
-		return(NULL);
-	//if(token_scanner(str) > 0)
-		 inc = is_quoted(str);
-	//created = ft_strchr("<>|\n\v\f\r",str[inc]);
-	created = ft_substr(str,0,inc);
-	result = token_loop(result,created,len,0);
-	free(created);
-return(result);
-}
-char *separtor_token(char *str,int type,int len)
-{
+	int inc;
+	char *created;
+	size_t len;
+	char *result;
 
+	result = NULL;
+	len  = 0;
+	inc = 0;
+	if(str)
+	 inc = is_quoted(str);
+	else
+		return(NULL);
+	created = ft_substr(str, 0, inc);
+	result = token_loop(result, created, len, 0);
+	free(created);
+return (result);
+}
+char *separtor_token(char *str,int *type)
+{
+	size_t len;
+
+	len = 0;
+	 *type = token_scanner(str,&len);
+	// printf("(%d,%lu) \n",*type,len);
 	if(type >= 0)
-		return(ft_substr(str,0,len));
+		return(ft_substr(str, 0, len));
 	return(0);
 }
 /* chop the string into token */
-int line_parser(char *trimed,char **environ)
+ 
+char *token_nodes(char *trimed ,size_t total_len)
+{
+	char  *output;
+	int type;
+	size_t len;
+
+	len = 0;
+	output = NULL;
+	type = -2;
+	output = separtor_token(trimed,&type);
+	if(ft_strlen(output) == 0 && type == -2)
+		// here should be where it handle the space
+		output = until_separator(trimed);
+	printf("%s\n",output);
+	if(!output)
+		return(NULL);
+	len = ft_strlen(output);	
+	if(len == 0 && type > 0)
+		len++;
+	total_len -=  len;
+	if(total_len == 0)
+		return(NULL);
+	else
+		return(token_nodes(trimed + len,total_len));
+return(0);
+}
+
+
+
+
+
+int line_parser(char *trimed, char **environ)
 {
 	char	**tokens;
 	char *stuff;
+	//int		type;
+
 	stuff = NULL;
-	int		type;
-	size_t len;
-	type = -2;
-	
 	tokens  = ft_split(trimed,' ');
-	type = token_scanner(trimed,&len);
+	//stuff = separtor_token(trimed,&type);
+	//stuff = until_separator(trimed,stuff);
 
-	printf("(%d,%lu) \n",type,len);
-		stuff = separtor_token(trimed,type,len);
-	if(!stuff)	
-		stuff = until_separator(trimed);
-
-			printf("%s\n",stuff);
-			free(stuff);
-		//ft_lstdclear(&lst,free);
-			if(type >= 0)
-			{
-				token_valid(tokens,trimed,type);
-				freelist(tokens);
-				free(trimed);
-			}
-			else
-			{
-				//path_resolver(findpath(environ), tokens, environ);
-				//printf("%s: is  not a good student\n",trimed);
-				environ++;
-				free(trimed);
-				freelist(tokens);
-			}
-	return(type);
+	//printf("%s\n",stuff);
+	token_nodes(trimed,ft_strlen(trimed));
+	free(stuff);
+	/*if(type >= 0)
+	{
+		//token_valid(tokens,trimed,type);
+		freelist(tokens);
+		free(trimed);
+	}
+	*/
+		//path_resolver(findpath(environ), tokens, environ);
+		//printf("%s: is  not a good student\n",trimed);
+		environ++;
+		free(trimed);
+		freelist(tokens);
+	return(0);
 }
 /* some funny busness in this function when the type << or >> so maybe a strnstr be better */
 int token_scanner(char *str,size_t *token_size)

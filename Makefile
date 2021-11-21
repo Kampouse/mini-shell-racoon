@@ -24,7 +24,7 @@ all: ${NAME}
 ${NAME}:${OBJS}
 
 		@$(MAKE) -C libft
-		@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  ./libft/libft.a   -L./ncurses/lib/ -lncurses -o ${NAME}
+		@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
 
 run: all
 		./$(NAME)
