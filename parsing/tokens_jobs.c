@@ -105,9 +105,6 @@ char *find_partner(char *str,size_t *len)
 	return (temp);
 }
 
-
-
-
 /* join and free ?*/
 char *line_no_string(char *str,size_t *len)
 {
@@ -177,7 +174,6 @@ char *temp;
 	while(1)
 	{
 		sub_token = line_handler(str + offset, &len);
-
 		offset += len;	
 		if(len == 0)
 			break;
@@ -186,7 +182,7 @@ char *temp;
 	if (result) 
 		free(result);
 	result = temp;	
-		if(ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
+	if (ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
 			break;
 	}
 		if(!len)
@@ -205,7 +201,7 @@ int is_quoted(char *str)
 
 	state = 0;
 	inc = 0;
-	printf("%d",token_scanner(str));	
+	//printf("%d",token_scanner(str));	
 	while(str[inc])
 	{
 		if(str[inc] == '\''	|| str[inc] == '\"')
@@ -216,21 +212,23 @@ int is_quoted(char *str)
 	}
 	return (inc);
 }
-
+/* there should be function  that deal with seperator separatly */
 char *until_separator(char *str)
 {
 		int inc;
 		char *created;
 		char *result;
+		size_t len;
+		len  = 0;
 	result = NULL;
 	inc = 0;
 	if(!str)
 		return(NULL);
-	if(token_scanner(str) > 0)
-		 inc = is_quoted(str + 1);
-	created = ft_strchr("<>|\n\v\f\r",str[inc]);
-	created = ft_substr(str + 1,0,inc);
-	result = token_loop(result,created,0,0);
+	//if(token_scanner(str) > 0)
+		 inc = is_quoted(str);
+	//created = ft_strchr("<>|\n\v\f\r",str[inc]);
+	created = ft_substr(str,0,inc);
+	result = token_loop(result,created,len,0);
 	free(created);
 return(result);
 }
@@ -240,13 +238,15 @@ int line_parser(char *trimed,char **environ)
 {
 	char	**tokens;
 	char *stuff;
+	stuff = NULL;
 	int		type;
+	size_t len;
 	type = -2;
 	
 	tokens  = ft_split(trimed,' ');
-	type = token_scanner(trimed);
-	//  stuff = token_loop(stuff,trimed,0,0);
-			stuff = until_separator(trimed);
+	type = token_scanner(trimed,&len);
+	printf("(%d,%lu) \n",type,len);
+		stuff = until_separator(trimed);
 			printf("%s",stuff);
 			free(stuff);
 		//ft_lstdclear(&lst,free);
@@ -266,12 +266,12 @@ int line_parser(char *trimed,char **environ)
 			}
 	return(type);
 }
-
-int token_scanner(char *str)
+/* some funny busness in this function when the type << or >> so maybe a strnstr be better */
+int token_scanner(char *str,size_t *token_size)
 {
 	int inc;
 	const char *trimed  = ft_substr(str,0,until_space(str));
-	char *tokens[10] = { ">", ">>","<", "<<","echo","env","export","exit","|",NULL};
+	char *tokens[10] = { ">>", "<<","<", ">","|","env","export","exit","echo",NULL};
 	inc = 0;
 	if(!str)
 		return(-1);
@@ -280,6 +280,7 @@ int token_scanner(char *str)
 			 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
 		{
 				free((char *) trimed);
+				*token_size = ft_strlen(tokens[inc]);
 			 return(inc);
 		}
 		 inc++;
