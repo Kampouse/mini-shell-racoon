@@ -1,11 +1,9 @@
 #include "../minishell.h"
 #include <stdio.h>
 char *line_handler(char *str,size_t *len);
-
 char *find_partner(char *str,size_t *len);
 int token_valid(char **tokens,char *trimed,int type)
 {
-
 	if(type == 7)
 	{
 		exit_please(tokens,trimed);
@@ -21,11 +19,9 @@ return(0);
 char *token_builder(char *str)
 {
 	int inc;
-		inc = 0;
-		char *created;
-//find element until its not a space noar a quote 
-//also  create a string  of that size try to join the quoted element that might be there 
-//the same fonctionallity could be applied on the quoted side.....
+	char *created;
+
+	inc = 0;
 if(!str)
 	return(NULL);
 while(!ft_strchr("\'\" \n\v\f\r",str[inc]))
@@ -35,33 +31,35 @@ if(inc == 0)
 created = ft_substr(str,0,inc);
 return created;
 }
+
 char *find_single(char *str,size_t *len)
 {
  char *last;
  int inc;
 
- inc  = 0;
-		last   = ft_strchr(str + 1,39);
-		if(last)	
-		{
-			while(&str[inc + 1] != last)
-				inc++;
-			last = ft_substr(str,0,inc + 2);
-			*len += ft_strlen(last) -  3;
-			return(last);
-		}
+	inc  = 0;
+	last   = ft_strchr(str + 1,39);
+	if (last)	
+	{
+		while (&str[inc + 1] != last)
+			inc++;
+		last = ft_substr(str, 0, inc + 2);
+		*len += ft_strlen(last) -  3;
+		return(last);
+	}
+
 		len = NULL;
-return(last);
+return (last);
 }
 
-char *find_dquoted(char *str,size_t *len)
+char *find_dquoted(char *str, size_t *len)
 {
 	char *last;
 	 size_t inc;
 
 	last = NULL;
 	inc = 0;
-	if(ft_strchr(str + 1,34))
+	if(ft_strchr(str + 1, 34))
 	{
 		last = ft_strchr(str + 1,34);	
 		if(last)
@@ -69,19 +67,17 @@ char *find_dquoted(char *str,size_t *len)
 				while(str[inc + 1] != *last)
 					inc++;	
 			*len += ft_strlen(last) - 3;
-			return(ft_substr(str,0,inc + 2));
+			return(ft_substr(str, 0, inc + 2));
 		}
 	}
-return(0);
+return (0);
 }
 
-char *find_partner(char *str,size_t *len)
+char *find_partner(char *str, size_t *len)
 {
 	int inc;
 	char *first;
-	char *temp;
 
-	temp = NULL;
 	inc  = -1;
 	while(str[++inc])
 	{
@@ -90,19 +86,19 @@ char *find_partner(char *str,size_t *len)
 		first = ft_strchr("\'\"",str[inc]);
 		if(first && first[0] == 39)
 		{
-			temp = find_single(&str[inc],len);
+			first = find_single(&str[inc],len);
 			break;
 		}
 		else if(first && first[0] == 34)
 		{
-			temp = 	find_dquoted(&str[inc],len);
+			first = find_dquoted(&str[inc],len);
 			break;
 		}
 	}
-		if(!temp)
-			printf("missid a (%c) \n",first[0]);
+		if(!first)
+			printf("missid a (%c) \n",str[inc]);
 		len = NULL;
-	return (temp);
+	return (first);
 }
 
 /* join and free ?*/
@@ -121,12 +117,12 @@ char *line_no_string(char *str,size_t *len)
 	return(quoted);
 }
 
-char  *line_handler(char *str,size_t *len )
+char  *line_handler(char *str, size_t *len)
 {
 	char *temp;
 
-	temp = line_no_string(str,len);
-	if(temp)	
+	temp = line_no_string(str, len);
+	if (temp)	
 	{
 		*len = ft_strlen(temp);
 		return(temp);
@@ -144,7 +140,6 @@ char  *line_handler(char *str,size_t *len )
 	return  0;
 }
 
-
  int token_bool(char *str, size_t *len)
 {
 
@@ -156,11 +151,7 @@ char  *line_handler(char *str,size_t *len )
 
 		return(1);
 	}
-	if(!len)
-		printf("broked");
-
 	return(0);
-
 }
 /* loop that create token until it find space or string end 
 * currently	this implentation does not look 
@@ -185,12 +176,12 @@ char *temp;
 	if (ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
 			break;
 	}
-		if(!len)
-		{
-			if(result)
-				free(result);
-			return(NULL);
-		}
+	if (!len)
+	{
+		if (result)
+			free(result);
+		return (NULL);
+	}
 	return (result);	
 }
 /* return the lenght of what the token   (current implementation  fail when seperaro;*/
@@ -201,7 +192,6 @@ int is_quoted(char *str)
 
 	state = 0;
 	inc = 0;
-	//printf("%d",token_scanner(str));	
 	while(str[inc])
 	{
 		if(str[inc] == '\''	|| str[inc] == '\"')
@@ -238,14 +228,10 @@ char *separtor_token(char *str,int *type)
 
 	len = 0;
 	 *type = token_scanner(str,&len);
-	// printf("(%d,%lu) \n",*type,len);
 	if(type >= 0)
 		return(ft_substr(str, 0, len));
 	return(0);
 }
-/* chop the string into token */
- 
-
 /* determine when it should stop going forward when is see a  space*/
 int handle_space(char *trimed)
 {
@@ -263,7 +249,6 @@ int handle_space(char *trimed)
 return(inc);
 }
 
-
 char *token_nodes(char *trimed ,size_t total_len)
 {
 	char  *output;
@@ -272,23 +257,23 @@ char *token_nodes(char *trimed ,size_t total_len)
 	const int  offset =  handle_space(trimed);
 
 	len = 0;
-	output = NULL;
 	type = -2;
 	output = separtor_token(trimed + offset,&type);
 	if(ft_strlen(output) == 0 && type == -2)
 		output = until_separator(trimed + offset);
+		//should return len type and string of  the token
 	printf("%s\n",output);
 	if(!output)
 		return(NULL);
 	len = ft_strlen(output);	
 	if(len == 0 && type > 0)
 		len++;
-	total_len -=  (len + offset);
+	total_len -= (len + offset);
 	if(total_len == 0)
 		return(NULL);
 	else
 		return(token_nodes(trimed + len + offset,total_len));
-return(0);
+return (0);
 }
 
 int line_parser(char *trimed, char **environ)
@@ -330,7 +315,7 @@ int token_scanner(char *str,size_t *token_size)
 		return(-1);
 	while(tokens[inc])
 	{
-			 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
+		 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
 		{
 				free((char *) trimed);
 				*token_size = ft_strlen(tokens[inc]);
