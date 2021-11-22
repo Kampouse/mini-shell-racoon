@@ -8,7 +8,9 @@ SRCS =  main.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \
+		./parsing/tokens_precursors.c \
 		./parsing/token_typer.c \
+		./parsing/token_loop.c \
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
 		./executing/env.c
