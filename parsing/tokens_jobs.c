@@ -245,36 +245,51 @@ char *separtor_token(char *str,int *type)
 }
 /* chop the string into token */
  
+
+/* determine when it should stop going forward when is see a  space*/
+int handle_space(char *trimed)
+{
+	int inc;
+
+	inc = 0;
+	if(!trimed)
+		return(-1);
+	while(trimed[inc])
+	{
+		if(!ft_isspace(trimed[inc]))
+			break;
+		inc++;
+	}
+return(inc);
+}
+
+
 char *token_nodes(char *trimed ,size_t total_len)
 {
 	char  *output;
 	int type;
 	size_t len;
+	const int  offset =  handle_space(trimed);
 
 	len = 0;
 	output = NULL;
 	type = -2;
-	output = separtor_token(trimed,&type);
+	output = separtor_token(trimed + offset,&type);
 	if(ft_strlen(output) == 0 && type == -2)
-		// here should be where it handle the space
-		output = until_separator(trimed);
+		output = until_separator(trimed + offset);
 	printf("%s\n",output);
 	if(!output)
 		return(NULL);
 	len = ft_strlen(output);	
 	if(len == 0 && type > 0)
 		len++;
-	total_len -=  len;
+	total_len -=  (len + offset);
 	if(total_len == 0)
 		return(NULL);
 	else
-		return(token_nodes(trimed + len,total_len));
+		return(token_nodes(trimed + len + offset,total_len));
 return(0);
 }
-
-
-
-
 
 int line_parser(char *trimed, char **environ)
 {
