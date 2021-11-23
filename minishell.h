@@ -15,9 +15,11 @@
 
 typedef struct t_dlist
 {
-	void			*content;
+	char			*content;
 	struct t_dlist	*next;
 	struct t_dlist	*prev;
+	int				type;
+	size_t			len;
 }		t_dlist;
 
 

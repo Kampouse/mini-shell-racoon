@@ -49,8 +49,8 @@ int handle_space(char *trimed)
 	}
 return(inc);
 }
-
-char *token_nodes(char *trimed ,size_t total_len)
+/* create the list of token and wrap in into a linked list */
+char *token_nodes(char *trimed ,size_t total_len,t_dlist **token_lst)
 {
 	char  *output;
 	int type;
@@ -63,10 +63,10 @@ char *token_nodes(char *trimed ,size_t total_len)
 	if(!output && type == -2)
 		output = until_separator(trimed + offset);
 		//should return len type and string of  the token
-	
 	if(!output)
 		return(NULL);
-	printf("%s\n",output);
+	ft_lst_add_backd(token_lst,node_init(output));
+	printf("%s %d\n",output ,type );
 	len = ft_strlen(output);	
 	if(len == 0 && type > 0)
 		len++;
@@ -74,7 +74,7 @@ char *token_nodes(char *trimed ,size_t total_len)
 	if(total_len == 0)
 		return(NULL);
 	else
-		return(token_nodes(trimed + len + offset,total_len));
+		return(token_nodes(trimed + len + offset,total_len,token_lst));
 return (0);
 }
 
@@ -83,14 +83,17 @@ int line_parser(char *trimed, char **environ)
 	char	**tokens;
 	char *stuff;
 	//int		type;
+	t_dlist *lst;
 
 	stuff = NULL;
+	lst  = NULL;
 	tokens  = ft_split(trimed,' ');
 	//stuff = separtor_token(trimed,&type);
 	//stuff = until_separator(trimed,stuff);
 
 	//printf("%s\n",stuff);
-	token_nodes(trimed,ft_strlen(trimed));
+	//t
+	token_nodes(trimed,ft_strlen(trimed),&lst);
 	free(stuff);
 	/*if(type >= 0)
 	{
