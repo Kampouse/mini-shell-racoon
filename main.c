@@ -46,10 +46,7 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 	
 	create_env(envp);
-	print_var("$USER");
-	// create_export(envp);
-	// print_exprt(ft_tab_len(envp));
-	// print_env(ft_tab_len(envp));
+	print_env(envp);
 	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }

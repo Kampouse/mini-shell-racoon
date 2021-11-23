@@ -31,6 +31,7 @@ int ft_tab_len(char **tab);
 char **ft_sort_tab(char **tab);
 
 
-void print_var(char *var);
+char *print_var(char *var);
+
 
 #endif
