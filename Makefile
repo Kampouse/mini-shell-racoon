@@ -13,7 +13,7 @@ SRCS =  main.c \
 		./parsing/token_loop.c \
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
-		./executing/env.c
+		./executing/env.c \
 		./executing/export.c \
  		./executing/variable.c \
 		

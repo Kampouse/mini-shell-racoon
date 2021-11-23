@@ -48,8 +48,6 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	
-	create_env(envp);
-	print_env(envp);
 	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }
