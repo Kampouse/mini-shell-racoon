@@ -28,7 +28,7 @@ char *separtor_token(char *str,int *type)
 
 	len = 0;
 	 *type = token_scanner(str,&len);
-	if(type >= 0)
+	if(len > 0)
 		return(ft_substr(str, 0, len));
 	return(0);
 }
@@ -60,12 +60,13 @@ char *token_nodes(char *trimed ,size_t total_len)
 	len = 0;
 	type = -2;
 	output = separtor_token(trimed + offset,&type);
-	if(ft_strlen(output) == 0 && type == -2)
+	if(!output && type == -2)
 		output = until_separator(trimed + offset);
 		//should return len type and string of  the token
-	printf("%s\n",output);
+	
 	if(!output)
 		return(NULL);
+	printf("%s\n",output);
 	len = ft_strlen(output);	
 	if(len == 0 && type > 0)
 		len++;
