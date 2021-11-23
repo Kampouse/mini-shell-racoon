@@ -35,7 +35,7 @@ int until_space(char *str)
 	int inc;
 	inc = 0;
 	if(!str)
-		return(0);
+		return(-1);
 	while(!ft_isspace(str[inc]) && str[inc])
 	{
 		inc++;

@@ -1,62 +1,24 @@
 #include "../minishell.h"
 
-
-
-//len
-int string_noquote_type(char *str)
+int token_scanner(char *str,size_t *token_size)
 {
 	int inc;
-		inc = 0;
-		char *created;
-//find element until its not a space noar a quote 
-//also  create a string  of that size try to join the quoted element that might be there 
-//the same fonctionallity could be applied on the quoted side.....
+	const char *trimed  = ft_substr(str,0,until_space(str));
+	char *tokens[10] = { ">>", "<<","<", ">","|","env","export","exit","echo",NULL};
+	inc = 0;
 	if(!str)
 		return(-1);
-	while(!ft_strchr("\'\" \n\v\f\r",str[inc]))
-		inc++;
-	if(inc == 0)
-	return(-1);
-		created = ft_substr(str,0,inc);
-	if (ft_strchr(created,'$'))
+	while(tokens[inc])
 	{
-			free(created);
-			return(0);
-	}
-	else
-	{
-		free(created);
-		return(1);
-	}
-return -1;
-}
-
-/* len  */
-int type_string(char *str,size_t *len)
-{
- int  inc;
- char *first;
- char *temp;
-
-	inc  = -1;
-	while(str[++inc])
-	{
-		if(until_space(&str[inc]) == 0)
-			return -1;
-		first = ft_strchr("\"",str[inc]);
-		if(first)
+		 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
 		{
-			temp = 	find_dquoted(&str[inc + 1],len);
-			if(temp && ft_strchr(temp,'$'))
-					return(1);
-			else if(temp)
-			{
-				free(temp);
-				return(0);
-			}
-			else
-				return(-1);
+				free((char *) trimed);
+				*token_size = ft_strlen(tokens[inc]);
+			 return(inc);
 		}
+		 inc++;
 	}
-return(-2);
+	*token_size = 0;
+	free((char *) trimed);
+	return(-2);
 }

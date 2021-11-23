@@ -26,14 +26,17 @@ int read_wrapper(char **envp)
 	char *trimed;
 	int type;
 	
-	//jtype = -2;
+	type = -2;
 	while(1)
 	{
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line," ");
 	    free(line);	
 		if(trimed && ft_strlen(trimed) > 0)
+		{
 			type = line_parser(trimed,envp); 	
+			printf("%d",type);
+		}
 		else if(trimed)
 			free(trimed);
 	}
