@@ -67,7 +67,7 @@ CFLAGS 	= -Wall -Wextra -Werror
 all: 		${NAME}
 
 .c.o:
-					${CC} ${CFLAGS} -I ${HEADER} -c $< -o ${<:.c=.o} 
+					${CC} ${CFLAGS}  -c $< -o ${<:.c=.o} 
 
 $(NAME):	${OBJS}
 					ar rc ${NAME} ${OBJS}
