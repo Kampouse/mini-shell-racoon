@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 14:17:14 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/11/19 10:18:06 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/08/03 11:01:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strchr(const char *str, int ch)
 			return (NULL);
 		str++;
 	}
-	return ((char *) str+1);
+	return ((char *) str);
 }
 
 /* char				*ft_strchr(const char *str, int ch)
