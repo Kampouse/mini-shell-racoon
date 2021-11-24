@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 10:19:17 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/11/17 14:30:49 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/11/23 15:19:09 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <stdio.h>
 # include <limits.h>
 
-typedef struct s_list
+typedef struct s_dlist
 {
 	void			*content;
-	struct s_list	*next;
-}					t_list;
+	struct s_dlist	*next;
+}		t_list;
 
 void				free_arg(char **arg);
 void				ft_bzero(void *str, size_t n);

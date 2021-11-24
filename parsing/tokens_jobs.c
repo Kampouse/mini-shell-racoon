@@ -65,7 +65,7 @@ char *token_nodes(char *trimed ,size_t total_len,t_dlist **token_lst)
 		//should return len type and string of  the token
 	if(!output)
 		return(NULL);
-	ft_lst_add_backd(token_lst,node_init(output));
+	ft_lst_add_backd(token_lst,node_init(output, type));
 	printf("%s %d\n",output ,type );
 	len = ft_strlen(output);	
 	if(len == 0 && type > 0)

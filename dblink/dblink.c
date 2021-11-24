@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   dblink.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:43:39 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/20 02:05:03 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/11/24 10:09:20 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../minishell.h"
-t_dlist	*node_init(void *content)
+#include "../parsing/parsing.h"
+
+t_dlist	*node_init(void *content, int type)
 {
 	t_dlist	*link;
 
@@ -18,8 +21,12 @@ t_dlist	*node_init(void *content)
 	if (!link)
 		return (NULL);
 	link->content = content;
+	link->len = ft_strlen((char*)content);
+	link->type = type;
 	link->prev = NULL;
 	link->next = NULL;
+	// link->nb_dolla = check_cashtoken(link);
+	// printf("nb  de dollar = %d\n", link->nb_dolla);
 	return (link);
 }
 
