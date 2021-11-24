@@ -5,7 +5,7 @@ FLAGS =  -g -Wall -Wextra -Werror
 
 SRCS =  main.c \
 		utils.c\
-		./parsing/tokens_analyzzzzer.c \
+		./parsing/token_analyzer.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \

@@ -62,11 +62,9 @@ char *token_nodes(char *trimed ,size_t total_len,t_dlist **token_lst)
 	output = separtor_token(trimed + offset,&type);
 	if(!output && type == -2)
 		output = until_separator(trimed + offset);
-		//should return len type and string of  the token
 	if(!output)
 		return(NULL);
 	ft_lst_add_backd(token_lst,node_init(output, type));
-	printf("%s %d\n",output ,type );
 	len = ft_strlen(output);	
 	if(len == 0 && type > 0)
 		len++;
@@ -80,21 +78,15 @@ return (0);
 
 int line_parser(char *trimed, char **environ)
 {
-	char	**tokens;
-	char *stuff;
-	//int		type;
 	t_dlist *lst;
 
-	stuff = NULL;
 	lst  = NULL;
-	tokens  = ft_split(trimed,' ');
-	//stuff = separtor_token(trimed,&type);
-	//stuff = until_separator(trimed,stuff);
-
-	//printf("%s\n",stuff);
-	//t
 	token_nodes(trimed,ft_strlen(trimed),&lst);
-	free(stuff);
+	free(trimed);
+	tokens_end(lst);
+	//printf( "%s %d\n",lst->next->content ,lst->type);
+
+	//free(stuff);
 	/*if(type >= 0)
 	{
 		//token_valid(tokens,trimed,type);
@@ -105,8 +97,7 @@ int line_parser(char *trimed, char **environ)
 		//path_resolver(findpath(environ), tokens, environ);
 		//printf("%s: is  not a good student\n",trimed);
 		environ++;
-		free(trimed);
-		freelist(tokens);
+		//freelist(tokens);
 	return(0);
 }
 /* some funny busness in this function when the type << or >> so maybe a strnstr be better */

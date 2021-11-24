@@ -1,5 +1,4 @@
-#include "../minishell.h"
-
+#include "parsing.h"
 int token_scanner(char *str,size_t *token_size)
 {
 	int inc;
@@ -21,4 +20,35 @@ int token_scanner(char *str,size_t *token_size)
 	*token_size = 0;
 	free((char *) trimed);
 	return(-2);
+}
+
+
+
+
+void tokens_end(t_dlist *lst)
+{
+t_dlist *temp;
+int status;
+status = 0;
+temp = NULL;
+	if(lst)
+	{
+		temp = lst;
+	while(temp)
+		{
+		if(temp->type == 7)
+			{
+				status = 1;
+				free_list(lst);
+				exit(0);
+			}
+		if(temp->type == 8)
+		{
+			printf("echo chamber\n");
+		}
+		printf("%s\n",temp->content);
+		temp = temp->next;	
+		}
+
+	}
 }

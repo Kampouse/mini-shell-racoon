@@ -15,5 +15,5 @@ char    *token_loop(char *result, char *str, size_t len, size_t offset);
 int     is_quoted(char *str);
 int     token_valid(char **tokens,char *trimed,int type);
 int     token_scanner(char *str,size_t *token_size);
-
+void tokens_end(t_dlist *lst);
 #endif

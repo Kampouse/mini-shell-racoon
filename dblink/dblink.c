@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:43:39 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/24 10:09:20 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/11/24 12:26:07 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	ft_lst_add_backd(t_dlist **currlist, t_dlist *node)
 		if (*currlist)
 		{
 			last = ft_lst_lastnode(*currlist);
-			last->next = node;
 			node->prev = last;
+			last->next = node;
 		}
 		else
 			*currlist = node;

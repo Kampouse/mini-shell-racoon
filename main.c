@@ -35,7 +35,6 @@ int read_wrapper(char **envp)
 		if(trimed && ft_strlen(trimed) > 0)
 		{
 			type = line_parser(trimed,envp); 	
-			printf("%d",type);
 		}
 		else if(trimed)
 			free(trimed);
