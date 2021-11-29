@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	
+
 	if(read_wrapper(envp) == 1)
 		printf("delete squense");
 }

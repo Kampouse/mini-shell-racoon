@@ -16,4 +16,5 @@ int     is_quoted(char *str);
 int     token_valid(char **tokens,char *trimed,int type);
 int     token_scanner(char *str,size_t *token_size);
 void tokens_peek(t_dlist *lst);
+int redir_counter(t_dlist *redir);
 #endif
