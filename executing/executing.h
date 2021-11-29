@@ -17,6 +17,9 @@ typedef struct s_exec
 } t_exec;
 
 extern t_exec g_state;
+
+void init_exec(char **envp);
+
 // ENV
 void create_env(char **envp);
 void print_env(int tab_len);

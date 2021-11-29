@@ -49,7 +49,8 @@ int handle_space(char *trimed)
 	}
 return(inc);
 }
-/* create the list of token and wrap in into a linked list */
+
+/* create the list of token and wrap it into a linked list */
 char *token_nodes(char *trimed ,size_t total_len,t_dlist **token_lst)
 {
 	char  *output;

@@ -1,4 +1,5 @@
 #include "parsing.h"
+
 int token_scanner(char *str,size_t *token_size)
 {
 	int inc;
@@ -15,16 +16,12 @@ int token_scanner(char *str,size_t *token_size)
 				*token_size = ft_strlen(tokens[inc]);
 			 return(inc);
 		}
-		 inc++;
+		inc++;
 	}
 	*token_size = 0;
 	free((char *) trimed);
 	return(-2);
 }
-
-
-
- 
  
 int redir_any(t_dlist *redir)
 {
@@ -38,20 +35,10 @@ int redir_any(t_dlist *redir)
 			else
 				printf("am just dumb");
 			}
-				
-
-
-
 	return (0);
 }
 
-
-
-
-
-
 /* cureent implementation could be use to split the string int jobs  aka until it sees the pipe */
- 
 void tokens_peek(t_dlist *lst)
 {
 t_dlist *temp;
@@ -61,25 +48,22 @@ count = 0;
 status = 0;
 temp = NULL;
 	if(lst)
-	{
+	
 		temp = lst;
 	while(temp && temp->type != 4)
-		{
+	{
 		if(temp->type == 7)
-			{
-				status = 1;
-				free_list(lst);
-				exit(0);
-			}
-		if(temp->type == 8)
 		{
-			printf("echo chamber\n");
+			status = 1;
+			free_list(lst);
+			exit(0);
 		}
-
+		if(temp->type == 8)
+			printf("echo chamber\n");
 		redir_any(temp);
 		printf("%s %d %d\n",temp->content,temp->type,count);
 		temp = temp->next;	
 			
-		}
 	}
 }
+
