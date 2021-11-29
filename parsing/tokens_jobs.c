@@ -1,5 +1,5 @@
 #include "parsing.h"
-#include <stdio.h>
+#include "../minishell.h"
 
 /* there should be function  that deal with seperator separatly */
 char *until_separator(char *str)
@@ -49,6 +49,7 @@ int handle_space(char *trimed)
 	}
 return(inc);
 }
+
 /* create the list of token and wrap in into a linked list */
 void tokens_lst(char *trimed ,size_t total_len,t_dlist **token_lst)
 {

@@ -1,4 +1,5 @@
 #include "parsing.h"
+#include "../minishell.h"
 
 char  *line_handler(char *str, size_t *len)
 {
