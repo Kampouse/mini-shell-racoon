@@ -17,16 +17,14 @@ int find_token(char *line, char *token)
 }
 
 
-/* main  entry point of minishell where jobs  
-will be created(yet to be implemented) and  (executed WORKING)  */
-
-int read_wrapper(char **envp)
+/* main entry point where every thing happen from creating token to jobs to excution */
+int read_wrapper()
 {
 	char *line;
 	char *trimed;
-	int type;
-	
-	type = -2;
+	t_dlist *token_lst;
+
+	token_lst = NULL;
 	while(1)
 	{
 		line = readline(GREEN"minishell:>"RESET);
@@ -34,7 +32,7 @@ int read_wrapper(char **envp)
 	    free(line);	
 		if(trimed && ft_strlen(trimed) > 0)
 		{
-			type = line_parser(trimed,envp); 	
+			 token_lst = line_parser(trimed); 	
 		}
 		else if(trimed)
 			free(trimed);
@@ -48,6 +46,5 @@ int main(int argc, char **argv, char **envp)
 	(void)argv;
 
 	create_env(envp);
-	if(read_wrapper(envp) == 1)
-		printf("delete squense");
+	read_wrapper();
 }

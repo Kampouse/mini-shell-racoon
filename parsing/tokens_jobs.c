@@ -76,7 +76,7 @@ void tokens_lst(char *trimed ,size_t total_len,t_dlist **token_lst)
 return;
 }
 
-int line_parser(char *trimed, char **environ)
+t_dlist *line_parser(char *trimed)
 {
 	t_dlist *lst;
 
@@ -84,23 +84,6 @@ int line_parser(char *trimed, char **environ)
 	tokens_lst(trimed,ft_strlen(trimed),&lst);
 	free(trimed);
 	tokens_peek(lst);
-	printf("we have -->(%d)",redir_counter(lst));
-	ft_lstdclear(&lst,free);
-	//printf( "%s %d\n",lst->next->content ,lst->type);
-
-	//free(stuff);
-	/*if(type >= 0)
-	{
-		//token_valid(tokens,trimed,type);
-		freelist(tokens);
-		free(trimed);
-	}
-	*/
-		//path_resolver(findpath(environ), tokens, environ);
-		//printf("%s: is  not a good student\n",trimed);
-		environ++;
-		//freelist(tokens);
-	return(0);
+	return(lst);
 }
-/* some funny busness in this function when the type << or >> so maybe a strnstr be better */
 

@@ -34,7 +34,7 @@ int			find_token(char *line, char *token);
 int			exit_please(char **tokens,char *trimed);
 int			until_space(char *str);
 int 		token_scanner(char *str,size_t *token_size);
-int			line_parser(char *trimed,char **environ);
+t_dlist		*line_parser(char *trimed);
 int			ft_isspace(char elm);
 char		*find_dquoted(char *str,size_t *len);
 
