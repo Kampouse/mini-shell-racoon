@@ -32,20 +32,29 @@ int redir_any(t_dlist *redir)
 	{
 			if(redir->next)	
 			{
-			 printf("%s",redir->content);
-			 return(1);
+				if(redir->type == -2)
+			{
+					printf(":(\n");
+				 return(1);
+			}
 			}
 			else
-				printf("am just dumb");
+				printf("expected something");
 			}
-				
-
-
-
 	return (0);
 }
 
+int  command_input(t_dlist *lst)
+{
 
+	
+
+
+
+
+
+	return(0);
+}
 
 
 
@@ -57,6 +66,7 @@ void tokens_peek(t_dlist *lst)
 t_dlist *temp;
 int status;
 int count;
+
 count = 0;
 status = 0;
 temp = NULL;
@@ -68,18 +78,17 @@ temp = NULL;
 		if(temp->type == 7)
 			{
 				status = 1;
+				freelist(g_state.env);
 				free_list(lst);
 				exit(0);
 			}
 		if(temp->type == 8)
-		{
 			printf("echo chamber\n");
-		}
-
-		redir_any(temp);
-		printf("%s %d %d\n",temp->content,temp->type,count);
-		temp = temp->next;	
-			
+		if(temp->type == 5)
+			print_env(ft_tab_len(g_state.env));
+				redir_any(temp);
+			printf("%s %d %d\n",temp->content,temp->type,count);
+			temp = temp->next;	
 		}
 	}
 }
