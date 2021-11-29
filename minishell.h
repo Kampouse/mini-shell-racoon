@@ -1,26 +1,19 @@
 #ifndef MINI_SHELL_H
 # define MINI_SHELL_H
 
-# include "stdlib.h"
-# include "stdio.h"
-# include "readline/readline.h"
-# include "libft/libft.h"
-# include "readline/history.h"
+# include <stdlib.h>
+# include <stdio.h>
 # include <sys/types.h>
 # include <dirent.h>
-# include "./executing/executing.h"
+# include "libft/libft.h"
+# include "readline/readline.h"
+# include "readline/history.h"
+
+# include "executing/executing.h"
+# include "parsing/parsing.h"
+
 # define GREEN "\002\e[0;32m\002"
 # define RESET   "\001\e[0m\002"
-
-typedef struct t_dlist
-{
-	char			*content;
-	struct t_dlist	*next;
-	struct t_dlist	*prev;
-	int				type;
-	size_t			len;
-    // int             nb_dolla;
-}		t_dlist;
 
 
 // Function
@@ -34,7 +27,7 @@ int			find_token(char *line, char *token);
 int			exit_please(char **tokens,char *trimed);
 int			until_space(char *str);
 int 		token_scanner(char *str,size_t *token_size);
-int			line_parser(char *trimed,char **environ);
+t_dlist		*line_parser(char *trimed);
 int			ft_isspace(char elm);
 char		*find_dquoted(char *str,size_t *len);
 

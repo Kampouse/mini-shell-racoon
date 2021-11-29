@@ -1,12 +1,6 @@
 #ifndef EXECUTING_H
 # define EXECUTING_H
 
-typedef struct s_export
-{
-    char            *export_node;
-    struct s_export *next;
-} t_export;
-
 typedef struct s_exec
 {
     char            **exprt;
@@ -17,6 +11,7 @@ typedef struct s_exec
 } t_exec;
 
 extern t_exec g_state;
+
 
 void init_exec(char **envp);
 

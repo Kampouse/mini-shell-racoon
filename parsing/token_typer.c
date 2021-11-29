@@ -1,4 +1,5 @@
 #include "parsing.h"
+#include "../minishell.h"
 
 int token_scanner(char *str,size_t *token_size)
 {
