@@ -24,17 +24,46 @@ int token_scanner(char *str,size_t *token_size)
 
 
 
+ 
+ 
+int redir_any(t_dlist *redir)
+{
+		if(redir->type != -2 &&  redir->type <= 3)
+	{
+			if(redir->next)	
+			{
+			 printf("%s",redir->content);
+			 return(1);
+			}
+			else
+				printf("am just dumb");
+			}
+				
 
-void tokens_end(t_dlist *lst)
+
+
+	return (0);
+}
+
+
+
+
+
+
+/* cureent implementation could be use to split the string int jobs  aka until it sees the pipe */
+ 
+void tokens_peek(t_dlist *lst)
 {
 t_dlist *temp;
 int status;
+int count;
+count = 0;
 status = 0;
 temp = NULL;
 	if(lst)
 	{
 		temp = lst;
-	while(temp)
+	while(temp && temp->type != 4)
 		{
 		if(temp->type == 7)
 			{
@@ -46,9 +75,11 @@ temp = NULL;
 		{
 			printf("echo chamber\n");
 		}
-		printf("%s\n",temp->content);
-		temp = temp->next;	
-		}
 
+		redir_any(temp);
+		printf("%s %d %d\n",temp->content,temp->type,count);
+		temp = temp->next;	
+			
+		}
 	}
 }

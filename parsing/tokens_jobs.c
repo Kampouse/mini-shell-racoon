@@ -83,7 +83,8 @@ int line_parser(char *trimed, char **environ)
 	lst  = NULL;
 	token_nodes(trimed,ft_strlen(trimed),&lst);
 	free(trimed);
-	tokens_end(lst);
+	tokens_peek(lst);
+	ft_lstdclear(&lst,free);
 	//printf( "%s %d\n",lst->next->content ,lst->type);
 
 	//free(stuff);
