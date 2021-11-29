@@ -77,8 +77,6 @@ int token_valid(char **tokens,char *trimed,int type)
 	}
 	if(type  == 4)
 		ft_putstr_fd(trimed,1);
-	
-
 return(0);
 }
 

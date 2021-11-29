@@ -24,38 +24,46 @@ int token_scanner(char *str,size_t *token_size)
 
 
 
- 
- 
-int redir_any(t_dlist *redir)
+
+
+int valid_redir(t_dlist *redir)
 {
-		if(redir->type != -2 &&  redir->type <= 3)
+		if(redir->type >= 0 &&  redir->type <= 3)
 	{
 			if(redir->next)	
 			{
-				if(redir->type == -2)
-			{
-					printf(":(\n");
-				 return(1);
-			}
+				if(!(redir->next->type >= 0 &&  redir->next->type <= 3))
+					 return(1);
 			}
 			else
-				printf("expected something");
+			{
+				printf("expected something\n");
+				return(-1);
 			}
+	}
 	return (0);
 }
 
-int  command_input(t_dlist *lst)
+int redir_counter(t_dlist *redir)
 {
 
+	t_dlist *temp;
+	int counter;
+	int tmp;
 	
-
-
-
-
-
-	return(0);
+	temp = redir;
+	counter = 0;
+	while(temp && temp->type != 4)
+	{
+		 tmp  = valid_redir(temp);
+		if(tmp == -1)	
+			return(-1);
+		else 
+			counter+= tmp;
+		temp = temp->next;
+	}
+	return(counter);
 }
-
 
 
 
@@ -83,12 +91,12 @@ temp = NULL;
 				exit(0);
 			}
 		if(temp->type == 8)
-			printf("echo chamber\n");
+			printf("echo\n");
 		if(temp->type == 5)
 			print_env(ft_tab_len(g_state.env));
-				redir_any(temp);
-			printf("%s %d %d\n",temp->content,temp->type,count);
-			temp = temp->next;	
+				//valid_redir(temp);
+		printf("%s %d %d\n",temp->content,temp->type,count);
+		temp = temp->next;	
 		}
 	}
 }
