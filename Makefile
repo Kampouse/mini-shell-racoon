@@ -48,7 +48,8 @@ clean:
 git:
 		@git add ${SRCS} minishell.h Makefile  ./executing/executing.h \
 		./executing/executing.h \
-		./parsing/parsing.h
+		./parsing/parsing.h \
+		./jobs/jobs.h
 
 
 fclean: clean
