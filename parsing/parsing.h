@@ -1,7 +1,6 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-#include <stdlib.h>
 #include <stdio.h>
 
 typedef struct t_dlist

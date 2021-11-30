@@ -29,7 +29,10 @@ void parsing()
 		trimed = ft_strtrim(line," ");
 	    free(line);	
 		if(trimed && ft_strlen(trimed) > 0)
+		{
 			lst = line_parser(trimed); 	
+				jobs_lst(lst);
+		}
 		else if(trimed)
 			free(trimed);
 	}

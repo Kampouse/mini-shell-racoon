@@ -19,6 +19,8 @@ SRCS =  main.c \
 		./executing/export.c \
  		./executing/variable.c \
 		./executing/exec.c \
+		./jobs/jobs_redir.c \
+		./jobs/jobs.c \
 		
 RM =  rm -rf 
 .c.o:

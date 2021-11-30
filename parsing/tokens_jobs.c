@@ -76,7 +76,7 @@ void tokens_lst(char *trimed ,size_t total_len,t_dlist **token_lst)
 		tokens_lst(trimed + len + offset,total_len,token_lst);
 return;
 }
-
+/* created  a list of token from a   string  (wrapped function)*/
 t_dlist *line_parser(char *trimed)
 {
 	t_dlist *lst;
@@ -84,6 +84,7 @@ t_dlist *line_parser(char *trimed)
 	lst  = NULL;
 	tokens_lst(trimed,ft_strlen(trimed),&lst);
 	free(trimed);
+	// this (token peek is  little implementation of what exec will be */
 	tokens_peek(lst);
 	return(lst);
 }

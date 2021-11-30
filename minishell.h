@@ -8,7 +8,7 @@
 # include "libft/libft.h"
 # include "readline/readline.h"
 # include "readline/history.h"
-
+# include "jobs/jobs.h"
 # include "executing/executing.h"
 # include "parsing/parsing.h"
 
