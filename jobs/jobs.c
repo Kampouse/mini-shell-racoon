@@ -14,8 +14,6 @@ int jobs_lst(t_dlist *lst)
 	{
 		//printf("%d",any_heredoc(redir));
 		redirector(redir);
-
-		
 		while(redir[count])	
 		{
 			printf(  " and %s \n",redir[count + 1]);

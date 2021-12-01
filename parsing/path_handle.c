@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 
 
-/* last stage of exection of the command if not built in */
+/* last stage of execution of the command if not built in */
 int exec_the_bin(char **paths,char **program, char **envp)
 {
 	int inc;
