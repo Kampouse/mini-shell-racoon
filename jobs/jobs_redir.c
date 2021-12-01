@@ -95,17 +95,24 @@ int redirector(char **redirs)
 			printf("found: >> ");
 	}
 		if(ft_atoi(redirs[inc]) == 2)
-	{
+		{
 			printf("found: < ");
-	}
+		}
 		if(ft_atoi(redirs[inc]) == 3)
-	{
+		{
 			printf("found: > ");
 	}
 	inc+= 2;
-	}
+		}
+		if(ft_atoi(redirs[inc]) == 0)
+		{
+			printf("found: >> ");
+			
+		}
+		inc+= 2;
+
 return(0);
-}
+	}
 
 
 

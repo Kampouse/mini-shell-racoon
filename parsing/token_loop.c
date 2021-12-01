@@ -69,18 +69,19 @@ char *temp;
 	}
 	return (result);	
 }
+/*
 int token_valid(char **tokens,char *trimed,int type)
 {
 	if(type == 7)
 	{
-		exit_please(tokens,trimed);
-		exit(0);
+		//exit_please(tokens,trimed);
+		//exit(0);
 	}
 	if(type  == 4)
 		ft_putstr_fd(trimed,1);
 return(0);
 }
-
+*/
 /* return the lenght of what the token   (current implementation  fail when seperaro;*/
 int is_quoted(char *str)
 {

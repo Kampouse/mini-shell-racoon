@@ -32,6 +32,7 @@ void parsing()
 		{
 			lst = line_parser(trimed); 	
 				jobs(lst);
+			//jobs_lst(lst);
 		}
 		else if(trimed)
 			free(trimed);
