@@ -14,9 +14,9 @@ typedef struct s_jobs
     int     stdout;
 } t_jobs;
 
-int jobs_lst(t_dlist *lst);
 int redir_counter(t_dlist *redir);
 char **redir_creator(t_dlist *redir,int len);
 int  any_heredoc(char **lst);
 int redirector(char **redirs);
+int jobs(t_dlist *lst);
 #endif 

@@ -3,7 +3,7 @@
 #include "minishell.h"
 /* should clean all the data structures left
  on the  heap also return a status?*/
-
+/*
 int	exit_please(char **tokens, char *trimed)
 {
 	if (trimed && tokens)
@@ -18,7 +18,7 @@ int	exit_please(char **tokens, char *trimed)
 	}
 	return (0);
 }
-
+*/
 int ft_isspace(char elm)
 {
 if(!elm)
