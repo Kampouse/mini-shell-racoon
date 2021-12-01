@@ -38,9 +38,22 @@ return(commands);
 }
 
 
-
 /*  function  that make a job (get a job) */
-int jobs_lst(t_dlist *lst) 
+
+int print_tokens(t_dlist *lst)
+{
+	t_dlist *temp;
+	temp = lst;
+		while(temp)
+	{
+		printf("%s\n",temp->content);
+		temp = temp->next;
+	}
+	return(0);
+}
+
+
+int jobs(t_dlist *lst) 
 {
 	char **redir;
 	char **commands;
@@ -52,9 +65,17 @@ int jobs_lst(t_dlist *lst)
 		commands = jobs_lst_creator(lst->next->next,jobs_lst_counter(lst->next->next));
 		else
 			commands = jobs_lst_creator(lst,jobs_lst_counter(lst));
-
-return (0);
+	if(commands)
+	{
+		while(commands[counter])
+		{
+			printf("%s\n",commands[counter]);
+			counter++;
+		}
+		printf("-->\n");
+		print_tokens(lst);
+		printf("<--\n");
+	}
+	return (0);
 }
-
-
 
