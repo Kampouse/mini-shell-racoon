@@ -1,5 +1,19 @@
 #include "jobs.h"
-
+t_dlist *ft_lst_nextnth(t_dlist *node,int nth)
+{
+	t_dlist *temp;
+    temp = NULL;
+	if(node)
+	{
+		temp = node;
+		while(temp && nth > 0)
+		{
+			nth--;
+			temp = temp->next;
+		}
+	}
+	return (temp);
+}
 
 int jobs_lst_counter(t_dlist *lst)
 {
@@ -17,16 +31,20 @@ return(count);
 }
 
 
-char **jobs_lst_creator(t_dlist *lst,int count)
+char **jobs_lst_creator(t_dlist *lst,char **redir,int count)
 {
- char **commands;
-t_dlist *temp;
-int inc;
+ char	**commands;
+t_dlist	 *temp;
+int		inc;
 
-inc = 0;
-	temp =  lst;
-  commands = malloc(sizeof(char *) * count + 1);
-  commands[count] = 0;
+	temp  = NULL;
+	if (redir)
+		printf("%s",redir[0]);
+	else
+		temp = lst;
+	inc = 0;
+	commands = malloc(sizeof(char *) * count + 1);
+	commands[count] = 0;
 	while(count != 0)
 	{
 		commands[inc] = temp->content;
@@ -34,7 +52,7 @@ inc = 0;
 		inc++;
 		count--; 
 	}
-return(commands);
+return (commands);
 }
 
 
@@ -54,29 +72,27 @@ int print_tokens(t_dlist *lst)
 }
 
 
+
+
 int jobs(t_dlist *lst) 
 {
 	char **redir;
 	char **commands;
 	int counter;
+	t_dlist *temp;
 
-	counter = 0;
-	redir = redir_creator(lst,redir_counter(lst));
-		if(redir && lst->type >= 0 && lst->type <= 3)
-		commands = jobs_lst_creator(lst->next->next,jobs_lst_counter(lst->next->next));
-		else
-			commands = jobs_lst_creator(lst,jobs_lst_counter(lst));
-	if(commands)
+	temp = NULL;
+	temp = lst;
+	counter = jobs_lst_counter(lst);
+	if(redir_counter(lst) < 0)
 	{
-		while(commands[counter])
-		{
-			printf("%s\n",commands[counter]);
-			counter++;
-		}
-		printf("-->\n");
-		print_tokens(lst);
-		printf("<--\n");
+		printf("error -1 \n");
+		return(-1);
 	}
-	return (0);
+	redir = redir_creator(lst,redir_counter(lst));
+	printf("(%d)\n",redir_counter(lst));
+	commands = jobs_lst_creator(lst,redir,counter);	
+
+return (0);
 }
 
