@@ -31,26 +31,39 @@ return(count);
 }
 
 
-char **jobs_lst_creator(t_dlist *lst,char **redir,int count)
+char **jobs_lst_creator(t_dlist *lst,char **redir)
 {
  char	**commands;
 t_dlist	 *temp;
 int		inc;
 
 	temp  = NULL;
-	if (redir)
-		printf("%s",redir[0]);
+	if (redir &&  lst->type >= 0 &&  lst->type <= 3 && lst->next->next )
+		temp = lst->next->next;
+	else if(redir && !lst->next->next)
+			return(NULL);
 	else
 		temp = lst;
 	inc = 0;
-	commands = malloc(sizeof(char *) * count + 1);
-	commands[count] = 0;
-	while(count != 0)
+	commands = malloc(sizeof(char *) * jobs_lst_counter(temp) + 1);
+	while(temp && (temp->type > 4  || temp->type == -2))
 	{
 		commands[inc] = temp->content;
 		temp = temp->next;
 		inc++;
-		count--; 
+	}
+
+	commands[inc] = 0;
+	{
+	int tested;
+
+	tested = 0;
+
+	while(commands[tested])
+		{
+		printf("%s\n",commands[tested]);
+		tested++;
+		}
 	}
 return (commands);
 }
@@ -90,8 +103,7 @@ int jobs(t_dlist *lst)
 		return(-1);
 	}
 	redir = redir_creator(lst,redir_counter(lst));
-	printf("(%d)\n",redir_counter(lst));
-	commands = jobs_lst_creator(lst,redir,counter);	
+	commands = jobs_lst_creator(lst,redir);	
 
 return (0);
 }
