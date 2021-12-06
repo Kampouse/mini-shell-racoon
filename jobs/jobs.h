@@ -19,4 +19,5 @@ char **redir_creator(t_dlist *redir,int len);
 int  any_heredoc(char **lst);
 int redirector(char **redirs);
 int jobs(t_dlist *lst);
+int job_lsting(t_dlist *lst);
 #endif 

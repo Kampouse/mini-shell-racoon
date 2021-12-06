@@ -78,33 +78,69 @@ int print_tokens(t_dlist *lst)
 	temp = lst;
 		while(temp)
 	{
-		printf("%s\n",temp->content);
+		printf("%s %d\n",temp->content,temp->type);
 		temp = temp->next;
 	}
 	return(0);
 }
 
-
-
+int piping_verif(t_dlist *lst)
+{
+	t_dlist *temp =lst;
+	int status;
+	
+	status = 0;
+	while(temp)
+	{
+		if(ft_strchr(temp->content,'|') && temp->next && !ft_strchr(temp->next->content,'|'))
+		{
+			if(temp->prev && !ft_strchr(temp->prev->content,'|'))
+				status = 0;
+			else
+			{
+				printf("syntax error near unexpected token `|'\n");
+				return(-1);
+			}
+		}
+		else if(ft_strchr(temp->content,'|'))
+		{
+			printf("syntax error near unexpected token `|'\n");
+			return(-1);
+		}
+		temp = temp->next;		
+	}
+	return (status);
+}
 
 int jobs(t_dlist *lst) 
 {
 	char **redir;
 	char **commands;
-	int counter;
 	t_dlist *temp;
 
 	temp = NULL;
 	temp = lst;
-	counter = jobs_lst_counter(lst);
+	//counter = jobs_lst_counter(lst);
+	piping_verif(	
 	if(redir_counter(lst) < 0)
-	{
-		printf("error -1 \n");
 		return(-1);
-	}
+		printf("test");
 	redir = redir_creator(lst,redir_counter(lst));
 	commands = jobs_lst_creator(lst,redir);	
-
 return (0);
 }
 
+int job_lsting(t_dlist *lst)
+{
+	if(piping_verif(lst) == 0)
+		jobs(lst);
+		print_tokens(lst);
+	if(lst && lst->type ==  4)
+	{
+		if(lst && lst->next)
+		{
+			print_tokens(lst);
+		}
+	}
+return(0);
+}
