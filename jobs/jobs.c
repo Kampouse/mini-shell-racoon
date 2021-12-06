@@ -14,7 +14,7 @@ t_dlist *ft_lst_nextnth(t_dlist *node,int nth)
 	}
 	return (temp);
 }
-
+/* this current version can be wrong in some case */
 int jobs_lst_counter(t_dlist *lst)
 {
 	t_dlist *temp;
@@ -30,7 +30,7 @@ int jobs_lst_counter(t_dlist *lst)
 return(count);
 }
 
-
+/* function that create a lst of  args for exceve */
 char **jobs_lst_creator(t_dlist *lst,char **redir)
 {
  char	**commands;
@@ -57,8 +57,6 @@ return (commands);
 
 
 /*  function  that make a job (get a job) */
-
-
 int print_tokens(t_dlist *lst)
 {
 	t_dlist *temp;
@@ -70,7 +68,7 @@ int print_tokens(t_dlist *lst)
 	}
 	return(0);
 }
-
+/* verify  if the | symbol is  between two element of the right type */
 int piping_verif(t_dlist *lst)
 {
 	t_dlist *temp =lst;
@@ -97,8 +95,8 @@ int piping_verif(t_dlist *lst)
 	}
 	return (0);
 }
-
-int jobs(t_dlist *lst) 
+/* create a jobs with the right element in it */
+int jobs(t_dlist *lst,s_jobs **output ) 
 {
 	char **redir;
 	char **commands;
@@ -110,21 +108,19 @@ int jobs(t_dlist *lst)
 		return(-1);
 	redir = redir_creator(lst,redir_counter(lst));
 	commands = jobs_lst_creator(lst,redir);	
-	printf("%s",commands[0]);
 return (0);
 }
-
+/* function that  create a list of (jobs) break on failure */
 int job_lsting(t_dlist *lst)
 {
+	s_jobs *jobbing;
+	t_dlist *temp;	
+
+	jobbing = NULL;
+	temp = lst;
+
 	if(piping_verif(lst) == 0)
-		jobs(lst);
-	//print_tokens(lst);
-	if(lst && lst->type ==  4)
-	{
-		if(lst && lst->next)
-		{
-			print_tokens(lst);
-		}
-	}
-return(0);
+			if(jobs(lst,&jobbing) < 0)
+			return(-1);
+	return(0);
 }

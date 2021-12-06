@@ -4,6 +4,7 @@
 #ifndef JOB_H
 # define JOB_H
 
+
 typedef struct s_jobs
 {
     char    **cmd;
@@ -14,12 +15,15 @@ typedef struct s_jobs
     int     stdout;
 	struct s_jobs  *next;
 	struct s_jobs  *prev;
-} t_jobs;
+
+
+}		s_jobs;
+
 
 int redir_counter(t_dlist *redir);
 char **redir_creator(t_dlist *redir,int len);
 int  any_heredoc(char **lst);
 int redirector(char **redirs);
-int jobs(t_dlist *lst);
+int jobs(t_dlist *lst,s_jobs **output);
 int job_lsting(t_dlist *lst);
 #endif 
