@@ -50,7 +50,7 @@ char **redir_creator(t_dlist *redir, int len)
 
 	inc = 0;
 	temp = redir;
-		if (len <= 0)
+		if (len < 0)
 			return (NULL);
 		redir_lst = malloc(sizeof(char **) * (len * 2) + 1);
 	while (temp && temp->type != 4)

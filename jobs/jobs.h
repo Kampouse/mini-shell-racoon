@@ -12,6 +12,8 @@ typedef struct s_jobs
     int     pipe[2];
     int     stdin;
     int     stdout;
+	struct s_jobs  *next;
+	struct s_jobs  *prev;
 } t_jobs;
 
 int redir_counter(t_dlist *redir);

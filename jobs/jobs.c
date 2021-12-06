@@ -38,10 +38,8 @@ t_dlist	 *temp;
 int		inc;
 
 	temp  = NULL;
-	if (redir &&  lst->type >= 0 &&  lst->type <= 3 && lst->next->next )
+	if (redir &&  lst->type >= 0 &&  lst->type <= 3 && lst->next->next)
 		temp = lst->next->next;
-	else if(redir && !lst->next->next)
-			return(NULL);
 	else
 		temp = lst;
 	inc = 0;
@@ -52,19 +50,8 @@ int		inc;
 		temp = temp->next;
 		inc++;
 	}
-
 	commands[inc] = 0;
-	{
-	int tested;
 
-	tested = 0;
-
-	while(commands[tested])
-		{
-		printf("%s\n",commands[tested]);
-		tested++;
-		}
-	}
 return (commands);
 }
 
@@ -119,11 +106,11 @@ int jobs(t_dlist *lst)
 
 	temp = NULL;
 	temp = lst;
-	//counter = jobs_lst_counter(lst);
 	if(redir_counter(lst) < 0)
 		return(-1);
 	redir = redir_creator(lst,redir_counter(lst));
 	commands = jobs_lst_creator(lst,redir);	
+	printf("%s",commands[0]);
 return (0);
 }
 
@@ -131,7 +118,7 @@ int job_lsting(t_dlist *lst)
 {
 	if(piping_verif(lst) == 0)
 		jobs(lst);
-	print_tokens(lst);
+	//print_tokens(lst);
 	if(lst && lst->type ==  4)
 	{
 		if(lst && lst->next)
