@@ -21,6 +21,7 @@ SRCS =  main.c \
 		./executing/exec.c \
 		./jobs/jobs_redir.c \
 		./jobs/jobs.c \
+		./jobs/jobs_links.c \
 		
 RM =  rm -rf 
 .c.o:

@@ -31,7 +31,7 @@ void parsing()
 		if(trimed && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed); 	
-				jobs(lst);
+			job_lsting(lst);
 			//jobs_lst(lst);
 		}
 		else if(trimed)

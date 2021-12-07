@@ -1,6 +1,20 @@
 #include "jobs.h"
-
-
+t_dlist *ft_lst_nextnth(t_dlist *node,int nth)
+{
+	t_dlist *temp;
+    temp = NULL;
+	if(node)
+	{
+		temp = node;
+		while(temp && nth > 0)
+		{
+			nth--;
+			temp = temp->next;
+		}
+	}
+	return (temp);
+}
+/* this current version can be wrong in some case */
 int jobs_lst_counter(t_dlist *lst)
 {
 	t_dlist *temp;
@@ -16,67 +30,102 @@ int jobs_lst_counter(t_dlist *lst)
 return(count);
 }
 
-
-char **jobs_lst_creator(t_dlist *lst,int count)
+/* function that create a lst of  args for exceve */
+char **jobs_lst_creator(t_dlist *lst,char **redir)
 {
- char **commands;
-t_dlist *temp;
-int inc;
+ char	**commands;
+t_dlist	 *temp;
+int		inc;
 
-inc = 0;
-	temp =  lst;
-  commands = malloc(sizeof(char *) * count + 1);
-  commands[count] = 0;
-	while(count != 0)
+	temp  = NULL;
+	if (redir &&  lst->type >= 0 &&  lst->type <= 3 && lst->next->next)
+		temp = lst->next->next;
+	else
+		temp = lst;
+	inc = 0;
+	commands = malloc(sizeof(char *) * jobs_lst_counter(temp) + 1);
+	while(temp && (temp->type > 4  || temp->type == -2))
 	{
 		commands[inc] = temp->content;
 		temp = temp->next;
 		inc++;
-		count--; 
 	}
-return(commands);
+	commands[inc] = 0;
+
+return (commands);
 }
 
 
 /*  function  that make a job (get a job) */
-
-
 int print_tokens(t_dlist *lst)
 {
 	t_dlist *temp;
 	temp = lst;
 		while(temp)
 	{
-		printf("%s\n",temp->content);
+		printf("%s %d\n",temp->content,temp->type);
 		temp = temp->next;
 	}
 	return(0);
 }
-
-
-int jobs(t_dlist *lst) 
+/* verify  if the | symbol is  between two element of the right type */
+int piping_verif(t_dlist *lst)
 {
-	char **redir;
-	char **commands;
-	int counter;
-
-	counter = 0;
-	redir = redir_creator(lst,redir_counter(lst));
-		if(redir && lst->type >= 0 && lst->type <= 3)
-		commands = jobs_lst_creator(lst->next->next,jobs_lst_counter(lst->next->next));
-		else
-			commands = jobs_lst_creator(lst,jobs_lst_counter(lst));
-	if(commands)
+	t_dlist *temp =lst;
+	
+	while(temp)
 	{
-		while(commands[counter])
+		if(ft_strchr(temp->content,'|') && temp->next && !(ft_strchr(temp->next->content,'|')))
 		{
-			printf("%s\n",commands[counter]);
-			counter++;
+			if(temp->prev)
+			{
+				if(!(temp->prev->type == -2 || temp->prev->type > 4))
+				{
+					printf("syntax error near unexpected token `|'\n");
+					return(-1);
+				}
+			}
 		}
-		printf("-->\n");
-		print_tokens(lst);
-		printf("<--\n");
+		else if(ft_strchr(temp->content,'|'))
+		{
+			printf("syntax error near unexpected token `|'\n");
+			return(-1);
+		}
+		temp = temp->next;		
 	}
 	return (0);
 }
+/* create a jobs with the right element in it */
+int jobs(t_dlist *lst,s_jobs **output ) 
+{
+	char **redir;
+	char **commands;
+	t_dlist *temp;
 
+	temp = NULL;
+	temp = lst;
+	if(redir_counter(lst) < 0)
+		return(-1);
+	redir = redir_creator(lst,redir_counter(lst));
+	commands = jobs_lst_creator(lst,redir);	
+	*output = job_new_lst(commands,redir);
+return (0);
+}
+/* function that  create a list of (jobs) break on failure */
+int job_lsting(t_dlist *lst)
+{
+	s_jobs *jobbing;
+	t_dlist *temp;	
+
+	jobbing = NULL;
+	temp = lst;
+
+	if(piping_verif(lst) == 0)
+	{
+			if(jobs(lst,&jobbing) >= 0)
+				printf("%s",jobbing->cmd[0]);
+			else
+				return(-1);
+	}	
+	return(0);
+}
