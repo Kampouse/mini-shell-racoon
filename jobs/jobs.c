@@ -75,22 +75,19 @@ int piping_verif(t_dlist *lst)
 	
 	while(temp)
 	{
-		if(ft_strchr(temp->content,'|') && temp->next && !(ft_strchr(temp->next->content,'|')))
+		if(ft_strchr(temp->content,'|') && temp->next && !(ft_strchr(temp->
+			 next->content,'|')))
 		{
 			if(temp->prev)
 			{
 				if(!(temp->prev->type == -2 || temp->prev->type > 4))
-				{
-					printf("syntax error near unexpected token `|'\n");
 					return(-1);
-				}
 			}
+			if(temp->next && !temp->prev)
+					return(-1);
 		}
 		else if(ft_strchr(temp->content,'|'))
-		{
-			printf("syntax error near unexpected token `|'\n");
 			return(-1);
-		}
 		temp = temp->next;		
 	}
 	return (0);
@@ -112,20 +109,32 @@ int jobs(t_dlist *lst,s_jobs **output )
 return (0);
 }
 /* function that  create a list of (jobs) break on failure */
-int job_lsting(t_dlist *lst)
+s_jobs *jobs_tail(t_dlist *lst)
 {
-	s_jobs *jobbing;
+  t_dlist *temp;
+  
+	temp = job_find_pipe(lst);
+return(0);
+}
+s_jobs *job_lsting(t_dlist *lst)
+{
+	s_jobs *joblst;
 	t_dlist *temp;	
 
-	jobbing = NULL;
+	joblst  = NULL;
 	temp = lst;
 
 	if(piping_verif(lst) == 0)
 	{
-			if(jobs(lst,&jobbing) >= 0)
-				printf("%s",jobbing->cmd[0]);
+			if(jobs(lst,&joblst) == 0)
+				printf("%s",joblst->cmd[0]);
 			else
-				return(-1);
-	}	
+				return(NULL);
+				//should return a free list since it failed;
+	//		jobs_addback(jobbing,temp);
+	}
+	else
+		printf("syntax error near unexpected token `|'\n");
+	jobs_tail(lst);
 	return(0);
 }

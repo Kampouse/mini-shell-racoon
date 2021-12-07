@@ -68,3 +68,21 @@ s_jobs	*job_new_lst(char **cmd,char **redir)
 	link->redir = redir;
 	return (link);
 }
+t_dlist	*job_find_pipe(t_dlist *lst)
+{
+	t_dlist *temp;
+if(lst)
+	{
+		temp = lst;
+		while(temp)
+		{
+
+			if(temp->type == 4)
+			{
+				return(temp->next);
+			}
+			temp = temp->next;	
+		}
+	}
+return(NULL);
+}
