@@ -19,6 +19,8 @@ SRCS =  main.c \
 		./executing/export.c \
  		./executing/variable.c \
 		./executing/exec.c \
+		./executing/check_bultin.c \
+		./executing/export_valider.c \
 		./jobs/jobs_redir.c \
 		./jobs/jobs.c \
 		./jobs/jobs_links.c \

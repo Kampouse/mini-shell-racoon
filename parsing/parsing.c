@@ -21,20 +21,31 @@ void parsing()
 	char *line;
 	char *trimed;
 	t_dlist *lst;
+	t_jobs *job;
 	
+	job = NULL;
     lst = NULL;
 	while(1)
 	{
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line," ");
-	    free(line);	
+	    free(line);
+	
 		if(trimed && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed); 	
-			job_lsting(lst);
-			//jobs_lst(lst);
+			job = job_lsting(lst);
+
+			check_bultin(job);			
+			int i = 0;
+			while (job->cmd[i])
+			{
+				printf("job %d = %s\n", i, job->cmd[i]);
+				i++;
+			}
 		}
 		else if(trimed)
 			free(trimed);
 	}
 }
+//job_lst->cmd[0] == export 

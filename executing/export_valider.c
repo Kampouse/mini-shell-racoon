@@ -1,47 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   export_valider.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 15:57:23 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/07 11:01:56 by olabrecq         ###   ########.fr       */
+/*   Created: 2021/12/07 15:51:42 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/12/07 18:54:14 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char **alloc_tab(char **envp)
+int equal_alone(t_jobs *job)
 {
-    char **tab;
     int i;
 
     i = 0;
-    while (envp[i])
-        i++;
-    tab = (char**)malloc(sizeof(char*) * i);
-    return (tab);
-}
-
-void create_env(char **envp)
-{
-    g_state.env = alloc_tab(envp);
-    int i;
-
-    i = 0;
-    while (envp[i])
+    while (job->cmd[i])
     {
-        g_state.env[i] = ft_strdup(envp[i]);
+        if (!(ft_strncmp(job->cmd[i], "=", ft_strlen(job->cmd[i]))))
+            return (1);
         i++;
     }
+    return (0);
 }
 
-void print_env(int tab_len)
+int got_good_args(t_jobs *job)
 {
     int i;
+    char *temp;
 
     i = 0;
-    while (i < tab_len)
-        printf("%s\n", g_state.env[i++]);
+    while (job->cmd[i])
+    {
+        temp = job->cmd[i];
+        if ((ft_isdigit(temp[0])))
+            return (1);
+        i++;
+    }
+    return (0);
+}
+
+int export_valider(t_jobs *job)
+{
+    if (equal_alone(job) || got_good_args(job))
+    {
+        printf("Not a valid export\n");
+        return (1);
+    }
+    return (0);
 }

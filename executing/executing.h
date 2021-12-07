@@ -32,4 +32,10 @@ char **ft_sort_tab(char **tab);
 char *print_var(char *var);
 
 
+void do_export(t_jobs *jobb);
+void check_bultin(t_jobs *jobb);
+int export_valider(t_jobs *jobb);
+
+
+
 #endif

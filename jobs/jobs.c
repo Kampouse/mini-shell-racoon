@@ -96,7 +96,7 @@ int piping_verif(t_dlist *lst)
 	return (0);
 }
 /* create a jobs with the right element in it */
-int jobs(t_dlist *lst,s_jobs **output ) 
+int jobs(t_dlist *lst,t_jobs **output ) 
 {
 	char **redir;
 	char **commands;
@@ -112,9 +112,9 @@ int jobs(t_dlist *lst,s_jobs **output )
 return (0);
 }
 /* function that  create a list of (jobs) break on failure */
-int job_lsting(t_dlist *lst)
+t_jobs *job_lsting(t_dlist *lst)
 {
-	s_jobs *jobbing;
+	t_jobs *jobbing;
 	t_dlist *temp;	
 
 	jobbing = NULL;
@@ -125,7 +125,10 @@ int job_lsting(t_dlist *lst)
 			if(jobs(lst,&jobbing) >= 0)
 				printf("%s",jobbing->cmd[0]);
 			else
-				return(-1);
+				
+				
+				return(NULL);
+				//printf("%s",jobbing->cmd[0]);
 	}	
-	return(0);
+	return(jobbing);
 }
