@@ -109,12 +109,24 @@ int jobs(t_dlist *lst,s_jobs **output )
 return (0);
 }
 /* function that  create a list of (jobs) break on failure */
-s_jobs *jobs_tail(t_dlist *lst)
+s_jobs *jobs_tail(t_dlist *lst,s_jobs *currjobs)
 {
   t_dlist *temp;
+  s_jobs *tempjob;
   
 	temp = job_find_pipe(lst);
-return(0);
+	if(temp)
+	{
+		if(jobs(temp,&tempjob) >= 0 )
+		{
+			jobs_addback(&currjobs,tempjob);
+			return(jobs_tail(temp,currjobs));
+		}
+		else
+		//	 should free this when it fail;
+			return(NULL);
+	}
+return(currjobs);
 }
 s_jobs *job_lsting(t_dlist *lst)
 {
@@ -134,7 +146,10 @@ s_jobs *job_lsting(t_dlist *lst)
 	//		jobs_addback(jobbing,temp);
 	}
 	else
+	{
 		printf("syntax error near unexpected token `|'\n");
-	jobs_tail(lst);
+			return(NULL);
+	}
+	jobs_tail(lst,joblst);
 	return(0);
 }
