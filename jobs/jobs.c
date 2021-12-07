@@ -108,6 +108,7 @@ int jobs(t_dlist *lst,s_jobs **output )
 		return(-1);
 	redir = redir_creator(lst,redir_counter(lst));
 	commands = jobs_lst_creator(lst,redir);	
+	*output = job_new_lst(commands,redir);
 return (0);
 }
 /* function that  create a list of (jobs) break on failure */
@@ -120,7 +121,11 @@ int job_lsting(t_dlist *lst)
 	temp = lst;
 
 	if(piping_verif(lst) == 0)
-			if(jobs(lst,&jobbing) < 0)
-			return(-1);
+	{
+			if(jobs(lst,&jobbing) >= 0)
+				printf("%s",jobbing->cmd[0]);
+			else
+				return(-1);
+	}	
 	return(0);
 }
