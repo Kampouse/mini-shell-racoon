@@ -92,8 +92,14 @@ char *find_partner(char *str, size_t *len)
 			break;
 		}
 	}
+	//bad stuff here
 		if(!first)
+	{
 			printf("missid a (%c) \n",str[inc]);
+		len = NULL;
+		first = NULL;
+		return(NULL);
+	}
 		len = NULL;
 	return (first);
 }

@@ -1,9 +1,9 @@
 #include "jobs.h"
-s_jobs	*node_job(char **cmd,char **redir)
+t_jobs	*node_job(char **cmd,char **redir)
 {
-	s_jobs	*link;
+	t_jobs	*link;
 
-	link = (s_jobs *)malloc(sizeof(*link));
+	link = (t_jobs *)malloc(sizeof(*link));
 	if (!link)
 		return (NULL);
 	link->prev = NULL;
@@ -15,7 +15,7 @@ s_jobs	*node_job(char **cmd,char **redir)
 	return (link);
 }
 
-s_jobs	*last_jobs(s_jobs *currlist)
+t_jobs	*last_jobs(t_jobs *currlist)
 {
 	if( currlist && currlist->next)
 	{
@@ -29,7 +29,7 @@ s_jobs	*last_jobs(s_jobs *currlist)
 	}
 	return (currlist);
 }
-void	jobs_addfront(s_jobs **currlist, s_jobs *newnode)
+void	jobs_addfront(t_jobs **currlist, t_jobs *newnode)
 {
 	if (currlist)
 	{
@@ -39,9 +39,9 @@ void	jobs_addfront(s_jobs **currlist, s_jobs *newnode)
 	}
 }
 
-void	jobs_addback(s_jobs **currlist, s_jobs *node)
+void	jobs_addback(t_jobs **currlist, t_jobs *node)
 {
-	s_jobs	*last;
+	t_jobs	*last;
 
 	if (currlist)
 	{
@@ -56,11 +56,11 @@ void	jobs_addback(s_jobs **currlist, s_jobs *node)
 	}
 }
 
-s_jobs	*job_new_lst(char **cmd,char **redir)
+t_jobs	*job_new_lst(char **cmd,char **redir)
 {
-	s_jobs	*link;
+	t_jobs	*link;
 
-	link = (s_jobs *)malloc(sizeof(*link));
+	link = (t_jobs *)malloc(sizeof(*link));
 	if (!link)
 		return (NULL);
 	link->next = NULL;
@@ -85,4 +85,18 @@ if(lst)
 		}
 	}
 return(NULL);
+}
+
+void	free_jobs(t_dlist *head)
+{
+	t_dlist	*next;
+
+	if(head && head->content)
+		free(head->content);
+	if (head != NULL)
+	{
+		next = head->next;
+		free(head);
+		free_jobs(next);
+	}
 }

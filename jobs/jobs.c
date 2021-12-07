@@ -93,7 +93,7 @@ int piping_verif(t_dlist *lst)
 	return (0);
 }
 /* create a jobs with the right element in it */
-int jobs(t_dlist *lst,s_jobs **output ) 
+int jobs(t_dlist *lst,t_jobs **output ) 
 {
 	char **redir;
 	char **commands;
@@ -109,10 +109,10 @@ int jobs(t_dlist *lst,s_jobs **output )
 return (0);
 }
 /* function that  create a list of (jobs) break on failure */
-s_jobs *jobs_tail(t_dlist *lst,s_jobs *currjobs)
+t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 {
   t_dlist *temp;
-  s_jobs *tempjob;
+  t_jobs *tempjob;
   
 	temp = job_find_pipe(lst);
 	if(temp)
@@ -128,9 +128,9 @@ s_jobs *jobs_tail(t_dlist *lst,s_jobs *currjobs)
 	}
 return(currjobs);
 }
-s_jobs *job_lsting(t_dlist *lst)
+t_jobs *job_lsting(t_dlist *lst)
 {
-	s_jobs *joblst;
+	t_jobs *joblst;
 	t_dlist *temp;	
 
 	joblst  = NULL;
@@ -139,7 +139,7 @@ s_jobs *job_lsting(t_dlist *lst)
 	if(piping_verif(lst) == 0)
 	{
 			if(jobs(lst,&joblst) == 0)
-				printf("%s",joblst->cmd[0]);
+				printf(" test %s\n",joblst->cmd[0]);
 			else
 				return(NULL);
 				//should return a free list since it failed;
