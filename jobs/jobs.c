@@ -1,4 +1,5 @@
-#include "jobs.h"
+#include "../minishell.h"
+
 t_dlist *ft_lst_nextnth(t_dlist *node,int nth)
 {
 	t_dlist *temp;
@@ -159,5 +160,10 @@ t_jobs *job_lsting(t_dlist *lst)
 			return(NULL);
 	}
 	// jobs_tail(lst,joblst);
-	return(0);
+	return(joblst);
+}
+
+void check_job(t_jobs *job)
+{
+	check_bultin(job);
 }
