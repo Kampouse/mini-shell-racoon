@@ -40,6 +40,9 @@ run: all
 leak: all
 		leaks --atExit -- ./$(NAME)
 		./$(NAME)
+val: all
+	valgrind ./$(NAME)
+
 
 clean:
 

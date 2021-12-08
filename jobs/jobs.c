@@ -22,9 +22,11 @@ int jobs_lst_counter(t_dlist *lst)
 
 	count = 0;
 	temp = lst;
-	while(temp && temp->type == -2)
+	while(temp)
 	{
-		count++;
+		if(temp->type > 4 || temp->type == -2)
+			count++;
+
 		temp = temp->next;
 	}
 return(count);
@@ -37,21 +39,19 @@ char **jobs_lst_creator(t_dlist *lst,char **redir)
 t_dlist	 *temp;
 int		inc;
 
+	inc = 0;
 	temp  = NULL;
 	if (redir &&  lst->type >= 0 &&  lst->type <= 3 && lst->next->next)
 		temp = lst->next->next;
 	else
 		temp = lst;
-	inc = 0;
-	commands = malloc(sizeof(char *) * jobs_lst_counter(temp) + 1);
+	//commands = malloc(sizeof(char *) * jobs_lst_counter(temp));
+ commands  = ft_calloc( (size_t)jobs_lst_counter(temp) + 1,sizeof(char **));
 	while(temp && (temp->type > 4  || temp->type == -2))
 	{
-		commands[inc] = temp->content;
+		commands[inc++] = temp->content;
 		temp = temp->next;
-		inc++;
 	}
-	commands[inc] = 0;
-
 return (commands);
 }
 
@@ -133,13 +133,21 @@ t_jobs *job_lsting(t_dlist *lst)
 	t_jobs *joblst;
 	t_dlist *temp;	
 
+	int count;
+	count = 0;
 	joblst  = NULL;
 	temp = lst;
 
 	if(piping_verif(lst) == 0)
 	{
 			if(jobs(lst,&joblst) == 0)
-				printf(" test %s\n",joblst->cmd[0]);
+		{
+	while(joblst->cmd[count])
+			{
+				printf(" test %s\n",joblst->cmd[count]);
+				count++;
+			}
+		}
 			else
 				return(NULL);
 				//should return a free list since it failed;
