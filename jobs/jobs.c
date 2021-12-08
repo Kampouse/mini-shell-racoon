@@ -123,7 +123,7 @@ t_jobs *job_lsting(t_dlist *lst)
 	if(piping_verif(lst) == 0)
 	{
 			if(jobs(lst,&jobbing) >= 0)
-				printf("%s",jobbing->cmd[0]);
+				printf("%s\n",jobbing->cmd[0]);
 			else
 				
 				
