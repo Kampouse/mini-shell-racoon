@@ -131,6 +131,6 @@ t_jobs *job_lsting(t_dlist *lst)
 		printf("syntax error near unexpected token `|'\n");
 			return(NULL);
 	}
-	jobs_tail(lst,joblst);
+	// jobs_tail(lst,joblst);
 	return(0);
 }
