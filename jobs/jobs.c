@@ -159,5 +159,5 @@ t_jobs *job_lsting(t_dlist *lst)
 			return(NULL);
 	}
 	// jobs_tail(lst,joblst);
-	return(0);
+	return(joblst);
 }

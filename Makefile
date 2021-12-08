@@ -1,4 +1,3 @@
-
 NAME = minishell
 
 FLAGS =  -g -Wall -Wextra -Werror 
@@ -35,7 +34,7 @@ all: ${NAME}
 ${NAME}:${OBJS}
 
 		@$(MAKE) -C libft
-		@${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
+		@${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses  -o ${NAME}
 
 run: all
 		./$(NAME)
@@ -68,4 +67,4 @@ re: fclean all
 
 re: fclean all
 	
-.PHONY: clean fclean re all
+.PHONY: clean fclean re all/

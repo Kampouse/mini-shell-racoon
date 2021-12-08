@@ -15,11 +15,7 @@ typedef struct s_jobs
     int     stdout;
 	struct s_jobs  *next;
 	struct s_jobs  *prev;
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 815a6ef8c3bb7670ce90a7fa881eb8e0d3f96b59
 }		t_jobs;
 
 
@@ -30,18 +26,12 @@ int redirector(char **redirs);
 
 int jobs(t_dlist *lst,t_jobs **output); 
 t_jobs *job_lsting(t_dlist *lst);
-<<<<<<< HEAD
 
-=======
->>>>>>> 815a6ef8c3bb7670ce90a7fa881eb8e0d3f96b59
 t_jobs	*last_jobs(t_jobs *currlist);
 t_jobs	*ft_joblst(void *content);
 t_jobs	*job_new_lst(char **cmd,char **redir);
 void	jobs_addfront(t_jobs **currlist, t_jobs *newnode);
 void	jobs_addback(t_jobs **currlist, t_jobs *node);
 t_jobs	*node_job(char **cmd,char **redir);
-<<<<<<< HEAD
-=======
 t_dlist	*job_find_pipe(t_dlist *lst);
->>>>>>> 815a6ef8c3bb7670ce90a7fa881eb8e0d3f96b59
 #endif 
