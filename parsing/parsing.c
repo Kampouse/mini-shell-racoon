@@ -34,6 +34,7 @@ void parsing()
 		if(trimed && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed); 	
+<<<<<<< HEAD
 			job = job_lsting(lst);
 
 			check_bultin(job);			
@@ -43,6 +44,12 @@ void parsing()
 				printf("job %d = %s\n", i, job->cmd[i]);
 				i++;
 			}
+=======
+			if(lst)
+				job_lsting(lst);
+			//free_list(lst);
+			//jobs_lst(lst);
+>>>>>>> 815a6ef8c3bb7670ce90a7fa881eb8e0d3f96b59
 		}
 		else if(trimed)
 			free(trimed);

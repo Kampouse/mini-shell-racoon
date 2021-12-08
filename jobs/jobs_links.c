@@ -86,3 +86,17 @@ if(lst)
 	}
 return(NULL);
 }
+
+void	free_jobs(t_dlist *head)
+{
+	t_dlist	*next;
+
+	if(head && head->content)
+		free(head->content);
+	if (head != NULL)
+	{
+		next = head->next;
+		free(head);
+		free_jobs(next);
+	}
+}

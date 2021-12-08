@@ -58,13 +58,16 @@ void tokens_lst(char *trimed ,size_t total_len,t_dlist **token_lst)
 	size_t len;
 	const int  offset =  handle_space(trimed);
 
-	len = 0;
 	type = -2;
 	output = separtor_token(trimed + offset,&type);
 	if(!output && type == -2)
 		output = until_separator(trimed + offset);
 	if(!output)
+	{
+		free_list(ft_lst_firstnode(*token_lst));
+		*token_lst = NULL;
 		return;
+	}
 	ft_lst_add_backd(token_lst,node_init(output, type));
 	len = ft_strlen(output);	
 	if(len == 0 && type > 0)
@@ -82,6 +85,9 @@ t_dlist *line_parser(char *trimed)
 	t_dlist *lst;
 
 	lst  = NULL;
+	//bad stuff here
+	if(!trimed)
+		return(NULL);
 	tokens_lst(trimed,ft_strlen(trimed),&lst);
 	free(trimed);
 	// this (token peek is  little implementation of what exec will be */

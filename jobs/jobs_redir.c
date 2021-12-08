@@ -63,7 +63,8 @@ char **redir_creator(t_dlist *redir, int len)
 		}
 		temp = temp->next;
 	}
-	redir_lst[inc] = 0;
+	//#debug
+//	redir_lst[inc + 1] = 0;
 	return (redir_lst);
 }
 
