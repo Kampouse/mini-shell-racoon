@@ -35,7 +35,12 @@ void parsing()
 		{
 			lst = line_parser(trimed); 	
 			job = job_lsting(lst);
-			check_bultin(job);
+			if(job)
+			{
+				if(job->cmd[0])
+					check_bultin(job);
+				printf("%s\n",job->cmd[0]);
+			}
 			//free_list(lst);
 			//jobs_lst(lst);
 		}
@@ -43,4 +48,3 @@ void parsing()
 			free(trimed);
 	}
 }
-//job_lst->cmd[0] == export 

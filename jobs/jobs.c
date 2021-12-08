@@ -17,11 +17,13 @@ t_dlist *ft_lst_nextnth(t_dlist *node,int nth)
 /* this current version can be wrong in some case */
 int jobs_lst_counter(t_dlist *lst)
 {
+
 	t_dlist *temp;
 	int count;
 
 	count = 0;
 	temp = lst;
+	
 	while(temp)
 	{
 		if(temp->type > 4 || temp->type == -2)
@@ -41,6 +43,7 @@ int		inc;
 
 	inc = 0;
 	temp  = NULL;
+	commands = NULL;
 	if (redir &&  lst->type >= 0 &&  lst->type <= 3 && lst->next->next)
 		temp = lst->next->next;
 	else
@@ -99,12 +102,17 @@ int jobs(t_dlist *lst,t_jobs **output )
 	char **commands;
 	t_dlist *temp;
 
-	temp = NULL;
+	commands = NULL;
 	temp = lst;
 	if(redir_counter(lst) < 0)
 		return(-1);
 	redir = redir_creator(lst,redir_counter(lst));
-	commands = jobs_lst_creator(lst,redir);	
+	if( lst && lst->content)
+		commands = jobs_lst_creator(lst,redir);	
+	if(!commands)
+	{
+		return(-1);
+	}
 	*output = job_new_lst(commands,redir);
 return (0);
 }
@@ -140,24 +148,14 @@ t_jobs *job_lsting(t_dlist *lst)
 
 	if(piping_verif(lst) == 0)
 	{
-			if(jobs(lst,&joblst) == 0)
-		{
-	while(joblst->cmd[count])
-			{
-				printf(" test %s\n",joblst->cmd[count]);
-				count++;
-			}
-		}
-			else
+			if(jobs(lst,&joblst) != 0)
 				return(NULL);
-				//should return a free list since it failed;
-	//		jobs_addback(jobbing,temp);
 	}
 	else
 	{
 		printf("syntax error near unexpected token `|'\n");
 			return(NULL);
 	}
-	// jobs_tail(lst,joblst);
+	  joblst = jobs_tail(lst,joblst);
 	return(joblst);
 }
