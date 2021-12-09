@@ -1,4 +1,5 @@
 #include "jobs.h"
+#include <stdio.h>
 t_dlist *ft_lst_nextnth(t_dlist *node,int nth)
 {
 	t_dlist *temp;
@@ -72,25 +73,33 @@ int print_tokens(t_dlist *lst)
 	return(0);
 }
 /* verify  if the | symbol is  between two element of the right type */
+int pipe_return(int status)
+{
+	if(status == -1)
+	{
+		printf("syntax error near unexpected token `|'\n");
+		return(-1);
+	}
+	return(0);
+}
+
 int piping_verif(t_dlist *lst)
 {
 	t_dlist *temp =lst;
 	
 	while(temp)
 	{
-		if(ft_strchr(temp->content,'|') && temp->next && !(ft_strchr(temp->
-			 next->content,'|')))
+//ft_strncmp(temp->content,"|",ft_strlen("|")) && temp->next && !( ft_strncmp(temp->next->content,"|",ft_strlen("|")))
+		if(temp->type  == 4)
 		{
-			if(temp->prev)
-			{
-				if(!(temp->prev->type == -2 || temp->prev->type > 4))
-					return(-1);
-			}
-			if(temp->next && !temp->prev)
-					return(-1);
+			printf("entered\n");
+			if(temp->prev && temp->prev->type == 4)
+					return(pipe_return(-1));
+			if(temp->next && temp->next->type == 4)
+					return(pipe_return(-1));
+			if(!temp->prev || !temp->next)
+					return(pipe_return(-1));
 		}
-		else if(ft_strchr(temp->content,'|'))
-			return(-1);
 		temp = temp->next;		
 	}
 	return (0);
@@ -110,9 +119,7 @@ int jobs(t_dlist *lst,t_jobs **output )
 	if( lst && lst->content)
 		commands = jobs_lst_creator(lst,redir);	
 	if(!commands)
-	{
 		return(-1);
-	}
 	*output = job_new_lst(commands,redir);
 return (0);
 }
@@ -139,23 +146,13 @@ return(currjobs);
 t_jobs *job_lsting(t_dlist *lst)
 {
 	t_jobs *joblst;
-	t_dlist *temp;	
-
 	int count;
+
 	count = 0;
 	joblst  = NULL;
-	temp = lst;
 
-	if(piping_verif(lst) == 0)
-	{
-			if(jobs(lst,&joblst) != 0)
-				return(NULL);
-	}
+	if(piping_verif(lst) == 0 && jobs(lst,&joblst) == 0)
+		  return(jobs_tail(lst,joblst));
 	else
-	{
-		printf("syntax error near unexpected token `|'\n");
 			return(NULL);
-	}
-	  joblst = jobs_tail(lst,joblst);
-	return(joblst);
 }
