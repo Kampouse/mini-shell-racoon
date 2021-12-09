@@ -162,8 +162,3 @@ t_jobs *job_lsting(t_dlist *lst)
 	// jobs_tail(lst,joblst);
 	return(joblst);
 }
-
-void check_job(t_jobs *job)
-{
-	check_bultin(job);
-}

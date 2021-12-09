@@ -4,7 +4,7 @@
 #ifndef JOB_H
 # define JOB_H
 
-
+//chaque node est quand il y a pipe | 
 typedef struct s_jobs
 {
     char    **cmd;
@@ -35,6 +35,6 @@ void	jobs_addback(t_jobs **currlist, t_jobs *node);
 t_jobs	*node_job(char **cmd,char **redir);
 t_dlist	*job_find_pipe(t_dlist *lst);
 
-void check_job(t_jobs *job);
+void check_jobs(t_jobs *job);
 
 #endif 
