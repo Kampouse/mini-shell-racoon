@@ -56,9 +56,8 @@ int		inc;
 	else
 		temp = lst;
 		//assuming there no < after such as <a<a
-	if(temp->content)
+	if(temp->content &&  !(temp->type >= 0 && temp->type <= 3))
 	{
-		ft_putstr(temp->content);
 		 commands  = ft_calloc( (size_t)jobs_lst_counter(temp) + 1,sizeof(char **));
 		while(temp && (temp->type > 4  || temp->type == -2))
 		{
@@ -124,6 +123,7 @@ int jobs(t_dlist *lst,t_jobs **output )
 	temp = lst;
 	if(redir_counter(lst) < 0)
 		return(-1);
+	printf(" i have :%d",redir_counter(lst));
 	redir = redir_creator(lst,redir_counter(lst));
 	if( lst && lst->content)
 		commands = jobs_lst_creator(lst,redir,NULL);	
