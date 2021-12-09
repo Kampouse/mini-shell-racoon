@@ -60,6 +60,9 @@ t_jobs	*job_new_lst(char **cmd,char **redir)
 {
 	t_jobs	*link;
 
+
+	if(!cmd && !redir)
+		return(NULL);
 	link = (t_jobs *)malloc(sizeof(*link));
 	if (!link)
 		return (NULL);

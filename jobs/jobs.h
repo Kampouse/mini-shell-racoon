@@ -28,12 +28,11 @@ int jobs(t_dlist *lst,t_jobs **output);
 t_jobs *job_lsting(t_dlist *lst);
 t_jobs	*last_jobs(t_jobs *currlist);
 t_jobs	*ft_joblst(void *content);
-t_jobs	*job_new_lst(char **cmd,char **redir);
 void	jobs_addfront(t_jobs **currlist, t_jobs *newnode);
 void	jobs_addback(t_jobs **currlist, t_jobs *node);
 t_jobs	*node_job(char **cmd,char **redir);
 t_dlist	*job_find_pipe(t_dlist *lst);
-
+t_jobs	*job_new_lst(char **cmd,char **redir);
 void check_jobs(t_jobs *job);
 
 #endif 
