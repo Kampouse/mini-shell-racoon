@@ -42,4 +42,3 @@ void parsing()
 			free(trimed);
 	}
 }
-//job_lst->cmd[0] == export 

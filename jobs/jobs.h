@@ -16,7 +16,6 @@ typedef struct s_jobs
 	struct s_jobs  *next;
 	struct s_jobs  *prev;
 
-
 }		t_jobs;
 
 

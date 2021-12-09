@@ -16,7 +16,7 @@ int check_nb_of_job(t_jobs *job)
 {
 	int i;
 
-	i = 1;
+	i = 0;
 	while (job != NULL)
 	{
 		job = job->next;
