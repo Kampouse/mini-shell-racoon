@@ -1,6 +1,6 @@
 NAME = minishell
 
-FLAGS =  -g -Wall -Wextra -Werror 
+FLAGS =   -g -Wall -Wextra -Werror 
 
 SRCS =  main.c \
 		utils.c\
@@ -20,13 +20,14 @@ SRCS =  main.c \
 		./executing/exec.c \
 		./executing/export_valider.c \
 		./jobs/jobs_redir.c \
+		./jobs/jobs_redir_links.c \
 		./jobs/jobs.c \
 		./jobs/jobs_links.c \
 		./jobs/check_jobs.c \
 		
 RM =  rm -rf 
 .c.o:
-	@gcc ${FLAGS}  -c $< -o ${<:.c=.o}
+	@clang  ${FLAGS}  -c $< -o ${<:.c=.o}
 
 OBJS = ${SRCS:.c=.o}
 CC = gcc

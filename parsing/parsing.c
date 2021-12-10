@@ -22,7 +22,6 @@ void parsing()
 	char *trimed;
 	t_dlist *lst;
 	t_jobs *job;
-	
 	int count;
 	count = 0;
 	job = NULL;
@@ -41,19 +40,16 @@ void parsing()
 			{
 
 				check_jobs(job);
-				printf("%s",job->cmd[0]);
+				printf("cmd:%s\n",job->cmd[0]);
 			}
-			else if(job)
+			if(job && job->redir)
 			{
-
-				printf("%s",job->redir[count]);
-				while(job->redir[count])
+				while(job->redir)
 				{
-					printf("%s",job->redir[count]);
-				count++;
+					printf("redir:%s\n",job->redir->cmd);
+					job->redir = job->redir->next;
 				}
 			}
-
 		}
 		else if(trimed)
 			free(trimed);

@@ -40,30 +40,26 @@ int redir_counter(t_dlist *redir)
 	return(counter);
 }
 
-char **redir_creator(t_dlist *redir, int len)
+t_redir *redir_creator(t_dlist *redir, int len)
 {
 	t_dlist *temp;
-	char **redir_lst;
-	int inc;
+	t_redir *redir_lst;
 
-	inc = 0;
+	redir_lst = NULL;
 	temp = redir;
+		printf("%d",len);	
 		if (len <= 0)
 			return (NULL);
-		redir_lst  = ft_calloc( (size_t)(len * 2) + 1,sizeof(char **));
 	while (temp)
 	{
-
-		printf("type:%d\n",temp->type);
-		printf("data:%s\n",temp->next->content);
-	
-		if(temp->next->next)
-		temp = temp->next->next;
+		if(temp->next)
+		{
+		  redir_addback(&redir_lst,node_redir(temp->next->content,0));
+			temp = temp->next->next;
+		}
 		else 
 			break;
 	}
-	//#debug
-//	redir_lst[inc + 1] = 0;
 	return (redir_lst);
 }
 

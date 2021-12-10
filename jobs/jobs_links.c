@@ -56,7 +56,7 @@ void	jobs_addback(t_jobs **currlist, t_jobs *node)
 	}
 }
 
-t_jobs	*job_new_lst(char **cmd,char **redir)
+t_jobs	*job_new_lst(char **cmd,t_redir *redir)
 {
 	t_jobs	*link;
 

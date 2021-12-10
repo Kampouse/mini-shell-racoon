@@ -36,7 +36,7 @@ return(count);
 }
 
 /* function that create a lst of  args for exceve */
-char **jobs_lst_creator(t_dlist *lst,char **redir,int *as_redir)
+char **jobs_lst_creator(t_dlist *lst)
 {
  char	**commands;
 t_dlist	 *temp;
@@ -45,14 +45,12 @@ int		inc;
 	inc = 0;
 	temp  = NULL;
 	commands = NULL;
-	(void)redir;
-	(void)as_redir;
 	if (!(lst->type >= 0 &&  lst->type <= 3 && lst->next && lst->next->next) &&  lst->type != -2)
 	{
 		return(NULL);
 	}
-	else if(lst->next && lst->next->next)
-		temp = lst->next->next;
+	//else if(lst->next && lst->next->next)
+		//temp = lst->next->next;
 	else
 		temp = lst;
 		//assuming there no < after such as <a<a
@@ -115,7 +113,7 @@ int piping_verif(t_dlist *lst)
 /* create a jobs with the right element in it */
 int jobs(t_dlist *lst,t_jobs **output ) 
 {
-	char **redir;
+	t_redir *redir;
 	char **commands;
 	t_dlist *temp;
 
@@ -123,10 +121,10 @@ int jobs(t_dlist *lst,t_jobs **output )
 	temp = lst;
 	if(redir_counter(lst) < 0)
 		return(-1);
-	printf(" i have :%d",redir_counter(lst));
+	//printf(" i have :%d",redir_counter(lst));
 	redir = redir_creator(lst,redir_counter(lst));
 	if( lst && lst->content)
-		commands = jobs_lst_creator(lst,redir,NULL);	
+		commands = jobs_lst_creator(lst);	
 	*output = job_new_lst(commands,redir);
 return (0);
 }
