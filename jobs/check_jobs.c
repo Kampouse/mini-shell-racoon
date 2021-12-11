@@ -2,8 +2,11 @@
 
 void check_bultin(t_jobs *job)
 {
-    if (!(ft_strncmp(job->cmd[0], "export", ft_strlen(job->cmd[0]))))
+	if( job && job->cmd)
+	{
+		if (! (ft_strncmp(job->cmd[0], "export", ft_strlen(job->cmd[0]))))
             do_export(job);
+		}
 //     if (!(ft_strncmp(job->cmd[0], "echo", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "env", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
