@@ -22,8 +22,7 @@ void parsing()
 	char *trimed;
 	t_dlist *lst;
 	t_jobs *job;
-	int count;
-	count = 0;
+
 	job = NULL;
     lst = NULL;
 	while(1)

@@ -115,14 +115,10 @@ int jobs(t_dlist *lst,t_jobs **output )
 {
 	t_redir *redir;
 	char **commands;
-	t_dlist *temp;
 
 	commands = NULL;
-	temp = lst;
-	if(redir_counter(lst) < 0)
-		return(-1);
 	//printf(" i have :%d",redir_counter(lst));
-	redir = redir_creator(lst,redir_counter(lst));
+	redir = redir_creator(lst,0);
 	if( lst && lst->content)
 		commands = jobs_lst_creator(lst);	
 	*output = job_new_lst(commands,redir);
@@ -151,9 +147,6 @@ return(currjobs);
 t_jobs *job_lsting(t_dlist *lst)
 {
 	t_jobs *joblst;
-	int count;
-
-	count = 0;
 	joblst  = NULL;
 
 	if(piping_verif(lst) == 0 && jobs(lst,&joblst) == 0)
