@@ -5,17 +5,12 @@ int valid_redir(t_dlist *redir)
 {
 		if(redir->type >= 0 &&  redir->type <= 3)
 	{
-			if(redir->next &&  redir->next->type != 4)	
-			{
-				if(!(redir->next->type >= 0 &&  redir->next->type <= 3))
-			{
-					 return(0);
-			}
-			}
-			else
-				return(-1);
+		if(redir->next && !(redir->next->type >=0 && redir->next->type <= 3))
+				return(1);
 	}
-	return (0);
+		if(!(redir->type >= 0 &&  redir->type <= 3))
+				return(0);
+	return (-1);
 }
 
 int redir_counter(t_dlist *redir)
@@ -37,34 +32,34 @@ int redir_counter(t_dlist *redir)
 		}
 		else 
 			counter+= tmp;
-		temp = temp->next;
+		if(temp->next && temp->next->next)
+			temp = temp->next->next;
+		else
+			break;
 	}
 	return(counter);
 }
 
-char **redir_creator(t_dlist *redir, int len)
+t_redir *redir_creator(t_dlist *redir, int len)
 {
 	t_dlist *temp;
-	char **redir_lst;
-	int inc;
+	t_redir *redir_lst;
 
-	inc = 0;
+	redir_lst = NULL;
 	temp = redir;
-		if (len < 0)
+		printf("%d",len);	
+		if (len <= 0)
 			return (NULL);
-		redir_lst = malloc(sizeof(char **) * (len * 2) + 1);
-	while (temp && temp->type != 4)
+	while (temp)
 	{
-		if (temp->type >= 0 && temp->type <= 3)
+		if(temp->next)
 		{
-			redir_lst[inc] = ft_itoa(temp->type);		
-			redir_lst[inc + 1] = temp->next->content;
-			inc +=2;
+		  redir_addback(&redir_lst,node_redir(temp->next->content,0));
+			temp = temp->next->next;
 		}
-		temp = temp->next;
+		else 
+			break;
 	}
-	//#debug
-//	redir_lst[inc + 1] = 0;
 	return (redir_lst);
 }
 
