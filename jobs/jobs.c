@@ -114,11 +114,13 @@ int piping_verif(t_dlist *lst)
 int jobs(t_dlist *lst,t_jobs **output ) 
 {
 	t_redir *redir;
+	int status;
 	char **commands;
 
 	commands = NULL;
-	//printf(" i have :%d",redir_counter(lst));
-	redir = redir_creator(lst,0);
+	redir = redir_creator(lst,&status);
+	if(status < 0)
+		return(-1);
 	if( lst && lst->content)
 		commands = jobs_lst_creator(lst);	
 	*output = job_new_lst(commands,redir);
