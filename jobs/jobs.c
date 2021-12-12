@@ -36,7 +36,7 @@ return(count);
 }
 
 /* function that create a lst of  args for exceve */
-char **jobs_lst_creator(t_dlist *lst)
+char **jobs_lst_creator(t_dlist *lst,t_dlist **lst_head)
 {
  char	**commands;
 t_dlist	 *temp;
@@ -45,17 +45,13 @@ int		inc;
 	inc = 0;
 	temp  = NULL;
 	commands = NULL;
-	if (!(lst->type >= 0 &&  lst->type <= 3 && lst->next && lst->next->next) &&  lst->type != -2)
-	{
-		return(NULL);
-	}
-	//else if(lst->next && lst->next->next)
-		//temp = lst->next->next;
+	if ((lst->type >= 0 &&  lst->type <= 3 && lst->next && lst->next->next))
+		temp = lst->next->next;
 	else
 		temp = lst;
-		//assuming there no < after such as <a<a
 	if(temp->content &&  !(temp->type >= 0 && temp->type <= 3))
 	{
+		*lst_head = temp;
 		 commands  = ft_calloc( (size_t)jobs_lst_counter(temp) + 1,sizeof(char **));
 		while(temp && (temp->type > 4  || temp->type == -2))
 		{
@@ -114,15 +110,19 @@ int piping_verif(t_dlist *lst)
 int jobs(t_dlist *lst,t_jobs **output ) 
 {
 	t_redir *redir;
+	t_dlist *cmd_head;
 	int status;
 	char **commands;
 
 	commands = NULL;
+	cmd_head = NULL;
+	status = 0;
 	redir = redir_creator(lst,&status);
 	if(status < 0)
 		return(-1);
 	if( lst && lst->content)
-		commands = jobs_lst_creator(lst);	
+		commands = jobs_lst_creator(lst,&cmd_head);	
+		//cmd_head give acces to type of the cmd
 	*output = job_new_lst(commands,redir);
 return (0);
 }
