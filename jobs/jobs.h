@@ -37,6 +37,7 @@ typedef struct s_jobs
     char    *hereduc;
 	struct  s_redir    *redir;
     int     pipe[2];
+    int     cmd_type;
     int     stdin;
     int     stdout;
 	struct s_jobs  *next;
@@ -46,7 +47,7 @@ typedef struct s_jobs
 
 
 int redir_counter(t_dlist *redir);
- t_redir *redir_creator(t_dlist *redir,int len);
+t_redir *redir_creator(t_dlist *redir, int *status);
 int  any_heredoc(char **lst);
 int redirector(char **redirs);
 
@@ -58,7 +59,7 @@ void	jobs_addfront(t_jobs **currlist, t_jobs *newnode);
 void	jobs_addback(t_jobs **currlist, t_jobs *node);
 t_jobs	*node_job(char **cmd,char **redir);
 t_dlist	*job_find_pipe(t_dlist *lst);
-t_jobs	*job_new_lst(char **cmd,t_redir *redir);
+t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head);
 void check_jobs(t_jobs *job);
 t_redir	*node_redir(char *cmd,int type);
 void	redir_addback(t_redir **currlist, t_redir *node);

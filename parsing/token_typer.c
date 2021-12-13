@@ -29,11 +29,7 @@ int token_scanner(char *str,size_t *token_size)
 void tokens_peek(t_dlist *lst)
 {
 t_dlist *temp;
-int status;
-int count;
 
-count = 0;
-status = 0;
 temp = NULL;
 	if(lst)
 	
@@ -42,7 +38,6 @@ temp = NULL;
 	{
 		if(temp->type == 7)
 			{
-				status = 1;
 				freelist(g_state.env);
 				if(lst)
 					free_list(lst);

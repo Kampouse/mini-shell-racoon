@@ -5,7 +5,7 @@ int valid_redir(t_dlist *redir)
 {
 		if(redir->type >= 0 &&  redir->type <= 3)
 	{
-		if(redir->next && !(redir->next->type >=0 && redir->next->type <= 3))
+		if(redir->next && !(redir->next->type >=0 && redir->next->type <= 4))
 				return(1);
 	}
 		if(!(redir->type >= 0 &&  redir->type <= 3))
@@ -13,50 +13,27 @@ int valid_redir(t_dlist *redir)
 	return (-1);
 }
 
-int redir_counter(t_dlist *redir)
-{
-	
-	t_dlist *temp;
-	int counter;
-	int tmp;
-	
-	temp = redir;
-	counter = 0;
-	while(temp && temp->type != 4)
-	{
-		 tmp  = valid_redir(temp);
-		if(tmp == -1)	
-		{
-			printf("syntax error near unexpected token `newline'\n");
-			return(-1);
-		}
-		else 
-			counter+= tmp;
-		if(temp->next && temp->next->next)
-			temp = temp->next->next;
-		else
-			break;
-	}
-	return(counter);
-}
-
-t_redir *redir_creator(t_dlist *redir, int len)
+t_redir *redir_creator(t_dlist *redir, int *status)
 {
 	t_dlist *temp;
 	t_redir *redir_lst;
 
 	redir_lst = NULL;
 	temp = redir;
-		printf("%d",len);	
-		if (len <= 0)
-			return (NULL);
+
 	while (temp)
 	{
-		if(temp->next)
+		if(valid_redir(temp) == 1)		
+			  redir_addback(&redir_lst,node_redir(temp->next->content,0));
+		else if(valid_redir(temp) < 0)
 		{
-		  redir_addback(&redir_lst,node_redir(temp->next->content,0));
-			temp = temp->next->next;
+			*status = -1;
+			printf("erro as occured\n");
+			//should free  every node of faillure
+				return(NULL);
 		}
+		if(temp->next)
+			temp = temp->next;
 		else 
 			break;
 	}
