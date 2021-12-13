@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:23 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/07 11:01:56 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:31:06 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char **alloc_tab(char **envp)
     i = 0;
     while (envp[i])
         i++;
-    tab = (char**)malloc(sizeof(char*) * i);
+	tab = ft_calloc( i + 1,sizeof(char**));
     return (tab);
 }
 

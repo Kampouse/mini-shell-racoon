@@ -43,7 +43,7 @@ leak: all
 		leaks --atExit -- ./$(NAME)
 		./$(NAME)
 val: all
-	valgrind ./$(NAME)
+	valgrind  --leak-check=full ./$(NAME)
 
 
 clean:

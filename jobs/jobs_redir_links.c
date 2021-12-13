@@ -51,9 +51,7 @@ void	free_redir(t_redir *head)
 {
 	t_redir	*next;
 
-	if(head && head->cmd)
-		free(head->cmd);
-	if (head != NULL)
+	if (head)
 	{
 		next = head->next;
 		free(head);

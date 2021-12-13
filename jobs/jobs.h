@@ -49,4 +49,5 @@ void check_jobs(t_jobs *job);
 t_redir	*node_redir(char *cmd,int type);
 void	redir_addback(t_redir **currlist, t_redir *node);
 void	free_jobs(t_jobs *head);
+void	free_redir(t_redir *head);
 #endif 

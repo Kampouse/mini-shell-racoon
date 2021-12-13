@@ -29,7 +29,7 @@ t_redir *redir_creator(t_dlist *redir, int *status)
 		{
 			*status = -1;
 			printf("erro as occured\n");
-			//should free  every node of faillure
+			free_redir(redir_lst);
 				return(NULL);
 		}
 		if(temp->next)

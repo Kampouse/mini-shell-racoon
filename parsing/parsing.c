@@ -22,6 +22,7 @@ void parsing()
 	char *trimed;
 	t_dlist *lst;
 	t_jobs *job;
+	t_jobs *temp;
 
 	job = NULL;
     lst = NULL;
@@ -35,6 +36,10 @@ void parsing()
 		{
 			lst = line_parser(trimed); 	
 				job = job_lsting(lst);
+				//this fix some bugs
+				temp = job;
+		while(job != NULL)	
+		{
 			if (job && job->cmd )
 			{
 
@@ -51,6 +56,10 @@ void parsing()
 					job->redir = job->redir->next;
 				}
 			}
+			job = job->next;
+		}
+				//free(lst);
+			free_jobs(temp);
 		}
 		else if(trimed)
 			free(trimed);
