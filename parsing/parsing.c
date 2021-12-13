@@ -34,7 +34,7 @@ void parsing()
 		if(trimed && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed); 	
-			job = job_lsting(lst);
+				job = job_lsting(lst);
 			if (job && job->cmd )
 			{
 
@@ -47,6 +47,7 @@ void parsing()
 				while(job->redir)
 				{
 					printf("redir:%s\n",job->redir->cmd);
+					printf("redir:%d\n",job->redir->type);
 					job->redir = job->redir->next;
 				}
 			}

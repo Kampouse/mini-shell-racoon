@@ -24,7 +24,7 @@ t_redir *redir_creator(t_dlist *redir, int *status)
 	while (temp)
 	{
 		if(valid_redir(temp) == 1)		
-			  redir_addback(&redir_lst,node_redir(temp->next->content,0));
+			  redir_addback(&redir_lst,node_redir(temp->next->content,temp->type));
 		else if(valid_redir(temp) < 0)
 		{
 			*status = -1;

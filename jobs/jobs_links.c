@@ -93,12 +93,10 @@ if(lst)
 return(NULL);
 }
 
-void	free_jobs(t_dlist *head)
+void	free_jobs(t_jobs *head)
 {
-	t_dlist	*next;
+	t_jobs	*next;
 
-	if(head && head->content)
-		free(head->content);
 	if (head != NULL)
 	{
 		next = head->next;

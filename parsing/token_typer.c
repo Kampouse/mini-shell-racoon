@@ -7,18 +7,23 @@ int token_scanner(char *str,size_t *token_size)
 	const char *trimed  = ft_substr(str,0,until_space(str));
 	const char *tokens[10] = { ">>", "<<","<", ">","|","env","export","exit","echo",NULL};
 
-	inc = 0;
+	inc = -1;
 	if(!str)
 		return(-1);
-	while(tokens[inc])
+	while(tokens[++inc])
 	{
-		 if(ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
-		{
+		 if(inc <= 4 && ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
+			{
 				free((char *) trimed);
 				*token_size = ft_strlen(tokens[inc]);
 			 return(inc);
+			}
+		else if( ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(trimed)) == 0)
+		{
+				*token_size = ft_strlen(trimed);
+				free((char *) trimed);
+				return(inc);
 		}
-		inc++;
 	}
 	*token_size = 0;
 	free((char *) trimed);
