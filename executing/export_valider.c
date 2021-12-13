@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:51:42 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/07 19:09:14 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:46:25 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int got_good_args(t_jobs *job)
     }
     return (0);
 }
-
+// doit check  si ny a pas de '='
 int export_valider(t_jobs *job)
 {
     if (got_good_args(job))

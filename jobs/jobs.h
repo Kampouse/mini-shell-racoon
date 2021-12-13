@@ -20,6 +20,7 @@ typedef enum e_type
 } type;
 
 //chaque node est quand il y a pipe | 
+// export type = 6
 
 typedef struct s_redir
 {

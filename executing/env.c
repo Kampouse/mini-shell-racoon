@@ -45,3 +45,9 @@ void print_env(int tab_len)
     while (i < tab_len)
         printf("%s\n", g_state.env[i++]);
 }
+
+void do_env(t_jobs *job)
+{
+    if (ft_tab_len(job->cmd) == 1)
+        print_env(ft_tab_len(g_state.env));
+}

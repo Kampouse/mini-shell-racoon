@@ -35,8 +35,7 @@ void parsing()
 		{
 			lst = line_parser(trimed); 	
 			job = job_lsting(lst);
-			check_jobs(job);
-			if (job && job->cmd[0])
+			if (job && job->cmd)
 			{
 				check_jobs(job);
 				printf("cmd:%s\n",job->cmd[0]);
