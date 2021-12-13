@@ -56,10 +56,9 @@ void	jobs_addback(t_jobs **currlist, t_jobs *node)
 	}
 }
 
-t_jobs	*job_new_lst(char **cmd,t_redir *redir)
+t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head)
 {
 	t_jobs	*link;
-
 
 	if(!cmd && !redir)
 		return(NULL);
@@ -69,6 +68,10 @@ t_jobs	*job_new_lst(char **cmd,t_redir *redir)
 	link->next = NULL;
 	link->cmd = cmd;
 	link->redir = redir;
+	if(cmd_head)
+		link->cmd_type = cmd_head->type;
+	else
+		link->cmd_type = -3;
 	return (link);
 }
 t_dlist	*job_find_pipe(t_dlist *lst)

@@ -124,7 +124,7 @@ int jobs(t_dlist *lst,t_jobs **output )
 	if( lst && lst->content)
 		commands = jobs_lst_creator(lst,&cmd_head);	
 		//cmd_head give acces to type of the cmd
-	*output = job_new_lst(commands,redir);
+	*output = job_new_lst(commands,redir,cmd_head);
 return (0);
 }
 /* function that  create a list of (jobs) break on failure */

@@ -40,6 +40,7 @@ void parsing()
 
 				check_jobs(job);
 				printf("cmd:%s\n",job->cmd[0]);
+				printf("type:%d\n",job->cmd_type);
 			}
 			if(job && job->redir)
 			{
