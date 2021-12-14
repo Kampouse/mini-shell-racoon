@@ -42,6 +42,8 @@ t_jobs	*last_jobs(t_jobs *currlist);
 t_jobs	*ft_joblst(void *content);
 void	jobs_addfront(t_jobs **currlist, t_jobs *newnode);
 void	jobs_addback(t_jobs **currlist, t_jobs *node);
+int jobs_lst_counter(t_dlist *lst);
+char **jobs_lst_creator(t_dlist *lst,t_dlist **lst_head);
 t_jobs	*node_job(char **cmd,char **redir);
 t_dlist	*job_find_pipe(t_dlist *lst);
 t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head);
@@ -50,4 +52,5 @@ t_redir	*node_redir(char *cmd,int type);
 void	redir_addback(t_redir **currlist, t_redir *node);
 void	free_jobs(t_jobs *head);
 void	free_redir(t_redir *head);
+
 #endif 
