@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/14 12:05:32 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/14 16:54:19 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char *before_equal(char *var_cmd)
     while (var_cmd[i] != '=')
         i++;
     var_str = ft_substr(var_cmd, 0, i + 1);
-    printf("variable = %s\n", var_str);
     return (var_str);
 }
 
@@ -37,11 +36,35 @@ char *afther_equal(char *val_cmd)
     while (val_cmd[i] != '=')
         i++;
     val_str = ft_substr(val_cmd, (i + 1), (ft_strlen(val_cmd) - i));
-    printf("valeur = %s\n", val_str);
+    if (val_str == (void*)'\0')
+        return("\"\"");
     return (val_str);
 }
 
-// char *no_equal(char *cmd)
-// {
-    
-// }
+int no_equal(char *cmd)
+{
+    int i;
+
+    i = 0;
+    while (cmd[i])
+    {
+        if (cmd[i] == '=')
+            return (1);
+        i++;
+    }
+    return(0);
+}
+
+int last_is_equal(char *cmd)
+{
+    int i;
+
+    i = 0;
+    while (cmd[i])
+    {
+        if (cmd[i] == '=' && cmd[i + 1] == '\0')
+            return(1);
+        i++;
+    }
+    return (0);
+}
