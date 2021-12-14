@@ -1,4 +1,4 @@
-#include "jobs.h"
+#include "../minishell.h"
 t_jobs	*node_job(char **cmd,char **redir)
 {
 	t_jobs	*link;
@@ -67,8 +67,11 @@ t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head)
 		return (NULL);
 	link->next = NULL;
 	link->cmd = cmd;
-	link->redir = redir;
-	if(cmd_head)
+	if(redir)
+		link->redir = redir;
+	else
+			link->redir = NULL;
+	if(cmd_head && cmd_head->type != 4)
 		link->cmd_type = cmd_head->type;
 	else
 		link->cmd_type = -3;
@@ -93,15 +96,17 @@ if(lst)
 return(NULL);
 }
 
-void	free_jobs(t_dlist *head)
+void	free_jobs(t_jobs *head)
 {
-	t_dlist	*next;
-
-	if(head && head->content)
-		free(head->content);
-	if (head != NULL)
+	t_jobs	*next;
+		next = NULL;
+	if (head)
 	{
 		next = head->next;
+		if(head->redir)
+			free_redir(head->redir);
+		if(head->cmd)
+			free(head->cmd);
 		free(head);
 		free_jobs(next);
 	}

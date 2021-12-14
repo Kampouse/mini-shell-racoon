@@ -92,14 +92,12 @@ int piping_verif(t_dlist *lst)
 	
 	while(temp)
 	{
-//ft_strncmp(temp->content,"|",ft_strlen("|")) && temp->next && !( ft_strncmp(temp->next->content,"|",ft_strlen("|")))
 		if(temp->type  == 4)
 		{
 			if(temp->prev && (temp->prev->type >= 0  && temp->prev->type <= 4))
 					return(pipe_return(-1));
-			if(temp->next && (temp->next->type >= 0  && temp->next->type <= 4))
-
-					return(pipe_return(-1));
+			if(temp->next && temp->next->type == 4)
+				return(pipe_return(-1));
 			if(!temp->prev || !temp->next)
 					return(pipe_return(-1));
 		}
@@ -142,8 +140,11 @@ t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 			return(jobs_tail(temp,currjobs));
 		}
 		else
-		//	 should free this when it fail;
+		{
+			if(currjobs)
+				free_jobs(currjobs);	
 			return(NULL);
+		}
 	}
 return(currjobs);
 }

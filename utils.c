@@ -50,12 +50,16 @@ char	freelist(char **list)
 	int	index;
 
 	index = 0;
-	while (list[index])
+	if(list)
 	{
-		free((void *) list[index]);
+		while (list[index])
+	{
+		if(list[index])
+			free((void *) list[index]);
 		index++;
 	}
 	free(list);
+	}
 	return (0);
 }
 

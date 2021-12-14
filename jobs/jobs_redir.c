@@ -24,17 +24,17 @@ t_redir *redir_creator(t_dlist *redir, int *status)
 	while (temp)
 	{
 		if(valid_redir(temp) == 1)		
-			  redir_addback(&redir_lst,node_redir(temp->next->content,0));
+			  redir_addback(&redir_lst,node_redir(temp->next->content,temp->type));
 		else if(valid_redir(temp) < 0)
 		{
 			*status = -1;
 			printf("erro as occured\n");
-			//should free  every node of faillure
+			free_redir(redir_lst);
 				return(NULL);
 		}
-		if(temp->next)
-			temp = temp->next;
-		else 
+		if(temp->next && temp->next->next)
+			temp = temp->next->next;
+		else
 			break;
 	}
 	return (redir_lst);
