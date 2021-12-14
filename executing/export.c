@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/14 10:23:34 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/14 11:49:14 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ void update_env_exprt(t_jobs *job)
     i = 1;
     j = 0;
     variable = malloc(sizeof(job->cmd));
+    valeur = malloc(sizeof(job->cmd));
     while (job->cmd[i])
     {
         variable[j] = before_equal(job->cmd[i]);
-        valeur[j++] = afther_equal(job->cmd[i++]);
+        valeur[j] = afther_equal(job->cmd[i]);
         j++;
         i++;
     }
