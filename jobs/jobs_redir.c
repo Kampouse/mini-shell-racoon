@@ -32,9 +32,9 @@ t_redir *redir_creator(t_dlist *redir, int *status)
 			free_redir(redir_lst);
 				return(NULL);
 		}
-		if(temp->next && temp->next->next)
-			temp = temp->next->next;
-		else
+		if(temp->next)
+			temp = temp->next;
+		else 
 			break;
 	}
 	return (redir_lst);
