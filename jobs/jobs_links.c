@@ -71,7 +71,7 @@ t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head)
 		link->redir = redir;
 	else
 			link->redir = NULL;
-	if(cmd_head)
+	if(cmd_head && cmd_head->type != 4)
 		link->cmd_type = cmd_head->type;
 	else
 		link->cmd_type = -3;
@@ -106,7 +106,7 @@ void	free_jobs(t_jobs *head)
 		if(head->redir)
 			free_redir(head->redir);
 		if(head->cmd)
-			freelist(head->cmd);
+			free(head->cmd);
 		free(head);
 		free_jobs(next);
 	}

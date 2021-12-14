@@ -4,7 +4,7 @@ void check_bultin(t_jobs *job)
 {
 	if( job && job->cmd)
 	{
-		if (! (ft_strncmp(job->cmd[0], "export", ft_strlen(job->cmd[0]))))
+		if (job->cmd_type == 6)
             do_export(job);
 		}
 //     if (!(ft_strncmp(job->cmd[0], "echo", ft_strlen(trimed))))
