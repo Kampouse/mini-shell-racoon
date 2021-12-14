@@ -4,6 +4,7 @@ FLAGS =   -g -Wall -Wextra -Werror
 
 SRCS =  main.c \
 		utils.c\
+		\
 		./parsing/token_analyzer.c \
 		./parsing/parsing.c \
 		./parsing/path_handler_utils.c \
@@ -12,13 +13,17 @@ SRCS =  main.c \
 		./parsing/tokens_precursors.c \
 		./parsing/token_typer.c \
 		./parsing/token_loop.c \
+		\
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
+		\
 		./executing/env.c \
 		./executing/export.c \
  		./executing/variable.c \
 		./executing/exec.c \
 		./executing/export_valider.c \
+		./executing/export_utils.c \
+		\
 		./jobs/jobs_redir.c \
 		./jobs/jobs_redir_links.c \
 		./jobs/jobs.c \

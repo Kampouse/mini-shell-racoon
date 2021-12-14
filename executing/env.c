@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:23 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/13 15:31:06 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/12/14 11:30:05 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,10 @@ void print_env(int tab_len)
     i = 0;
     while (i < tab_len)
         printf("%s\n", g_state.env[i++]);
+}
+
+void do_env(t_jobs *job)
+{
+    if (ft_tab_len(job->cmd) == 1)
+        print_env(ft_tab_len(g_state.env));
 }

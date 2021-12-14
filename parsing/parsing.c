@@ -21,11 +21,14 @@ void parsing()
 		{
 			lst = line_parser(trimed); 	
 			job = job_lsting(lst);
+			if(job && job->cmd)
 			check_jobs(job);
-			ft_lstdclear(&lst,free);
+			
+				ft_lstdclear(&lst,free);
 			free_jobs(job);
 		}
-		else if(trimed)
+		else if (trimed)
 			free(trimed);
 	}
 }
+

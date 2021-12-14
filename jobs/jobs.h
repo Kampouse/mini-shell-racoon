@@ -4,7 +4,23 @@
 #ifndef JOB_H
 # define JOB_H
 
+typedef enum e_type
+{
+    CHAR,
+    DELIM,
+    VAR,
+    END_VAR,
+    S_QUOTE,
+    D_QUOTE,
+    PIPE,
+    REDIR_IN,
+    REDIR_OUT,
+    HEREDOC,
+    REDIR_OUT_CAT,
+} type;
+
 //chaque node est quand il y a pipe | 
+// export type = 6
 
 typedef struct s_redir
 {
