@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/14 11:49:14 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/15 11:48:54 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,46 @@ void print_exprt(int tab_len)
 }
 
 /// Si ny a pas de '=' variable devient valeur
-void update_env_exprt(t_jobs *job)
+void parse_export(t_jobs *job)
 {
     char **variable = NULL;
     char **valeur = NULL;
     int i;
     int j;
-
+    
+    //i = 1 car 0 = cmd[0]= export
     i = 1;
     j = 0;
     variable = malloc(sizeof(job->cmd));
     valeur = malloc(sizeof(job->cmd));
     while (job->cmd[i])
     {
-        variable[j] = before_equal(job->cmd[i]);
-        valeur[j] = afther_equal(job->cmd[i]);
+        if (last_is_equal(job->cmd[i]))
+        {
+            //envoyer variable et valeur dans fonction pour 
+            //qui les ship a env et export avec les bon guillemet
+            variable[j] = job->cmd[i];
+            valeur[j] = "\"\"";
+            printf("variable[%d] = %s\n", j, variable[j]);
+            printf("valeur[%d] = %s\n", j, valeur[j]);
+        }
+        else if (!no_equal(job->cmd[i]))
+        {
+            variable[j] = "' '";
+            valeur[j] = job->cmd[i];
+            printf("variable[%d] = %s\n", j, variable[j]);
+            printf("valeur[%d] = %s\n", j, valeur[j]);
+        }
+        else
+        {
+            variable[j] = before_equal(job->cmd[i]);
+            valeur[j] = afther_equal(job->cmd[i]);
+            printf("variable[%d] = %s\n", j, variable[j]);
+            printf("valeur[%d] = %s\n", j, valeur[j]);
+        }
         j++;
         i++;
     }
-    printf("variable = %s\n", variable[j]);
 }
 
 void do_export(t_jobs *job)
@@ -57,8 +78,6 @@ void do_export(t_jobs *job)
         if (export_valider(job))
             printf("Not a valid export\n");
         else 
-            update_env_exprt(job);
-
-        
+            parse_export(job);
     }
 }

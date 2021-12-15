@@ -2,9 +2,6 @@
 
 void check_bultin(t_jobs *job)
 {
-	// Condiotion useless que je vais srm delete
-	if(job && job->cmd)
-	{
 		if (job->cmd_type == 6)
             do_export(job);
     	if (!(ft_strncmp(job->cmd[0], "env", ft_strlen(job->cmd[0]))))
@@ -14,7 +11,6 @@ void check_bultin(t_jobs *job)
 //     if (!(ft_strncmp(job->cmd[0], "cd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "unset", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "exit", ft_strlen(trimed))))
-	}
 }
 
 int check_nb_of_job(t_jobs *job)
@@ -68,7 +64,7 @@ void check_jobs(t_jobs *job)
 {
 	// printf("number of job = %d\n", check_nb_of_job(job));
 	printf("number of cmd = %d\n", check_nb_of_cmd(job));
+	check_bultin(job);
 
 	// parse_job(job);
-	check_bultin(job);
 }

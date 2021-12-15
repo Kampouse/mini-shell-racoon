@@ -42,5 +42,7 @@ int     export_valider(t_jobs *jobb);
 char    *before_equal(char *var_cmd);
 char    *afther_equal(char *val_cmd);
 
+int no_equal(char *cmd);
+int last_is_equal(char *cmd);
 
 #endif
