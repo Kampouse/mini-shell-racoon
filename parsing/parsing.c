@@ -23,7 +23,7 @@ void parsing()
 			job = job_lsting(lst);
 			if(job && job->cmd)
 				check_jobs(job);
-	//		eval(job);			
+			//eval(job);			
 				ft_lstdclear(&lst,free);
 			free_jobs(job);
 		}
@@ -32,3 +32,5 @@ void parsing()
 	}
 }
 
+//void add_at
+//void delete_at

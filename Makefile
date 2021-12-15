@@ -17,6 +17,8 @@ SRCS =  main.c \
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
 		\
+		./eval/eval.c \
+		\
 		./executing/env.c \
 		./executing/export.c \
  		./executing/variable.c \

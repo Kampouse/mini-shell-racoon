@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/15 11:48:54 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/15 14:34:51 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void parse_export(t_jobs *job)
             valeur[j] = "\"\"";
             printf("variable[%d] = %s\n", j, variable[j]);
             printf("valeur[%d] = %s\n", j, valeur[j]);
+            //jean="" = export et jean= = env
+            //type 1
         }
         else if (!no_equal(job->cmd[i]))
         {
@@ -56,6 +58,8 @@ void parse_export(t_jobs *job)
             valeur[j] = job->cmd[i];
             printf("variable[%d] = %s\n", j, variable[j]);
             printf("valeur[%d] = %s\n", j, valeur[j]);
+            //jean = export env xx
+            //type 2
         }
         else
         {
@@ -63,11 +67,29 @@ void parse_export(t_jobs *job)
             valeur[j] = afther_equal(job->cmd[i]);
             printf("variable[%d] = %s\n", j, variable[j]);
             printf("valeur[%d] = %s\n", j, valeur[j]);
+            //jean="oli" export jean=oli env
+            //type 3
         }
         j++;
         i++;
     }
 }
+
+// void update_export_list(char *var, char *val, int type)
+// {
+//     if (type == 1)
+//     {
+        
+//     }
+//     if (type == 2)
+//     {
+        
+//     }
+//     if (type == 3)
+//     {
+        
+//     }
+// }
 
 void do_export(t_jobs *job)
 {
