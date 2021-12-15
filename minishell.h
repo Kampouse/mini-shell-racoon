@@ -10,6 +10,7 @@
 # include "readline/history.h"
 # include "jobs/jobs.h"
 # include "executing/executing.h"
+# include "eval/eval.h"
 # include "parsing/parsing.h"
 
 # define GREEN "\002\e[0;32m\002"
