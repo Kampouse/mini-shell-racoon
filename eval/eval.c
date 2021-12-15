@@ -25,14 +25,32 @@ return(str);
 }
 void eval_cmds(t_jobs *job)
 {
+	int inc;
 	
-	eval_string(job->cmd[0]);
-
+	inc = -1;
+	if(job->cmd)	
+	{
+		while(job->cmd[++inc])
+			eval_string(job->cmd[inc]);
+	}
 }
+void eval_redir(t_jobs *job)
+{
+	int inc;
+	t_redir *temp;	
 
-
-
-
+	temp = NULL;
+	inc = -1;
+	if(job->redir)	
+	{
+		temp = job->redir;
+		while(temp)
+		{
+				eval_string(job->cmd[inc]);
+				temp = temp->next;
+		}
+	}
+}
 
 int eval(t_jobs *jobs)
 {
@@ -43,13 +61,9 @@ int eval(t_jobs *jobs)
 		temp = jobs;
 		while(temp)
 		{
-			printf("%s\n",temp->cmd[0]);
-		eval_cmds(jobs);
+			eval_cmds(temp);
+			eval_redir(temp);
 			temp = temp->next;
-
-			
-
-
 		}
 	
 	}
