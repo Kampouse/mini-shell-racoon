@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/14 16:54:19 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/15 11:39:11 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,15 @@ int no_equal(char *cmd)
 int last_is_equal(char *cmd)
 {
     int i;
-
+    int count;
+    
+    count= 0;
     i = 0;
     while (cmd[i])
     {
-        if (cmd[i] == '=' && cmd[i + 1] == '\0')
+        if (cmd[i] == '=' && cmd[i + 1] != '\0')
+            count++;
+        if (cmd[i] == '=' && cmd[i + 1] == '\0' && !count)
             return(1);
         i++;
     }

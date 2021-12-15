@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/14 16:57:28 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/15 11:48:54 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void parse_export(t_jobs *job)
     {
         if (last_is_equal(job->cmd[i]))
         {
+            //envoyer variable et valeur dans fonction pour 
+            //qui les ship a env et export avec les bon guillemet
             variable[j] = job->cmd[i];
             valeur[j] = "\"\"";
             printf("variable[%d] = %s\n", j, variable[j]);
