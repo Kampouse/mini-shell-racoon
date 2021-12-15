@@ -1,5 +1,5 @@
-#ifndef MINI_SHELL_H
-# define MINI_SHELL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <stdlib.h>
 # include <stdio.h>
@@ -10,7 +10,7 @@
 # include "readline/history.h"
 # include "jobs/jobs.h"
 # include "executing/executing.h"
-# include "eval/eval.h"
+// # include "eval/eval.h"
 # include "parsing/parsing.h"
 
 # define GREEN "\002\e[0;32m\002"
