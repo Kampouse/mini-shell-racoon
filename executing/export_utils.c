@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/15 11:39:11 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/15 20:00:47 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,23 @@ int last_is_equal(char *cmd)
         i++;
     }
     return (0);
+}
+
+//Cette fonction ajoute un nouvelle element a la liste "export"
+void  add_new_export(char *new_exprt)
+{
+    char **new_list;
+    int i;
+
+    new_list = NULL;
+    new_list = malloc(sizeof(char **) * (ft_tab_len(g_state.exprt) + ft_tab_len(&new_exprt) + 1));
+    i = 0;
+    while (g_state.exprt[i])
+    {
+        new_list[i] = ft_strdup(g_state.exprt[i]);
+        i++;
+    }
+    new_list[i] = ft_strdup(new_exprt);
+    g_state.exprt = ft_sort_tab(new_list);
+    // print_exprt(ft_tab_len(g_state.exprt));
 }

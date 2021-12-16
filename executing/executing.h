@@ -44,5 +44,6 @@ char    *afther_equal(char *val_cmd);
 
 int no_equal(char *cmd);
 int last_is_equal(char *cmd);
+void  add_new_export(char *new_exprt);
 
 #endif

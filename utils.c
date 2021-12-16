@@ -39,9 +39,7 @@ int until_space(char *str)
 	while(!ft_isspace(str[inc]) && str[inc])
 	{
 		inc++;
-
 	}
-	
 return(inc);
 }
 
@@ -74,7 +72,7 @@ int ft_tab_len(char **tab)
     return (i);
 }
 
-// Sort un tableau de char en ordre ascii
+//Cette fonction trie un tableau de char en ordre ascii
 char **ft_sort_tab(char **tab)
 {
     int i;

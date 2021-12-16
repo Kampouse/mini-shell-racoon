@@ -31,6 +31,3 @@ void parsing()
 			free(trimed);
 	}
 }
-
-//void add_at
-//void delete_at
