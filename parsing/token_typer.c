@@ -5,7 +5,7 @@ int token_scanner(char *str,size_t *token_size)
 {
 	int inc;
 	const char *trimed  = ft_substr(str,0,until_space(str));
-	const char *tokens[10] = { ">>", "<<","<", ">","|","env","export","exit","echo",NULL};
+	const char *tokens[11] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset",NULL};
 
 	inc = -1;
 	if(!str)
