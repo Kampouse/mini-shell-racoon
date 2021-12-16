@@ -21,7 +21,8 @@ typedef enum e_type
 
 //chaque node est quand il y a pipe | 
 // export type = 6
-
+// env type  = 5 
+// unset type  = -2
 typedef struct s_redir
 {
     char    *cmd;

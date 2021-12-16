@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/15 19:53:22 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/16 15:47:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void parse_export(t_jobs *job)
             printf("variable[%d] = %s\n", j, variable[j]);
             printf("valeur[%d] = %s\n", j, valeur[j]);
             update_export_list(variable[j], valeur[j], 1);
-
+            update_env_list(variable[j], valeur[j], 1);
             //jean="" = export et jean= = env
             //type 1
         }
@@ -91,7 +91,6 @@ void parse_export(t_jobs *job)
             printf("variable[%d] = %s\n", j, variable[j]);
             printf("valeur[%d] = %s\n", j, valeur[j]);
             update_export_list(variable[j], valeur[j], 2);
-
             //jean = export env xx
             //type 2
         }
@@ -102,7 +101,7 @@ void parse_export(t_jobs *job)
             printf("variable[%d] = %s\n", j, variable[j]);
             printf("valeur[%d] = %s\n", j, valeur[j]);
             update_export_list(variable[j], valeur[j], 3);
-
+            update_env_list(variable[j], valeur[j], 3);
             //jean="oli" export jean=oli env
             //type 3
         }
