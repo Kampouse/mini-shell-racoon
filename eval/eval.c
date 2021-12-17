@@ -4,10 +4,8 @@ char	*find_in_env(char **envp,char *str)
 	int		inc;
 
 	char *temp;
-
 	temp = NULL;
 	inc = 0;
-
 		while(envp[inc])
 	{
 			if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
@@ -48,7 +46,7 @@ char *find_dollsing(char *str)
 	char *temp;
 len =	until_this(str + 1,"$");
 	if(len < 0)	
-	temp = ft_substr(str,0,ft_strlen(str));
+	temp = ft_substr(str,0,until_this(str," "));
 	else
 		temp = ft_substr(str,0,len + 1);
 return(temp);
@@ -60,7 +58,7 @@ char *find_var(char *str,int *len)
 {
 char *temp;
 char *temp_b;
-	temp = ft_substr(str,1, until_this(str + 2,"\"") + 1);
+	temp = ft_substr(str,1, until_this(str + 2,"\" ") + 1);
 	if(until_this(temp,"$") == 0)
 	{
 		temp_b = find_dollsing(temp);
@@ -71,12 +69,13 @@ char *temp_b;
 	else if(until_this(temp,"$") > 0) 
 	{
 		*len = until_this(temp,"$");
-		temp_b = ft_substr(temp,0, until_this(temp,"$"));
+		temp_b = ft_substr(temp,0, until_this(temp," $"));
 		free(temp);
 		return(temp_b);	
 	}
 	else
 	{
+		printf("TST\n");
 		*len = ft_strlen(temp);
 		return(temp);
 	}
@@ -109,10 +108,10 @@ inc = 0;
 					output = temp;
 			}
 			if( str + len && *(str + len + 1) == '\"') 
-				printf("%s\n",output);
+				printf("(%s)\n",output);
 			else if(quote != -1 && str + len && !(*(str + len + 1) == '\"'))
 	{
-				printf("%s\n",output);
+				printf("(%s)\n",output);
 				eval_string(str + len ,output,append);					
 	}
 return(str);
