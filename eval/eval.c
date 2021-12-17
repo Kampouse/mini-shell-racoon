@@ -103,14 +103,11 @@ inc = 0;
 			if(quote >= 0 && *( str + quote) == '\"')
 			{
 				temp = find_var(str,&len);
-				if(str[1] == '$')
-		{
+				if( (str[0] == '\"' && str[1] == '$') || str[1] == '$')
 					output = find_in_env(g_state.env,temp);
-		}
 				else
 					output = temp;
 			}
-			
 			if( str + len && *(str + len + 1) == '\"') 
 				printf("%s\n",output);
 			else if(quote != -1 && str + len && !(*(str + len + 1) == '\"'))
@@ -118,7 +115,6 @@ inc = 0;
 				printf("%s\n",output);
 				eval_string(str + len ,output,append);					
 	}
-
 return(str);
 }
 
