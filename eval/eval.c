@@ -30,6 +30,8 @@ int until_this(char *str,char *this)
 	int inc;
 
 	inc = 0;
+	if(!str)
+		return(-1);
 	while(str[inc])
 	{
 		if(ft_strchr(this,str[inc]))
@@ -58,11 +60,10 @@ char *find_var(char *str,int *len)
 {
 char *temp;
 char *temp_b;
-
 	temp = ft_substr(str,1, until_this(str + 2,"\"") + 1);
 	if(until_this(temp,"$") == 0)
 	{
-		temp_b =find_dollsing(temp);
+		temp_b = find_dollsing(temp);
 		*len = ft_strlen(temp_b);
 		free(temp);
 		return(temp_b);
@@ -71,7 +72,6 @@ char *temp_b;
 	{
 		*len = until_this(temp,"$");
 		temp_b = ft_substr(temp,0, until_this(temp,"$"));
-
 		free(temp);
 		return(temp_b);	
 	}
@@ -91,26 +91,33 @@ return(0);
 
 
 
-char *eval_string(char *str,char *output)
+char *eval_string(char *str,char *output,int append)
 {
 int inc;
 int len;
 char *temp;
+const   int quote = until_this(str,"\"");
 
 len = 0;
-const   int quote = until_this(str,"\'\"");
 inc = 0;
-			if(*( str + quote) == '\"')
+			if(quote >= 0 && *( str + quote) == '\"')
 			{
 				temp = find_var(str,&len);
-				if(*(str + len) == '$')
+				if(str[1] == '$')
+		{
 					output = find_in_env(g_state.env,temp);
+		}
 				else
 					output = temp;
-
 			}
-			if(ft_strlen(str + len + 1) == 1)
-				printf("red est NULL");
+			
+			if( str + len && *(str + len + 1) == '\"') 
+				printf("%s\n",output);
+			else if(quote != -1 && str + len && !(*(str + len + 1) == '\"'))
+	{
+				printf("%s\n",output);
+				eval_string(str + len ,output,append);					
+	}
 
 return(str);
 }
@@ -131,7 +138,7 @@ void eval_cmds(t_jobs *job)
 	if(job->cmd)	
 	{
 		while(job->cmd[++inc])
-			eval_string(job->cmd[inc],outcome);
+			eval_string(job->cmd[inc],outcome,0);
 	}
 }
 void eval_redir(t_jobs *job)
@@ -148,7 +155,7 @@ void eval_redir(t_jobs *job)
 		temp = job->redir;
 		while(temp)
 		{
-				eval_string(job->redir->cmd,temp_b);
+				eval_string(job->redir->cmd,temp_b,0);
 				temp = temp->next;
 		}
 	}
