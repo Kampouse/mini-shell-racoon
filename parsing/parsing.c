@@ -22,8 +22,10 @@ void parsing(t_exec *g_state)
 			lst = line_parser(trimed); 	
 			job = job_lsting(lst);
 			if(job && job->cmd)
-				//check_jobs(job);
+			{
 				eval(job,g_state);			
+			}
+				//check_jobs(job);
 				ft_lstdclear(&lst,free);
 			free_jobs(job);
 		}

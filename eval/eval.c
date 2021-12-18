@@ -33,7 +33,9 @@ int until_this(char *str,char *this)
 	while(str[inc])
 	{
 		if(ft_strchr(this,str[inc]))
+		{
 			return(inc);
+		}
 		inc++;
 	}
 return(-1);
@@ -69,7 +71,8 @@ char *temp_b;
 	else if(until_this(temp,"$") > 0) 
 	{
 		*len = until_this(temp,"$");
-		temp_b = ft_substr(temp,0, until_this(temp," $"));
+		//here should be another function that does somethimg diff
+		temp_b = ft_substr(temp,0, until_this(temp,"$"));
 		free(temp);
 		return(temp_b);	
 	}
@@ -92,13 +95,11 @@ return(0);
 
 char *eval_string(char *str,char *output,int append)
 {
-int inc;
 int len;
 char *temp;
 const   int quote = until_this(str,"\"");
 
 len = 0;
-inc = 0;
 			if(quote >= 0 && *( str + quote) == '\"')
 			{
 				temp = find_var(str,&len);
@@ -138,15 +139,12 @@ void eval_cmds(t_jobs *job)
 }
 void eval_redir(t_jobs *job)
 {
-	int inc;
 	t_redir *temp;	
 	char *temp_b;	
 
 	temp = NULL;
 	temp_b = NULL;
-	inc = -1;
-	if(job->redir)	
-	{
+	if(job->redir)	{
 		temp = job->redir;
 		while(temp)
 		{
