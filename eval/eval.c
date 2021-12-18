@@ -60,7 +60,7 @@ char *find_var(char *str,int *len)
 {
 char *temp;
 char *temp_b;
-	temp = ft_substr(str,1, until_this(str + 2,"\" ") + 1);
+	temp = ft_substr(str,1, until_this(str + 2,"\"$") + 1);
 	if(until_this(temp,"$") == 0)
 	{
 		temp_b = find_dollsing(temp);
@@ -71,15 +71,14 @@ char *temp_b;
 	else if(until_this(temp,"$") > 0) 
 	{
 		*len = until_this(temp,"$");
-		//here should be another function that does somethimg diff
 		temp_b = ft_substr(temp,0, until_this(temp,"$"));
 		free(temp);
 		return(temp_b);	
 	}
 	else
 	{
-		printf("TST\n");
 		*len = ft_strlen(temp);
+		printf("%d\n",*len);
 		return(temp);
 	}
 return(0);
