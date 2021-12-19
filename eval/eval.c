@@ -1,5 +1,4 @@
 #include "../minishell.h"
-#include <stdio.h>
 
 char	*find_in_env(char **envp,char *str)
 {
@@ -26,8 +25,38 @@ char	*find_in_env(char **envp,char *str)
 		inc++;
 	}
 return(NULL);
-
 }
+
+char *lazy_join(char *first,char *second)
+{
+	char		*output;
+	size_t		len;
+	size_t		len2;
+
+	if(!first && second)
+	{
+		output = ft_strdup(second);
+		free(second);
+		return(output);
+	}
+	if(!second)
+		return(first);
+	len = ft_strlen(first);
+	len2 = ft_strlen(second);
+	output = malloc(sizeof(char) * len + len2 + 1);
+	if (output)
+	{
+		ft_memcpy(output, first, len);
+		ft_memcpy(output + len, second, len2 + 1);
+		free(first);
+		free(second);
+	}
+	return (output);
+}
+
+
+
+
 int until_this(char *str,char *this)
 {
 	int inc;
@@ -98,19 +127,11 @@ char *temp_b;
 	else
 	{
 		*len = ft_strlen(temp);
-		printf("%d\n",*len);
+		//printf("%d\n",*len);
 		return(temp);
 	}
 return(0);
 }
-
-
-
-
-
-
-
-
 
 char *eval_string(char *str,char *output,int append)
 {
@@ -123,18 +144,13 @@ len = 0;
 			{
 				temp = find_var(str,&len);
 				if( (str[0] == '\"' && str[1] == '$') || str[1] == '$')
-					output = find_in_env(g_state.env,temp);
+					output = lazy_join(output,find_in_env(g_state.env,temp));
 				else
-					output = temp;
+					output = lazy_join(output,temp);
 			}
-			if( str + len && *(str + len + 1) == '\"') 
-				printf("(%s)\n",output);
-			else if(quote != -1 && str + len && !(*(str + len + 1) == '\"'))
-	{
-				printf("(%s)\n",output);
-				eval_string(str + len ,output,append);					
-	}
-return(str);
+			if(quote != -1 && str + len && !(*(str + len + 1) == '\"'))
+				output = eval_string(str + len ,output,append);					
+return(output);
 }
 
 
@@ -148,12 +164,14 @@ void eval_cmds(t_jobs *job)
 	char *outcome;
 
 	outcome = NULL;
-	inc = -1;
+	inc = 0;
 //	printf("(%s)",g_state.env[0]);
 	if(job->cmd)	
 	{
-		while(job->cmd[++inc])
-			eval_string(job->cmd[inc],outcome,0);
+		//there will require a  of both quote and non quote ...
+		outcome = 	eval_string(job->cmd[inc],outcome,0);
+		if(outcome)
+			printf("%s\n",outcome);
 	}
 }
 void eval_redir(t_jobs *job)
@@ -191,11 +209,3 @@ int eval(t_jobs *jobs,t_exec *g_state)
 	}
 return(0);
 }
-
-
-
-
-
-
-
-
