@@ -133,7 +133,7 @@ char *temp_b;
 return(0);
 }
 
-char *eval_string(char *str,char *output,int append)
+char *eval_dquote(char *str,char *output,int *append)
 {
 int len;
 char *temp;
@@ -143,49 +143,49 @@ len = 0;
 			if(quote >= 0 && *( str + quote) == '\"')
 			{
 				temp = find_var(str,&len);
+				*append += len;
 				if( (str[0] == '\"' && str[1] == '$') || str[1] == '$')
 					output = lazy_join(output,find_in_env(g_state.env,temp));
 				else
 					output = lazy_join(output,temp);
 			}
 			if(quote != -1 && str + len && !(*(str + len + 1) == '\"'))
-				output = eval_string(str + len ,output,append);					
+				output = eval_dquote(str + len ,output,append);					
 return(output);
 }
-
-
-
-
 
 
 void eval_cmds(t_jobs *job)
 {
 	int inc;
+	int len;
 	char *outcome;
-
+	
+	len = 0;
 	outcome = NULL;
 	inc = 0;
 //	printf("(%s)",g_state.env[0]);
 	if(job->cmd)	
 	{
 		//there will require a  of both quote and non quote ...
-		outcome = 	eval_string(job->cmd[inc],outcome,0);
+		outcome = eval_dquote(job->cmd[inc], outcome,&len);
 		if(outcome)
-			printf("%s\n",outcome);
+			printf("%s %d\n",outcome,len);
 	}
 }
 void eval_redir(t_jobs *job)
 {
 	t_redir *temp;	
+	int len;
 	char *temp_b;	
-
+	len  = 0;
 	temp = NULL;
 	temp_b = NULL;
 	if(job->redir)	{
 		temp = job->redir;
 		while(temp)
 		{
-				eval_string(job->redir->cmd,temp_b,0);
+				eval_dquote(job->redir->cmd,temp_b,&len);
 				temp = temp->next;
 		}
 	}
