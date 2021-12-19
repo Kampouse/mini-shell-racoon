@@ -6,13 +6,13 @@ char	*find_in_env(char **envp,char *str)
 	int		inc;
 	char *temp;
 
+	inc = 0;
 	temp = NULL;
 	if(ft_strlen(str) == 1 && str[0] == '$')
 	{
-
 		return(str);
 	}
-		while(envp[inc])
+		while(envp[inc] != 0)
 	{
 			if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
 		{
