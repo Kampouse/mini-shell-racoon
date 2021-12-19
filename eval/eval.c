@@ -1,12 +1,17 @@
 #include "../minishell.h"
 #include <stdio.h>
+
 char	*find_in_env(char **envp,char *str)
 {
 	int		inc;
-
 	char *temp;
+
 	temp = NULL;
-	inc = 0;
+	if(ft_strlen(str) == 1 && str[0] == '$')
+	{
+
+		return(str);
+	}
 		while(envp[inc])
 	{
 			if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
@@ -20,7 +25,6 @@ char	*find_in_env(char **envp,char *str)
 		}
 		inc++;
 	}
-
 return(NULL);
 
 }
@@ -58,7 +62,7 @@ char *find_dollsing(char *str)
 			if(until < 0)
 				until = ft_strlen(str);
 		len += until;
-		temp = ft_substr(str,0,until);
+		temp = ft_substr(str,0,len);
 	}
 	else if(len > 0)
 		temp = ft_substr(str,0,until);
