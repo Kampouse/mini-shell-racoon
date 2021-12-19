@@ -1,4 +1,5 @@
 #include "../minishell.h"
+#include <stdio.h>
 char	*find_in_env(char **envp,char *str)
 {
 	int		inc;
@@ -27,16 +28,15 @@ int until_this(char *str,char *this)
 {
 	int inc;
 
-	inc = 0;
+	inc = -1;
 	if(!str)
 		return(-1);
-	while(str[inc])
+	while(str[++inc])
 	{
 		if(ft_strchr(this,str[inc]))
 		{
 			return(inc);
 		}
-		inc++;
 	}
 return(-1);
 }
@@ -45,12 +45,28 @@ return(-1);
 char *find_dollsing(char *str)
 {
 	int len;
+	int until;
 	char *temp;
-len =	until_this(str + 1,"$");
-	if(len < 0)	
-	temp = ft_substr(str,0,until_this(str," "));
+	
+	until = 0;
+	if(!str)
+		return(NULL);
+	len =	until_this(str,"$");
+	if(len == 0 )	
+	{
+		 until = until_this(str," ");
+			if(until < 0)
+				until = ft_strlen(str);
+		len += until;
+		temp = ft_substr(str,0,until);
+	}
+	else if(len > 0)
+		temp = ft_substr(str,0,until);
 	else
-		temp = ft_substr(str,0,len + 1);
+	{
+		len = ft_strlen(str);
+		temp = ft_substr(str,0,len);
+	}
 return(temp);
 }
 
