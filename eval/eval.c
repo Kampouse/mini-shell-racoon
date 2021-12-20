@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-char	*find_in_env(char **envp,char *str)
+char	*find_env(char **envp,char *str)
 {
 	int		inc;
 	char *temp;
@@ -145,7 +145,7 @@ len = 0;
 				temp = find_var(str,&len);
 				*append += len;
 				if( (str[0] == '\"' && str[1] == '$') || str[1] == '$')
-					output = lazy_join(output,find_in_env(g_state.env,temp));
+					output = lazy_join(output,find_env(g_state.env,temp));
 				else
 					output = lazy_join(output,temp);
 			}

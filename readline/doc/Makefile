@@ -22,7 +22,7 @@ topdir = ..
 srcdir = .
 
 
-prefix = /usr/local/readline/8_0
+prefix = /usr/local
 
 datarootdir = ${prefix}/share
 
@@ -46,10 +46,10 @@ DESTDIR =
 SHELL = /bin/sh
 RM = rm -f
 
-INSTALL = /usr/bin/install -c
+INSTALL = /run/current-system/sw/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 
-BUILD_DIR = /home/olabrecq/projet42/mini-shell-racoon/readline-8.0
+BUILD_DIR = /home/kampr/dev/mini-shell-racoon/readline
 TEXINPUTDIR = $(srcdir)
 
 MAKEINFO    = LANGUAGE= makeinfo

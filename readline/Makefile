@@ -15,25 +15,25 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-RL_LIBRARY_VERSION = 8.0
+RL_LIBRARY_VERSION = 8.1
 RL_LIBRARY_NAME = readline
 
 PACKAGE = readline
-VERSION = 8.0
+VERSION = 8.1
 
 PACKAGE_BUGREPORT = bug-readline@gnu.org
 PACKAGE_NAME = readline
-PACKAGE_STRING = readline 8.0
-PACKAGE_VERSION = 8.0
+PACKAGE_STRING = readline 8.1
+PACKAGE_VERSION = 8.1
 
 PACKAGE_TARNAME = readline
 
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /home/olabrecq/projet42/mini-shell-racoon/readline-8.0
+BUILD_DIR = /home/kampr/dev/mini-shell-racoon/readline
 
-INSTALL = /usr/bin/install -c
+INSTALL = /run/current-system/sw/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 
@@ -48,7 +48,7 @@ MV = mv
 
 SHELL = /bin/sh
 
-prefix = /usr/local/readline/8_0
+prefix = /usr/local
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -72,10 +72,10 @@ DESTDIR =
 
 # Programs to make tags files.
 ETAGS = etags
-CTAGS = ctags -tw
+CTAGS = ctags -w
 
-CFLAGS = -g -O
-LOCAL_CFLAGS =  -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"'
+CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
+LOCAL_CFLAGS =  -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"' -DBRACKETED_PASTE_DEFAULT=1
 CPPFLAGS = 
 
 DEFS = -DHAVE_CONFIG_H 
@@ -93,7 +93,7 @@ CCFLAGS = $(XCCFLAGS) $(LOCAL_CFLAGS) $(CFLAGS)
 GCC_LINT_FLAGS = -ansi -Wall -Wshadow -Wpointer-arith -Wcast-qual \
 		 -Wwrite-strings -Wstrict-prototypes \
 		 -Wmissing-prototypes -Wno-implicit -pedantic
-GCC_LINT_CFLAGS = $(XCCFLAGS) $(GCC_LINT_FLAGS) -g -O 
+GCC_LINT_CFLAGS = $(XCCFLAGS) $(GCC_LINT_FLAGS) -g -O2 -Wno-parentheses -Wno-format-security 
 
 ASAN_XCFLAGS = -fsanitize=address -fno-omit-frame-pointer
 ASAN_XLDFLAGS = -fsanitize=address

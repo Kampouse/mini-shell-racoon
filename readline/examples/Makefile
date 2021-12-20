@@ -16,12 +16,12 @@
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-RL_LIBRARY_VERSION = 8.0
+RL_LIBRARY_VERSION = 8.1
 
 SHELL = /bin/sh
 RM = rm -f
 
-prefix = /usr/local/readline/8_0
+prefix = /usr/local
 exec_prefix = ${prefix}
 
 datarootdir = ${prefix}/share
@@ -32,10 +32,10 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /home/olabrecq/projet42/mini-shell-racoon/readline-8.0
+BUILD_DIR = /home/kampr/dev/mini-shell-racoon/readline
 installdir = $(datadir)/readline
 
-INSTALL = /usr/bin/install -c
+INSTALL = /run/current-system/sw/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_DATA = ${INSTALL} -m 644
 
@@ -47,7 +47,7 @@ DESTDIR =
 
 DEFS = -DHAVE_CONFIG_H
 CC = gcc
-CFLAGS = -g -O
+CFLAGS = -g -O2 -Wno-parentheses -Wno-format-security
 LOCAL_CFLAGS =  -DREADLINE_LIBRARY -DRL_LIBRARY_VERSION='"$(RL_LIBRARY_VERSION)"'
 CPPFLAGS = 
 
@@ -55,7 +55,7 @@ INCLUDES = -I$(srcdir) -I$(top_srcdir) -I..
 
 CCFLAGS  = $(ASAN_CFLAGS) $(DEFS) $(LOCAL_CFLAGS) $(INCLUDES) $(CPPFLAGS) \
 	$(CFLAGS)
-LDFLAGS = -g -L..  $(ASAN_LDFLAGS)
+LDFLAGS = -g -L..  -L./lib/termcap $(ASAN_LDFLAGS)
 
 ASAN_XCFLAGS = -fsanitize=address -fno-omit-frame-pointer
 ASAN_XLDFLAGS = -fsanitize=address
