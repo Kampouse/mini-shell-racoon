@@ -154,23 +154,67 @@ len = 0;
 return(output);
 }
 
+char *eval_squote(char *str, int *append)
+{
+const   int quote = until_this(str + 1 , "\'");
+
+	if(str[0] == '\'')
+	{
+		*append += (int)quote + 2;
+		 return (ft_substr(str,1,quote));	
+	}
+
+
+return(0);
+}
+
+
+char *eval_line(char *str,char *output)
+{
+
+int len;
+char *outcome;
+
+outcome = NULL;
+len = 0;
+
+		if( str && ft_strlen(str) == 0)
+			return(output);
+		if( str && str[0] == '\"')
+	{
+			 output = lazy_join(output,eval_dquote(str + len,outcome,&len));
+			len++;
+	}
+		if(str[len] == '\'')
+		{
+			output = lazy_join(output, eval_squote(str + len,&len));
+		}
+		if(ft_strlen(str + len) > 0)
+	{
+			return(eval_line(str + len + 1,output));
+	}
+	
+
+			printf("%s\n",output);
+return(output);
+}
+
+
+
+
 
 void eval_cmds(t_jobs *job)
 {
 	int inc;
-	int len;
-	char *outcome;
-	
-	len = 0;
-	outcome = NULL;
+	char *output;	
+
+	output = NULL;
 	inc = 0;
 //	printf("(%s)",g_state.env[0]);
 	if(job->cmd)	
 	{
 		//there will require a  of both quote and non quote ...
-		outcome = eval_dquote(job->cmd[inc], outcome,&len);
-		if(outcome)
-			printf("%s %d\n",outcome,len);
+	printf("%s",	eval_line(job->cmd[inc],output));
 	}
 }
 void eval_redir(t_jobs *job)
