@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 10:50:06 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/18 18:31:42 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/16 11:46:27 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,3 +78,4 @@ char	*findpath(char **envp)
 	path += ft_strlen("PATH=");
 	return (path);
 }
+

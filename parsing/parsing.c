@@ -2,7 +2,7 @@
 
 /* main  entry point of minishell where jobs  
 will be created(yet to be implemented) and  (executed WORKING)  */
-void parsing()
+void parsing(t_exec *g_state)
 {
 	char *line;
 	char *trimed;
@@ -22,8 +22,10 @@ void parsing()
 			lst = line_parser(trimed); 	
 			job = job_lsting(lst);
 			if(job && job->cmd)
-				check_jobs(job);
-			//eval(job);			
+			{
+				eval(job,g_state);			
+			}
+				//check_jobs(job);
 				ft_lstdclear(&lst,free);
 			free_jobs(job);
 		}

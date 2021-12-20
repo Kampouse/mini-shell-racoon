@@ -4,7 +4,6 @@
 char  *line_handler(char *str, size_t *len)
 {
 	char *temp;
-
 	temp = line_no_string(str, len);
 
 	if (temp)	
@@ -87,13 +86,21 @@ int is_quoted(char *str)
 {
 	int inc;
 	int state;
+	int type;
 
 	state = 0;
 	inc = 0;
+	type = 0;
 	while(str[inc])
 	{
 		if(str[inc] == '\''	|| str[inc] == '\"')
-			 state = !state;
+		{
+				if(type == 0)
+					type =  str[inc];
+			if(type ==  str[inc])
+				 state = !state;
+
+		}
 		if(state == 0 && ft_strchr("<>|\n\v\f\r ",str[inc]))
 			return(inc);
 		inc++;
