@@ -33,4 +33,3 @@ void parsing(t_exec *g_state)
 			free(trimed);
 	}
 }
-

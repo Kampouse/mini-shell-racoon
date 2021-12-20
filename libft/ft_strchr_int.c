@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   variable.c                                         :+:      :+:    :+:   */
+/*   ft_strchr_int.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/18 17:55:42 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/11/29 14:06:50 by olabrecq         ###   ########.fr       */
+/*   Created: 2021/12/16 15:06:46 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/12/16 15:09:00 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-char *print_var(char *var)
+int     ft_strchr_int(const char *str, int ch)
 {
-	int i = 0;
-	char *temp;
-	char *ret;
-	
-	temp = ft_strchr(var, '$');
-	//printf("%s\n", temp);
-	ret = temp;
-	while (g_state.env[i])
-	{
-		if (ret == ft_strnstr(g_state.env[i], temp, ft_strlen(g_state.env[i])))
-		{
-			ret = ft_strchr(g_state.env[i], '=');
-			printf("%s\n", ret);
-			return (ret);
-		}
+    int i;
+
+    i = 0;
+	while (str[i] != ch)
 		i++;
-	}
-	return ("Error");
+	return (i);
 }

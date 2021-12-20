@@ -44,5 +44,13 @@ char    *afther_equal(char *val_cmd);
 
 int no_equal(char *cmd);
 int last_is_equal(char *cmd);
+void  add_new_export(char *new_exprt);
+
+//ENV UTILS
+void  add_new_env(char *new_env);
+void update_env_list(char *var, char *val, int type);
+
+//UNSET
+void do_unset(t_jobs *job);
 
 #endif

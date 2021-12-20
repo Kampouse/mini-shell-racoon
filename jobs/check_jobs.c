@@ -2,14 +2,16 @@
 
 void check_bultin(t_jobs *job)
 {
+		printf("cmd type = %d\n", job->cmd_type);
 		if (job->cmd_type == 6)
             do_export(job);
-    	if (!(ft_strncmp(job->cmd[0], "env", ft_strlen(job->cmd[0]))))
+    	if (job->cmd_type == 5)
 			do_env(job);
+    	if (job->cmd_type == 9)
+			do_unset(job);
 //     if (!(ft_strncmp(job->cmd[0], "echo", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "cd", ft_strlen(trimed))))
-//     if (!(ft_strncmp(job->cmd[0], "unset", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "exit", ft_strlen(trimed))))
 }
 

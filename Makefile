@@ -17,12 +17,15 @@ SRCS =  main.c \
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
 		\
+		./eval/eval.c \
+		\
 		./executing/env.c \
+		./executing/env_utils.c \
 		./executing/export.c \
- 		./executing/variable.c \
 		./executing/exec.c \
 		./executing/export_valider.c \
 		./executing/export_utils.c \
+		./executing/unset.c \
 		\
 		./jobs/jobs_redir.c \
 		./jobs/jobs_redir_links.c \
