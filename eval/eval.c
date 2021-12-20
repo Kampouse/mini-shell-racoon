@@ -214,6 +214,7 @@ void eval_cmds(t_jobs *job)
 	if(job->cmd)	
 	{
 		//there will require a  of both quote and non quote ...
+		//
 	printf("%s",	eval_line(job->cmd[inc],output));
 	}
 }
