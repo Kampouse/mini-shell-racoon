@@ -150,9 +150,9 @@ const int until = until_this(str + 1,"$\'\"");
 
 		else
 		{
-				temp =ft_substr(str,0,until);
+				temp =ft_substr(str,0,ft_strlen(str));
 				 temp = find_env(g_state.env,temp);
-				*len += until_this(str + 1,"$\'\"");
+				*len += ft_strlen(str);
 		}
 	}
 	else
