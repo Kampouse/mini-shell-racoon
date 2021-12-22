@@ -5,15 +5,14 @@ char	*find_env(char **envp,char *str)
 	int		inc;
 	char *temp;
 
-	inc = 0;
-	temp = NULL;
+	inc = -1;
 	if(!str)
 		return(NULL);
 	if(ft_strlen(str) == 1 && str[0] == '$')
 	{
 		return(str);
 	}
-		while(envp[inc] != 0)
+		while(envp[++inc] != 0)
 	{
 		if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
 		{
@@ -24,7 +23,6 @@ char	*find_env(char **envp,char *str)
 				return(temp);	
 			}
 		}
-		inc++;
 	}
 return(NULL);
 }
@@ -113,49 +111,36 @@ return(temp);
 /* catch what inside of a  double quote and return what it  as  made and len */
 char *find_var(char *str,int *len)
 {
-char *temp;
 int until;
 
-temp = NULL;
-
-
-
-
 	if(str)
-	{
 		until = until_this(str,"$");
-	}
 	if(until < 0 )
 	{
-
 		*len += until_this(str,"\"") + 1;
 		return( ft_substr(str ,0,until_this(str,"\"")));
 	}
-
 	if( until > 0 )
 	{
-		printf("tst");
 		*len += until_this(str + 1," $") + 1;
 		return(ft_substr(str,0, until_this(str + 1," $") + 1)); 
 	}
 	if(until == 0 &&  until_this(str + 1,"$") != -1)
 	{
-
 		*len += until_this(str + 1,"$ ") + 1;
 		return(ft_substr(str,0,until_this(str + 1,"$ ") + 1)); 
-
 	}
 	if(until == 0  &&  until_this(str + 1," $") != -1)
 	{
-		*len += until_this(str + 1," $\"") + 1;
-		return(ft_substr(str,0,until_this(str + 1," $\"") + 1)); 
+		*len += until_this(str + 1," \"$") + 1;
+		return(ft_substr(str,0,until_this(str + 1," \"$") + 1)); 
 	}
 	else
 	{
-		*len += until_this(str + 1," \"") + 1;
-		return( ft_substr(str,0,until_this(str + 1," \"") + 1)); 
+		*len += until_this(str + 1," \'\"") + 1;
+		return( ft_substr(str,0,until_this(str + 1," \'\"") + 1)); 
 	}
-return(temp);
+return(0);
 }
 
 char *find_varno(char *str,int *len)
@@ -222,8 +207,8 @@ char *eval_dquote(char *str,char *output,int *append)
 {
 int len;
 char *temp;
+
 len = 0;
-			
 					printf("%s\n",str + *append);
 				
 			if(until_this(str + *append,"\"") > 0)
@@ -261,7 +246,6 @@ return(0);
 
 char *eval_line(char *str,char *output)
 {
-
 int len;
 char *outcome;
 
@@ -271,7 +255,9 @@ len = 0;
 			return(output);
 		if( str && str[0] == '\"' && str + 1)
 	{
-			 output = lazy_join(output,eval_dquote(str  + 1,outcome,&len));
+				char *temp = ft_substr(str,1,until_this(str +1,"\"") + 1);
+			 output = lazy_join(output,eval_dquote(temp,outcome,&len));
+			 free(temp);
 			 len++;
 	}
 	if(ft_strlen(str + len) != 0 && str[len] == '\'')
@@ -279,9 +265,7 @@ len = 0;
 		output = lazy_join(output, eval_squote(str + len,&len));
 	}
 	if( str[len] != '\0' && str[len] != '\'' && str[len] != '\"' && ft_strlen(str) > 0 )
-	{
 			 output = lazy_join(output,eval_noquote(str + len,outcome,&len));
-	}
 		if(ft_strlen(str + len ) > 0)
 			return(eval_line(str + len,output));
 		
