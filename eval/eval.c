@@ -7,19 +7,21 @@ char	*find_env(char **envp,char *str)
 
 	inc = 0;
 	temp = NULL;
+	if(!str)
+		return(NULL);
 	if(ft_strlen(str) == 1 && str[0] == '$')
 	{
 		return(str);
 	}
 		while(envp[inc] != 0)
 	{
-			if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
+		if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
 		{
-				if(	*(envp[inc] + ft_strlen(str + 1)) == '=')	
+			if(	*(envp[inc] + ft_strlen(str + 1)) == '=')	
 			{
-					temp =  ft_strdup(envp[inc] + ft_strlen(str + 1) + 1);
-						free(str);
-					return(temp);	
+				temp =  ft_strdup(envp[inc] + ft_strlen(str + 1) + 1);
+					free(str);
+				return(temp);	
 			}
 		}
 		inc++;
@@ -54,9 +56,6 @@ char *lazy_join(char *first,char *second)
 	return (output);
 }
 
-
-
-
 int until_this(char *str,char *this)
 {
 	int inc;
@@ -81,24 +80,31 @@ char *find_dollsing(char *str)
 	int until;
 	char *temp;
 	
+	temp = NULL;
 	until = 0;
 	if(!str)
 		return(NULL);
 	len =	until_this(str,"$");
 	if(len == 0 )	
 	{
-		 until = until_this(str," ");
-			if(until < 0)
+		 until = until_this(str," $");
+			if(until <= 0)
+		{
+				printf("%d",until);
 				until = ft_strlen(str);
-		len += until;
+		}
+		len = until;
 		temp = ft_substr(str,0,len);
+		return(temp);
 	}
 	else if(len > 0)
-		temp = ft_substr(str,0,until);
+		return(ft_substr(str,1,until + 1));
 	else
 	{
 		len = ft_strlen(str);
-		temp = ft_substr(str,0,len);
+	if(str[0] == '\"')
+		return(ft_substr(str + 1,0,len - 2));
+
 	}
 return(temp);
 }
@@ -108,67 +114,87 @@ return(temp);
 char *find_var(char *str,int *len)
 {
 char *temp;
-char *temp_b;
+int until;
 
-	temp = ft_substr(str,1, until_this(str + 2,"\"$") + 1);
-	if(until_this(temp,"$") == 0)
+temp = NULL;
+
+
+
+
+	if(str)
 	{
-		temp_b = find_dollsing(temp);
-		*len = ft_strlen(temp_b);
-		free(temp);
-		return(temp_b);
+		until = until_this(str,"$");
 	}
-	else if(until_this(temp,"$") > 0) 
+	if(until < 0 )
 	{
-		*len = until_this(temp,"$");
-		temp_b = ft_substr(temp,0, until_this(temp,"$"));
-		free(temp);
-		return(temp_b);	
+
+		*len += until_this(str,"\"") + 1;
+		return( ft_substr(str ,0,until_this(str,"\"")));
+	}
+
+	if( until > 0 )
+	{
+		printf("tst");
+		*len += until_this(str + 1," $") + 1;
+		return(ft_substr(str,0, until_this(str + 1," $") + 1)); 
+	}
+	if(until == 0 &&  until_this(str + 1,"$") != -1)
+	{
+
+		*len += until_this(str + 1,"$ ") + 1;
+		return(ft_substr(str,0,until_this(str + 1,"$ ") + 1)); 
+
+	}
+	if(until == 0  &&  until_this(str + 1," $") != -1)
+	{
+		*len += until_this(str + 1," $\"") + 1;
+		return(ft_substr(str,0,until_this(str + 1," $\"") + 1)); 
 	}
 	else
 	{
-		*len = ft_strlen(temp);
-		//printf("%d\n",*len);
-		return(temp);
+		*len += until_this(str + 1," \"") + 1;
+		return( ft_substr(str,0,until_this(str + 1," \"") + 1)); 
 	}
-return(0);
+return(temp);
 }
 
 char *find_varno(char *str,int *len)
 {
+
+int until;
 char *temp;
-const int until = until_this(str + 1,"$\'\"");
-
-			if(str[0] == '$')
+until = 0;
+if(str + *len  && ft_strlen(str + *len) != 0)
 	{
-			if(until >=  0)
-		{
-				temp = ft_substr(str,0,until + 1);
-				 temp = find_env(g_state.env,temp);
-				*len += until;
-		}
-
-		else
-		{
-				temp =ft_substr(str,0,ft_strlen(str));
-				 temp = find_env(g_state.env,temp);
-				*len += ft_strlen(str);
-		}
+		printf("(%d)--\n",(int)ft_strlen(str));
+	}
+	if(str[0] == '$')
+	{
+	if(until >= 0)
+	{
+		 temp = find_env(g_state.env, ft_substr(str,0,until + 1));
+			*len += until + 1;
 	}
 	else
 	{
-			if(until == -1)		
-		{
-				temp = ft_strdup(str);
-				*len += ft_strlen(str);
-		}
+		 temp = find_env(g_state.env, ft_substr(str ,0,ft_strlen(str)));
+		*len += ft_strlen(str) + 1;
+	}
+	return(temp);
+	}
+	else
+	{
+	if(until == -1)		
+	{
+			temp = ft_strdup(str);
+			*len += (int)ft_strlen(str);
+	}
 		else
 		{
 			 temp = ft_substr(str,0,until + 1);
 				*len += until;
 		}
 	}
-		
 return(temp);
 }
 
@@ -179,14 +205,16 @@ char *eval_noquote(char *str,char *output,int *append)
 int len;
 
 char *temp;
-temp = NULL;
-len = 0;
 
-	
+temp = NULL;
+len = *append;
+			if(str + *append)
+	{
+
 		temp = find_varno(str + *append,&len);
-		if(temp)
 			*append += len;
 		(void)output;
+	}
 	return(temp);
 }
 
@@ -194,21 +222,25 @@ char *eval_dquote(char *str,char *output,int *append)
 {
 int len;
 char *temp;
-const   int quote = until_this(str,"\"");
-
 len = 0;
-
-			if(quote >= 0 && *( str + quote) == '\"')
+			
+					printf("%s\n",str + *append);
+				
+			if(until_this(str + *append,"\"") > 0)
 			{
-				temp = find_var(str,&len);
+					
+				temp = find_var(str + *append,&len);
 				*append += len;
-				if(str[1] == '$')
+				if(temp && temp[0] == '$')
+		{
 					output = lazy_join(output,find_env(g_state.env,temp));
+		}
 				else
+		{
 					output = lazy_join(output,temp);
+		}
+				output = eval_dquote(str,output,append);					
 			}
-			if(quote != -1 && str + len && !(*(str + len + 1) == '\"'))
-				output = eval_dquote(str + len ,output,append);					
 return(output);
 }
 
@@ -216,9 +248,9 @@ char *eval_squote(char *str, int *append)
 {
 const   int quote = until_this(str + 1 , "\'");
 
-	if(str[0] == '\'')
+	if(str && str[0] == '\'')
 	{
-		*append += (int)quote + 1;
+		*append += (int)quote + 2;
 		 return (ft_substr(str,1,quote));	
 	}
 
@@ -235,26 +267,24 @@ char *outcome;
 
 outcome = NULL;
 len = 0;
-
-		if( str && ft_strlen(str) == 0)
+		if( !str || ft_strlen(str) == 0)
 			return(output);
-		if( str && str[0] == '\"')
+		if( str && str[0] == '\"' && str + 1)
 	{
-			 output = lazy_join(output,eval_dquote(str + len,outcome,&len));
-			len++;
+			 output = lazy_join(output,eval_dquote(str  + 1,outcome,&len));
+			 len++;
 	}
-	if(str[len] == '\'')
+	if(ft_strlen(str + len) != 0 && str[len] == '\'')
 	{
 		output = lazy_join(output, eval_squote(str + len,&len));
 	}
-	if( str && until_this(str + len,"\'\""))
+	if( str[len] != '\0' && str[len] != '\'' && str[len] != '\"' && ft_strlen(str) > 0 )
 	{
 			 output = lazy_join(output,eval_noquote(str + len,outcome,&len));
 	}
-		if(str + len && ft_strlen(str + len) > 0)
-	{
-			return(eval_line(str + len + 1,output));
-	}
+		if(ft_strlen(str + len ) > 0)
+			return(eval_line(str + len,output));
+		
 return(output);
 }
 
@@ -274,7 +304,9 @@ void eval_cmds(t_jobs *job)
 	{
 		//there will require a  of both quote and non quote ...
 		//
-	printf("%s\n",	eval_line(job->cmd[inc],output));
+		output = eval_line(job->cmd[inc],output);
+		if(output)
+			printf("%s\n",output);
 	}
 }
 void eval_redir(t_jobs *job)
