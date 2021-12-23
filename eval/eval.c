@@ -71,42 +71,6 @@ int until_this(char *str,char *this)
 return(-1);
 }
 
-
-char *find_dollsing(char *str)
-{
-	int len;
-	int until;
-	char *temp;
-	
-	temp = NULL;
-	until = 0;
-	if(!str)
-		return(NULL);
-	len =	until_this(str,"$");
-	if(len == 0 )	
-	{
-		 until = until_this(str," $");
-			if(until <= 0)
-		{
-				until = ft_strlen(str);
-		}
-		len = until;
-		temp = ft_substr(str,0,len);
-		return(temp);
-	}
-	else if(len > 0)
-		return(ft_substr(str,1,until + 1));
-	else
-	{
-		len = ft_strlen(str);
-	if(str[0] == '\"')
-		return(ft_substr(str + 1,0,len - 2));
-
-	}
-return(temp);
-}
-
-
 /* catch what inside of a  double quote and return what it  as  made and len */
 char *find_var(char *str,int *len)
 {
@@ -140,46 +104,6 @@ int until;
 		return( ft_substr(str,0,until_this(str + 1," \'\"") + 1)); 
 	}
 return(0);
-}
-
-char *find_varno(char *str,int *len)
-{
-
-int until;
-char *temp;
-until = 0;
-if(str + *len  && ft_strlen(str + *len) != 0)
-	{
-		printf("(%d)--\n",(int)ft_strlen(str));
-	}
-	if(str[0] == '$')
-	{
-	if(until >= 0)
-	{
-		 temp = find_env(g_state.env, ft_substr(str,0,until + 1));
-			*len += until + 1;
-	}
-	else
-	{
-		 temp = find_env(g_state.env, ft_substr(str ,0,ft_strlen(str)));
-		*len += ft_strlen(str) + 1;
-	}
-	return(temp);
-	}
-	else
-	{
-	if(until == -1)		
-	{
-			temp = ft_strdup(str);
-			*len += (int)ft_strlen(str);
-	}
-		else
-		{
-			 temp = ft_substr(str,0,until + 1);
-				*len += until;
-		}
-	}
-return(temp);
 }
 
 char *eval_noquote(char *str,int *append)
@@ -270,10 +194,6 @@ len = 0;
 return(output);
 }
 
-
-
-
-
 void eval_cmds(t_jobs *job)
 {
 	int inc;
@@ -281,11 +201,8 @@ void eval_cmds(t_jobs *job)
 
 	output = NULL;
 	inc = 0;
-//	printf("(%s)",g_state.env[0]);
 	if(job->cmd)	
 	{
-		//there will require a  of both quote and non quote ...
-		//
 		output = eval_line(job->cmd[inc],output,0);
 		if(output)
 		{
@@ -294,6 +211,7 @@ void eval_cmds(t_jobs *job)
 		}
 	}
 }
+
 void eval_redir(t_jobs *job)
 {
 	t_redir *temp;	
@@ -306,7 +224,7 @@ void eval_redir(t_jobs *job)
 		temp = job->redir;
 		while(temp)
 		{
-				eval_dquote(job->redir->cmd,temp_b,&len);
+	//			eval_dquote(job->redir->cmd,temp_b,&len);
 				temp = temp->next;
 		}
 	}
