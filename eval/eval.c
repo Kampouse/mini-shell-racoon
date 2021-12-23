@@ -182,26 +182,32 @@ if(str + *len  && ft_strlen(str + *len) != 0)
 return(temp);
 }
 
-
-
-char *eval_noquote(char *str,char *output,int *append)
+char *eval_noquote(char *str,int *append)
 {
 int len;
 char *middle;
 
-len = until_this(str + *append,"\'\"");
-	if(len == -1)
+len = until_this(str + *append,"$\'\"");
+if(len == 0)
+	{
+		if(until_this(str + *append + 1,"$\'\"") < 0 )
+			len = ft_strlen(str  + *append);
+		else if(len == 0 && ft_strlen(str + *append) == 1)
+			len++;
+		else
+			len = until_this(str + *append + 1,"\'\"$") + 1; 
+	}
+	if(len > 0)
+		 middle = ft_substr(str + *append,0,len);
+	if(len < 0)
 	{
 		len = ft_strlen(str + *append);
-		middle = ft_substr(str + *append,0,len);
-		*append += len;
-		return(middle);
+		 middle = ft_substr(str + *append,0,len);
 	}
-	middle = ft_substr(str + *append,0,len);
-	*append += len;;
-
-	(void)output;
-	return(middle);
+	*append += len;
+	if(middle[0] == '$') 
+	 return(find_env(g_state.env,middle));
+return(middle);
 }
 
 char *eval_dquote(char *str,char *output,int *append)
@@ -210,7 +216,6 @@ int len;
 char *temp;
 
 len = 0;
-
 		if(until_this(str + *append,"\"") != -1)
 		{
 			temp = find_var(str + *append,&len);
@@ -233,8 +238,6 @@ const   int quote = until_this(str + 1 , "\'");
 		*append += (int)quote + 2;
 		 return (ft_substr(str,1,quote));	
 	}
-
-
 return(0);
 }
 
@@ -247,25 +250,23 @@ char *temp;
 
 outcome = NULL;
 len = 0;
-		if( str[lon] == '\"')
+	if( str[lon] == '\"')
 	{
-				temp = ft_substr(str + lon,1,until_this(str + lon + 1,"\"") + 1);
-			 output = lazy_join(output,eval_dquote(temp,outcome,&len));
-			 lon+= until_this(str + lon + 1,"\"") + 2;
-			 free(temp);
+		temp = ft_substr(str + lon,1,until_this(str + lon + 1,"\"") + 1);
+		 output = lazy_join(output,eval_dquote(temp,outcome,&len));
+		 lon+= until_this(str + lon + 1,"\"") + 2;
+		 free(temp);
 	}
 
 	if(str && ft_strlen(str + lon) != 0 && str[lon] == '\'')
 	{
 		output = lazy_join(output, eval_squote(str + lon,&len));
-			lon+=until_this(str + lon + 1,"\'") + 2;
+		lon+=until_this(str + lon + 1,"\'") + 2;
 	}
-if(str[lon] != '\'' && str[lon] != '\"' && ft_strlen(str + lon) > 0 )
-	{
-		output = lazy_join(output,eval_noquote(str,outcome,&lon));
-	}
-		if(ft_strlen(str + lon) > 0)
-			return(eval_line(str,output,lon));
+	if(str[lon] != '\'' && str[lon] != '\"' && ft_strlen(str + lon) > 0)
+		output = lazy_join(output,eval_noquote(str,&lon));
+	if(ft_strlen(str + lon) > 0)
+		return(eval_line(str,output,lon));
 return(output);
 }
 
