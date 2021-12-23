@@ -218,8 +218,9 @@ void eval_cmds(t_jobs *job)
 		output = eval_line(job->cmd[inc],output,0);
 		if(output)
 		{
-			printf("%s\n",output);
-			free(output);
+				job->cmd[inc] = output;
+				free(job->cmd[inc]);
+				//freelist(g_state.env);
 		}
 	}
 }
