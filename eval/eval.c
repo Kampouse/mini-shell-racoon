@@ -187,19 +187,21 @@ return(temp);
 char *eval_noquote(char *str,char *output,int *append)
 {
 int len;
+char *middle;
 
-char *temp;
-
-temp = NULL;
-len = *append;
-			if(str + *append)
+len = until_this(str + *append,"\'\"");
+	if(len == -1)
 	{
-
-		temp = find_varno(str + *append,&len);
-			*append += len;
-		(void)output;
+		len = ft_strlen(str + *append);
+		middle = ft_substr(str + *append,0,len);
+		*append += len;
+		return(middle);
 	}
-	return(temp);
+	middle = ft_substr(str + *append,0,len);
+	*append += len;;
+
+	(void)output;
+	return(middle);
 }
 
 char *eval_dquote(char *str,char *output,int *append)
@@ -258,8 +260,10 @@ len = 0;
 		output = lazy_join(output, eval_squote(str + lon,&len));
 			lon+=until_this(str + lon + 1,"\'") + 2;
 	}
-	// if( str[len] != '\0' && str[len] != '\'' && str[len] != '\"' && ft_strlen(str) > 0 )
-		//	 output = lazy_join(output,eval_noquote(str + len,outcome,&len));
+if(str[lon] != '\'' && str[lon] != '\"' && ft_strlen(str + lon) > 0 )
+	{
+		output = lazy_join(output,eval_noquote(str,outcome,&lon));
+	}
 		if(ft_strlen(str + lon) > 0)
 			return(eval_line(str,output,lon));
 return(output);
