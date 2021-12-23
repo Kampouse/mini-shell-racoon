@@ -88,7 +88,6 @@ char *find_dollsing(char *str)
 		 until = until_this(str," $");
 			if(until <= 0)
 		{
-				printf("%d",until);
 				until = ft_strlen(str);
 		}
 		len = until;
@@ -137,7 +136,6 @@ int until;
 	}
 	else
 	{
-		printf("%s\n",str);
 		*len += until_this(str + 1," \'\"") + 1;
 		return( ft_substr(str,0,until_this(str + 1," \'\"") + 1)); 
 	}
@@ -247,7 +245,6 @@ char *temp;
 
 outcome = NULL;
 len = 0;
-
 		if( str[lon] == '\"')
 	{
 				temp = ft_substr(str + lon,1,until_this(str + lon + 1,"\"") + 1);
@@ -255,10 +252,11 @@ len = 0;
 			 lon+= until_this(str + lon + 1,"\"") + 2;
 			 free(temp);
 	}
+
 	if(str && ft_strlen(str + lon) != 0 && str[lon] == '\'')
 	{
 		output = lazy_join(output, eval_squote(str + lon,&len));
-			lon+=len;
+			lon+=until_this(str + lon + 1,"\'") + 2;
 	}
 	// if( str[len] != '\0' && str[len] != '\'' && str[len] != '\"' && ft_strlen(str) > 0 )
 		//	 output = lazy_join(output,eval_noquote(str + len,outcome,&len));
