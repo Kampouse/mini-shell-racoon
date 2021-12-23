@@ -72,22 +72,34 @@ return(-1);
 }
 
 /* catch what inside of a  double quote and return what it  as  made and len */
-char *find_var(char *str,int *len)
-{
-int until;
 
-	if(str)
-		until = until_this(str,"$");
+char *find_varutil(char *str,int **len,int until)
+{
+
 	if(until < 0 )
 	{
-		*len += until_this(str,"\"") + 1;
+		**len += until_this(str,"\"") + 1;
 		return( ft_substr(str ,0,until_this(str,"\"")));
 	}
 	if( until > 0 )
 	{
-		*len += until_this(str + 1," $") + 1;
+		**len += until_this(str + 1," $") + 1;
 		return(ft_substr(str,0, until_this(str + 1," $") + 1)); 
 	}
+
+return(NULL);
+}
+
+
+char *find_var(char *str,int *len)
+{
+int until;
+int **temp;
+
+temp = &len;
+		until = until_this(str,"$");
+	if( until > 0  || until  < 0 )
+		return(find_varutil(str,temp,until));
 	if(until == 0 &&  until_this(str + 1,"$") != -1)
 	{
 		*len += until_this(str + 1,"$ ") + 1;
@@ -215,11 +227,11 @@ void eval_cmds(t_jobs *job)
 void eval_redir(t_jobs *job)
 {
 	t_redir *temp;	
-	int len;
-	char *temp_b;	
-	len  = 0;
+	//int len;
+	//char *temp_b;	
+	//len  = 0;
 	temp = NULL;
-	temp_b = NULL;
+	//temp_b = NULL;
 	if(job->redir)	{
 		temp = job->redir;
 		while(temp)
