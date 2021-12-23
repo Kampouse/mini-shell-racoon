@@ -213,7 +213,7 @@ void eval_cmds(t_jobs *job)
 
 	output = NULL;
 	inc = 0;
-	if(job->cmd)	
+	if(job->cmd && job->cmd[inc])	
 	{
 		output = eval_line(job->cmd[inc],output,0);
 		if(output)
