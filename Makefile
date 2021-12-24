@@ -35,8 +35,8 @@ SRCS =  main.c \
 
 		
 RM =  rm -rf 
-# .c.o:
-# 	@gcc  ${FLAGS}  -c $< -o ${<:.c=.o}
+.c.o:
+	@gcc  ${FLAGS}  -c $< -o ${<:.c=.o}
 
 OBJS = ${SRCS:.c=.o}
 CC = gcc
@@ -44,7 +44,7 @@ all: ${NAME}
 ${NAME}:${OBJS}
 
 		@$(MAKE) -C libft
-		@${CC} ${OBJS} ${FLAGS} -lreadline -L./readline -L./libft -lft -lncurses -o ${NAME}
+		@${CC} ${OBJS} ${FLAGS}  -lreadline -L./readline ./libft/libft.a  -lncurses  -L./ncurses/lib -o ${NAME}
 
 run: all
 		./$(NAME)
@@ -79,3 +79,4 @@ re: fclean all
 re: fclean all
 	
 .PHONY: clean fclean re all/
+
