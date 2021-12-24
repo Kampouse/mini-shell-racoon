@@ -11,8 +11,8 @@ void check_bultin(t_jobs *job)
             do_export(job);
     	if (job->cmd_type == 5)
 			do_env(job);
-    	if (job->cmd_type == 9)
-			do_unset(job);
+    	// if (job->cmd_type == 9)
+		// 	do_unset(job);
 //     if (!(ft_strncmp(job->cmd[0], "echo", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "cd", ft_strlen(trimed))))
