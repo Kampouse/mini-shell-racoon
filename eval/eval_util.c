@@ -1,4 +1,5 @@
 #include "eval.h"
+/* return variable from env else NULL */
 char	*find_env(char **envp,char *str)
 {
 	int		inc;
@@ -23,7 +24,7 @@ char	*find_env(char **envp,char *str)
 	}
 	return(NULL);
 }
-
+ /* reinforce join so it can handle  NULL */
 char *lazy_join(char *first,char *second)
 {
 	char		*output;
@@ -51,6 +52,7 @@ char *lazy_join(char *first,char *second)
 	return (output);
 }
 
+/*  count how many  char it can read until a delimiter else return -1 */
 int until_this(char *str,char *this)
 {
 	int inc;
@@ -68,7 +70,7 @@ int until_this(char *str,char *this)
 return(-1);
 }
 
-/* catch what inside of a  double quote and return what it  as  made and len */
+/*   extenion of  find_var*/
 char *find_varutil(char *str,int **len,int until)
 {
 
@@ -85,7 +87,7 @@ char *find_varutil(char *str,int **len,int until)
 
 return(NULL);
 }
-
+/* core of double quote  expension*/
 char *find_var(char *str,int *len)
 {
 int until;

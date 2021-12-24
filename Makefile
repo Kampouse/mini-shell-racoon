@@ -5,7 +5,6 @@ FLAGS =   -g -Wall -Wextra -Werror
 SRCS =  main.c \
 		utils.c\
 		\
-		./parsing/token_analyzer.c \
 		./parsing/parsing.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
@@ -70,7 +69,6 @@ git:
 		./parsing/parsing.h \
 		./jobs/jobs.h \
 		./eval/eval.h
-
 
 fclean: clean
 	@${RM} ${NAME}
