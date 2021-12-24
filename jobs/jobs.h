@@ -4,21 +4,6 @@
 #ifndef JOB_H
 # define JOB_H
 
-typedef enum e_type
-{
-    CHAR,
-    DELIM,
-    VAR,
-    END_VAR,
-    S_QUOTE,
-    D_QUOTE,
-    PIPE,
-    REDIR_IN,
-    REDIR_OUT,
-    HEREDOC,
-    REDIR_OUT_CAT,
-} type;
-
 //chaque node est quand il y a pipe | 
 // export type = 6
 // env type  = 5 
@@ -32,7 +17,6 @@ typedef struct s_redir
 
 }		t_redir;
 
-
 typedef struct s_jobs
 {
     char    **cmd;
@@ -45,8 +29,7 @@ typedef struct s_jobs
 	struct s_jobs  *next;
 	struct s_jobs  *prev;
 
-}		t_jobs;
-
+}	t_jobs;
 
 int redir_counter(t_dlist *redir);
 t_redir *redir_creator(t_dlist *redir, int *status);

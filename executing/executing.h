@@ -3,7 +3,7 @@
 
 typedef struct s_exec
 {
-    char            **exprt;
+    char            ** exprt;
     char            **env;
     int             stdin;
     int             stdout;

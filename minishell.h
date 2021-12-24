@@ -5,13 +5,13 @@
 # include <stdio.h>
 # include <sys/types.h>
 # include <dirent.h>
-# include "libft/libft.h"
+# include "parsing/parsing.h"
 # include "readline/readline.h"
 # include "readline/history.h"
 # include "jobs/jobs.h"
 # include "executing/executing.h"
 # include "eval/eval.h"
-# include "parsing/parsing.h"
+# include "libft/libft.h"
 
 # define GREEN "\002\e[0;32m\002"
 # define RESET   "\001\e[0m\002"

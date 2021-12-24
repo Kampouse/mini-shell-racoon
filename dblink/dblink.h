@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   dblink.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:42:53 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/18 14:13:48 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/12/23 09:48:09 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
 # ifndef DBLINK_H
 # define  DBLINK_H 
 

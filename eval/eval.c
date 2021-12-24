@@ -8,23 +8,21 @@ char	*find_env(char **envp,char *str)
 	inc = 0;
 	temp = NULL;
 	if(ft_strlen(str) == 1 && str[0] == '$')
-	{
 		return(str);
-	}
-		while(envp[inc] != 0)
+	while(envp[inc] != 0)
 	{
-			if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
+		if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
 		{
-				if(	*(envp[inc] + ft_strlen(str + 1)) == '=')	
+			if(	*(envp[inc] + ft_strlen(str + 1)) == '=')	
 			{
-					temp =  ft_strdup(envp[inc] + ft_strlen(str + 1) + 1);
-						free(str);
-					return(temp);	
+				temp =  ft_strdup(envp[inc] + ft_strlen(str + 1) + 1);
+				free(str);
+				return(temp);	
 			}
 		}
 		inc++;
 	}
-return(NULL);
+	return(NULL);
 }
 
 char *lazy_join(char *first,char *second)
@@ -198,10 +196,6 @@ len = 0;
 			printf("%s\n",output);
 return(output);
 }
-
-
-
-
 
 void eval_cmds(t_jobs *job)
 {
