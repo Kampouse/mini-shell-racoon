@@ -1,6 +1,5 @@
-
-#include "libft/libft.h"
 #include "minishell.h"
+
 /* should clean all the data structures left
  on the  heap also return a status?*/
 /*
@@ -98,6 +97,6 @@ char **ft_sort_tab(char **tab)
         }
         i++;
     }
-		free(temp_tab);
+	free(temp_tab);
     return (tab_sorted);
 }

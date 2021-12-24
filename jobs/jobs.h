@@ -7,7 +7,7 @@
 //chaque node est quand il y a pipe | 
 // export type = 6
 // env type  = 5 
-// unset type  = -2
+// unset type  = 9
 typedef struct s_redir
 {
     char    *cmd;
