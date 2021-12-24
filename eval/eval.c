@@ -5,22 +5,22 @@ char	*find_env(char **envp,char *str)
 	int		inc;
 	char *temp;
 
-	inc = 0;
-	temp = NULL;
+	inc = -1;
+	if(!str)
+		return(NULL);
 	if(ft_strlen(str) == 1 && str[0] == '$')
 		return(str);
-	while(envp[inc] != 0)
+	while(envp[++inc] != 0)
 	{
 		if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
 		{
 			if(	*(envp[inc] + ft_strlen(str + 1)) == '=')	
 			{
 				temp =  ft_strdup(envp[inc] + ft_strlen(str + 1) + 1);
-				free(str);
+					free(str);
 				return(temp);	
 			}
 		}
-		inc++;
 	}
 	return(NULL);
 }
@@ -52,9 +52,6 @@ char *lazy_join(char *first,char *second)
 	return (output);
 }
 
-
-
-
 int until_this(char *str,char *this)
 {
 	int inc;
@@ -72,83 +69,97 @@ int until_this(char *str,char *this)
 return(-1);
 }
 
+/* catch what inside of a  double quote and return what it  as  made and len */
 
-char *find_dollsing(char *str)
+char *find_varutil(char *str,int **len,int until)
 {
-	int len;
-	int until;
-	char *temp;
-	
-	until = 0;
-	if(!str)
-		return(NULL);
-	len =	until_this(str,"$");
-	if(len == 0 )	
+
+	if(until < 0 )
 	{
-		 until = until_this(str," ");
-			if(until < 0)
-				until = ft_strlen(str);
-		len += until;
-		temp = ft_substr(str,0,len);
+		**len += until_this(str,"\"") + 1;
+		return( ft_substr(str ,0,until_this(str,"\"")));
 	}
-	else if(len > 0)
-		temp = ft_substr(str,0,until);
-	else
+	if( until > 0 )
 	{
-		len = ft_strlen(str);
-		temp = ft_substr(str,0,len);
+		**len += until_this(str + 1," $") + 1;
+		return(ft_substr(str,0, until_this(str + 1," $") + 1)); 
 	}
-return(temp);
+
+return(NULL);
 }
 
 
-/* catch what inside of a  double quote and return what it  as  made and len */
 char *find_var(char *str,int *len)
 {
-char *temp;
-char *temp_b;
-	temp = ft_substr(str,1, until_this(str + 2,"\"$") + 1);
-	if(until_this(temp,"$") == 0)
+int until;
+int **temp;
+
+temp = &len;
+		until = until_this(str,"$");
+	if( until > 0  || until  < 0 )
+		return(find_varutil(str,temp,until));
+	if(until == 0 &&  until_this(str + 1,"$") != -1)
 	{
-		temp_b = find_dollsing(temp);
-		*len = ft_strlen(temp_b);
-		free(temp);
-		return(temp_b);
+		*len += until_this(str + 1,"$ ") + 1;
+		return(ft_substr(str,0,until_this(str + 1,"$ ") + 1)); 
 	}
-	else if(until_this(temp,"$") > 0) 
+	if(until == 0  &&  until_this(str + 1," $") != -1)
 	{
-		*len = until_this(temp,"$");
-		temp_b = ft_substr(temp,0, until_this(temp,"$"));
-		free(temp);
-		return(temp_b);	
+		*len += until_this(str + 1," \"$") + 1;
+		return(ft_substr(str,0,until_this(str + 1," \"$") + 1)); 
 	}
 	else
 	{
-		*len = ft_strlen(temp);
-		//printf("%d\n",*len);
-		return(temp);
+		*len += until_this(str + 1," \'\"") + 1;
+		return( ft_substr(str,0,until_this(str + 1," \'\"") + 1)); 
 	}
 return(0);
+}
+
+char *eval_noquote(char *str,int *append)
+{
+int len;
+char *middle;
+
+len = until_this(str + *append,"$\'\"");
+if(len == 0)
+	{
+		if(until_this(str + *append + 1,"$\'\"") < 0 )
+			len = ft_strlen(str  + *append);
+		else if(len == 0 && ft_strlen(str + *append) == 1)
+			len++;
+		else
+			len = until_this(str + *append + 1,"\'\"$") + 1; 
+	}
+	if(len > 0)
+		 middle = ft_substr(str + *append,0,len);
+	if(len < 0)
+	{
+		len = ft_strlen(str + *append);
+		 middle = ft_substr(str + *append,0,len);
+	}
+	*append += len;
+	if(middle[0] == '$') 
+	 return(find_env(g_state.env,middle));
+return(middle);
 }
 
 char *eval_dquote(char *str,char *output,int *append)
 {
 int len;
 char *temp;
-const   int quote = until_this(str,"\"");
 
 len = 0;
-			if(quote >= 0 && *( str + quote) == '\"')
-			{
-				temp = find_var(str,&len);
-				*append += len;
-				if( (str[0] == '\"' && str[1] == '$') || str[1] == '$')
-					output = lazy_join(output,find_env(g_state.env,temp));
-				else
-					output = lazy_join(output,temp);
-			}
-			if(quote != -1 && str + len && !(*(str + len + 1) == '\"'))
-				output = eval_dquote(str + len ,output,append);					
+		if(until_this(str + *append,"\"") != -1)
+		{
+			temp = find_var(str + *append,&len);
+			*append += len;
+			if(temp && temp[0] == '$')
+				output = lazy_join(output,find_env(g_state.env,temp));
+			else
+				output = lazy_join(output,temp);
+			output = eval_dquote(str,output,append);					
+		}
 return(output);
 }
 
@@ -156,44 +167,40 @@ char *eval_squote(char *str, int *append)
 {
 const   int quote = until_this(str + 1 , "\'");
 
-	if(str[0] == '\'')
+	if(str && str[0] == '\'')
 	{
 		*append += (int)quote + 2;
 		 return (ft_substr(str,1,quote));	
 	}
-
-
 return(0);
 }
 
 
-char *eval_line(char *str,char *output)
+char *eval_line(char *str,char *output,int lon)
 {
-
 int len;
 char *outcome;
+char *temp;
 
 outcome = NULL;
 len = 0;
-
-		if( str && ft_strlen(str) == 0)
-			return(output);
-		if( str && str[0] == '\"')
+	if( str[lon] == '\"')
 	{
-			 output = lazy_join(output,eval_dquote(str + len,outcome,&len));
-			len++;
+		temp = ft_substr(str + lon,1,until_this(str + lon + 1,"\"") + 1);
+		 output = lazy_join(output,eval_dquote(temp,outcome,&len));
+		 lon+= until_this(str + lon + 1,"\"") + 2;
+		 free(temp);
 	}
-		if(str[len] == '\'')
-		{
-			output = lazy_join(output, eval_squote(str + len,&len));
-		}
-		if(ft_strlen(str + len) > 0)
-	{
-			return(eval_line(str + len + 1,output));
-	}
-	
 
-			printf("%s\n",output);
+	if(str && ft_strlen(str + lon) != 0 && str[lon] == '\'')
+	{
+		output = lazy_join(output, eval_squote(str + lon,&len));
+		lon+=until_this(str + lon + 1,"\'") + 2;
+	}
+	if(str[lon] != '\'' && str[lon] != '\"' && ft_strlen(str + lon) > 0)
+		output = lazy_join(output,eval_noquote(str,&lon));
+	if(ft_strlen(str + lon) > 0)
+		return(eval_line(str,output,lon));
 return(output);
 }
 
@@ -204,27 +211,31 @@ void eval_cmds(t_jobs *job)
 
 	output = NULL;
 	inc = 0;
-//	printf("(%s)",g_state.env[0]);
-	if(job->cmd)	
+	if(job->cmd && job->cmd[inc])	
 	{
-		//there will require a  of both quote and non quote ...
-		//
-	printf("%s",	eval_line(job->cmd[inc],output));
+		output = eval_line(job->cmd[inc],output,0);
+		if(output)
+		{
+				job->cmd[inc] = output;
+				free(job->cmd[inc]);
+				//freelist(g_state.env);
+		}
 	}
 }
+
 void eval_redir(t_jobs *job)
 {
 	t_redir *temp;	
-	int len;
-	char *temp_b;	
-	len  = 0;
+	//int len;
+	//char *temp_b;	
+	//len  = 0;
 	temp = NULL;
-	temp_b = NULL;
+	//temp_b = NULL;
 	if(job->redir)	{
 		temp = job->redir;
 		while(temp)
 		{
-				eval_dquote(job->redir->cmd,temp_b,&len);
+	//			eval_dquote(job->redir->cmd,temp_b,&len);
 				temp = temp->next;
 		}
 	}

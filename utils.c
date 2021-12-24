@@ -77,7 +77,7 @@ char **ft_sort_tab(char **tab)
 {
     int i;
     int j;
-    char **temp_tab = NULL;
+    char **temp_tab;
     char **tab_sorted;
     
     temp_tab = alloc_tab(tab);
@@ -98,5 +98,6 @@ char **ft_sort_tab(char **tab)
         }
         i++;
     }
+		free(temp_tab);
     return (tab_sorted);
 }

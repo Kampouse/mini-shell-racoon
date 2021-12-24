@@ -2,6 +2,10 @@
 
 void check_bultin(t_jobs *job)
 {
+	if(!job)
+	{
+		return;
+	}
 		printf("cmd type = %d\n", job->cmd_type);
 		if (job->cmd_type == 6)
             do_export(job);
@@ -33,6 +37,8 @@ int check_nb_of_cmd(t_jobs *job)
 	int i;
 
 	i = 0;
+	if(!job || !job->cmd || !job->cmd[0])
+		return(0);
 	while (job->cmd[i])
 		i++;
 	return (i);
