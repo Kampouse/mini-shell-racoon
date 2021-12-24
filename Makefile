@@ -31,7 +31,11 @@ SRCS =  main.c \
 		./jobs/jobs_links.c \
 		./jobs/check_jobs.c \
 		./jobs/jobs_lst.c \
+		\
 		./eval/eval.c \
+		./eval/eval_util.c \
+		./eval/eval_redir.c \
+		./eval/eval_cmd.c \
 
 		
 RM =  rm -rf 
