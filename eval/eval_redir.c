@@ -23,20 +23,45 @@ const int skipped = skip_over(str + left);
 			outcome = lazy_join(outcome,ft_substr(str,left,skipped));
 	left += skipped;
 	 outcome = lazy_join(outcome,eval_noquote(str,&left,0)); 
-	 printf("test %s\n",outcome);
 	if(ft_strlen(str + left) > 0)
 		return(quote_eval(str,left,outcome,type));
 return(outcome);
 }
 
+int redir_poll(char *line,char *cmp)
+{
+ char *outcome;
+
+ outcome = NULL;
+	if(!line)
+		return(1);
+outcome =eval_line(line,outcome,0,1);
+	if(ft_strncmp(outcome,cmp,ft_strlen(cmp))== 0)
+	{
+		free(outcome);
+		return(0);
+	}
+	else 
+	{
+		free(outcome);
+		return(1);
+	}
+}
+
+
+
+
+
+
 void eval_redir(t_jobs *job)
 {
 	t_redir *temp;	
-	char *temp_b;	
+	char *line;	
 	char *outcome;
+	char *nl;
 
 	temp = NULL;
-	temp_b = NULL;
+	line = NULL;
 	outcome = NULL;
 
 	if(job->redir)
@@ -46,11 +71,18 @@ void eval_redir(t_jobs *job)
 		{
 			if(temp->type == 1)		
 			{
-				temp_b = readline(">>");
 			    temp->cmd = eval_line(temp->cmd,outcome,0,1);
-				if(ft_strncmp( eval_line(temp_b,outcome,0,1),temp->cmd,ft_strlen(temp->cmd)) == 0)
-					printf("hello\n");
-				outcome  =	quote_eval(temp_b,0,outcome,0);
+				while(redir_poll(line,temp->cmd))
+				{
+					if(line)
+					{
+						outcome  =	quote_eval(line,0,outcome,0);
+						free(line);
+					}
+					line = lazy_join(readline(">>"),ft_strdup("\n"));
+				}
+				free(line);
+				free(temp->cmd);
 				printf("%s--",outcome);
 			free(outcome);
 				//expension of what inside of heredocc until it sees the separtor
@@ -58,7 +90,7 @@ void eval_redir(t_jobs *job)
 			else		
 			{
 
-				temp->cmd = eval_line(temp->cmd, temp_b,0,0);
+				temp->cmd = eval_line(temp->cmd, line,0,0);
 			}
 				temp = temp->next;
 		}

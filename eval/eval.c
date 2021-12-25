@@ -5,15 +5,15 @@ char *eval_noquote(char *str,int *append,int type)
 int len;
 char *middle;
 
-len = until_this(str + *append," $\'\"");
+len = until_this(str + *append,"\n $\'\"");
 if(len == 0)
 	{
-		if(until_this(str + *append + 1," $\'\"") < 0 )
+		if(until_this(str + *append + 1,"\n $\'\"") < 0 )
 			len = ft_strlen(str  + *append);
 		else if(len == 0 && ft_strlen(str + *append) == 1)
 			len++;
 		else
-			len = until_this(str + *append + 1," \'\"$") + 1; 
+			len = until_this(str + *append + 1,"\n \'\"$") + 1; 
 	}
 	if(len > 0)
 		 middle = ft_substr(str + *append,0,len);
