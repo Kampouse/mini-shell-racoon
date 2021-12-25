@@ -4,7 +4,7 @@
 # define EVAL_H
 
 
-char	*find_env(char **envp,char *str);
+char	*find_env(char **envp,char *str,int type);
 char *lazy_join(char *first,char *second);
 int until_this(char *str,char *this);
 char *find_varutil(char *str,int **len,int until);
@@ -13,4 +13,5 @@ void eval_redir(t_jobs *job);
 int eval(t_jobs *jobs,t_exec *g_state);
 char *eval_line(char *str,char *output,int lon,int type);
 void eval_cmds(t_jobs *job);
+char *eval_noquote(char *str,int *append,int type);
 #endif 

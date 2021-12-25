@@ -13,8 +13,7 @@ void eval_cmds(t_jobs *job)
 		if(output)
 		{
 				job->cmd[inc] = output;
-				
-				//free(job->cmd[inc]);
+				free(job->cmd[inc]);
 		}
 	}
 }

@@ -5,15 +5,15 @@ char *eval_noquote(char *str,int *append,int type)
 int len;
 char *middle;
 
-len = until_this(str + *append,"$\'\"");
+len = until_this(str + *append," $\'\"");
 if(len == 0)
 	{
-		if(until_this(str + *append + 1,"$\'\"") < 0 )
+		if(until_this(str + *append + 1," $\'\"") < 0 )
 			len = ft_strlen(str  + *append);
 		else if(len == 0 && ft_strlen(str + *append) == 1)
 			len++;
 		else
-			len = until_this(str + *append + 1,"\'\"$") + 1; 
+			len = until_this(str + *append + 1," \'\"$") + 1; 
 	}
 	if(len > 0)
 		 middle = ft_substr(str + *append,0,len);
@@ -24,7 +24,7 @@ if(len == 0)
 	}
 	*append += len;
 	if(middle[0] == '$'&& type == 0 ) 
-	 return(find_env(g_state.env,middle));
+	 return(find_env(g_state.env,middle,type));
 return(middle);
 }
 
@@ -39,7 +39,7 @@ len = 0;
 			temp = find_var(str + *append,&len);
 			*append += len;
 			if(temp && temp[0] == '$' &&  type == 0)
-				output = lazy_join(output,find_env(g_state.env,temp));
+				output = lazy_join(output,find_env(g_state.env,temp,type));
 			else
 				output = lazy_join(output,temp);
 			output = eval_dquote(str,output,append,type);					

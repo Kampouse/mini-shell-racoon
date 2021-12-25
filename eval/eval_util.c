@@ -1,6 +1,6 @@
 #include "eval.h"
 /* return variable from env else NULL */
-char	*find_env(char **envp,char *str)
+char	*find_env(char **envp,char *str,int type)
 {
 	int		inc;
 	char *temp;
@@ -22,6 +22,8 @@ char	*find_env(char **envp,char *str)
 			}
 		}
 	}
+	if(type == 1)
+		return(str);
 	return(NULL);
 }
  /* reinforce join so it can handle  NULL */
