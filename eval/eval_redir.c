@@ -20,7 +20,7 @@ char *quote_eval(char *str,int left,char *outcome,int type)
 const int skipped = skip_over(str + left);
 
 		if(skipped > 0)	
-			outcome = lazy_join(outcome,ft_substr(str,left,skipped + 1));
+			outcome = lazy_join(outcome,ft_substr(str,left,skipped));
 	left += skipped;
 	 outcome = lazy_join(outcome,eval_noquote(str,&left,0)); 
 	 printf("test %s\n",outcome);
@@ -47,8 +47,10 @@ void eval_redir(t_jobs *job)
 			if(temp->type == 1)		
 			{
 				temp_b = readline(">>");
-				printf("%s\n",eval_line(temp->cmd,outcome,0,1));
-			outcome  =	quote_eval(temp_b,0,outcome,0);
+			    temp->cmd = eval_line(temp->cmd,outcome,0,1);
+				if(ft_strncmp( eval_line(temp_b,outcome,0,1),temp->cmd,ft_strlen(temp->cmd)) == 0)
+					printf("hello\n");
+				outcome  =	quote_eval(temp_b,0,outcome,0);
 				printf("%s--",outcome);
 			free(outcome);
 				//expension of what inside of heredocc until it sees the separtor
