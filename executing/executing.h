@@ -1,6 +1,8 @@
 #ifndef EXECUTING_H
 # define EXECUTING_H
 
+#include "../jobs/jobs.h"
+
 typedef struct s_exec
 {
     char            ** exprt;
@@ -11,7 +13,6 @@ typedef struct s_exec
 } t_exec;
 
 extern t_exec g_state;
-
 
 void    init_exec(char **envp);
 
