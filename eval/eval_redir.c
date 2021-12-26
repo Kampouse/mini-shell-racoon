@@ -17,14 +17,15 @@ return(skiped);
 
 char *quote_eval(char *str,int left,char *outcome,int type)
 {
-const int skipped = skip_over(str + left);
+const char *duped = str;
+const int skipped = skip_over((char*)duped  + left);
 
 		if(skipped > 0)	
-			outcome = lazy_join(outcome,ft_substr(str,left,skipped));
+			outcome = lazy_join(outcome,ft_substr(duped,left,skipped));
 	left += skipped;
-	 outcome = lazy_join(outcome,eval_noquote(str,&left,0)); 
-	if(ft_strlen(str + left) > 0)
-		return(quote_eval(str,left,outcome,type));
+			 outcome = lazy_join(outcome,eval_noquote((char*)duped,&left,0)); 
+	if((unsigned int)left < ft_strlen(duped))
+		return(quote_eval((char*)duped,left,outcome,type));
 return(outcome);
 }
 
@@ -38,11 +39,14 @@ int redir_poll(char *line,char *cmp)
 outcome =eval_line(line,outcome,0,1);
 	if(ft_strncmp(outcome,cmp,ft_strlen(cmp))== 0)
 	{
+		//if(line)
+		free(line);
 		free(outcome);
 		return(0);
 	}
 	else 
 	{
+		//free(line);
 		free(outcome);
 		return(1);
 	}
@@ -58,7 +62,7 @@ void eval_redir(t_jobs *job)
 	t_redir *temp;	
 	char *line;	
 	char *outcome;
-	char *nl;
+	char *docc;
 
 	temp = NULL;
 	line = NULL;
@@ -71,8 +75,8 @@ void eval_redir(t_jobs *job)
 		{
 			if(temp->type == 1)		
 			{
-			    temp->cmd = eval_line(temp->cmd,outcome,0,1);
-				while(redir_poll(line,temp->cmd))
+			    docc = eval_line(temp->cmd,outcome,0,1);
+				while(redir_poll(line,docc))
 				{
 					if(line)
 					{
@@ -81,10 +85,11 @@ void eval_redir(t_jobs *job)
 					}
 					line = lazy_join(readline(">>"),ft_strdup("\n"));
 				}
-				free(line);
-				free(temp->cmd);
+				free(docc);
 				printf("%s--",outcome);
-			free(outcome);
+				free(outcome);
+				line = NULL;
+				outcome = NULL;
 				//expension of what inside of heredocc until it sees the separtor
 			}
 			else		
