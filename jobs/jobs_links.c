@@ -8,6 +8,7 @@ t_jobs	*node_job(char **cmd,char **redir)
 		return (NULL);
 	link->prev = NULL;
 	link->next = NULL;
+	link->hereduc = NULL;
 	link->cmd = cmd;
 	link->cmd = redir;
 	// link->nb_dolla = check_cashtoken(link);
