@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:23 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/23 19:30:20 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/25 21:50:27 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void update_env_list(char *var, char *val, int type)
     if (type == 1)
     {
         new_env = var;
-        printf("new env =  %s\n", new_env);
         add_new_env(new_env);
         // jean="" = export et jean= = env
     }
@@ -74,7 +73,6 @@ void update_env_list(char *var, char *val, int type)
     if (type == 3)
     {
         new_env = ft_strjoin(var, val);
-        printf("new env =  %s\n", new_env);
         add_new_env(new_env);
         // jean="oli" export jean=oli env
     }

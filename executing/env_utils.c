@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:50:08 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/20 16:46:13 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/25 22:22:30 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,4 @@ void  add_new_env(char *new_env)
     g_state.env = new_list;
     // print_exprt(ft_tab_len(g_state.exprt));
 }
+

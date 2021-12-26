@@ -39,26 +39,33 @@ RM =  rm -rf
 # 	@gcc  ${FLAGS}  -c $< -o ${<:.c=.o}
 
 OBJS = ${SRCS:.c=.o}
-CC = gcc
-all: ${NAME}
-${NAME}:${OBJS}
 
+CC = gcc
+
+all: ${NAME}
+
+${NAME}:${OBJS}
+		@echo "\033[0;33m Compiling..."
 		@$(MAKE) -C libft
 		@${CC} ${OBJS} ${FLAGS} -lreadline -L./readline -L./libft -lft -lncurses -o ${NAME}
+		@echo "\033[0m"
+		@echo "\n\033[32m\033[1m  Minishell Compiled\n\033[0m"
 
 run: all
 		./$(NAME)
+
 leak: all
 		leaks --atExit -- ./$(NAME)
 		./$(NAME)
+
 val: all
 	valgrind  --leak-check=full ./$(NAME)
 
-
 clean:
-
+		@echo "\033[0;31m Cleaning..."
 	    ${RM} ${OBJS}
 		@make -C libft/ clean
+		@echo "\033[0m"
 
 git:
 		@git add ${SRCS} minishell.h Makefile  ./executing/executing.h \
@@ -69,12 +76,14 @@ git:
 
 
 fclean: clean
+	@echo "\033[0;31m Removing executable..."
 	@${RM} ${NAME}
 	@$(MAKE) -C libft fclean
+	@echo "\033[0m"
+
 re: fclean all
 
 .PHONY: clean fclean re all
-
 
 re: fclean all
 	
