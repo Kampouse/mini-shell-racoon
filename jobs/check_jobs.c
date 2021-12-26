@@ -15,6 +15,7 @@ void check_bultin(t_jobs *job)
 			do_unset(job);
 //     if (!(ft_strncmp(job->cmd[0], "echo", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
+//PATH DANS READLINE
 //     if (!(ft_strncmp(job->cmd[0], "cd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "exit", ft_strlen(trimed))))
 }
