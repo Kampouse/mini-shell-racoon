@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 15:51:42 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/20 16:46:12 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/26 12:45:54 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int got_good_args(t_jobs *job)
     char *temp;
 
     i = 0;
+    temp = NULL;
     while (job->cmd[i])
     {
         temp = job->cmd[i];
@@ -25,7 +26,7 @@ int got_good_args(t_jobs *job)
         if ((ft_isdigit(temp[0])) || temp[0] == '=')
             return (1);
         //reguarde si = est seul ex: (a = b)
-        if (!(ft_strncmp(job->cmd[i], "=", ft_strlen(job->cmd[i]))))
+        if (ft_strlen(temp) == 1 && temp[0] == '=')
             return (1);
         i++;
     }
