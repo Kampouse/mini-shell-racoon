@@ -43,18 +43,16 @@ temp = NULL;
 		if(temp->type == 7)
 			{
 				freelist(g_state.env);
+				//free(g_state.exprt);
 				if(lst)
 					free_list(lst);
+			printf("at :token_typer:48 please find a correct place for it \n");
 				exit(0);
 			}
 		if(temp->type == 8)
 			printf("echo\n");
 		if(temp->type == 5)
 			print_env(ft_tab_len(g_state.env));
-				//valid_redir(temp);
-		//printf("%s %d %d\n",temp->content,temp->type,count);
 		temp = temp->next;	
 		}
 	}
-
-

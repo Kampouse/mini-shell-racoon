@@ -21,13 +21,13 @@ void parsing(t_exec *g_state)
 		{
 			lst = line_parser(trimed); 	
 			job = job_lsting(lst);
-			if(job && job->cmd)
+			if(job)
 			{
-				eval(job,g_state);			
-				check_jobs(job);
+				eval(job,g_state);
 			}
-			ft_lstdclear(&lst,free);
-			free_jobs(job);
+				//check_jobs(job);
+				ft_lstdclear(&lst,free);
+				free_jobs(job);
 		}
 		else if (trimed)
 			free(trimed);

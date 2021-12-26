@@ -5,7 +5,6 @@ FLAGS =   -g -Wall -Wextra -Werror
 SRCS =  main.c \
 		utils.c\
 		\
-		./parsing/token_analyzer.c \
 		./parsing/parsing.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
@@ -31,12 +30,16 @@ SRCS =  main.c \
 		./jobs/jobs_links.c \
 		./jobs/check_jobs.c \
 		./jobs/jobs_lst.c \
+		\
 		./eval/eval.c \
+		./eval/eval_util.c \
+		./eval/eval_redir.c \
+		./eval/eval_cmd.c \
 
 		
 RM =  rm -rf 
-# .c.o:
-# 	@gcc  ${FLAGS}  -c $< -o ${<:.c=.o}
+.c.o:
+	@gcc  ${FLAGS}  -c $< -o ${<:.c=.o}
 
 OBJS = ${SRCS:.c=.o}
 
@@ -59,7 +62,7 @@ leak: all
 		./$(NAME)
 
 val: all
-	valgrind  --leak-check=full ./$(NAME)
+	valgrind  --leak-check=full --track-origins=yes --show-leak-kinds=all -s ./$(NAME)
 
 clean:
 		@echo "\033[0;31m Cleaning..."
@@ -74,7 +77,6 @@ git:
 		./jobs/jobs.h \
 		./eval/eval.h
 
-
 fclean: clean
 	@echo "\033[0;31m Removing executable..."
 	@${RM} ${NAME}
@@ -88,3 +90,4 @@ re: fclean all
 re: fclean all
 	
 .PHONY: clean fclean re all/
+
