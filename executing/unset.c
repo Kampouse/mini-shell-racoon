@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/26 11:32:49 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/26 20:01:25 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,44 +32,6 @@ char **parse_unset(t_jobs *job)
     return (to_delete);
 }
 
-void remove_from_list(char *to_remove, int type)
-{
-    char **new_list;
-    int i;
-    int j;
-    new_list = NULL;
-    new_list = malloc(sizeof(char **) * (ft_tab_len(g_state.env)));
-    i = 0;
-    j = 0; 
-    // if (type == 1)
-    // {
-    //     while (g_state.exprt[j])
-    //     {
-    //         if (!ft_strncmp(g_state.exprt[j], to_remove, ft_strlen(to_remove)))
-    //             j++;
-    //         else
-    //             new_list[i] = ft_strdup(g_state.exprt[j]);
-    //         i++;
-    //         j++;
-    //     }
-    //     g_state.exprt = new_list;
-    // }
-    // i = 0;
-    // j = 0;
-    if (type == 2)
-    {
-        while (g_state.env[j])
-        {
-            if (!ft_strncmp(g_state.env[j], to_remove, ft_strlen(to_remove)))
-                j++;
-            new_list[i] = ft_strdup(g_state.env[j]);
-            i++;
-            j++;
-        }
-        g_state.env = new_list;
-    }
-}
-
 void do_unset(t_jobs *job)
 {
     int     i;
@@ -88,25 +50,25 @@ void do_unset(t_jobs *job)
             if (!ft_strncmp(g_state.env[j], to_delete[i], ft_strlen(to_delete[i])))
             {   
                 printf("On supprime ca tabarnak!!! \n");
-                remove_from_list(to_delete[i], 2);
+                remove_env(to_delete[i]);
             }
             j++;
         }
-        // j = 0;
-        // while (g_state.exprt[j])
-        // {
-        //     if (!ft_strncmp(g_state.exprt[j], to_delete[i], ft_strlen(to_delete[i])))
-        //     {
-        //         printf("On supprime ca tabarnak!!! \n");
-        //         remove_from_list(to_delete[i], 1);
-        //     }
-        //     j++;
-        // }
+        i++;
+    }
+    i = 0;
+    while(to_delete[i])
+    {
+        j = 0;
+        while (g_state.exprt[j])
+        {
+            if (!ft_strncmp(g_state.exprt[j], to_delete[i], ft_strlen(to_delete[i])))
+            {
+                printf("On supprime ca tabarnak!!! \n");
+                remove_export(to_delete[i]);
+            }
+            j++;
+        }
         i++;
     }
 }
-
-// void search_n_delete(char *var)
-// {
-    
-// }

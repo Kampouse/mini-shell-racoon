@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:50:08 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/25 22:22:30 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/26 19:55:51 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,29 @@ void  add_new_env(char *new_env)
     // print_exprt(ft_tab_len(g_state.exprt));
 }
 
+void remove_env(char *to_remove)
+{
+    char **new_list;
+    int i;
+    int j;
+
+    new_list = NULL;
+    new_list = malloc(sizeof(char **) * (ft_tab_len(g_state.env)));
+    i = 0;
+    j = 0;
+    while (g_state.env[j])
+        {
+            if (!ft_strncmp(g_state.env[j], to_remove, ft_strlen(to_remove)))
+            {
+                printf("found\n");
+                j++;
+            }
+            else
+            {
+                new_list[i] = ft_strdup(g_state.env[j]);
+                i++;
+                j++;
+            }
+        }
+        g_state.env = new_list;
+}
