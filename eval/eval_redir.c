@@ -96,12 +96,9 @@ void eval_redir(t_jobs *job)
 		{
 		outcome = eval_docc(temp,job->hereduc);
 		if(outcome)			
-		{
 			job->hereduc = outcome;
-			free(outcome);
-		}
 		else
-			temp->cmd = eval_line(temp->cmd,outcome,0,0);
+			temp->eval = eval_line(temp->cmd,outcome,0,0);
 				temp = temp->next;
 		}
 	}

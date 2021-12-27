@@ -9,6 +9,7 @@ t_redir	*node_redir(char *cmd,int type)
 		return (NULL);
 	link->prev = NULL;
 	link->next = NULL;
+	link->eval = NULL;
 	link->cmd = cmd;
 	link->type = type;
 	// link->nb_dolla = check_cashtoken(link);
@@ -54,6 +55,8 @@ void	free_redir(t_redir *head)
 	if (head)
 	{
 		next = head->next;
+		if(head->eval)
+			free(head->eval);
 		free(head);
 		free_redir(next);
 	}

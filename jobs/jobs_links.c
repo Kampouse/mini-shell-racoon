@@ -108,6 +108,8 @@ void	free_jobs(t_jobs *head)
 			free_redir(head->redir);
 		if(head->cmd)
 			free(head->cmd);
+		if(head->hereduc)
+			free(head->hereduc);
 		free(head);
 		free_jobs(next);
 	}

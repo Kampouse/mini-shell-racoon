@@ -11,6 +11,7 @@
 typedef struct s_redir
 {
     char    *cmd;
+    char    *eval;
     int     type;
 	struct s_redir  *next;
 	struct s_redir  *prev;

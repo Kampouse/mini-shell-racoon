@@ -36,7 +36,7 @@ int		inc;
 	if(temp->content &&  !(temp->type >= 0 && temp->type <= 3))
 	{
 		*lst_head = temp;
-		 commands  = ft_calloc( (size_t)jobs_lst_counter(temp) + 1,sizeof(char **));
+	 	commands  = ft_calloc( (size_t)jobs_lst_counter(temp) + 1,sizeof(char **));
 		while(temp && (temp->type > 4  || temp->type == -2))
 		{
 			commands[inc++] = temp->content;

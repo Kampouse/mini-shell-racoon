@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/25 22:19:39 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/26 19:53:34 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,31 @@ void  add_new_export(char *new_exprt)
     new_list[i] = ft_strdup(new_exprt);
     g_state.exprt = ft_sort_tab(new_list);
     // print_exprt(ft_tab_len(g_state.exprt));
+}
+
+void remove_export(char *to_remove)
+{
+    char **new_list;
+    int i;
+    int j;
+
+    new_list = NULL;
+    new_list = malloc(sizeof(char **) * (ft_tab_len(g_state.env)));
+    i = 0;
+    j = 0;
+    while (g_state.exprt[j])
+        {
+            if (!ft_strncmp(g_state.exprt[j], to_remove, ft_strlen(to_remove)))
+            {
+                printf("found\n");
+                j++;
+            }
+            else
+            {
+                new_list[i] = ft_strdup(g_state.exprt[j]);
+                i++;
+                j++;
+            }
+        }
+        g_state.exprt = new_list;
 }

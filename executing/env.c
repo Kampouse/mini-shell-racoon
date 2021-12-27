@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 15:57:23 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/26 18:43:39 by jemartel         ###   ########.fr       */
-/*   Updated: 2021/12/25 21:50:27 by olabrecq         ###   ########.fr       */
+/*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
+/*   Updated: 2021/12/27 16:17:23 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +28,9 @@ char **alloc_tab(char **envp)
 
 void create_env(char **envp)
 {
-    g_state.env = alloc_tab(envp);
     int i;
+
+    g_state.env = alloc_tab(envp);
 
     i = 0;
     while (envp[i])

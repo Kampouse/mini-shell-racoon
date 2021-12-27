@@ -24,8 +24,8 @@ void parsing(t_exec *g_state)
 			if(job)
 			{
 				eval(job,g_state);
+				check_jobs(job);
 			}
-				//check_jobs(job);
 				ft_lstdclear(&lst,free);
 				free_jobs(job);
 		}
