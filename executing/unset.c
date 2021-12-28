@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/27 19:42:04 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/28 07:48:03 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void do_unset(t_jobs *job)
     
     // si to_delete fini par '=' : bash: unset: `jean=': not a valid identifier
     to_delete = parse_unset(job->cmd);
-    (void)to_delete;
     i = 0;
     while (to_delete[i])
     {

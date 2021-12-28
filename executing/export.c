@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/27 14:21:25 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/28 08:03:19 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void parse_export(t_jobs *job)
     int i;
     int j;
     
-    //i = 1 car 0 = cmd[0]= export
     i = 1;
     j = 0;
     variable = malloc(sizeof(char *) * ft_tab_len(job->cmd) + 1);
@@ -72,16 +71,12 @@ void parse_export(t_jobs *job)
             valeur[j] = "\"\"";
             update_export_list(variable[j], valeur[j], 1);
             update_env_list(variable[j], valeur[j], 1);
-            //jean="" = export et jean= = env
-            //type 1
         }
         else if (!no_equal(job->cmd[i]))
         {
             variable[j] = "' '";
             valeur[j] = job->cmd[i];
             update_export_list(variable[j], valeur[j], 2);
-            //jean = export env xx
-            //type 2
         }
         else
         {
@@ -89,14 +84,10 @@ void parse_export(t_jobs *job)
             valeur[j] = afther_equal(job->cmd[i]);
             update_export_list(variable[j], valeur[j], 3);
             update_env_list(variable[j], valeur[j], 3);
-            //jean="oli" export jean=oli env
-            //type 3
         }
         j++;
         i++;
     }
-    // freelist(variable);
-    // freelist(valeur);
 }
 
 void do_export(t_jobs *job)
