@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/25 21:49:09 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/28 01:59:19 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,27 @@ void update_export_list(char *var, char *val, int type)
 {
     char *new_exprt;
 
-    
     if (type == 1)
     {
         new_exprt = ft_strjoin(var, val);
-        add_new_export(new_exprt);
+        g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
         // jean="" = export et jean= = env
     }
     if (type == 2)
     {
         new_exprt = val;
-        add_new_export(new_exprt);
+        g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
         // jean = export env xx
     }
     if (type == 3)
     {
         val = ft_str3join("\"", val, "\"");
         new_exprt = ft_strjoin(var, val);
-        add_new_export(new_exprt);
+        g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
         // jean="oli" export jean=oli env
     }
 }
-///GERER QU CEST BON SI FINI PAR SPACE-----------!!!!!!!!!!!!
-/// Si ny a pas de '=' variable devient valeur
+
 void parse_export(t_jobs *job)
 {
     char **variable = NULL;
@@ -64,14 +62,12 @@ void parse_export(t_jobs *job)
     //i = 1 car 0 = cmd[0]= export
     i = 1;
     j = 0;
-    variable = malloc(sizeof(job->cmd));
-    valeur = malloc(sizeof(job->cmd));
+    variable = malloc(sizeof(char *) * ft_tab_len(job->cmd) + 1);
+    valeur = malloc(sizeof(char *) * ft_tab_len(job->cmd) + 1);
     while (job->cmd[i])
     {
         if (last_is_equal(job->cmd[i]))
         {
-            //envoyer variable et valeur dans fonction pour 
-            //qui les ship a env et export avec les bon guillemet
             variable[j] = job->cmd[i];
             valeur[j] = "\"\"";
             update_export_list(variable[j], valeur[j], 1);
@@ -99,6 +95,8 @@ void parse_export(t_jobs *job)
         j++;
         i++;
     }
+    // freelist(variable);
+    // freelist(valeur);
 }
 
 void do_export(t_jobs *job)
@@ -107,7 +105,7 @@ void do_export(t_jobs *job)
         print_exprt(ft_tab_len(g_state.exprt));
     if (ft_tab_len(job->cmd) > 1)
     {
-        if (export_valider(job))
+        if (got_good_args(job))
             printf("Not a valid export\n");
         else 
             parse_export(job);

@@ -88,9 +88,10 @@ void eval_redir(t_jobs *job)
 	t_redir *temp;	
 	char *outcome;
 
+
+	job->hereduc = NULL;
 	if(job->redir)
 	{
-		job->hereduc = NULL;
 		temp = job->redir;
 		while(temp)
 		{

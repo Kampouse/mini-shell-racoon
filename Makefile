@@ -20,7 +20,6 @@ SRCS =  main.c \
 		./executing/env_utils.c \
 		./executing/export.c \
 		./executing/exec.c \
-		./executing/export_valider.c \
 		./executing/export_utils.c \
 		./executing/unset.c \
 		\
@@ -78,10 +77,10 @@ git:
 		./eval/eval.h
 
 fclean: clean
-	@echo "\033[0;31m Removing executable..."
-	@${RM} ${NAME}
-	@$(MAKE) -C libft fclean
-	@echo "\033[0m"
+		@echo "\033[0;31m Removing executable..."
+		@${RM} ${NAME}
+		@$(MAKE) -C libft fclean
+		@echo "\033[0m"
 
 re: fclean all
 
