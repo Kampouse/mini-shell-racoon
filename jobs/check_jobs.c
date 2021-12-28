@@ -6,7 +6,7 @@ void check_bultin(t_jobs *job)
 	{
 
 	
-		printf("cmd type = %d\n", job->cmd_type);
+	//	printf("cmd type = %d\n", job->cmd_type);
 		if (job->cmd_type == 6)
             do_export(job);
     	if (job->cmd_type == 5)

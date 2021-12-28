@@ -12,6 +12,8 @@ t_redir	*node_redir(char *cmd,int type)
 	link->eval = NULL;
 	link->cmd = cmd;
 	link->type = type;
+	link->here_status = 0;
+
 	// link->nb_dolla = check_cashtoken(link);
 	// printf("nb  de dollar = %d\n", link->nb_dolla);
 	return (link);
@@ -57,6 +59,7 @@ void	free_redir(t_redir *head)
 		next = head->next;
 		if(head->eval)
 			free(head->eval);
+
 		free(head);
 		free_redir(next);
 	}

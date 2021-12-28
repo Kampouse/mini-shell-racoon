@@ -12,7 +12,7 @@ void parsing(t_exec *g_state)
 
 	job = NULL;
     lst = NULL;
-	
+	temp = NULL; 	
 	while(1)
 	{
 		line = readline(GREEN"minishell:>"RESET);

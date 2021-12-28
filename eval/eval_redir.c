@@ -32,6 +32,7 @@ int redir_poll(char *line,char *cmp)
 {
  char *outcome;
  char *no_nl;
+ char *trimed;
  int len;
 
  outcome = NULL;
@@ -39,18 +40,22 @@ int redir_poll(char *line,char *cmp)
 		return(1);
 	outcome = eval_line(line,outcome,0,1);
 	no_nl = ft_strtrim(outcome,"\n");
-	len = (int)ft_strlen(no_nl) - ft_strlen(cmp);
-	if(ft_strncmp(outcome,cmp,ft_strlen(no_nl))== 0 && len  == 0)
+	trimed = ft_strtrim(cmp," ");
+	len = (int)ft_strlen(no_nl) - ft_strlen(trimed);
+	if(ft_strncmp(no_nl,trimed,ft_strlen(no_nl))== 0 && len  == 0)
 	{
+		printf("exited");
 		free(line);
 		free(outcome);
 		free(no_nl);
+		free(trimed);
 		return(0);
 	}
 	else 
 	{
 		free(outcome);
 		free(no_nl);
+		free(trimed);
 		return(1);
 	}
 }
@@ -69,7 +74,7 @@ outcome = NULL;
 			if(temp->type == 1)		
 			{
 			    docc = eval_line(temp->cmd,outcome,0,1);
-				while(redir_poll(line,docc))
+				while(redir_poll(line,docc) == 1)
 				{
 					if(line)
 					{
@@ -87,7 +92,7 @@ void eval_redir(t_jobs *job)
 {
 	t_redir *temp;	
 	char *outcome;
-
+	outcome = NULL;
 
 	job->hereduc = NULL;
 	if(job->redir)
@@ -95,9 +100,14 @@ void eval_redir(t_jobs *job)
 		temp = job->redir;
 		while(temp)
 		{
-		outcome = eval_docc(temp,job->hereduc);
-		if(outcome)			
+			printf("%d",temp->here_status);
+			if(temp->type == 1 && job->status == 0)
+				outcome = eval_docc(temp,job->hereduc);
+		if(outcome)
+			{
+			job->status = 1;
 			job->hereduc = outcome;
+			}
 		else
 			temp->eval = eval_line(temp->cmd,outcome,0,0);
 				temp = temp->next;

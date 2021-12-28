@@ -95,15 +95,19 @@ int eval(t_jobs *jobs,t_exec *g_state)
 	if(jobs)
 	{
 		temp = jobs;
-		while(temp)
 		{
 			if(temp->cmd)
 			{
+				temp->hereduc = NULL;
 			  temp_b = eval_cmds(temp);
 			  freelist(temp->cmd);
 			  temp->cmd  = temp_b;
 			}
-		eval_redir(temp);
+			if(temp->redir)
+			{
+				printf("entered\n");
+				eval_redir(temp);
+			}
 			temp = temp->next;
 		}
 	}
