@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2021/12/28 08:14:39 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/28 08:49:29 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,11 @@ void update_env_list(char *var, char *val, int type)
     {
         new_env = var;
         g_state.env = add_to_list(new_env, g_state.env, 0);
-        // jean="" = export et jean= = env
     }
     if (type == 3)
     {
         new_env = ft_strjoin(var, val);
         g_state.env = add_to_list(new_env, g_state.env, 0);
-        // jean="oli" export jean=oli env
     }
 }
 

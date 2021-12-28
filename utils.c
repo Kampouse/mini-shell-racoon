@@ -39,10 +39,10 @@ int until_space(char *str)
 	{
 		inc++;
 	}
-return(inc);
+    return(inc);
 }
 
-char	freelist(char **list)
+void    freelist(char **list)
 {
 	int	index;
 
@@ -51,13 +51,12 @@ char	freelist(char **list)
 	{
 		while (list[index])
 	    {
-		    if(list[index])
-			    free((void *) list[index]);
+		    // if(list[index])
+			free((void *)list[index]);
 		    index++;
 	    }
 	    free(list);
 	}
-	return (0);
 }
 
 // return la longueur d'un char**

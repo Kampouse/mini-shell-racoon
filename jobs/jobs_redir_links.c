@@ -21,7 +21,6 @@ t_redir	*last_redir(t_redir *currlist)
 {
 	if( currlist && currlist->next)
 	{
-
 		while (currlist->next)
 		{
 			if (!currlist->next)
