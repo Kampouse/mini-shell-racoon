@@ -50,12 +50,12 @@ char	freelist(char **list)
 	if(list)
 	{
 		while (list[index])
-	{
-		if(list[index])
-			free((void *) list[index]);
-		index++;
-	}
-	free(list);
+	    {
+		    if(list[index])
+			    free((void *) list[index]);
+		    index++;
+	    }
+	    free(list);
 	}
 	return (0);
 }
@@ -97,7 +97,7 @@ char **ft_sort_tab(char **tab)
         }
         i++;
     }
-	free(temp_tab);
+	// freelist(temp_tab);
     return (tab_sorted);
 }
 
@@ -146,5 +146,6 @@ char **remove_of_list(char *to_remove, char **old_list)
 		}
     }
     new_list[j] = NULL;
+    freelist(old_list);
     return (new_list);
 }

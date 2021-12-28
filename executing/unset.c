@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/28 07:48:03 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/28 08:18:36 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,5 @@ void do_unset(t_jobs *job)
         g_state.env = remove_of_list(to_delete[i], g_state.env);
         i++;
     }
+	freelist(to_delete);
 }

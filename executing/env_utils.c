@@ -6,6 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:50:08 by olabrecq          #+#    #+#             */
+/*   Updated: 2021/12/28 01:57:20 by jemartel         ###   ########.fr       */
 /*   Updated: 2021/12/27 14:05:42 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -37,6 +38,7 @@
 //     char **new_list;
 //     int i;
 //     int j;
+
 
 //     new_list = NULL;
 //     new_list = malloc(sizeof(char *) * (ft_tab_len(g_state.env) + 1));

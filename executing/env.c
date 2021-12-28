@@ -5,9 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/17 15:57:23 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/27 14:22:01 by olabrecq         ###   ########.fr       */
+/*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
+/*   Updated: 2021/12/28 08:14:39 by olabrecq         ###   ########.fr       */
 /*                                                                            */
+/* ************************************************************************** */
+
 /* ************************************************************************** */
 
 #include "../minishell.h"
@@ -28,8 +30,9 @@ char **alloc_tab(char **envp)
 
 void create_env(char **envp)
 {
-    g_state.env = alloc_tab(envp);
     int i;
+
+    g_state.env = alloc_tab(envp);
 
     i = 0;
     while (envp[i])

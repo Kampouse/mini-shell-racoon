@@ -1,7 +1,6 @@
 #include "eval.h"
 #include "../readline/readline.h"
-
-
+#include <sys/types.h>
 
 
 int skip_over(char *str)
@@ -32,47 +31,41 @@ return(outcome);
 int redir_poll(char *line,char *cmp)
 {
  char *outcome;
+ char *no_nl;
+ int len;
 
  outcome = NULL;
 	if(!line)
 		return(1);
-outcome =eval_line(line,outcome,0,1);
-	if(ft_strncmp(outcome,cmp,ft_strlen(cmp))== 0)
+	outcome = eval_line(line,outcome,0,1);
+	no_nl = ft_strtrim(outcome,"\n");
+	len = (int)ft_strlen(no_nl) - ft_strlen(cmp);
+	if(ft_strncmp(outcome,cmp,ft_strlen(no_nl))== 0 && len  == 0)
 	{
-		//if(line)
 		free(line);
 		free(outcome);
+		free(no_nl);
 		return(0);
 	}
 	else 
 	{
-		//free(line);
 		free(outcome);
+		free(no_nl);
 		return(1);
 	}
 }
 
 
-
-
-
-
-void eval_redir(t_jobs *job)
+char *eval_docc(t_redir *temp,char *heredoc)
 {
-	t_redir *temp;	
-	char *line;	
-	char *outcome;
-	char *docc;
+char *docc;
+char *outcome;
+char *line;
 
-	temp = NULL;
-	line = NULL;
-	outcome = NULL;
-
-	if(job->redir)
-	{
-		temp = job->redir;
-		while(temp)
-		{
+line = NULL;
+outcome = NULL;
+				if(heredoc)
+					free(heredoc);
 			if(temp->type == 1)		
 			{
 			    docc = eval_line(temp->cmd,outcome,0,1);
@@ -86,18 +79,29 @@ void eval_redir(t_jobs *job)
 					line = lazy_join(readline(">>"),ft_strdup("\n"));
 				}
 				free(docc);
-				printf("%s--",outcome);
-				free(outcome);
-				line = NULL;
-				outcome = NULL;
-				//expension of what inside of heredocc until it sees the separtor
 			}
-			else		
-			{
+return(outcome);
+}
 
-				temp->cmd = eval_line(temp->cmd, line,0,0);
-			}
+void eval_redir(t_jobs *job)
+{
+	t_redir *temp;	
+	char *outcome;
+
+
+	job->hereduc = NULL;
+	if(job->redir)
+	{
+		temp = job->redir;
+		while(temp)
+		{
+		outcome = eval_docc(temp,job->hereduc);
+		if(outcome)			
+			job->hereduc = outcome;
+		else
+			temp->eval = eval_line(temp->cmd,outcome,0,0);
 				temp = temp->next;
 		}
 	}
 }
+
