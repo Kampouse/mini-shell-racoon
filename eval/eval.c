@@ -90,14 +90,19 @@ return(output);
 int eval(t_jobs *jobs,t_exec *g_state)
 {
 	t_jobs *temp;
-
+	char **temp_b;
 	(void)g_state;
 	if(jobs)
 	{
 		temp = jobs;
 		while(temp)
 		{
-		eval_cmds(temp);
+			if(temp->cmd)
+			{
+			  temp_b = eval_cmds(temp);
+			  freelist(temp->cmd);
+			  temp->cmd  = temp_b;
+			}
 		eval_redir(temp);
 			temp = temp->next;
 		}

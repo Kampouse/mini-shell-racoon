@@ -43,7 +43,9 @@ int jobs(t_dlist *lst,t_jobs **output )
 	status = 0;
 	redir = redir_creator(lst,&status);
 	if(status < 0)
+	{
 		return(-1);
+	}
 	if( lst && lst->content)
 		commands = jobs_lst_creator(lst,&cmd_head);	
 		//cmd_head give acces to type of the cmd
@@ -77,7 +79,6 @@ t_jobs *job_lsting(t_dlist *lst)
 {
 	t_jobs *joblst;
 	joblst  = NULL;
-
 	if(piping_verif(lst) == 0 && jobs(lst,&joblst) == 0)
 		  return(jobs_tail(lst,joblst));
 	else

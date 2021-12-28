@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/28 02:19:13 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/12/28 03:47:49 by jemartel         ###   ########.fr       */
 /*   Updated: 2021/12/27 19:42:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -22,14 +22,14 @@ char **parse_unset(char **to_unset)
     
     i = 1;
     j = 0;
-    to_delete = malloc(sizeof(char *) * ft_tab_len(to_unset) + 1);
+    to_delete = malloc(sizeof(char **) * ft_tab_len(to_unset) + 1);
     while (to_unset[i])
     {
         //si la unset variable fini par '='
         if (to_unset[i][ft_strlen(to_unset[i]) - 1] == '=')
             printf("bash: unset: `%s': not a valid identifier\n", to_unset[i]);
         else
-            to_delete[j++] = ft_strdup(to_unset[i]);
+            to_delete[j++] = to_unset[i];
         i++;
     }
     to_delete[j] = NULL;
@@ -41,6 +41,8 @@ char **parse_unset(char **to_unset)
 void do_unset(t_jobs *job)
 {
     char    **to_delete;
+    char    **temp;
+    char    **temp_b;
     int i;
     
     // si to_delete fini par '=' : bash: unset: `jean=': not a valid identifier
@@ -49,9 +51,11 @@ void do_unset(t_jobs *job)
     i = 0;
     while (to_delete[i])
     {
-        g_state.exprt = remove_of_list(to_delete[i], g_state.exprt);
-        g_state.env = remove_of_list(to_delete[i], g_state.env);
+		temp= remove_of_list(to_delete[i], g_state.exprt);
+        temp_b = remove_of_list(to_delete[i], g_state.env);
         i++;
     }
-	freelist(to_delete);
+	g_state.env = temp;
+	g_state.exprt = temp_b;
+	free(to_delete);
 }

@@ -68,6 +68,7 @@ void tokens_lst(char *trimed ,size_t total_len,t_dlist **token_lst)
 		*token_lst = NULL;
 		return;
 	}
+			
 	ft_lst_add_backd(token_lst,node_init(output, type));
 	len = ft_strlen(output);	
 	if(len == 0 && type > 0)

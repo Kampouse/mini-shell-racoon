@@ -8,9 +8,11 @@ void parsing(t_exec *g_state)
 	char *trimed;
 	t_dlist *lst;
 	t_jobs *job;
+	t_jobs *temp;
 
 	job = NULL;
     lst = NULL;
+	
 	while(1)
 	{
 		line = readline(GREEN"minishell:>"RESET);
@@ -19,15 +21,24 @@ void parsing(t_exec *g_state)
 	
 		if(trimed && ft_strlen(trimed) > 0)
 		{
-			lst = line_parser(trimed); 	
-			job = job_lsting(lst);
+			lst = line_parser(trimed);
+			
+			if(lst != NULL)
+			{
+				job = job_lsting(lst);
+				temp = job;
+			while(temp)
+			{
+				eval(temp,g_state);
+				check_jobs(temp);
+				temp = temp->next;
+			}
 			if(job)
 			{
-				eval(job,g_state);
-				check_jobs(job);
-			}
-				ft_lstdclear(&lst,free);
 				free_jobs(job);
+				ft_lstonlyhead(&lst);
+			}
+			}
 		}
 		else if (trimed)
 			free(trimed);

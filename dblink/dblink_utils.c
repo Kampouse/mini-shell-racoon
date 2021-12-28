@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 10:46:47 by jemartel          #+#    #+#             */
-/*   Updated: 2021/12/07 15:23:14 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/12/28 20:39:50 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,30 @@ void	ft_lstdclear(t_dlist **lst, void (*del)(void*))
 	while (lst && *lst)
 	{
 		clear = (*lst)->next;
+		
 		ft_lstddelone(*lst, del);
+		free(*lst);
+		*lst = clear;
+	}
+}
+
+void	ft_lstonlyhead(t_dlist **lst)
+{
+	t_dlist	*clear;
+
+	if (!lst || !*lst)
+		return ;
+	while (lst && *lst)
+	{
+		if((*lst)->type <= 4   && (*lst)->type != -2)
+		{
+			free((*lst)->content);
+			if((*lst)->next &&  (*lst)->type != 4 && (*lst)->
+			next && ((*lst)->next->type == -2 || (*lst)->next->type > 4))
+				free((*lst)->next->content);
+		}
+		clear = (*lst)->next;
+		free(*lst);
 		*lst = clear;
 	}
 }

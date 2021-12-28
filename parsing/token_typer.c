@@ -17,7 +17,7 @@ int token_scanner(char *str,size_t *token_size)
 				*token_size = ft_strlen(tokens[inc]);
 			 return(inc);
 			}
-		else if( ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(trimed)) == 0)
+		else if( ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
 		{
 				*token_size = ft_strlen(trimed);
 				free((char *) trimed);
@@ -43,7 +43,7 @@ temp = NULL;
 		if(temp->type == 7)
 			{
 				freelist(g_state.env);
-				//free(g_state.exprt);
+				//freelist(g_state.exprt);
 				if(lst)
 					free_list(lst);
 			printf("at :token_typer:48 please find a correct place for it \n");

@@ -131,15 +131,18 @@ char **remove_of_list(char *to_remove, char **old_list)
     int j;
 
     new_list = NULL;
-    new_list = malloc(sizeof(char *) * (ft_tab_len(old_list) + 1));
+    new_list = malloc(sizeof(char **) * (ft_tab_len(old_list) + 1));
     i = 0;
     j = 0;
     while (old_list[i])
     {
  		if (!ft_strncmp(old_list[i], to_remove, ft_strlen(to_remove)))
+		{
 		 	i++;
+		}
 		else
 		{
+		
 			new_list[j] = ft_strdup(old_list[i]);
 			i++;
 			j++;
