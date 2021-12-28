@@ -20,7 +20,6 @@ SRCS =  main.c \
 		./executing/env_utils.c \
 		./executing/export.c \
 		./executing/exec.c \
-		./executing/export_valider.c \
 		./executing/export_utils.c \
 		./executing/unset.c \
 		\
@@ -62,7 +61,7 @@ leak: all
 		./$(NAME)
 
 val: all
-	valgrind  --leak-check=full --track-origins=yes --show-leak-kinds=all -s ./$(NAME)
+	valgrind  --leak-check=full ./$(NAME)
 
 clean:
 		@echo "\033[0;31m Cleaning..."
@@ -78,10 +77,10 @@ git:
 		./eval/eval.h
 
 fclean: clean
-	@echo "\033[0;31m Removing executable..."
-	@${RM} ${NAME}
-	@$(MAKE) -C libft fclean
-	@echo "\033[0m"
+		@echo "\033[0;31m Removing executable..."
+		@${RM} ${NAME}
+		@$(MAKE) -C libft fclean
+		@echo "\033[0m"
 
 re: fclean all
 

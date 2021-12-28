@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/26 19:53:34 by olabrecq         ###   ########.fr       */
+/*   Updated: 2021/12/27 12:49:09 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,48 +73,23 @@ int last_is_equal(char *cmd)
     return (0);
 }
 
-//Cette fonction ajoute un nouvelle element a la liste "export"
-void  add_new_export(char *new_exprt)
+int got_good_args(t_jobs *job)
 {
-    char **new_list;
     int i;
+    char *temp;
 
-    new_list = NULL;
-    new_list = malloc(sizeof(char **) * (ft_tab_len(g_state.exprt) + ft_tab_len(&new_exprt) + 1));
     i = 0;
-    while (g_state.exprt[i])
+    temp = NULL;
+    while (job->cmd[i])
     {
-        new_list[i] = ft_strdup(g_state.exprt[i]);
+        temp = job->cmd[i];
+        //reguarde si les premiere lettre des cmd est un chiffre ou un =
+        if ((ft_isdigit(temp[0])) || temp[0] == '=')
+            return (1);
+        //reguarde si = est seul ex: (a = b)
+        if (ft_strlen(temp) == 1 && temp[0] == '=')
+            return (1);
         i++;
     }
-    new_list[i] = ft_strdup(new_exprt);
-    g_state.exprt = ft_sort_tab(new_list);
-    // print_exprt(ft_tab_len(g_state.exprt));
-}
-
-void remove_export(char *to_remove)
-{
-    char **new_list;
-    int i;
-    int j;
-
-    new_list = NULL;
-    new_list = malloc(sizeof(char **) * (ft_tab_len(g_state.env)));
-    i = 0;
-    j = 0;
-    while (g_state.exprt[j])
-        {
-            if (!ft_strncmp(g_state.exprt[j], to_remove, ft_strlen(to_remove)))
-            {
-                printf("found\n");
-                j++;
-            }
-            else
-            {
-                new_list[i] = ft_strdup(g_state.exprt[j]);
-                i++;
-                j++;
-            }
-        }
-        g_state.exprt = new_list;
+    return (0);
 }

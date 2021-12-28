@@ -31,30 +31,20 @@ void    do_export(t_jobs *jobb);
 // UTILS FUNCTION
 char    **alloc_tab(char **envp);
 int     ft_tab_len(char **tab);
+char **add_to_list(char *new_exprt, char **old_list, int type);
 char    **ft_sort_tab(char **tab);
-
-
 char    *print_var(char *var);
-
-
 void    check_bultin(t_jobs *jobb);
-int     export_valider(t_jobs *jobb);
-
 //EXPORT UTILS
 char    *before_equal(char *var_cmd);
 char    *afther_equal(char *val_cmd);
-void    remove_export(char *to_remove);
-
+int     got_good_args(t_jobs *job);
 int no_equal(char *cmd);
 int last_is_equal(char *cmd);
-void  add_new_export(char *new_exprt);
-
 //ENV UTILS
-void  add_new_env(char *new_env);
 void update_env_list(char *var, char *val, int type);
-void    remove_env(char *to_remove);
-
 //UNSET
 void do_unset(t_jobs *job);
+char **remove_of_list(char *to_remove, char **old_list);
 
 #endif
