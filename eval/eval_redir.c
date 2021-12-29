@@ -61,7 +61,7 @@ int redir_poll(char *line,char *cmp)
 }
 
 
-char *eval_docc(t_redir *temp,char *heredoc)
+char *eval_docc(t_redir *temp)
 {
 char *docc;
 char *outcome;
@@ -69,8 +69,8 @@ char *line;
 
 line = NULL;
 outcome = NULL;
-				if(heredoc)
-					free(heredoc);
+				//if(heredoc)
+					//free(heredoc);
 			if(temp->type == 1)		
 			{
 			    docc = eval_line(temp->cmd,outcome,0,1);
@@ -102,10 +102,12 @@ void eval_redir(t_jobs *job)
 		{
 			printf("%d",temp->here_status);
 			if(temp->type == 1 && job->status == 0)
-				outcome = eval_docc(temp,job->hereduc);
+				outcome = eval_docc(temp);
 		if(outcome)
 			{
-			job->status = 1;
+			job->status = 0;
+			if(job->hereduc)
+				free(job->hereduc);
 			job->hereduc = outcome;
 			}
 		else
