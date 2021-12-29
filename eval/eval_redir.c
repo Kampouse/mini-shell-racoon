@@ -69,8 +69,6 @@ char *line;
 
 line = NULL;
 outcome = NULL;
-				//if(heredoc)
-					//free(heredoc);
 			if(temp->type == 1)		
 			{
 			    docc = eval_line(temp->cmd,outcome,0,1);
@@ -93,14 +91,16 @@ void eval_redir(t_jobs *job)
 	t_redir *temp;	
 	char *outcome;
 	outcome = NULL;
-
+	int inc;
+	inc = 0;
 	job->hereduc = NULL;
 	if(job->redir)
 	{
 		temp = job->redir;
 		while(temp)
 		{
-			printf("%d",temp->here_status);
+			printf("%d %s",temp->here_status,temp->cmd);
+			inc++;
 			if(temp->type == 1 && job->status == 0)
 				outcome = eval_docc(temp);
 		if(outcome)
@@ -115,5 +115,6 @@ void eval_redir(t_jobs *job)
 				temp = temp->next;
 		}
 	}
+	printf("\n");
 }
 
