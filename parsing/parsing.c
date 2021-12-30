@@ -35,6 +35,7 @@ void parsing(t_exec *g_state)
 			if(job)
 			{
 				free_jobs(job);
+				free_nodes(lst);
 			}
 				else
 					free_nodes(lst);

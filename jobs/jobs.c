@@ -81,7 +81,6 @@ t_jobs *job_lsting(t_dlist *lst)
 		  return(jobs_tail(lst,joblst));
 	else
 	{
-		printf("roh");
 		return(NULL);
 	}
 	return(joblst);

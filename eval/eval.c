@@ -100,7 +100,8 @@ int eval(t_jobs *jobs,t_exec *g_state)
 			{
 				temp->hereduc = NULL;
 			  temp_b = eval_cmds(temp);
-			  freelist(temp->cmd);
+			  free(temp->cmd);
+			  //freelist(temp->cmd);
 			  temp->cmd  = temp_b;
 			}
 			if(temp->redir)
