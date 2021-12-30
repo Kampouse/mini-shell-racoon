@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:43:39 by jemartel          #+#    #+#             */
-/*   Updated: 2021/12/30 01:45:48 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/12/30 21:42:33 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	free_nodes(t_dlist *head)
 		next = head->next;
 		if(head->content)
 			free(head->content);
-
 		free(head);
 		free_nodes(next);
 	}

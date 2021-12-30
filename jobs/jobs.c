@@ -67,7 +67,7 @@ t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 		else
 		{
 			if(currjobs)
-				free_jobs(currjobs);	
+				free_jobs(currjobs,1);	
 			return(NULL);
 		}
 	}

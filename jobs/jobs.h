@@ -22,6 +22,7 @@ typedef struct s_redir
 typedef struct s_jobs
 {
     char    **cmd;
+    char    **eval;
     char    *hereduc;
 	struct  s_redir    *redir;
     int     pipe[2];
@@ -53,7 +54,7 @@ t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head);
 void check_jobs(t_jobs *job);
 t_redir	*node_redir(char *cmd,int type);
 void	redir_addback(t_redir **currlist, t_redir *node);
-void	free_jobs(t_jobs *head);
+void	free_jobs(t_jobs *head,int type);
 void	free_redir(t_redir *head);
 
 #endif 

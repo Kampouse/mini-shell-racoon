@@ -92,31 +92,48 @@ outcome = NULL;
 return(outcome);
 }
 
+void pre_val_redir(t_jobs *jobs)
+{
+	t_redir *temp;
+	char *outcome;
+
+	outcome = NULL;
+	temp =	NULL;
+	if(jobs && jobs->redir)
+	{
+		temp = jobs->redir;
+		while(temp)
+		{
+			if(temp->type == 1 && jobs->status == 0)
+				outcome = eval_docc(temp);
+			if(outcome)
+			{
+				jobs->status = 0;
+			if(jobs->hereduc)
+				free(jobs->hereduc);
+			jobs->hereduc = outcome;
+			}
+				temp = temp->next;
+		}
+	}
+		if(jobs && jobs->next)
+			pre_val_redir(jobs->next);
+}
+
 void eval_redir(t_jobs *job)
 {
 	t_redir *temp;	
 	char *outcome;
+
 	outcome = NULL;
-	int inc;
-	inc = 0;
 	job->hereduc = NULL;
 	if(job->redir)
 	{
 		temp = job->redir;
 		while(temp)
 		{
-			inc++;
-			if(temp->type == 1 && job->status == 0)
-				outcome = eval_docc(temp);
-		if(outcome)
-			{
-			job->status = 0;
-			if(job->hereduc)
-				free(job->hereduc);
-			job->hereduc = outcome;
-			}
-		else
-			temp->eval = eval_line(temp->cmd,outcome,0,0);
+			if(temp->type != 1 && job->status == 0)
+					temp->eval = eval_line(temp->cmd,outcome,0,0);
 				temp = temp->next;
 		}
 	}

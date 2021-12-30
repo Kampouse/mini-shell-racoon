@@ -88,7 +88,6 @@ t_dlist *line_parser(char *trimed)
 	if(!trimed)
 		return(NULL);
 	tokens_lst(trimed,ft_strlen(trimed),&lst);
-	free(trimed);
 	tokens_peek(lst);
 	return(lst);
 }

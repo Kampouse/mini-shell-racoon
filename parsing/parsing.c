@@ -10,6 +10,7 @@ void parser_core(t_dlist *lst)
 	temp = NULL;
 	job = job_lsting(lst);
 				temp = job;
+			pre_val_redir(job);
 			while(temp)
 			{
 				eval(temp);
@@ -17,12 +18,7 @@ void parser_core(t_dlist *lst)
 				temp = temp->next;
 			}
 			if(job)
-			{
-				free_jobs(job);
-				free_nodes(lst);
-			}
-				else
-					free_nodes(lst);
+				free_jobs(job,0);
 }
 /* start readline and tokenize the string */
 void parsing(void)
@@ -41,7 +37,12 @@ void parsing(void)
 		{
 			lst = line_parser(trimed);
 			if(lst != NULL)
+			{
 				parser_core(lst);			
+				free(trimed);
+				free_nodes(lst);
+			}
+				
 		else if (trimed)
 			free(trimed);
 		}

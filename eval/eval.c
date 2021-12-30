@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-char *eval_noquote(char *str,int *append,int type)
+char *eval_noquote(char *str, int *append, int type)
 {
 int len;
 char *middle;
@@ -9,22 +9,22 @@ len = until_this(str + *append,"\n $\'\"");
 if(len == 0)
 	{
 		if(until_this(str + *append + 1,"\n $\'\"") < 0 )
-			len = ft_strlen(str  + *append);
+			len = ft_strlen(str + *append);
 		else if(len == 0 && ft_strlen(str + *append) == 1)
 			len++;
 		else
-			len = until_this(str + *append + 1,"\n \'\"$") + 1; 
+			len = until_this(str + *append + 1, "\n \'\"$") + 1; 
 	}
 	if(len > 0)
-		 middle = ft_substr(str + *append,0,len);
+		 middle = ft_substr(str + *append, 0, len);
 	if(len < 0)
 	{
 		len = ft_strlen(str + *append);
-		 middle = ft_substr(str + *append,0,len);
+		 middle = ft_substr(str + *append, 0, len);
 	}
 	*append += len;
 	if(middle[0] == '$'&& type == 0 ) 
-	 return(find_env(g_state.env,middle,type));
+	 return(find_env(g_state.env, middle, type));
 return(middle);
 }
 
@@ -91,7 +91,7 @@ int eval(t_jobs *jobs)
 {
 	t_jobs *temp;
 	char **temp_b;
-	(void)g_state;
+	
 	if(jobs)
 	{
 		temp = jobs;
@@ -101,7 +101,6 @@ int eval(t_jobs *jobs)
 				temp->hereduc = NULL;
 			  temp_b = eval_cmds(temp);
 			  printf("%d",temp->cmd_type);
-			  free(temp->cmd);
 			  temp->cmd  = temp_b;
 			}
 			if(temp->redir)

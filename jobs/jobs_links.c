@@ -11,6 +11,7 @@ t_jobs	*node_job(char **cmd)
 	link->hereduc = NULL;
 	link->redir = NULL;
 	link->cmd = cmd;
+	link->eval = NULL;
 	link->cmd_type = -3;
 	link->status = 0;
 	// link->nb_dolla = check_cashtoken(link);
@@ -101,7 +102,7 @@ if(lst)
 return(NULL);
 }
 
-void	free_jobs(t_jobs *head)
+void	free_jobs(t_jobs *head,int type)
 {
 	t_jobs	*next;
 		next = NULL;
@@ -110,11 +111,13 @@ void	free_jobs(t_jobs *head)
 		next = head->next;
 		if(head->redir)
 			free_redir(head->redir);
-		if(head->cmd)
-				freelist(head->cmd);
+		if(head->cmd && head->cmd[0] && type == 1)
+			free(head->cmd);
+		else
+			freelist(head->cmd);
 		if(head->hereduc != NULL)
 			free(head->hereduc);
 		free(head);
-		free_jobs(next);
+		free_jobs(next, type);
 	}
 }
