@@ -126,7 +126,6 @@ void eval_redir(t_jobs *job)
 	char *outcome;
 
 	outcome = NULL;
-	job->hereduc = NULL;
 	if(job->redir)
 	{
 		temp = job->redir;

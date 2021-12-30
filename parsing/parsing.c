@@ -42,7 +42,6 @@ void parsing(void)
 				free(trimed);
 				free_nodes(lst);
 			}
-				
 		else if (trimed)
 			free(trimed);
 		}

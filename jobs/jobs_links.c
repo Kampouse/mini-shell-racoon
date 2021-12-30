@@ -115,7 +115,7 @@ void	free_jobs(t_jobs *head,int type)
 			free(head->cmd);
 		else
 			freelist(head->cmd);
-		if(head->hereduc != NULL)
+		if(head->hereduc)
 			free(head->hereduc);
 		free(head);
 		free_jobs(next, type);
