@@ -80,6 +80,9 @@ t_jobs *job_lsting(t_dlist *lst)
 	if(piping_verif(lst) == 0 && jobs(lst,&joblst) == 0)
 		  return(jobs_tail(lst,joblst));
 	else
+	{
+		printf("roh");
 		return(NULL);
+	}
 	return(joblst);
 }

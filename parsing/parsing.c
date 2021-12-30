@@ -22,7 +22,6 @@ void parsing(t_exec *g_state)
 		if(trimed && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed);
-			
 			if(lst != NULL)
 			{
 				job = job_lsting(lst);
@@ -36,8 +35,9 @@ void parsing(t_exec *g_state)
 			if(job)
 			{
 				free_jobs(job);
-				ft_lstonlyhead(&lst);
 			}
+				else
+					free_nodes(lst);
 			}
 		}
 		else if (trimed)

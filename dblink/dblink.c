@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:43:39 by jemartel          #+#    #+#             */
-/*   Updated: 2021/12/28 19:54:31 by jemartel         ###   ########.fr       */
+/*   Updated: 2021/12/30 01:45:48 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	ft_clearnode(t_dlist *currlist, void (*del)(void *))
 {
 	if (currlist)
 	{
-		(*del)(currlist->content);
+			if(currlist->content)
+				(*del)(currlist->content);
 		free(currlist);
 	}
 }
@@ -79,4 +80,17 @@ void	ft_cleart_dlist(t_dlist **currlist, void (*del)(void *))
 		ft_clearnode(*currlist, del);
 	}
 }
+void	free_nodes(t_dlist *head)
+{
+	t_dlist	*next;
 
+	if (head)
+	{
+		next = head->next;
+		if(head->content)
+			free(head->content);
+
+		free(head);
+		free_nodes(next);
+	}
+}

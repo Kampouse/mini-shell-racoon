@@ -111,7 +111,9 @@ void	free_jobs(t_jobs *head)
 		if(head->redir)
 			free_redir(head->redir);
 		if(head->cmd)
-			freelist(head->cmd);
+		{
+				freelist(head->cmd);
+		}
 		if(head->hereduc != NULL)
 			free(head->hereduc);
 		free(head);

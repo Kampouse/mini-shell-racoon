@@ -104,10 +104,7 @@ int eval(t_jobs *jobs,t_exec *g_state)
 			  temp->cmd  = temp_b;
 			}
 			if(temp->redir)
-			{
-				printf("entered\n");
 				eval_redir(temp);
-			}
 			temp = temp->next;
 		}
 	}

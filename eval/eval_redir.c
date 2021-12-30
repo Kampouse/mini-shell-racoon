@@ -44,7 +44,6 @@ int redir_poll(char *line,char *cmp)
 	len = (int)ft_strlen(no_nl) - ft_strlen(trimed);
 	if(ft_strncmp(no_nl,trimed,ft_strlen(no_nl))== 0 && len  == 0)
 	{
-		printf("exited");
 		free(line);
 		free(outcome);
 		free(no_nl);
@@ -99,7 +98,6 @@ void eval_redir(t_jobs *job)
 		temp = job->redir;
 		while(temp)
 		{
-			printf("%d %s",temp->here_status,temp->cmd);
 			inc++;
 			if(temp->type == 1 && job->status == 0)
 				outcome = eval_docc(temp);
@@ -115,6 +113,5 @@ void eval_redir(t_jobs *job)
 				temp = temp->next;
 		}
 	}
-	printf("\n");
 }
 
