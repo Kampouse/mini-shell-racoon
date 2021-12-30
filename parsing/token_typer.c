@@ -1,5 +1,21 @@
 #include "../minishell.h"
 
+
+int token_scanner_ext(const char *trimed,size_t *token_size,int inc)
+{
+
+	const char *tokens[11] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset",NULL};
+
+		 if( ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
+		{
+			if(ft_strlen(trimed) == ft_strlen(tokens[inc]))
+			{
+					*token_size = ft_strlen(trimed);
+					return (inc);
+			}
+		}
+	return (-2);
+}
 int token_scanner(char *str,size_t *token_size)
 {
 	int inc;
@@ -17,7 +33,7 @@ int token_scanner(char *str,size_t *token_size)
 				*token_size = ft_strlen(tokens[inc]);
 			 return(inc);
 			}
-		else if( ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
+		else if(token_scanner_ext(trimed,token_size,inc) != -2)
 		{
 				*token_size = ft_strlen(trimed);
 				free((char *) trimed);

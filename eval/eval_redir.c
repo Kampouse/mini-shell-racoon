@@ -19,14 +19,24 @@ char *quote_eval(char *str,int left,char *outcome,int type)
 const char *duped = str;
 const int skipped = skip_over((char*)duped  + left);
 
-		if(skipped > 0)	
-			outcome = lazy_join(outcome,ft_substr(duped,left,skipped));
-	left += skipped;
-			 outcome = lazy_join(outcome,eval_noquote((char*)duped,&left,0)); 
-	if((unsigned int)left < ft_strlen(duped))
-		return(quote_eval((char*)duped,left,outcome,type));
+if(skipped > 0)	
+	outcome = lazy_join(outcome,ft_substr(duped,left,skipped));
+left += skipped;
+ outcome = lazy_join(outcome,eval_noquote((char*)duped,&left,0)); 
+if((unsigned int)left < ft_strlen(duped))
+	return(quote_eval((char*)duped,left,outcome,type));
 return(outcome);
 }
+
+
+void free_this(char *line,char *outcome,char *no_nl,char *trimed)
+{
+		free(line);
+		free(outcome);
+		free(no_nl);
+		free(trimed);
+}
+
 
 int redir_poll(char *line,char *cmp)
 {
@@ -44,11 +54,8 @@ int redir_poll(char *line,char *cmp)
 	len = (int)ft_strlen(no_nl) - ft_strlen(trimed);
 	if(ft_strncmp(no_nl,trimed,ft_strlen(no_nl))== 0 && len  == 0)
 	{
-		free(line);
-		free(outcome);
-		free(no_nl);
-		free(trimed);
-		return(0);
+		free_this(line,outcome,no_nl,trimed);
+	return(0);
 	}
 	else 
 	{

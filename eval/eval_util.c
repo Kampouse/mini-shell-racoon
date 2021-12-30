@@ -65,9 +65,7 @@ int until_this(char *str,char *this)
 	while(str[++inc])
 	{
 		if(ft_strchr(this,str[inc]))
-		{
 			return(inc);
-		}
 	}
 return(-1);
 }

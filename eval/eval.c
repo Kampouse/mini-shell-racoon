@@ -87,7 +87,7 @@ len = 0;
 return(output);
 }
 
-int eval(t_jobs *jobs,t_exec *g_state)
+int eval(t_jobs *jobs)
 {
 	t_jobs *temp;
 	char **temp_b;
@@ -100,8 +100,8 @@ int eval(t_jobs *jobs,t_exec *g_state)
 			{
 				temp->hereduc = NULL;
 			  temp_b = eval_cmds(temp);
+			  printf("%d",temp->cmd_type);
 			  free(temp->cmd);
-			  //freelist(temp->cmd);
 			  temp->cmd  = temp_b;
 			}
 			if(temp->redir)

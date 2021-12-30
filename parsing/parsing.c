@@ -1,34 +1,18 @@
 #include "../minishell.h"
 
-/* main  entry point of minishell where jobs  
-will be created(yet to be implemented) and  (executed WORKING)  */
-void parsing(t_exec *g_state)
+/* evaluate each job one after the  other */
+void parser_core(t_dlist *lst)
 {
-	char *line;
-	char *trimed;
-	t_dlist *lst;
 	t_jobs *job;
 	t_jobs *temp;
-
-	job = NULL;
-    lst = NULL;
-	temp = NULL; 	
-	while(1)
-	{
-		line = readline(GREEN"minishell:>"RESET);
-		trimed = ft_strtrim(line," ");
-	    free(line);
 	
-		if(trimed && ft_strlen(trimed) > 0)
-		{
-			lst = line_parser(trimed);
-			if(lst != NULL)
-			{
-				job = job_lsting(lst);
+	job = NULL;
+	temp = NULL;
+	job = job_lsting(lst);
 				temp = job;
 			while(temp)
 			{
-				eval(temp,g_state);
+				eval(temp);
 				check_jobs(temp);
 				temp = temp->next;
 			}
@@ -39,9 +23,29 @@ void parsing(t_exec *g_state)
 			}
 				else
 					free_nodes(lst);
-			}
-		}
+}
+/* start readline and tokenize the string */
+void parsing(void)
+{
+	char *line;
+	char *trimed;
+	t_dlist *lst;
+
+    lst = NULL;
+	while(1)
+	{
+		line = readline(GREEN"minishell:>"RESET);
+		trimed = ft_strtrim(line," ");
+	    free(line);
+		if(trimed && ft_strlen(trimed) > 0)
+		{
+			lst = line_parser(trimed);
+			if(lst != NULL)
+				parser_core(lst);			
 		else if (trimed)
+			free(trimed);
+		}
+		else
 			free(trimed);
 	}
 }

@@ -18,7 +18,7 @@ int main(int argc, char **argv, char **envp)
 		exit (-1);
 	}
 	init_exec(envp);
-	parsing(g_state);
+	parsing();
 }
 
 
