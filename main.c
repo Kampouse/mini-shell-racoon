@@ -9,16 +9,29 @@ determine a index that  will excute a set function such as exit_please */
 
 /* main entry point where every thing happen from creating token to jobs to excution */
 
+
+
+
 int main(int argc, char **argv, char **envp)
 {
 	(void)argv;
-	if (argc > 1)
+	if (argc > 3)
 	{
 		ft_putstr("Invalid number of arguments\n");
 		exit (-1);
 	}
-	init_exec(envp);
-	parsing();
+	if (argc == 3 &&  ft_strncmp("-c",argv[1],ft_strlen("-c")) == 0)
+	{
+		printf("hello %s\n",argv[2]);
+		init_exec(envp);
+		quick_parser(argv[2]);
+		freelist(g_state.env);
+	}
+	else
+	{
+		init_exec(envp);
+		parsing();
+	}
 }
 
 
