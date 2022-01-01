@@ -36,10 +36,10 @@ void parsing(void)
 		if(trimed && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed);
+				free(trimed);
 			if(lst != NULL)
 			{
 				parser_core(lst);			
-				free(trimed);
 				free_nodes(lst);
 			}
 		else if (trimed)
