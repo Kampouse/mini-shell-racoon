@@ -2,7 +2,7 @@
 
 char *eval_noquote(char *str, int *append, int type)
 {
-		int len;
+	int len;
 	char *middle;
 
 	len = until_this(str + *append,"\n $\'\"");
@@ -24,8 +24,8 @@ char *eval_noquote(char *str, int *append, int type)
 	}
 	*append += len;
 	if(middle[0] == '$'&& type == 0 ) 
-	 return(find_env(g_state.env, middle, type));
-return(middle);
+		return(find_env(g_state.env, middle, type));
+	return(middle);
 }
 
 char *eval_dquote(char *str,char *output,int *append,int type)
@@ -95,18 +95,16 @@ int eval(t_jobs *jobs)
 	if(jobs)
 	{
 		temp = jobs;
+		if(temp->cmd)
 		{
-			if(temp->cmd)
-			{
-				temp->hereduc = NULL;
-			  temp_b = eval_cmds(temp);
-			  printf("%d",temp->cmd_type);
-			  temp->cmd  = temp_b;
-			}
-			if(temp->redir)
-				eval_redir(temp);
-			temp = temp->next;
+			temp->hereduc = NULL;
+			temp_b = eval_cmds(temp);
+			printf("cmd type = %d\n",temp->cmd_type);
+			temp->cmd  = temp_b;
 		}
+		if(temp->redir)
+			eval_redir(temp);
+		temp = temp->next;
 	}
 	return(0);
 }
