@@ -37,18 +37,19 @@ void parser_core(t_dlist *lst)
 
 void quick_parser(char *str)
 {
-const char *trimed = ft_strtrim(str," ");
-t_dlist *lst;
-			if(trimed && ft_strlen(trimed) > 0)
+	const char *trimed = ft_strtrim(str," ");
+	t_dlist *lst;
+
+	if(trimed && ft_strlen(trimed) > 0)
+	{
+		lst = line_parser((char *)trimed);
+		free((char *)trimed);
+		if(lst != NULL)
 		{
-			lst = line_parser((char *)trimed);
-				free((char *)trimed);
-			if(lst != NULL)
-			{
-				parser_core(lst);			
-				free_nodes(lst);
-			}
+			parser_core(lst);			
+			free_nodes(lst);
 		}
+	}	
 }
 
 void parsing(void)

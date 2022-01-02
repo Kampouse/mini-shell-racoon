@@ -5,47 +5,47 @@
 
 int skip_over(char *str)
 {
-int skiped;
+	int skiped;
 
-skiped = 0;
+	skiped = 0;
 
 	while(until_this(&str[skiped] ,"\'\"") == 0)	
-			skiped++;
-return(skiped);
+		skiped++;
+	return(skiped);
 }
 
 char *quote_eval(char *str,int left,char *outcome,int type)
 {
-const char *duped = str;
-const int skipped = skip_over((char*)duped  + left);
+	const char *duped = str;
+	const int skipped = skip_over((char*)duped  + left);
 
-if(skipped > 0)	
-	outcome = lazy_join(outcome,ft_substr(duped,left,skipped));
-left += skipped;
- outcome = lazy_join(outcome,eval_noquote((char*)duped,&left,0)); 
-if((unsigned int)left < ft_strlen(duped))
-	return(quote_eval((char*)duped,left,outcome,type));
-return(outcome);
+	if(skipped > 0)	
+		outcome = lazy_join(outcome,ft_substr(duped,left,skipped));
+	left += skipped;
+ 	outcome = lazy_join(outcome,eval_noquote((char*)duped,&left,0)); 
+	if((unsigned int)left < ft_strlen(duped))
+		return(quote_eval((char*)duped,left,outcome,type));
+	return(outcome);
 }
 
 
 void free_this(char *line,char *outcome,char *no_nl,char *trimed)
 {
-		free(line);
-		free(outcome);
-		free(no_nl);
-		free(trimed);
+	free(line);
+	free(outcome);
+	free(no_nl);
+	free(trimed);
 }
 
 
 int redir_poll(char *line,char *cmp)
 {
- char *outcome;
- char *no_nl;
- char *trimed;
- int len;
+ 	char *outcome;
+ 	char *no_nl;
+ 	char *trimed;
+ 	int len;
 
- outcome = NULL;
+ 	outcome = NULL;
 	if(!line)
 		return(1);
 	outcome = eval_line(line,outcome,0,1);
@@ -55,7 +55,7 @@ int redir_poll(char *line,char *cmp)
 	if(ft_strncmp(no_nl,trimed,ft_strlen(no_nl))== 0 && len  == 0)
 	{
 		free_this(line,outcome,no_nl,trimed);
-	return(0);
+		return(0);
 	}
 	else 
 	{
@@ -69,27 +69,27 @@ int redir_poll(char *line,char *cmp)
 
 char *eval_docc(t_redir *temp)
 {
-char *docc;
-char *outcome;
-char *line;
+	char *docc;
+	char *outcome;
+	char *line;
 
-line = NULL;
-outcome = NULL;
-			if(temp->type == 1)		
+	line = NULL;
+	outcome = NULL;
+	if(temp->type == 1)		
+	{
+		docc = eval_line(temp->cmd,outcome,0,1);
+		while(redir_poll(line,docc) == 1)
+		{
+			if(line)
 			{
-			    docc = eval_line(temp->cmd,outcome,0,1);
-				while(redir_poll(line,docc) == 1)
-				{
-					if(line)
-					{
-						outcome  =	quote_eval(line,0,outcome,0);
-						free(line);
-					}
-					line = lazy_join(readline(">>"),ft_strdup("\n"));
-				}
-				free(docc);
+				outcome  =	quote_eval(line,0,outcome,0);
+				free(line);
 			}
-return(outcome);
+			line = lazy_join(readline(">>"),ft_strdup("\n"));
+		}
+		free(docc);
+	}
+	return(outcome);
 }
 
 void pre_val_redir(t_jobs *jobs)
@@ -109,15 +109,15 @@ void pre_val_redir(t_jobs *jobs)
 			if(outcome)
 			{
 				jobs->status = 0;
-			if(jobs->hereduc)
-				free(jobs->hereduc);
-			jobs->hereduc = outcome;
+				if(jobs->hereduc)
+					free(jobs->hereduc);
+				jobs->hereduc = outcome;
 			}
-				temp = temp->next;
+			temp = temp->next;
 		}
 	}
-		if(jobs && jobs->next)
-			pre_val_redir(jobs->next);
+	if(jobs && jobs->next)
+		pre_val_redir(jobs->next);
 }
 
 void eval_redir(t_jobs *job)
@@ -132,8 +132,8 @@ void eval_redir(t_jobs *job)
 		while(temp)
 		{
 			if(temp->type != 1 && job->status == 0)
-					temp->eval = eval_line(temp->cmd,outcome,0,0);
-				temp = temp->next;
+				temp->eval = eval_line(temp->cmd,outcome,0,0);
+			temp = temp->next;
 		}
 	}
 }

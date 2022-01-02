@@ -54,7 +54,7 @@ const   int quote = until_this(str + 1 , "\'");
 	if(str && str[0] == '\'')
 	{
 		*append += (int)quote + 2;
-		 return (ft_substr(str,1,quote));	
+		return (ft_substr(str,1,quote));	
 	}
 return(0);
 }
@@ -67,13 +67,13 @@ char *eval_line(char *str,char *output,int lon,int type)
 	char *temp;
 
 	outcome = NULL;
-		len = 0;
+	len = 0;
 	if( str[lon] == '\"')
 	{
 		temp = ft_substr(str + lon,1,until_this(str + lon + 1,"\"") + 1);
-		 output = lazy_join(output,eval_dquote(temp,outcome,&len,type));
-		 lon+= until_this(str + lon + 1,"\"") + 2;
-		 free(temp);
+		output = lazy_join(output,eval_dquote(temp,outcome,&len,type));
+		lon+= until_this(str + lon + 1,"\"") + 2;
+		free(temp);
 	}
 	if(str && ft_strlen(str + lon) != 0 && str[lon] == '\'')
 	{

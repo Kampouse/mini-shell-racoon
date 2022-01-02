@@ -20,16 +20,17 @@ int piping_verif(t_dlist *lst)
 		if(temp->type  == 4)
 		{
 			if(temp->prev && (temp->prev->type >= 0  && temp->prev->type <= 4))
-					return(pipe_return(-1));
+				return(pipe_return(-1));
 			if(temp->next && temp->next->type == 4)
 				return(pipe_return(-1));
 			if(!temp->prev || !temp->next)
-					return(pipe_return(-1));
+				return(pipe_return(-1));
 		}
 		temp = temp->next;		
 	}
 	return (0);
 }
+
 /* create a jobs with the right element in it */
 int jobs(t_dlist *lst,t_jobs **output ) 
 {
@@ -50,11 +51,12 @@ int jobs(t_dlist *lst,t_jobs **output )
 	*output = job_new_lst(commands,redir,cmd_head);
 	return (0);
 }
+
 /* function that  create a list of (jobs) break on failure */
 t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 {
-  t_dlist *temp;
-  t_jobs *tempjob;
+  	t_dlist *temp;
+  	t_jobs *tempjob;
   
 	temp = job_find_pipe(lst);
 	if(temp)
@@ -71,7 +73,7 @@ t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 			return(NULL);
 		}
 	}
-return(currjobs);
+	return(currjobs);
 }
 
 t_jobs *job_lsting(t_dlist *lst)
@@ -79,10 +81,8 @@ t_jobs *job_lsting(t_dlist *lst)
 	t_jobs *joblst;
 	joblst  = NULL;
 	if(piping_verif(lst) == 0 && jobs(lst,&joblst) == 0)
-		  return(jobs_tail(lst,joblst));
+		return(jobs_tail(lst,joblst));
 	else
-	{
 		return(NULL);
-	}
 	return(joblst);
 }
