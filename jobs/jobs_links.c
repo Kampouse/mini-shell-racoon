@@ -83,23 +83,21 @@ t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head)
 		link->cmd_type = -3;
 	return (link);
 }
+
 t_dlist	*job_find_pipe(t_dlist *lst)
 {
 	t_dlist *temp;
-if(lst)
+	if(lst)
 	{
 		temp = lst;
 		while(temp)
 		{
-
 			if(temp->type == 4)
-			{
 				return(temp->next);
-			}
 			temp = temp->next;	
 		}
 	}
-return(NULL);
+	return(NULL);
 }
 
 void	free_jobs(t_jobs *head,int type)

@@ -39,10 +39,10 @@ int until_space(char *str)
 	{
 		inc++;
 	}
-return(inc);
+    return(inc);
 }
 
-char	freelist(char **list)
+void    freelist(char **list)
 {
 	int	index;
 
@@ -50,14 +50,13 @@ char	freelist(char **list)
 	if(list)
 	{
 		while (list[index])
-	{
-		if(list[index])
-			free((void *) list[index]);
-		index++;
+	    {
+		    // if(list[index])
+			free((void *)list[index]);
+		    index++;
+	    }
+	    free(list);
 	}
-	free(list);
-	}
-	return (0);
 }
 
 // return la longueur d'un char**
@@ -97,7 +96,7 @@ char **ft_sort_tab(char **tab)
         }
         i++;
     }
-	free(temp_tab);
+	 free(temp_tab);
     return (tab_sorted);
 }
 
@@ -149,5 +148,6 @@ char **remove_of_list(char *to_remove, char **old_list)
 		}
     }
     new_list[j] = NULL;
+    freelist(old_list);
     return (new_list);
 }

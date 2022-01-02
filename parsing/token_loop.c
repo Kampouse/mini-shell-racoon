@@ -14,16 +14,17 @@ char  *line_handler(char *str, size_t *len)
 	}
 	else
 	{
-		 temp = find_partner(str,len);	
-		 if(temp)
+		temp = find_partner(str,len);	
+		if(temp)
 		{
-		*len = ft_strlen(temp);
+			*len = ft_strlen(temp);
 			return(temp);
 		}
 	}
 	*len = 0;
 	return  0;
 }
+
 /* determine if it read all the  line */
  int token_bool(char *str, size_t *len)
 {
@@ -37,11 +38,12 @@ char  *line_handler(char *str, size_t *len)
 	}
 	return(0);
 }
+
 /* main loop that creates the list of token */
 char *token_loop(char *result, char *str, size_t len, size_t offset)
 {
-char *sub_token;
-char *temp;
+	char *sub_token;
+	char *temp;
 
 	while(1)
 	{
@@ -50,11 +52,11 @@ char *temp;
 		if(len == 0)
 			break;
 		temp = ft_strjoin(result, sub_token);		
-				free(sub_token);	
-	if (result) 
-		free(result);
-	result = temp;	
-	if (ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
+		free(sub_token);	
+		if (result) 
+			free(result);
+		result = temp;	
+		if (ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
 			break;
 	}
 	if (!len)
@@ -80,10 +82,10 @@ int is_quoted(char *str)
 	{
 		if(str[inc] == '\''	|| str[inc] == '\"')
 		{
-				if(type == 0)
-					type =  str[inc];
+			if(type == 0)
+				type =  str[inc];
 			if(type ==  str[inc])
-				 state = !state;
+				state = !state;
 		}
 		if(state == 0 && ft_strchr("<>|\n\v\f\r ",str[inc]))
 			return(inc);

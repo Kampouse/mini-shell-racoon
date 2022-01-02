@@ -38,7 +38,7 @@ void    check_bultin(t_jobs *jobb);
 //EXPORT UTILS
 char    *before_equal(char *var_cmd);
 char    *afther_equal(char *val_cmd);
-int     got_good_args(t_jobs *job);
+int     got_good_args(char **cmd);
 int no_equal(char *cmd);
 int last_is_equal(char *cmd);
 //ENV UTILS

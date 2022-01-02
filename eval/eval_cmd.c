@@ -20,6 +20,6 @@ char **eval_cmds(t_jobs *job)
 		output[inc] = eval_line(job->cmd[inc],output[inc],0,0);
 		inc++;
 	}
-  free(job->cmd);
+  	free(job->cmd);
 	return(output);
 }

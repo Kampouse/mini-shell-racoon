@@ -23,7 +23,6 @@ t_redir	*last_redir(t_redir *currlist)
 {
 	if( currlist && currlist->next)
 	{
-
 		while (currlist->next)
 		{
 			if (!currlist->next)
@@ -33,6 +32,7 @@ t_redir	*last_redir(t_redir *currlist)
 	}
 	return (currlist);
 }
+
 void	redir_addback(t_redir **currlist, t_redir *node)
 {
 	t_redir	*last;

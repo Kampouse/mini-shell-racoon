@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/27 12:49:09 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/02 00:06:46 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,21 +73,21 @@ int last_is_equal(char *cmd)
     return (0);
 }
 
-int got_good_args(t_jobs *job)
+int got_good_args(char **cmd)
 {
     int i;
     char *temp;
 
     i = 0;
     temp = NULL;
-    while (job->cmd[i])
+    while (cmd[i])
     {
-        temp = job->cmd[i];
+        temp = cmd[i];
         //reguarde si les premiere lettre des cmd est un chiffre ou un =
         if ((ft_isdigit(temp[0])) || temp[0] == '=')
             return (1);
         //reguarde si = est seul ex: (a = b)
-        if (ft_strlen(temp) == 1 && temp[0] == '=')
+        else if (ft_strlen(temp) == 1 && temp[0] == '=')
             return (1);
         i++;
     }

@@ -1,6 +1,7 @@
 #include "eval.h"
+
 /* return variable from env else NULL */
-char	*find_env(char **envp,char *str,int type)
+char	*find_env(char **envp, char *str, int type)
 {
 	int		inc;
 	char *temp;
@@ -26,8 +27,9 @@ char	*find_env(char **envp,char *str,int type)
 		return(str);
 	return(NULL);
 }
- /* reinforce join so it can handle  NULL */
-char *lazy_join(char *first,char *second)
+
+/* reinforce join so it can handle  NULL */
+char *lazy_join(char *first, char *second)
 {
 	char		*output;
 	size_t		len;
@@ -55,7 +57,7 @@ char *lazy_join(char *first,char *second)
 }
 
 /*  count how many  char it can read until a delimiter else return -1 */
-int until_this(char *str,char *this)
+int until_this(char *str, char *this)
 {
 	int inc;
 
@@ -67,13 +69,12 @@ int until_this(char *str,char *this)
 		if(ft_strchr(this,str[inc]))
 			return(inc);
 	}
-return(-1);
+	return(-1);
 }
 
 /*   extenion of  find_var*/
-char *find_varutil(char *str,int **len,int until)
+char *find_varutil(char *str, int **len, int until)
 {
-
 	if(until < 0 )
 	{
 		**len += until_this(str,"\"") + 1;
@@ -84,17 +85,17 @@ char *find_varutil(char *str,int **len,int until)
 		**len += until_this(str + 1," $") + 1;
 		return(ft_substr(str,0, until_this(str + 1," $") + 1)); 
 	}
-
-return(NULL);
+	return(NULL);
 }
+
 /* core of double quote  expension*/
 char *find_var(char *str,int *len)
 {
-int until;
-int **temp;
+	int until;
+	int **temp;
 
-temp = &len;
-		until = until_this(str,"$");
+	temp = &len;
+	until = until_this(str,"$");
 	if( until > 0  || until  < 0 )
 		return(find_varutil(str,temp,until));
 	if(until == 0 &&  until_this(str + 1,"$") != -1)
@@ -112,5 +113,5 @@ temp = &len;
 		*len += until_this(str + 1," \'\"") + 1;
 		return( ft_substr(str,0,until_this(str + 1," \'\"") + 1)); 
 	}
-return(0);
+	return(0);
 }

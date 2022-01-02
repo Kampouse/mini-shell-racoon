@@ -1,8 +1,8 @@
-#include "../jobs/jobs.h"
-#include "../executing/executing.h"
-# ifndef EVAL_H
+#ifndef EVAL_H
 # define EVAL_H
 
+#include "../jobs/jobs.h"
+#include "../executing/executing.h"
 
 char	*find_env(char **envp,char *str,int type);
 char *lazy_join(char *first,char *second);
@@ -15,4 +15,5 @@ char *eval_line(char *str,char *output,int lon,int type);
 char **eval_cmds(t_jobs *job);
 char *eval_noquote(char *str,int *append,int type);
 void pre_val_redir(t_jobs *jobs);
+
 #endif 
