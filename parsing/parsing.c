@@ -21,20 +21,16 @@ void parser_core(t_dlist *lst)
 	temp = NULL;
 	job = job_lsting(lst);
 				temp = job;
-			pre_val_redir(job);
+			 pre_val_redir(job);
 			while(temp)
 			{
 				eval(temp);
 				check_jobs(temp);
 				temp = temp->next;
 			}
-			if(job)
 				free_jobs(job,0);
 }
 /* start readline and tokenize the string */
-
-
-
 
 void quick_parser(char *str)
 {

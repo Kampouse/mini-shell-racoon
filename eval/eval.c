@@ -98,9 +98,7 @@ int eval(t_jobs *jobs)
 		{
 			if(temp->cmd)
 			{
-				temp->hereduc = NULL;
 			  temp_b = eval_cmds(temp);
-			  printf("%d",temp->cmd_type);
 			  temp->cmd  = temp_b;
 			}
 			if(temp->redir)

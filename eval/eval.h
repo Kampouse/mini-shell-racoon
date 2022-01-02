@@ -14,6 +14,5 @@ int eval(t_jobs *jobs);
 char *eval_line(char *str,char *output,int lon,int type);
 char **eval_cmds(t_jobs *job);
 char *eval_noquote(char *str,int *append,int type);
-
 void pre_val_redir(t_jobs *jobs);
 #endif 
