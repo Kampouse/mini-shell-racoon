@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/28 09:14:19 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/02 00:06:46 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int got_good_args(char **cmd)
         if ((ft_isdigit(temp[0])) || temp[0] == '=')
             return (1);
         //reguarde si = est seul ex: (a = b)
-        if (ft_strlen(temp) == 1 && temp[0] == '=')
+        else if (ft_strlen(temp) == 1 && temp[0] == '=')
             return (1);
         i++;
     }

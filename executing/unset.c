@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/28 08:18:36 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/02 00:08:43 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void do_unset(t_jobs *job)
     i = 0;
     while (to_delete[i])
     {
+        //faire un swap list
         g_state.exprt = remove_of_list(to_delete[i], g_state.exprt);
         g_state.env = remove_of_list(to_delete[i], g_state.env);
         i++;
