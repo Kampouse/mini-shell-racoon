@@ -32,8 +32,10 @@ t_redir *redir_creator(t_dlist *redir, int *status)
 			free_redir(redir_lst);
 				return(NULL);
 		}
-		if(temp->next)
+		if(temp->next && temp->next->type != 4)
+		{
 			temp = temp->next;
+		}
 		else 
 			break;
 	}

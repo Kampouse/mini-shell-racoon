@@ -2,13 +2,18 @@
 
 void check_bultin(t_jobs *job)
 {
-		printf("cmd type = %d\n", job->cmd_type);
+	if(job)
+	{
+
+	
+	//	printf("cmd type = %d\n", job->cmd_type);
 		if (job->cmd_type == 6)
             do_export(job);
     	if (job->cmd_type == 5)
 			do_env(job);
     	if (job->cmd_type == 9)
 			do_unset(job);
+	}
 //     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "echo", ft_strlen(trimed))))
 //PATH DANS READLINE

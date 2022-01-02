@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-char *eval_noquote(char *str,int *append,int type)
+char *eval_noquote(char *str, int *append, int type)
 {
 		int len;
 	char *middle;
@@ -9,23 +9,23 @@ char *eval_noquote(char *str,int *append,int type)
 	if(len == 0)
 	{
 		if(until_this(str + *append + 1,"\n $\'\"") < 0 )
-			len = ft_strlen(str  + *append);
+			len = ft_strlen(str + *append);
 		else if(len == 0 && ft_strlen(str + *append) == 1)
 			len++;
 		else
-			len = until_this(str + *append + 1,"\n \'\"$") + 1; 
+			len = until_this(str + *append + 1, "\n \'\"$") + 1; 
 	}
 	if(len > 0)
-		 middle = ft_substr(str + *append,0,len);
+		 middle = ft_substr(str + *append, 0, len);
 	if(len < 0)
 	{
 		len = ft_strlen(str + *append);
-		 middle = ft_substr(str + *append,0,len);
+		 middle = ft_substr(str + *append, 0, len);
 	}
 	*append += len;
 	if(middle[0] == '$'&& type == 0 ) 
-	return(find_env(g_state.env,middle,type));
-	return(middle);
+	 return(find_env(g_state.env, middle, type));
+return(middle);
 }
 
 char *eval_dquote(char *str,char *output,int *append,int type)
@@ -87,18 +87,24 @@ char *eval_line(char *str,char *output,int lon,int type)
 	return(output);
 }
 
-int eval(t_jobs *jobs,t_exec *g_state)
+int eval(t_jobs *jobs)
 {
 	t_jobs *temp;
-
-	(void)g_state;
+	char **temp_b;
+	
 	if(jobs)
 	{
 		temp = jobs;
-		while(temp)
 		{
-			eval_cmds(temp);
-			eval_redir(temp);
+			if(temp->cmd)
+			{
+				temp->hereduc = NULL;
+			  temp_b = eval_cmds(temp);
+			  printf("%d",temp->cmd_type);
+			  temp->cmd  = temp_b;
+			}
+			if(temp->redir)
+				eval_redir(temp);
 			temp = temp->next;
 		}
 	}

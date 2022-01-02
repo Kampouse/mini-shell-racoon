@@ -1,5 +1,5 @@
 #include "../minishell.h"
-t_jobs	*node_job(char **cmd,char **redir)
+t_jobs	*node_job(char **cmd)
 {
 	t_jobs	*link;
 
@@ -9,8 +9,11 @@ t_jobs	*node_job(char **cmd,char **redir)
 	link->prev = NULL;
 	link->next = NULL;
 	link->hereduc = NULL;
+	link->redir = NULL;
 	link->cmd = cmd;
-	link->cmd = redir;
+	link->eval = NULL;
+	link->cmd_type = -3;
+	link->status = 0;
 	// link->nb_dolla = check_cashtoken(link);
 	// printf("nb  de dollar = %d\n", link->nb_dolla);
 	return (link);
@@ -67,6 +70,8 @@ t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head)
 	if (!link)
 		return (NULL);
 	link->next = NULL;
+	link->hereduc = NULL;
+	link->status = 0;
 	link->cmd = cmd;
 	if(redir)
 		link->redir = redir;
@@ -97,7 +102,7 @@ if(lst)
 return(NULL);
 }
 
-void	free_jobs(t_jobs *head)
+void	free_jobs(t_jobs *head,int type)
 {
 	t_jobs	*next;
 		next = NULL;
@@ -106,10 +111,13 @@ void	free_jobs(t_jobs *head)
 		next = head->next;
 		if(head->redir)
 			free_redir(head->redir);
-		if(head->cmd)
+		if(head->cmd && head->cmd[0] && type == 1)
 			free(head->cmd);
-		if(head->hereduc != NULL)
+		else
+			freelist(head->cmd);
+		if(head->hereduc)
+			free(head->hereduc);
 		free(head);
-		free_jobs(next);
+		free_jobs(next, type);
 	}
 }

@@ -1,19 +1,25 @@
 #include "eval.h"
 
-void eval_cmds(t_jobs *job)
+char **eval_cmds(t_jobs *job)
 {
 	int inc;
-	char *output;	
+	int len;
+	char **output;	
 
 	output = NULL;
 	inc = 0;
+	len = 0;
 	if(job->cmd && job->cmd[inc])	
 	{
-		output = eval_line(job->cmd[inc],output,0,0);
-		if(output)
-		{
-				job->cmd[inc] = output;
-				free(job->cmd[inc]);
-		}
+		while(job->cmd[len])
+			len++;
+		output = ft_calloc(len + 1,sizeof(job->cmd));
 	}
+	while(job->cmd[inc])	
+	{
+		output[inc] = eval_line(job->cmd[inc],output[inc],0,0);
+		inc++;
+	}
+  free(job->cmd);
+	return(output);
 }

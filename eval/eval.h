@@ -10,8 +10,10 @@ int until_this(char *str,char *this);
 char *find_varutil(char *str,int **len,int until);
 char *find_var(char *str,int *len);
 void eval_redir(t_jobs *job);
-int eval(t_jobs *jobs,t_exec *g_state);
+int eval(t_jobs *jobs);
 char *eval_line(char *str,char *output,int lon,int type);
-void eval_cmds(t_jobs *job);
+char **eval_cmds(t_jobs *job);
 char *eval_noquote(char *str,int *append,int type);
+
+void pre_val_redir(t_jobs *jobs);
 #endif 

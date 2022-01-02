@@ -45,5 +45,8 @@ t_dlist		*ft_lst_nextnode(t_dlist *currlist);
 t_dlist		*ft_lstnewl(void *content);
 void		free_list(t_dlist *head);
 void		ft_lstdclear(t_dlist **lst, void (*del)(void*));
-
+void	ft_lstonlyhead(t_dlist **lst);
+void	free_nodes(t_dlist *head);
+void quick_parser(char *str);
+int same_len (char *str ,char *str2);
 #endif 

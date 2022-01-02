@@ -1,6 +1,7 @@
 #include "parsing.h"
 #include "../minishell.h"
 
+/* entry point  to create tokens list */
 char  *line_handler(char *str, size_t *len)
 {
 	char *temp;
@@ -23,7 +24,7 @@ char  *line_handler(char *str, size_t *len)
 	*len = 0;
 	return  0;
 }
-
+/* determine if it read all the  line */
  int token_bool(char *str, size_t *len)
 {
 
@@ -32,15 +33,11 @@ char  *line_handler(char *str, size_t *len)
 	if(temp)
 	{
 		free((void *)temp);
-
 		return(1);
 	}
 	return(0);
 }
-/* loop that create token until it find space or string end 
-* currently	this implentation does not look 
-*
-* */
+/* main loop that creates the list of token */
 char *token_loop(char *result, char *str, size_t len, size_t offset)
 {
 char *sub_token;
@@ -68,20 +65,8 @@ char *temp;
 	}
 	return (result);	
 }
-/*
-int token_valid(char **tokens,char *trimed,int type)
-{
-	if(type == 7)
-	{
-		//exit_please(tokens,trimed);
-		//exit(0);
-	}
-	if(type  == 4)
-		ft_putstr_fd(trimed,1);
-return(0);
-}
-*/
-/* return the lenght of what the token   (current implementation  fail when seperaro;*/
+
+/* return the lenght of what the token should be*/
 int is_quoted(char *str)
 {
 	int inc;
@@ -99,7 +84,6 @@ int is_quoted(char *str)
 					type =  str[inc];
 			if(type ==  str[inc])
 				 state = !state;
-
 		}
 		if(state == 0 && ft_strchr("<>|\n\v\f\r ",str[inc]))
 			return(inc);

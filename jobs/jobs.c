@@ -67,7 +67,7 @@ t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 		else
 		{
 			if(currjobs)
-				free_jobs(currjobs);	
+				free_jobs(currjobs,1);	
 			return(NULL);
 		}
 	}
@@ -77,10 +77,11 @@ t_jobs *job_lsting(t_dlist *lst)
 {
 	t_jobs *joblst;
 	joblst  = NULL;
-
 	if(piping_verif(lst) == 0 && jobs(lst,&joblst) == 0)
 		  return(jobs_tail(lst,joblst));
 	else
+	{
 		return(NULL);
+	}
 	return(joblst);
 }

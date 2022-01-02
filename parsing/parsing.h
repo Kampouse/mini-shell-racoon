@@ -12,7 +12,7 @@ typedef struct t_dlist
 	size_t			len;
 }		t_dlist;
 
-void 	parsing();
+void 	parsing(void);
 void    tokens_peek(t_dlist *lst);
 char    *token_builder(char *str);
 char    *find_single(char *str,size_t *len);
