@@ -81,7 +81,7 @@ char *eval_line(char *str,char *output,int lon,int type)
 		lon+=until_this(str + lon + 1,"\'") + 2;
 	}
 	if(str[lon] != '\'' && str[lon] != '\"' && ft_strlen(str + lon) > 0)
-		output = lazy_join(output,eval_noquote(str,&lon,type));
+		output = lazy_join(output, eval_noquote(str,&lon,type));
 	if(ft_strlen(str + lon) > 0)
 		return(eval_line(str,output,lon,type));
 	return(output);
@@ -90,21 +90,15 @@ char *eval_line(char *str,char *output,int lon,int type)
 int eval(t_jobs *jobs)
 {
 	t_jobs *temp;
-	char **temp_b;
 	
 	if(jobs)
 	{
 		temp = jobs;
 		if(temp->cmd)
-		{
-			temp->hereduc = NULL;
-			temp_b = eval_cmds(temp);
-			printf("cmd type = %d\n",temp->cmd_type);
-			temp->cmd  = temp_b;
-		}
+		  temp->cmd  = eval_cmds(temp);
 		if(temp->redir)
 			eval_redir(temp);
-		temp = temp->next;
 	}
 	return(0);
 }
+

@@ -62,7 +62,10 @@ leak: all
 		./$(NAME)
 
 val: all
-	valgrind  --leak-check=full --track-origins=yes -s ./$(NAME)
+	valgrind  --leak-check=full --track-origins=yes -s --trace-children=yes ./$(NAME)
+test: all
+	valgrind  --leak-check=full --track-origins=yes -s ./$(NAME) "-c" '"help"'USER' | echo  | helpuser'
+
 
 clean:
 		@echo "\033[0;31m Cleaning..."

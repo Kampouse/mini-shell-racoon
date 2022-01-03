@@ -18,7 +18,6 @@ int main(int argc, char **argv, char **envp)
 	}
 	if (argc == 3 &&  ft_strncmp("-c",argv[1],ft_strlen("-c")) == 0)
 	{
-		printf("hello %s\n",argv[2]);
 		init_exec(envp);
 		quick_parser(argv[2]);
 		freelist(g_state.env);

@@ -43,11 +43,33 @@ int check_nb_of_cmd(t_jobs *job)
 	return (i);
 }
 
-void start_jobs(t_jobs *job)
-{
-	// printf("number of job = %d\n", check_nb_of_job(job));
-	printf("number of cmd = %d\n", check_nb_of_cmd(job));
-	check_bultin(job);
+/* function that should fork the process and execute what inside 
+*  since the process duplicate all the memory in the process
+* we should try to clear all the  the memory of the other jobs
+* otherwise it will counted as still reachable(leaks)
+* */
 
-	// parse_job(job);
+void start_job(t_jobs *job,t_dlist *lst,t_jobs *head)
+{
+	pid_t child;
+	int status;
+	if(check_bultin(job) == 0)
+	{
+		printf("not forked \n");
+		return;
+	}
+	else if(check_bultin(job) == 1)
+	{
+		child = fork();
+		(void)lst;
+		if(child == 0)
+		{
+			//free_redir(job->redir);
+			free_nodes(lst);
+			free_jobs(head,0);
+			freelist(g_state.env);
+			exit(0);
+		}
+		waitpid(-1,&status,0);
+	}
 }

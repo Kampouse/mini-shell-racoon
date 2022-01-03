@@ -96,7 +96,7 @@ char **ft_sort_tab(char **tab)
         }
         i++;
     }
-	// freelist(temp_tab);
+	 free(temp_tab);
     return (tab_sorted);
 }
 

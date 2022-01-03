@@ -4,6 +4,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/types.h>
+#include <sys/wait.h>
 # include <dirent.h>
 # include "parsing/parsing.h"
 # include "readline/readline.h"
@@ -45,8 +46,9 @@ t_dlist		*ft_lst_nextnode(t_dlist *currlist);
 t_dlist		*ft_lstnewl(void *content);
 void		free_list(t_dlist *head);
 void		ft_lstdclear(t_dlist **lst, void (*del)(void*));
-void	ft_lstonlyhead(t_dlist **lst);
-void	free_nodes(t_dlist *head);
-void quick_parser(char *str);
-int same_len (char *str ,char *str2);
+void		ft_lstonlyhead(t_dlist **lst);
+void		free_nodes(t_dlist *head);
+void		quick_parser(char *str);
+int			same_len (char *str ,char *str2);
+void		start_job(t_jobs *job,t_dlist *lst,t_jobs *head);
 #endif 
