@@ -26,7 +26,7 @@ void parser_core(t_dlist *lst)
 	while(temp)
 	{
 		eval(temp);
-		check_jobs(temp);
+		start_jobs(temp);
 		temp = temp->next;
 	}
 	if(job)

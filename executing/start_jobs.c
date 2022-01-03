@@ -1,24 +1,21 @@
 #include "../minishell.h"
 
-void check_bultin(t_jobs *job)
+int check_bultin(t_jobs *job)
 {
-	if(job)
-	{
-
-	
-	//	printf("cmd type = %d\n", job->cmd_type);
 		if (job->cmd_type == 6)
             do_export(job);
     	if (job->cmd_type == 5)
 			do_env(job);
     	if (job->cmd_type == 9)
 			do_unset(job);
-	}
+    	if (job->cmd_type == 8)
+			do_echo(job);
+			//exit =7
 //     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
-//     if (!(ft_strncmp(job->cmd[0], "echo", ft_strlen(trimed))))
 //PATH DANS READLINE
 //     if (!(ft_strncmp(job->cmd[0], "cd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "exit", ft_strlen(trimed))))
+return(0);
 }
 
 int check_nb_of_job(t_jobs *job)
@@ -46,7 +43,7 @@ int check_nb_of_cmd(t_jobs *job)
 	return (i);
 }
 
-void check_jobs(t_jobs *job)
+void start_jobs(t_jobs *job)
 {
 	// printf("number of job = %d\n", check_nb_of_job(job));
 	printf("number of cmd = %d\n", check_nb_of_cmd(job));
