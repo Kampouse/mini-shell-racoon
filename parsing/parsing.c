@@ -17,19 +17,27 @@ void parser_core(t_dlist *lst)
 {
 	t_jobs *job;
 	t_jobs *temp;
+	t_jobs *head;
 	
 	job = NULL;
 	temp = NULL;
 	job = job_lsting(lst);
 	temp = job;
+	head = job;
 			 pre_val_redir(job);
 			while(temp)
 			{
 				eval(temp);
-				check_jobs(temp);
 				temp = temp->next;
 			}
-				free_jobs(job,0);
+				temp = job;
+				while(temp)
+			{
+				start_job(temp,lst,head);
+		
+				temp = temp->next;
+			}
+			free_jobs(job,0);
 }
 /* start readline and tokenize the string */
 
@@ -73,5 +81,7 @@ void parsing(void)
 				free_nodes(lst);
 			}
 		}
+		else
+			free(trimed);
 	}
 }

@@ -51,7 +51,6 @@ char **jobs_lst_creator(t_dlist *lst,t_dlist **lst_head);
 t_jobs	*node_job(char **cmd);
 t_dlist	*job_find_pipe(t_dlist *lst);
 t_jobs	*job_new_lst(char **cmd,t_redir *redir,t_dlist *cmd_head);
-void check_jobs(t_jobs *job);
 t_redir	*node_redir(char *cmd,int type);
 void	redir_addback(t_redir **currlist, t_redir *node);
 void	free_jobs(t_jobs *head,int type);

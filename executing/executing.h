@@ -34,7 +34,7 @@ int     ft_tab_len(char **tab);
 char **add_to_list(char *new_exprt, char **old_list, int type);
 char    **ft_sort_tab(char **tab);
 char    *print_var(char *var);
-void    check_bultin(t_jobs *jobb);
+int		check_bultin(t_jobs *jobb);
 //EXPORT UTILS
 char    *before_equal(char *var_cmd);
 char    *afther_equal(char *val_cmd);
