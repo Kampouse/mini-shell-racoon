@@ -8,10 +8,6 @@ t_exec g_state = {0};
 determine a index that  will excute a set function such as exit_please */
 
 /* main entry point where every thing happen from creating token to jobs to excution */
-
-
-
-
 int main(int argc, char **argv, char **envp)
 {
 	(void)argv;

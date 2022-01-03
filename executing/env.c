@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2021/12/28 08:49:29 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/03 13:28:27 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 #include "../minishell.h"
 
-char **alloc_tab(char **envp)
+char **alloc_tab(char **old_tab)
 {
     char **tab;
     int i;
 
     i = 0;
-    while (envp[i])
-	{
+    while (old_tab[i])
+    {
         i++;
-	}
+    }
 	tab = ft_calloc(i + 1, sizeof(char**));
     return (tab);
 }

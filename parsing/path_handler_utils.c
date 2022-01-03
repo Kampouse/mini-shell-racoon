@@ -48,9 +48,8 @@ char	*ft_str3join(const char *first, const char *second, const char *third)
 
 	len = ft_strlen(first);
 	len2 = ft_strlen(second);
-	len2 = ft_strlen(second);
 	len3 = ft_strlen(third);
-	output = malloc(sizeof(char) * len + len2 + len3 + 1);
+	output = malloc(sizeof(char) * (len + len2 + len3 + 1));
 	if (output)
 	{
 		ft_memcpy(output, first, len);

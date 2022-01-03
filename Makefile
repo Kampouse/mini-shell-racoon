@@ -22,12 +22,13 @@ SRCS =  main.c \
 		./executing/exec.c \
 		./executing/export_utils.c \
 		./executing/unset.c \
+		./executing/echo.c \
+		./executing/start_jobs.c \
 		\
 		./jobs/jobs_redir.c \
 		./jobs/jobs_redir_links.c \
 		./jobs/jobs.c \
 		./jobs/jobs_links.c \
-		./jobs/check_jobs.c \
 		./jobs/jobs_lst.c \
 		\
 		./eval/eval.c \
@@ -52,7 +53,7 @@ ${NAME}:${OBJS}
 		@${CC} ${OBJS} ${FLAGS}  -lreadline -L./readline ./libft/libft.a  -lncurses  -L./ncurses/lib -o ${NAME}
 		@echo "\033[0m"
 		@echo "\n\033[32m\033[1m  Minishell Compiled\n\033[0m"
-
+# @${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}
 run: all
 		./$(NAME)
 

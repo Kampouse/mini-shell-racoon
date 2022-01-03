@@ -58,8 +58,8 @@ void parse_export(char **to_export)
     
     i = 1;
     j = 0;
-    variable = malloc(sizeof(char *) * ft_tab_len(to_export) + 1);
-    valeur = malloc(sizeof(char *) * ft_tab_len(to_export) + 1);
+    variable = malloc(sizeof(char *) * (ft_tab_len(to_export) + 1));
+    valeur = malloc(sizeof(char *) * (ft_tab_len(to_export) + 1));
     while (to_export[i])
     {
         if (last_is_equal(to_export[i]))

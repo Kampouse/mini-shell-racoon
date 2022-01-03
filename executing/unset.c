@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/02 11:49:15 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/02 22:59:28 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char **parse_unset(char **to_unset)
     
     i = 1;
     j = 0;
-    to_delete = malloc(sizeof(char **) * ft_tab_len(to_unset) + 1);
+    to_delete = malloc(sizeof(char *) * ft_tab_len(to_unset) + 1);
     while (to_unset[i])
     {
         //si la unset variable fini par '='
@@ -40,8 +40,8 @@ char **parse_unset(char **to_unset)
 void do_unset(t_jobs *job)
 {
     char    **to_delete;
-    char    **temp;
-    char    **temp_b;
+    // char    **temp;
+    // char    **temp_b;
     int i;
     
     // si to_delete fini par '=' : bash: unset: `jean=': not a valid identifier
@@ -49,11 +49,11 @@ void do_unset(t_jobs *job)
     i = 0;
     while (to_delete[i])
     {
-		temp = remove_of_list(to_delete[i], g_state.exprt);
-        temp_b = remove_of_list(to_delete[i], g_state.env);
+		g_state.exprt = remove_of_list(to_delete[i], g_state.exprt);
+        g_state.env = remove_of_list(to_delete[i], g_state.env);
         i++;
     }
-	g_state.env = temp;
-	g_state.exprt = temp_b;
+	// g_state.env = temp;
+	// g_state.exprt = ft_sort_tab(temp_b);
 	free(to_delete);
 }

@@ -29,12 +29,12 @@ void    do_export(t_jobs *jobb);
 // VARIABLE
 
 // UTILS FUNCTION
-char    **alloc_tab(char **envp);
+char    **alloc_tab(char **old_tab);
 int     ft_tab_len(char **tab);
 char **add_to_list(char *new_exprt, char **old_list, int type);
 char    **ft_sort_tab(char **tab);
 char    *print_var(char *var);
-int		check_bultin(t_jobs *jobb);
+int    check_bultin(t_jobs *jobb);
 //EXPORT UTILS
 char    *before_equal(char *var_cmd);
 char    *afther_equal(char *val_cmd);
@@ -46,5 +46,8 @@ void update_env_list(char *var, char *val, int type);
 //UNSET
 void do_unset(t_jobs *job);
 char **remove_of_list(char *to_remove, char **old_list);
+//ECHO
+void do_echo(t_jobs *jobs);
 
+void start_jobs(t_jobs *job);
 #endif

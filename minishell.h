@@ -4,6 +4,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/types.h>
+#include <sys/wait.h>
 # include <dirent.h>
 # include "parsing/parsing.h"
 # include "readline/readline.h"
