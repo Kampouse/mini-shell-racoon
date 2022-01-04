@@ -2,6 +2,8 @@
 
 int check_bultin(t_jobs *job)
 {
+		if(job->cmd_type == -2)
+			return(1);
 		if (job->cmd_type == 6)
             do_export(job);
     	if (job->cmd_type == 5)
@@ -36,7 +38,7 @@ int check_nb_of_cmd(t_jobs *job)
 	int i;
 
 	i = 0;
-	if(!job || !job->cmd || !job->cmd[0])
+	if(!job || !job->eval || !job->eval[0])
 		return(0);
 	while (job->cmd[i])
 		i++;

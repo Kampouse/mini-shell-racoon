@@ -13,32 +13,67 @@ int same_len(char *str ,char *str2)
 	return(-1);
 }
 
+int pipe_counter(t_dlist *lst)
+{
+t_dlist *tmp;
+int count;
+
+count = 0;
+tmp = lst;
+while(tmp)
+	{
+		if(tmp->type == 4)
+			count += 2;
+		tmp = tmp->next;
+	}
+return(count);
+}
+
+
+
+void eval_loop(t_jobs *job, int len)
+{
+t_jobs *temp;
+temp  = job;
+
+		if(len == 0)
+	{
+			eval(temp);
+			return;
+	}
+
+	while(temp)
+	{
+		eval(temp);
+		temp = temp->next;
+	}
+
+}
+
 void parser_core(t_dlist *lst)
 {
 	t_jobs *job = job_lsting(lst);
 	t_jobs *temp;
-	t_jobs *head;
-	int count;
-	
-	count = 0;
-	temp = NULL;
+
+	temp = NULL;	
 	temp = (t_jobs*)job;
-	head = (t_jobs*)job;
+			if(job)
+	{
 			 pre_val_redir((t_jobs*)job);
+			pipe_counter(lst);
 			while(temp)
 			{
 				eval(temp);
 				temp = temp->next;
-				count++;
 			}
 			temp = (t_jobs *)job;
 				while(temp)
 			{
-				(void)head;
-				start_job(temp,lst,head);
+				start_job(temp,lst,job);
 				temp = temp->next;
 			}
 			free_jobs((t_jobs *)job,0);
+		}
 }
 /* start readline and tokenize the string */
 

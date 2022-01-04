@@ -1,31 +1,26 @@
 #include "eval.h"
 
-char **eval_cmds(t_jobs *job)
+void eval_cmds(t_jobs *job)
 {
-	int inc;
 	int len;
 	char *temp;
 	char **output;	
 
-	output = NULL;
-	temp = NULL;
-	inc = 0;
 	len = 0;
-	if(job->cmd && job->cmd[inc])	
+	if(job->cmd && job->cmd[0])	
 	{
 		while(job->cmd[len])
 			len++;
 		output = ft_calloc(len + 1,sizeof(job->cmd));
 	}
-	while(job->cmd[inc])	
+	len = -1;
+	while(job->cmd[++len])	
 	{
-		temp = eval_line(job->cmd[inc],output[inc],0,0);
+		temp = eval_line(job->cmd[len],output[len],0,0);
 		if(!temp)
 			temp = ft_strdup("");
-		output[inc] = temp;
-		inc++;
+		output[len] = temp;
 	}
 	free(job->cmd);
 	job->eval= output;
-	return(output);
 }
