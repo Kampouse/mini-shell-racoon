@@ -6,32 +6,36 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 22:49:52 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/04 02:17:20 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/04 04:42:10 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int parse_echo(char **old_cmd)
-{
-    for (int i = 0; old_cmd[i]; i++)
-		printf("cmd[%d] = %s\n", i, old_cmd[i]);
-    return (1);
-}
 
 void do_echo(t_jobs *jobs)
 {
     int n;
+    int i;
 
     n = 0;
-    if (ft_tab_len(jobs->cmd) > 1)
+    i = 1;
+    if (ft_tab_len(jobs->eval) > 1)
     {
-        if (jobs->cmd[1])
-        jobs->cmd++;
-        n = parse_echo(jobs->cmd);
+        if (!ft_strncmp(jobs->eval[1], "-n", (size_t)(sizeof(char) * 2)))
+        {
+            n++;
+            i++;
+        }
+        while (jobs->eval[i])
+        {
+            if (jobs->eval[i + 1])
+                printf("%s ", jobs->eval[i++]);
+            else
+                printf("%s", jobs->eval[i++]);
+        }
     }
-    if (n == 1)
-	{
-		 n = write(1, "\n", 1);
-	}
+    if (!n)
+        printf("\n");
+    
 }

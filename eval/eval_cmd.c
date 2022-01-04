@@ -25,6 +25,7 @@ char **eval_cmds(t_jobs *job)
 		output[inc] = temp;
 		inc++;
 	}
-  	free(job->cmd);
+	free(job->cmd);
+	job->eval= output;
 	return(output);
 }

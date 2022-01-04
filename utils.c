@@ -51,11 +51,14 @@ void    freelist(char **list)
 	{
 		while (list[index])
 	    {
-		    // if(list[index])
+			if(list[index])
+			{
+
 			free((void *)list[index]);
+			}
 		    index++;
-	    }
-	    free(list);
+		}
+	free(list);
 	}
 }
 

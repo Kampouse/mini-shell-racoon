@@ -96,7 +96,7 @@ int eval(t_jobs *jobs)
 	{
 		temp = jobs;
 		if(temp->cmd)
-		  temp->cmd  = eval_cmds(temp);
+			eval_cmds(temp);
 		if(temp->redir)
 			eval_redir(temp);
 	}

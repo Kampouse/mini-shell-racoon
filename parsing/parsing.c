@@ -31,15 +31,15 @@ void parser_core(t_dlist *lst)
 				temp = temp->next;
 				count++;
 			}
-			temp = (t_jobs*)job;
+			temp = (t_jobs *)job;
 				while(temp)
 			{
 				(void)head;
 				start_job(temp,lst,head);
 				temp = temp->next;
 			}
-			printf("%d",count);
 			free_jobs((t_jobs *)job,0);
+
 }
 /* start readline and tokenize the string */
 

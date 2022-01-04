@@ -55,6 +55,7 @@ void start_job(t_jobs *job,t_dlist *lst,t_jobs *head)
 	int status;
 	if(check_bultin(job) == 0)
 	{
+		//free(job->cmd);
 		printf("builtin as been handled\n");
 		return;
 	}
