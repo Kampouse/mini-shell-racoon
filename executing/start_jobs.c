@@ -15,7 +15,7 @@ int check_bultin(t_jobs *job)
 //PATH DANS READLINE
 //     if (!(ft_strncmp(job->cmd[0], "cd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "exit", ft_strlen(trimed))))
-return(0);
+	return(0);
 }
 
 int check_nb_of_job(t_jobs *job)
@@ -48,14 +48,12 @@ int check_nb_of_cmd(t_jobs *job)
 * we should try to clear all the  the memory of the other jobs
 * otherwise it will counted as still reachable(leaks)
 * */
-
-void start_job(t_jobs *job,t_dlist *lst,t_jobs *head)
+void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 {
 	pid_t child;
 	int status;
 	if(check_bultin(job) == 0)
 	{
-		//free(job->cmd);
 		printf("builtin as been handled\n");
 		return;
 	}
@@ -72,4 +70,6 @@ void start_job(t_jobs *job,t_dlist *lst,t_jobs *head)
 		}
 		waitpid(-1,&status,0);
 	}
+	
+	
 }
