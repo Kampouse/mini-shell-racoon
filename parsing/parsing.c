@@ -15,11 +15,11 @@ int same_len(char *str ,char *str2)
 
 int pipe_counter(t_dlist *lst)
 {
-t_dlist *tmp;
-int count;
+	t_dlist *tmp;
+	int count;
 
-count = 0;
-tmp = lst;
+	count = 0;
+	tmp = lst;
 	while(tmp)
 	{
 		if(tmp->type == 4)
@@ -56,23 +56,23 @@ void parser_core(t_dlist *lst)
 
 	temp = NULL;	
 	temp = (t_jobs*)job;
-			if(job)
+	if(job)
 	{
-			 pre_val_redir((t_jobs*)job);
-			pipe_counter(lst);
-			while(temp)
-			{
-				eval(temp);
-				temp = temp->next;
-			}
-			temp = (t_jobs *)job;
-				while(temp)
-			{
-				start_job(temp,lst,job);
-				temp = temp->next;
-			}
-			free_jobs((t_jobs *)job,0);
+		pre_val_redir((t_jobs*)job);
+		pipe_counter(lst);
+		while(temp)
+		{
+			eval(temp);
+			temp = temp->next;
 		}
+		temp = (t_jobs *)job;
+		while(temp)
+		{
+			start_job(temp,lst,job);
+			temp = temp->next;
+		}
+		free_jobs((t_jobs *)job,0);
+	}
 }
 /* start readline and tokenize the string */
 

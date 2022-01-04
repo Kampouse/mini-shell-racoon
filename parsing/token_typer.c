@@ -59,6 +59,7 @@ void tokens_peek(t_dlist *lst)
 		if(temp->type == 7)
 		{
 			freelist(g_state.env);
+            //freelist(g_state.exprt);
 			if(lst)
 				free_list(lst);
 			// printf("at :token_typer:48 please find a correct place for it \n");

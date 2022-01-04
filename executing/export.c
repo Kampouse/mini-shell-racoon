@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/28 09:23:56 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/04 19:31:17 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void print_exprt(int tab_len)
 void update_export_list(char *var, char *val, int type)
 {
     char *new_exprt;
-
+    char **temp;
     if (type == 1)
     {
         new_exprt = ft_strjoin(var, val);
@@ -45,7 +45,10 @@ void update_export_list(char *var, char *val, int type)
     {
         val = ft_str3join("\"", val, "\"");
         new_exprt = ft_strjoin(var, val);
-        g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
+    
+        temp = add_to_list(new_exprt,g_state.exprt, 1);
+        //free(g_state.exprt);
+        g_state.exprt = temp;
     }
 }
 
@@ -86,8 +89,7 @@ void parse_export(char **to_export)
         i++;
     }
     // valeur[j] = NULL;
-    // freelist(valeur);
-    // freelist(variable);
+    //free(valeur);
     //free list fait bugger 
 }
 

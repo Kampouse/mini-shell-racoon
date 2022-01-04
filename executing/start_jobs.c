@@ -2,6 +2,7 @@
 
 int check_bultin(t_jobs *job)
 {
+    job->cmd = job->eval;
 		if(job->cmd_type == -2)
 			return(1);
 		if (job->cmd_type == 6)
@@ -11,10 +12,7 @@ int check_bultin(t_jobs *job)
     	if (job->cmd_type == 9)
 			do_unset(job);
     	if (job->cmd_type == 8)
-    {
-        printf("roh");
 			do_echo(job);
-    }
 			//exit =7
 //     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
 //PATH DANS READLINE
