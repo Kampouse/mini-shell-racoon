@@ -116,7 +116,7 @@ void	free_jobs(t_jobs *head,int type)
 		if(head->hereduc)
 			free(head->hereduc);
 		else
-			printf("nothing in heredoc");
+			//printf("nothing in heredoc");
 		free(head);
 		free_jobs(next, type);
 	}

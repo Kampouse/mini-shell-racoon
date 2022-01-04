@@ -15,7 +15,7 @@ int check_bultin(t_jobs *job)
 //PATH DANS READLINE
 //     if (!(ft_strncmp(job->cmd[0], "cd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "exit", ft_strlen(trimed))))
-return(0);
+	return(0);
 }
 
 int check_nb_of_job(t_jobs *job)
@@ -49,27 +49,30 @@ int check_nb_of_cmd(t_jobs *job)
 * otherwise it will counted as still reachable(leaks)
 * */
 
-void start_job(t_jobs *job,t_dlist *lst,t_jobs *head)
+void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 {
-	pid_t child;
-	int status;
-	if(check_bultin(job) == 0)
-	{
-		printf("not forked \n");
-		return;
-	}
-	else if(check_bultin(job) == 1)
-	{
-		child = fork();
-		(void)lst;
-		if(child == 0)
-		{
-			//free_redir(job->redir);
-			free_nodes(lst);
-			free_jobs(head,0);
-			freelist(g_state.env);
-			exit(0);
-		}
-		waitpid(-1,&status,0);
-	}
+	// pid_t child;
+	// int status;
+	(void)lst;
+	(void)head;
+	check_bultin(job);
+	// if(check_bultin(job) == 0)
+	// {
+	// 	// printf("not forked \n");
+	// 	// return;
+	// }
+	// else if(check_bultin(job) == 1)
+	// {
+	// 	child = fork();
+	// 	(void)lst;
+	// 	if(child == 0)
+	// 	{
+	// 		//free_redir(job->redir);
+	// 		free_nodes(lst);
+	// 		free_jobs(head,0);
+	// 		freelist(g_state.env);
+	// 		exit(0);
+	// 	}
+	// 	waitpid(-1,&status,0);
+	// }
 }

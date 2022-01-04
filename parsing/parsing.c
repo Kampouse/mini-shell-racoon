@@ -24,20 +24,19 @@ void parser_core(t_dlist *lst)
 	job = job_lsting(lst);
 	temp = job;
 	head = job;
-			 pre_val_redir(job);
-			while(temp)
-			{
-				eval(temp);
-				temp = temp->next;
-			}
-				temp = job;
-				while(temp)
-			{
-				start_job(temp,lst,head);
-		
-				temp = temp->next;
-			}
-			free_jobs(job,0);
+	pre_val_redir(job);
+	while(temp)
+	{
+		eval(temp);
+		temp = temp->next;
+	}
+	temp = job;
+	while(temp)
+	{
+		start_job(temp,lst,head);
+		temp = temp->next;
+	}
+	free_jobs(job,0);
 }
 /* start readline and tokenize the string */
 

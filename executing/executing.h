@@ -48,6 +48,6 @@ void do_unset(t_jobs *job);
 char **remove_of_list(char *to_remove, char **old_list);
 //ECHO
 void do_echo(t_jobs *jobs);
-
+//start jobs
 void start_jobs(t_jobs *job);
 #endif
