@@ -20,25 +20,25 @@ int count;
 
 count = 0;
 tmp = lst;
-while(tmp)
+	while(tmp)
 	{
 		if(tmp->type == 4)
-			count += 2;
+		count += 2;
 		tmp = tmp->next;
 	}
-return(count);
+	return(count);
 }
 
 
 
 void eval_loop(t_jobs *job, int len)
 {
-t_jobs *temp;
-temp  = job;
+	t_jobs *temp;
+	temp  = job;
 
-		if(len == 0)
+	if(len == 0)
 	{
-			eval(temp);
+		eval(temp);
 			return;
 	}
 
@@ -47,7 +47,6 @@ temp  = job;
 		eval(temp);
 		temp = temp->next;
 	}
-
 }
 
 void parser_core(t_dlist *lst)
@@ -81,7 +80,6 @@ void parser_core(t_dlist *lst)
 void quick_parser(char *str)
 {
 	const char *trimed = ft_strtrim(str," ");
-
 	t_dlist *lst;
 
 	if(trimed && ft_strlen(trimed) > 0)
@@ -107,7 +105,7 @@ void parsing(void)
 	{
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line," ");
-	    free(line);
+		free(line);
 		if(trimed && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed);
