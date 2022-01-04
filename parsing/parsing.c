@@ -15,28 +15,31 @@ int same_len(char *str ,char *str2)
 
 void parser_core(t_dlist *lst)
 {
-	t_jobs *job;
+	t_jobs *job = job_lsting(lst);
 	t_jobs *temp;
 	t_jobs *head;
+	int count;
 	
-	job = NULL;
+	count = 0;
 	temp = NULL;
-	job = job_lsting(lst);
-	temp = job;
-	head = job;
-	pre_val_redir(job);
+	temp = (t_jobs*)job;
+	head = (t_jobs*)job;
+	pre_val_redir((t_jobs*)job);
 	while(temp)
 	{
 		eval(temp);
 		temp = temp->next;
+		count++;
 	}
-	temp = job;
+	temp = (t_jobs*)job;
 	while(temp)
 	{
+		(void)head;
 		start_job(temp,lst,head);
 		temp = temp->next;
 	}
-	free_jobs(job,0);
+	// printf("%d",count);
+	free_jobs((t_jobs *)job,0);
 }
 /* start readline and tokenize the string */
 

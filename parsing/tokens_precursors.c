@@ -73,6 +73,7 @@ char *find_partner(char *str, size_t *len)
 	int inc;
 	char *first;
 
+	first = NULL;
 	inc  = -1;
 	while(str[++inc])
 	{

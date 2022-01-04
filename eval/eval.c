@@ -5,6 +5,7 @@ char *eval_noquote(char *str, int *append, int type)
 	int len;
 	char *middle;
 
+	middle = NULL;
 	len = until_this(str + *append,"\n $\'\"");
 	if(len == 0)
 	{
