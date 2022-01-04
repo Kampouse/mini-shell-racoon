@@ -100,6 +100,7 @@ t_dlist	*job_find_pipe(t_dlist *lst)
 	return(NULL);
 }
 
+
 void	free_jobs(t_jobs *head,int type)
 {
 	t_jobs	*next;
@@ -109,10 +110,14 @@ void	free_jobs(t_jobs *head,int type)
 		next = head->next;
 		if(head->redir)
 			free_redir(head->redir);
-		if(head->cmd && head->cmd[0] && type == 1)
-			free(head->cmd);
-		else
-			freelist(head->cmd);
+		if(head->eval&& head->eval[0] && type == 1)
+		{
+			free(head->eval);
+		}
+		else if(head->eval)
+		{
+			freelist(head->eval);
+		}
 		if(head->hereduc)
 			free(head->hereduc);
 		else

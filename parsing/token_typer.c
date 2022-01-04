@@ -3,7 +3,7 @@
 
 int token_scanner_ext(const char *trimed,size_t *token_size,int inc)
 {
-	const char *tokens[11] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset",NULL};
+	const char *tokens[12] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset","cd",NULL};
 
 	if( ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
 	{

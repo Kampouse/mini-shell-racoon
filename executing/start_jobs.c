@@ -36,7 +36,7 @@ int check_nb_of_cmd(t_jobs *job)
 	int i;
 
 	i = 0;
-	if(!job || !job->cmd || !job->cmd[0])
+	if(!job || !job->eval || !job->eval[0])
 		return(0);
 	while (job->cmd[i])
 		i++;
@@ -50,27 +50,26 @@ int check_nb_of_cmd(t_jobs *job)
 * */
 void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 {
-	(void)head;
-	(void)lst;
-	check_bultin(job);
-	// int status;
-	// pid_t child;
-// 	if(check_bultin(job) == 0)
-// 	{
-// 		printf("builtin as been handled\n");
-// 		return;
-// 	}
-// 	else if(check_bultin(job) == 1)
-// 	{
-// 		child = fork();
-// 		(void)lst;
-// 		if(child == 0)
-// 		{
-// 			free_nodes(lst);
-// 			free_jobs(head,0);
-// 			freelist(g_state.env);
-// 			exit(0);
-// 		}
-// 		waitpid(-1,&status,0);
-// 	}
+	pid_t child;
+	int status;
+	if(check_bultin(job) == 0)
+	{
+		printf("builtin as been handled\n");
+		return;
+	}
+	else if(check_bultin(job) == 1)
+	{
+		child = fork();
+		(void)lst;
+		if(child == 0)
+		{
+			free_nodes(lst);
+			free_jobs(head,0);
+			freelist(g_state.env);
+			exit(0);
+		}
+		waitpid(-1,&status,0);
+	}
+	
+	
 }
