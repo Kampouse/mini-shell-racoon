@@ -39,7 +39,7 @@ void parser_core(t_dlist *lst)
 		temp = temp->next;
 	}
 	// printf("%d",count);
-	free_jobs((t_jobs *)job,0);
+	// free_jobs((t_jobs *)job,0);
 }
 /* start readline and tokenize the string */
 
@@ -47,6 +47,7 @@ void parser_core(t_dlist *lst)
 void quick_parser(char *str)
 {
 	const char *trimed = ft_strtrim(str," ");
+
 	t_dlist *lst;
 
 	if(trimed && ft_strlen(trimed) > 0)
