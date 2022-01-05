@@ -32,7 +32,7 @@ int piping_verif(t_dlist *lst)
 }
 
 /* create a jobs with the right element in it */
-int jobs(t_dlist *lst,t_jobs **output ) 
+int jobs(t_dlist *lst,t_jobs **output) 
 {
 	t_redir *redir;
 	t_dlist *cmd_head;
@@ -49,11 +49,12 @@ int jobs(t_dlist *lst,t_jobs **output )
 		commands = jobs_lst_creator(lst,&cmd_head);	
 		//cmd_head give acces to type of the cmd
 	*output = job_new_lst(commands,redir,cmd_head);
+	
 	return (0);
 }
 
 /* function that  create a list of (jobs) break on failure */
-t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
+t_jobs *jobs_tail(t_dlist *lst, t_jobs *currjobs)
 {
   	t_dlist *temp;
   	t_jobs *tempjob;
@@ -63,8 +64,8 @@ t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 	{
 		if(jobs(temp,&tempjob) >= 0 )
 		{
-			jobs_addback(&currjobs,tempjob);
-			return(jobs_tail(temp,currjobs));
+			jobs_addback(&currjobs, tempjob);
+			return(jobs_tail(temp, currjobs));
 		}
 		else
 		{
@@ -80,8 +81,8 @@ t_jobs *job_lsting(t_dlist *lst)
 {
 	t_jobs *joblst;
 	joblst  = NULL;
-	if(piping_verif(lst) == 0 && jobs(lst,&joblst) == 0)
-		return(jobs_tail(lst,joblst));
+	if(piping_verif(lst) == 0 && jobs(lst, &joblst) == 0)
+		return(jobs_tail(lst, joblst));
 	else
 		return(NULL);
 	return(joblst);

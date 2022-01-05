@@ -6,24 +6,32 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/28 09:23:56 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/04 22:54:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void create_export(char **envp)
-{
-    g_state.exprt = ft_sort_tab(envp);
-}
 
-void print_exprt(int tab_len)
+int got_good_args(char **cmd)
 {
     int i;
+    char *temp;
 
     i = 0;
-    while (i < tab_len)
-        printf("%s\n", g_state.exprt[i++]);
+    temp = NULL;
+    while (cmd[i])
+    {
+        temp = cmd[i];
+        //reguarde si les premiere lettre des cmd est un chiffre ou un =
+        if ((ft_isdigit(temp[0])) || temp[0] == '=')
+            return (1);
+        //reguarde si = est seul ex: (a = b)
+        else if (ft_strlen(temp) == 1 && temp[0] == '=')
+            return (1);
+        i++;
+    }
+    return (0);
 }
 
 //Cette fonction trie les bonne variable et valeur a ajouter a la liste export
@@ -47,6 +55,7 @@ void update_export_list(char *var, char *val, int type)
         new_exprt = ft_strjoin(var, val);
         g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
     }
+    free(val);
 }
 
 void parse_export(char **to_export)
@@ -58,12 +67,13 @@ void parse_export(char **to_export)
     
     i = 1;
     j = 0;
-    variable = malloc(sizeof(char *) * (ft_tab_len(to_export) + 1));
-    valeur = malloc(sizeof(char *) * (ft_tab_len(to_export) + 1));
     while (to_export[i])
     {
+        variable = malloc(sizeof(char *) * (ft_tab_len(to_export) + 1));
+        valeur = malloc(sizeof(char *) * (ft_tab_len(to_export) + 1));
         if (last_is_equal(to_export[i]))
         {
+            //pourrais mettre fontion update en char** return le list
             variable[j] = ft_strdup(to_export[i]);
             valeur[j] = "\"\"";
             update_export_list(variable[j], valeur[j], 1);
@@ -82,13 +92,11 @@ void parse_export(char **to_export)
             update_export_list(variable[j], valeur[j], 3);
             update_env_list(variable[j], valeur[j], 3);
         }
+        free(variable[j]);
+        free(valeur[j]);
         j++;
         i++;
     }
-    // valeur[j] = NULL;
-    // freelist(valeur);
-    // freelist(variable);
-    //free list fait bugger 
 }
 
 void do_export(t_jobs *job)

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/02 00:06:46 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/04 18:35:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char *before_equal(char *var_cmd)
     int i;
     char *var_str = NULL;
 
-    var_str = malloc(sizeof(char) * ft_strlen(var_cmd) + 1);
+    // var_str = malloc(sizeof(char) * ft_strlen(var_cmd) + 1);
     i = 0;
     while (var_cmd[i] != '=')
         i++;
@@ -31,7 +31,8 @@ char *afther_equal(char *val_cmd)
 {
     int i;
     char *val_str = NULL;
-    val_str = malloc(sizeof(char) * ft_strlen(val_cmd) + 1);
+    
+    // val_str = malloc(sizeof(char) * ft_strlen(val_cmd) + 1);
     i = 0;
     while (val_cmd[i] != '=')
         i++;
@@ -73,23 +74,16 @@ int last_is_equal(char *cmd)
     return (0);
 }
 
-int got_good_args(char **cmd)
+void create_export(char **envp)
+{
+    g_state.exprt = ft_sort_tab(envp);
+}
+
+void print_exprt(int tab_len)
 {
     int i;
-    char *temp;
 
     i = 0;
-    temp = NULL;
-    while (cmd[i])
-    {
-        temp = cmd[i];
-        //reguarde si les premiere lettre des cmd est un chiffre ou un =
-        if ((ft_isdigit(temp[0])) || temp[0] == '=')
-            return (1);
-        //reguarde si = est seul ex: (a = b)
-        else if (ft_strlen(temp) == 1 && temp[0] == '=')
-            return (1);
-        i++;
-    }
-    return (0);
+    while (i < tab_len)
+        printf("%s\n", g_state.exprt[i++]);
 }

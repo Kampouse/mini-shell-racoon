@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/03 13:28:27 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:36:39 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,21 @@ void do_env(t_jobs *job)
 void update_env_list(char *var, char *val, int type)
 {
     char *new_env;
-
+    char **temp_list;
+    
+    temp_list = alloc_tab(g_state.env);
     if (type == 1)
     {
         new_env = var;
-        g_state.env = add_to_list(new_env, g_state.env, 0);
+        temp_list = add_to_list(new_env, g_state.env, 0);
     }
     if (type == 3)
     {
         new_env = ft_strjoin(var, val);
-        g_state.env = add_to_list(new_env, g_state.env, 0);
+        temp_list = add_to_list(new_env, g_state.env, 0);
     }
+    g_state.env = temp_list;
+    free(new_env);
+    freelist(temp_list);
 }
 

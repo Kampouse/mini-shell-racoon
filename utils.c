@@ -53,12 +53,11 @@ void    freelist(char **list)
 	    {
 			if(list[index])
 			{
-
-			free((void *)list[index]);
+			    free((void *)list[index++]);
 			}
 		    index++;
 		}
-	free(list);
+	    free(list);
 	}
 }
 
@@ -122,6 +121,7 @@ char **add_to_list(char *new_exprt, char **old_list, int type)
     new_list[i] = NULL;
 	if (type)
     	return (ft_sort_tab(new_list));
+    // freelist(old_list);
 	return (new_list);
     // print_exprt(ft_tab_len(g_state.exprt));
 }

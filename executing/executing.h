@@ -24,7 +24,7 @@ void    do_env(t_jobs *job);
 //EXPORT
 void    create_export(char **envp);
 void    print_exprt(int tab_len);
-void    do_export(t_jobs *jobb);
+void    do_export(t_jobs *job);
 
 // VARIABLE
 
@@ -38,7 +38,6 @@ int    check_bultin(t_jobs *jobb);
 //EXPORT UTILS
 char    *before_equal(char *var_cmd);
 char    *afther_equal(char *val_cmd);
-int     got_good_args(char **cmd);
 int no_equal(char *cmd);
 int last_is_equal(char *cmd);
 //ENV UTILS

@@ -72,7 +72,7 @@ void parser_core(t_dlist *lst)
 			start_job(temp,lst,job);
 			temp = temp->next;
 		}
-		free_jobs((t_jobs *)job,0);
+		// free_jobs((t_jobs *)job,0);
 	}
 }
 /* start readline and tokenize the string */
