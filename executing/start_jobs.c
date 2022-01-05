@@ -55,8 +55,11 @@ void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 {
 	pid_t child;
 	int status;
+
 	if(check_bultin(job) == 0)
 	{
+    
+        printf("%d\n",redir_handler(job));
 		printf("builtin as been handled\n");
 		return;
 	}
@@ -66,6 +69,7 @@ void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 		(void)lst;
 		if(child == 0)
 		{
+            redir_handler(job);
 			free_nodes(lst);
 			free_jobs(head,0);
 			freelist(g_state.env);
@@ -73,6 +77,4 @@ void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 		}
 		waitpid(-1,&status,0);
 	}
-	
-	
 }

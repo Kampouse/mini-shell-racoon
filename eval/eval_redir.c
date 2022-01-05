@@ -89,8 +89,6 @@ char *eval_docc(t_redir *temp)
 		}
 		free(docc);
 	}
-	printf("%s",outcome);
-	
 	return(outcome);
 }
 

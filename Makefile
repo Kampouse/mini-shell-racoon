@@ -24,6 +24,7 @@ SRCS =  main.c \
 		./executing/unset.c \
 		./executing/echo.c \
 		./executing/start_jobs.c \
+		./executing/redir_handler.c \
 		\
 		./jobs/jobs_redir.c \
 		./jobs/jobs_redir_links.c \

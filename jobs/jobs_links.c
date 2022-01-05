@@ -103,6 +103,7 @@ t_dlist	*job_find_pipe(t_dlist *lst)
 
 void	free_jobs(t_jobs *head,int type)
 {
+
 	t_jobs	*next;
 		next = NULL;
 	if (head)

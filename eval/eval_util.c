@@ -25,6 +25,7 @@ char	*find_env(char **envp, char *str, int type)
 	}
 	if(type == 1)
 		return(str);
+    free(str);
 	return(NULL);
 }
 
