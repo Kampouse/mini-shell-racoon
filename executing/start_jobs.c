@@ -70,6 +70,8 @@ void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 		if(child == 0)
 		{
             redir_handler(job);
+            //does not work on nixos
+            printf("%s\n",findpath(g_state.env));
 			free_nodes(lst);
 			free_jobs(head,0);
 			freelist(g_state.env);

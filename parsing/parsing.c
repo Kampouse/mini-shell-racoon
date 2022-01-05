@@ -29,8 +29,6 @@ int pipe_counter(t_dlist *lst)
 	return(count);
 }
 
-
-
 void eval_loop(t_jobs *job, int len)
 {
 	t_jobs *temp;
