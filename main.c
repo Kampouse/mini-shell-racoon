@@ -18,13 +18,13 @@ int main(int argc, char **argv, char **envp)
 	}
 	if (argc == 3 &&  ft_strncmp("-c",argv[1],ft_strlen("-c")) == 0)
 	{
-		init_exec(envp);
+		get_exp_env(envp);
 		quick_parser(argv[2]);
 		freelist(g_state.env);
 	}
 	else
 	{
-		init_exec(envp);
+		get_exp_env(envp);
 		parsing();
 	}
 }

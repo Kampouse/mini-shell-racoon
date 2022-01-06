@@ -1,6 +1,6 @@
 NAME = minishell
 
-FLAGS =   -g -Wall -Wextra -Werror 
+FLAGS =   -g -Wall -Wextra -Werror
 
 SRCS =  main.c \
 		utils.c\
@@ -38,8 +38,8 @@ SRCS =  main.c \
 
 		
 RM =  rm -rf 
-.c.o:
-	@gcc  ${FLAGS}  -c $< -o ${<:.c=.o}
+# .c.o:
+# 	@gcc  ${FLAGS}  -c $< -o ${<:.c=.o}
 
 OBJS = ${SRCS:.c=.o}
 

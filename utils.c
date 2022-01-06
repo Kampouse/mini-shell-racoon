@@ -20,13 +20,13 @@ int	exit_please(char **tokens, char *trimed)
 */
 int ft_isspace(char elm)
 {
-if(!elm)
-	return(0);
-if(elm == ' ' || elm == '\t' )
-	return(1);
-else if(elm == '\n' || elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
-	return(1);
-return(0);
+    if(!elm)
+        return(0);
+    if(elm == ' ' || elm == '\t' )
+        return(1);
+    else if(elm == '\n' || elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
+        return(1);
+    return(0);
 }
 
 int until_space(char *str)
@@ -98,7 +98,7 @@ char **ft_sort_tab(char **tab)
         }
         i++;
     }
-	 free(temp_tab);
+	// free(temp_tab);
     return (tab_sorted);
 }
 
@@ -121,7 +121,7 @@ char **add_to_list(char *new_exprt, char **old_list, int type)
     new_list[i] = NULL;
 	if (type)
     	return (ft_sort_tab(new_list));
-    // freelist(old_list);
+    //freelist(old_list);
 	return (new_list);
     // print_exprt(ft_tab_len(g_state.exprt));
 }

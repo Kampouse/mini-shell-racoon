@@ -35,8 +35,6 @@ char		*find_dquoted(char *str,size_t *len);
 
 void		ft_add_frontd(t_dlist **currlist, t_dlist *newnode);
 void		ft_lst_add_backd(t_dlist **currlist, t_dlist *node);
-t_dlist		*ft_lst_lastnode(t_dlist *currlist);
-t_dlist		*ft_lstnewl(void *content);
 t_dlist		*node_init(void *content, int type);
 void		ft_clearnode(t_dlist *currlist, void (*del)(void *));
 void		ft_cleart_dlist(t_dlist **currlist, void (*del)(void *));

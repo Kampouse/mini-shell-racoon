@@ -3,9 +3,31 @@
 
 #include "../jobs/jobs.h"
 
+// typedef struct s_env_lst
+// {
+//     char                *data;
+//     int                 id;
+//     int                 type;
+//     int                 len;
+//     struct s_env_lst    *next;
+//     struct s_env_lst    *prev;
+// }   t_env_lst;
+
+// typedef struct s_exp_lst
+// {
+//     char                *data;
+//     int                 id;
+//     int                 type;
+//     int                 len;
+//     struct s_env_lst    *next;
+//     struct s_env_lst    *prev;
+// }   t_exp_lst;
+
 typedef struct s_exec
 {
-    char            ** exprt;
+    // t_exp_lst       **exprt;
+    // t_env_lst       **env;
+    char            **exprt;
     char            **env;
     int             stdin;
     int             stdout;
@@ -14,21 +36,39 @@ typedef struct s_exec
 
 extern t_exec g_state;
 
-void    init_exec(char **envp);
-
 // ENV
+void    get_exp_env(char **envp);
 void    create_env(char **envp);
+
+//EXPORT
+void do_export(char **args);
+
+void    create_export(char **envp);
+
+// UTILS FUNCTION
+char **ft_sort_tab(char **tab);
+
+int check_bultin(t_jobs *job);
+
+
+char *add_dquote(char *old);
+
+
+
+
+
+
+
+
+
 void    print_env(int tab_len);
 void    do_env(t_jobs *job);
 
-//EXPORT
-void    create_export(char **envp);
 void    print_exprt(int tab_len);
-void    do_export(t_jobs *job);
+// void    do_export(t_jobs *job);
 
 // VARIABLE
 
-// UTILS FUNCTION
 char    **alloc_tab(char **old_tab);
 int     ft_tab_len(char **tab);
 char **add_to_list(char *new_exprt, char **old_list, int type);
@@ -36,8 +76,6 @@ char    **ft_sort_tab(char **tab);
 char    *print_var(char *var);
 int    check_bultin(t_jobs *jobb);
 //EXPORT UTILS
-char    *before_equal(char *var_cmd);
-char    *afther_equal(char *val_cmd);
 int no_equal(char *cmd);
 int last_is_equal(char *cmd);
 //ENV UTILS

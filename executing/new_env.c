@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   new_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 11:49:42 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/05 13:24:13 by olabrecq         ###   ########.fr       */
+/*   Created: 2022/01/04 23:27:02 by olabrecq          #+#    #+#             */
+/*   Updated: 2022/01/05 13:14:35 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Cette fonction cree et init la struct s_exec: ENV & EXPORT
-void get_exp_env(char **envp)
+void create_env(char **envp)
 {
-    create_env(envp);
-    create_export(envp);
+    int i;
+
+    g_state.env = alloc_tab(envp);
+
+    i = 0;
+    while (envp[i])
+    {
+        g_state.env[i] = ft_strdup(envp[i]);
+        i++;
+    }
 }
-
-
