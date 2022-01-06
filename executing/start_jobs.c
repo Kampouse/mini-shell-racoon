@@ -2,16 +2,17 @@
 
 int check_bultin(t_jobs *job)
 {
-	if(job->cmd_type == -2)
-		return(1);
-	if (job->cmd_type == 6)
-        do_export(job->eval);
-    if (job->cmd_type == 5)
-		do_env(job);
-    if (job->cmd_type == 9)
-		do_unset(job);
-    if (job->cmd_type == 8)
-		do_echo(job);
+    job->cmd = job->eval;
+		if(job->cmd_type == -2)
+			return(1);
+		if (job->cmd_type == 6)
+            do_export(job);
+    	if (job->cmd_type == 5)
+			do_env(job);
+    	if (job->cmd_type == 9)
+			do_unset(job);
+    	if (job->cmd_type == 8)
+			do_echo(job);
 			//exit =7
 //     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
 //PATH DANS READLINE
@@ -50,7 +51,7 @@ int check_nb_of_cmd(t_jobs *job)
 * we should try to clear all the  the memory of the other jobs
 * otherwise it will counted as still reachable(leaks)
 * */
-void start_job(t_jobs *job, t_dlist *lst, t_jobs *head)
+void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 {
 	//pid_t child;
 	//int status;

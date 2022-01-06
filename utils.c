@@ -20,13 +20,13 @@ int	exit_please(char **tokens, char *trimed)
 */
 int ft_isspace(char elm)
 {
-    if(!elm)
-        return(0);
-    if(elm == ' ' || elm == '\t' )
-        return(1);
-    else if(elm == '\n' || elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
-        return(1);
-    return(0);
+if(!elm)
+	return(0);
+if(elm == ' ' || elm == '\t' )
+	return(1);
+else if(elm == '\n' || elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
+	return(1);
+return(0);
 }
 
 int until_space(char *str)
@@ -53,11 +53,12 @@ void    freelist(char **list)
 	    {
 			if(list[index])
 			{
-			    free((void *)list[index++]);
+
+			free((void *)list[index]);
 			}
 		    index++;
 		}
-	    free(list);
+	free(list);
 	}
 }
 
@@ -85,12 +86,12 @@ char **ft_sort_tab(char **tab)
         j = i + 1;
         while(tab[j])
         {
-            if(ft_strncmp(tab[i],tab[j],ft_strlen(tab[i])) > 0)
+                if(ft_strncmp(tab[i],tab[j],ft_strlen(tab[i])) > 0)
             {
-                temp = tab[i];
-                tab[i] = tab[j];
-                tab[j] = temp;
-            }
+                    temp = tab[i];
+                    tab[i] = tab[j];
+                    tab[j] = temp;
+                }
             j++;
         }
         i++;
@@ -118,7 +119,6 @@ char **add_to_list(char *new_exprt, char **old_list, int type)
     freelist(old_list);
 	if (type)
     	return (ft_sort_tab(new_list));
-    //freelist(old_list);
 	return (new_list);
     // print_exprt(ft_tab_len(g_state.exprt));
 }
@@ -141,6 +141,7 @@ char **remove_of_list(char *to_remove, char **old_list)
 		}
 		else
 		{
+		
 			new_list[j] = ft_strdup(old_list[i]);
 			i++;
 			j++;

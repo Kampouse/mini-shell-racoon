@@ -6,8 +6,10 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/06 10:51:08 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/06 16:24:35 by jemartel         ###   ########.fr       */
 /*                                                                            */
+/* ************************************************************************** */
+
 /* ************************************************************************** */
 
 #include "../minishell.h"
@@ -60,7 +62,7 @@ void do_env(t_jobs *job)
 void update_env_list(char *var, char *val, int type)
 {
     char *new_env;
-    
+
     if (type == 1)
     {
         new_env = var;
@@ -73,6 +75,5 @@ void update_env_list(char *var, char *val, int type)
         g_state.env = add_to_list(new_env, g_state.env, 0);
         free(new_env);
     }
-    free(new_env);
 }
 

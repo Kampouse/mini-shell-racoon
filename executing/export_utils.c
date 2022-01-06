@@ -1,3 +1,4 @@
+    //var_str = malloc(sizeof(char) * ft_strlen(var_cmd) + 1);
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,11 +7,39 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/06 10:46:56 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:30:02 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// Cette fonction prend une commande et retourne char* de la variable ex: jean=
+char *before_equal(char *var_cmd)
+{
+    int i;
+    char *var_str = NULL;
+
+    i = 0;
+    while (var_cmd[i] != '=')
+        i++;
+    var_str = ft_substr(var_cmd, 0, i + 1);
+    return (var_str);
+}
+
+// doit checek si ny a pas de '='
+char *afther_equal(char *val_cmd)
+{
+    int i;
+    char *val_str = NULL;
+    
+    i = 0;
+    while (val_cmd[i] != '=')
+        i++;
+    val_str = ft_substr(val_cmd, (i + 1), (ft_strlen(val_cmd) - i));
+    if (val_str == (void*)'\0')
+        return("\"\"");
+    return (val_str);
+}
 
 int no_equal(char *cmd)
 {
@@ -31,7 +60,7 @@ int last_is_equal(char *cmd)
     int i;
     int count;
     
-    count = 0;
+    count= 0;
     i = 0;
     while (cmd[i])
     {
@@ -44,25 +73,23 @@ int last_is_equal(char *cmd)
     return (0);
 }
 
-void create_export(char **envp)
-{
-    int i;
-    
-    g_state.exprt = alloc_tab(envp);
-    envp = ft_sort_tab(envp);
+// int got_good_args(char **cmd)
+// {
+//     int i;
+//     char *temp;
 
-    i = -1;
-    while (envp[++i])
-    {
-        g_state.exprt[i] = ft_strdup(envp[i]);
-    }
-}
-
-void print_exprt(int tab_len)
-{
-    int i;
-
-    i = 0;
-    while (i < tab_len)
-        printf("%s\n", g_state.exprt[i++]);
-}
+//     i = 0;
+//     temp = NULL;
+//     while (cmd[i])
+//     {
+//         temp = cmd[i];
+//         //reguarde si les premiere lettre des cmd est un chiffre ou un =
+//         if ((ft_isdigit(temp[0])) || temp[0] == '=')
+//             return (1);
+//         //reguarde si = est seul ex: (a = b)
+//         else if (ft_strlen(temp) == 1 && temp[0] == '=')
+//             return (1);
+//         i++;
+//     }
+//     return (0);
+// }
