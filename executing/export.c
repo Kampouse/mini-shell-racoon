@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/04 19:31:17 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/06 16:35:15 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,16 @@
 
 void create_export(char **envp)
 {
-    g_state.exprt = ft_sort_tab(envp);
+    int i; 
+     i = 0;
+    g_state.exprt = alloc_tab(envp);
+    while (envp[i])
+    {
+        g_state.exprt[i] = ft_strdup(envp[i]);
+        i++;
+
+    }
+    ft_sort_tab(g_state.exprt);
 }
 
 void print_exprt(int tab_len)
@@ -39,14 +48,15 @@ void update_export_list(char *var, char *val, int type)
     if (type == 2)
     {
         new_exprt = val;
-        g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
+         g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
     }
     if (type == 3)
     {
         val = ft_str3join("\"", val, "\"");
         new_exprt = ft_strjoin(var, val);
-    
+        free(val); 
         temp = add_to_list(new_exprt,g_state.exprt, 1);
+        free(new_exprt);
         //free(g_state.exprt);
         g_state.exprt = temp;
     }
@@ -67,7 +77,7 @@ void parse_export(char **to_export)
     {
         if (last_is_equal(to_export[i]))
         {
-            variable[j] = ft_strdup(to_export[i]);
+            variable[j] = to_export[i];
             valeur[j] = "\"\"";
             update_export_list(variable[j], valeur[j], 1);
             update_env_list(variable[j], valeur[j], 1);
@@ -75,7 +85,7 @@ void parse_export(char **to_export)
         else if (!no_equal(to_export[i]))
         {
             variable[j] = "' '";
-            valeur[j] = ft_strdup(to_export[i]);
+            valeur[j] = to_export[i];
             update_export_list(variable[j], valeur[j], 2);
         }
         else
@@ -88,9 +98,8 @@ void parse_export(char **to_export)
         j++;
         i++;
     }
-    // valeur[j] = NULL;
-    //free(valeur);
-    //free list fait bugger 
+    free(valeur);
+    free(variable);
 }
 
 void do_export(t_jobs *job)
