@@ -85,12 +85,12 @@ char **ft_sort_tab(char **tab)
         j = i + 1;
         while(tab[j])
         {
-                if(ft_strncmp(tab[i],tab[j],ft_strlen(tab[i])) > 0)
+            if(ft_strncmp(tab[i],tab[j],ft_strlen(tab[i])) > 0)
             {
-                    temp = tab[i];
-                    tab[i] = tab[j];
-                    tab[j] = temp;
-                }
+                temp = tab[i];
+                tab[i] = tab[j];
+                tab[j] = temp;
+            }
             j++;
         }
         i++;
