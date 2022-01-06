@@ -72,9 +72,8 @@ void parser_core(t_dlist *lst)
 		// free_jobs((t_jobs *)job,0);
 	}
 }
+
 /* start readline and tokenize the string */
-
-
 void quick_parser(char *str)
 {
 	const char *trimed = ft_strtrim(str," ");
