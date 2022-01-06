@@ -1,126 +1,62 @@
-#include "jobs.h"
-t_dlist *ft_lst_nextnth(t_dlist *node,int nth)
+#include "../minishell.h"
+
+/* verify  if the | symbol is  between two element of the right type */
+int pipe_return(int status)
 {
-	t_dlist *temp;
-    temp = NULL;
-	if(node)
+	if(status == -1)
 	{
-		temp = node;
-		while(temp && nth > 0)
-		{
-			nth--;
-			temp = temp->next;
-		}
-	}
-	return (temp);
-}
-/* this current version can be wrong in some case */
-int jobs_lst_counter(t_dlist *lst)
-{
-
-	t_dlist *temp;
-	int count;
-
-	count = 0;
-	temp = lst;
-	
-	while(temp)
-	{
-		if(temp->type > 4 || temp->type == -2)
-			count++;
-
-		temp = temp->next;
-	}
-return(count);
-}
-
-/* function that create a lst of  args for exceve */
-char **jobs_lst_creator(t_dlist *lst,char **redir)
-{
- char	**commands;
-t_dlist	 *temp;
-int		inc;
-
-	inc = 0;
-	temp  = NULL;
-	commands = NULL;
-	if (redir &&  lst->type >= 0 &&  lst->type <= 3 && lst->next->next)
-		temp = lst->next->next;
-	else
-		temp = lst;
-	//commands = malloc(sizeof(char *) * jobs_lst_counter(temp));
- commands  = ft_calloc( (size_t)jobs_lst_counter(temp) + 1,sizeof(char **));
-	while(temp && (temp->type > 4  || temp->type == -2))
-	{
-		commands[inc++] = temp->content;
-		temp = temp->next;
-	}
-return (commands);
-}
-
-
-/*  function  that make a job (get a job) */
-int print_tokens(t_dlist *lst)
-{
-	t_dlist *temp;
-	temp = lst;
-		while(temp)
-	{
-		printf("%s %d\n",temp->content,temp->type);
-		temp = temp->next;
+		printf("syntax error near unexpected token `|'\n");
+		return(-1);
 	}
 	return(0);
 }
-/* verify  if the | symbol is  between two element of the right type */
+
 int piping_verif(t_dlist *lst)
 {
 	t_dlist *temp =lst;
 	
 	while(temp)
 	{
-		if(ft_strchr(temp->content,'|') && temp->next && !(ft_strchr(temp->
-			 next->content,'|')))
+		if(temp->type  == 4)
 		{
-			if(temp->prev)
-			{
-				if(!(temp->prev->type == -2 || temp->prev->type > 4))
-					return(-1);
-			}
-			if(temp->next && !temp->prev)
-					return(-1);
+			if(temp->prev && (temp->prev->type >= 0  && temp->prev->type <= 4))
+				return(pipe_return(-1));
+			if(temp->next && temp->next->type == 4)
+				return(pipe_return(-1));
+			if(!temp->prev || !temp->next)
+				return(pipe_return(-1));
 		}
-		else if(ft_strchr(temp->content,'|'))
-			return(-1);
 		temp = temp->next;		
 	}
 	return (0);
 }
+
 /* create a jobs with the right element in it */
 int jobs(t_dlist *lst,t_jobs **output ) 
 {
-	char **redir;
+	t_redir *redir;
+	t_dlist *cmd_head;
+	int status;
 	char **commands;
-	t_dlist *temp;
 
 	commands = NULL;
-	temp = lst;
-	if(redir_counter(lst) < 0)
+	cmd_head = NULL;
+	status = 0;
+	redir = redir_creator(lst,&status);
+	if(status < 0)
 		return(-1);
-	redir = redir_creator(lst,redir_counter(lst));
 	if( lst && lst->content)
-		commands = jobs_lst_creator(lst,redir);	
-	if(!commands)
-	{
-		return(-1);
-	}
-	*output = job_new_lst(commands,redir);
-return (0);
+		commands = jobs_lst_creator(lst,&cmd_head);	
+		//cmd_head give acces to type of the cmd
+	*output = job_new_lst(commands,redir,cmd_head);
+	return (0);
 }
+
 /* function that  create a list of (jobs) break on failure */
 t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 {
-  t_dlist *temp;
-  t_jobs *tempjob;
+  	t_dlist *temp;
+  	t_jobs *tempjob;
   
 	temp = job_find_pipe(lst);
 	if(temp)
@@ -131,31 +67,22 @@ t_jobs *jobs_tail(t_dlist *lst,t_jobs *currjobs)
 			return(jobs_tail(temp,currjobs));
 		}
 		else
-		//	 should free this when it fail;
+		{
+			if(currjobs)
+				free_jobs(currjobs,1);	
 			return(NULL);
+		}
 	}
-return(currjobs);
+	return(currjobs);
 }
+
 t_jobs *job_lsting(t_dlist *lst)
 {
 	t_jobs *joblst;
-	t_dlist *temp;	
-
-	int count;
-	count = 0;
 	joblst  = NULL;
-	temp = lst;
-
-	if(piping_verif(lst) == 0)
-	{
-			if(jobs(lst,&joblst) != 0)
-				return(NULL);
-	}
+	if(piping_verif(lst) == 0 && jobs(lst,&joblst) == 0)
+		return(jobs_tail(lst,joblst));
 	else
-	{
-		printf("syntax error near unexpected token `|'\n");
-			return(NULL);
-	}
-	  joblst = jobs_tail(lst,joblst);
+		return(NULL);
 	return(joblst);
 }

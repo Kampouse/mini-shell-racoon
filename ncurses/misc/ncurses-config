@@ -246,7 +246,7 @@ ENDECHO
 		;;
 	# identification
 	--version)
-		echo "6.3.20211030"
+		echo "6.3.20211021"
 		;;
 	--abi-version)
 		echo "6"

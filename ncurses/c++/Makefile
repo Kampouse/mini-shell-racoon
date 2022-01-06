@@ -110,7 +110,7 @@ NCURSES_MINOR	= 3
 REL_VERSION     = 6.3
 ABI_VERSION	= 6
 
-LOCAL_LIBDIR	= /home/kampr/dev/minishell/ncurses/lib
+LOCAL_LIBDIR	= /home/kampr/Downloads/ncurses/ncurses-6.3/lib
 
 LINK		=  $(LIBTOOL_LINK) 
 SHLIB_DIRS	= -L../lib

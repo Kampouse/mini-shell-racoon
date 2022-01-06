@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 10:50:06 by jemartel          #+#    #+#             */
-/*   Updated: 2021/11/18 18:31:42 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/05 18:11:59 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ char	*ft_str3join(const char *first, const char *second, const char *third)
 
 	len = ft_strlen(first);
 	len2 = ft_strlen(second);
-	len2 = ft_strlen(second);
 	len3 = ft_strlen(third);
-	output = malloc(sizeof(char) * len + len2 + len3 + 1);
+	output = malloc(sizeof(char) * (len + len2 + len3 + 1));
 	if (output)
 	{
 		ft_memcpy(output, first, len);

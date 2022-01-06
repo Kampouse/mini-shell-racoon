@@ -1,10 +1,10 @@
 #include "parsing.h"
 #include "../minishell.h"
 
+/* entry point  to create tokens list */
 char  *line_handler(char *str, size_t *len)
 {
 	char *temp;
-
 	temp = line_no_string(str, len);
 
 	if (temp)	
@@ -14,10 +14,10 @@ char  *line_handler(char *str, size_t *len)
 	}
 	else
 	{
-		 temp = find_partner(str,len);	
-		 if(temp)
+		temp = find_partner(str,len);	
+		if(temp)
 		{
-		*len = ft_strlen(temp);
+			*len = ft_strlen(temp);
 			return(temp);
 		}
 	}
@@ -25,6 +25,7 @@ char  *line_handler(char *str, size_t *len)
 	return  0;
 }
 
+/* determine if it read all the  line */
  int token_bool(char *str, size_t *len)
 {
 
@@ -33,19 +34,16 @@ char  *line_handler(char *str, size_t *len)
 	if(temp)
 	{
 		free((void *)temp);
-
 		return(1);
 	}
 	return(0);
 }
-/* loop that create token until it find space or string end 
-* currently	this implentation does not look 
-*
-* */
+
+/* main loop that creates the list of token */
 char *token_loop(char *result, char *str, size_t len, size_t offset)
 {
-char *sub_token;
-char *temp;
+	char *sub_token;
+	char *temp;
 
 	while(1)
 	{
@@ -54,11 +52,11 @@ char *temp;
 		if(len == 0)
 			break;
 		temp = ft_strjoin(result, sub_token);		
-				free(sub_token);	
-	if (result) 
-		free(result);
-	result = temp;	
-	if (ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
+		free(sub_token);	
+		if (result) 
+			free(result);
+		result = temp;	
+		if (ft_strlen(str + offset ) == 0 || token_bool(str + offset, &len) == 0)
 			break;
 	}
 	if (!len)
@@ -69,31 +67,26 @@ char *temp;
 	}
 	return (result);	
 }
-/*
-int token_valid(char **tokens,char *trimed,int type)
-{
-	if(type == 7)
-	{
-		//exit_please(tokens,trimed);
-		//exit(0);
-	}
-	if(type  == 4)
-		ft_putstr_fd(trimed,1);
-return(0);
-}
-*/
-/* return the lenght of what the token   (current implementation  fail when seperaro;*/
+
+/* return the lenght of what the token should be*/
 int is_quoted(char *str)
 {
 	int inc;
 	int state;
+	int type;
 
 	state = 0;
 	inc = 0;
+	type = 0;
 	while(str[inc])
 	{
 		if(str[inc] == '\''	|| str[inc] == '\"')
-			 state = !state;
+		{
+			if(type == 0)
+				type =  str[inc];
+			if(type ==  str[inc])
+				state = !state;
+		}
 		if(state == 0 && ft_strchr("<>|\n\v\f\r ",str[inc]))
 			return(inc);
 		inc++;

@@ -7,7 +7,7 @@ datadir="${datarootdir}"
 
 NCURSES_MAJOR="6"
 NCURSES_MINOR="3"
-NCURSES_PATCH="20211030"
+NCURSES_PATCH="20211021"
 
 NCURSES_OSPEED="short"
 TERMINFO="/usr/share/terminfo"
@@ -60,8 +60,8 @@ case $i in
 	fi
 
 	# replace variables in man page
-	if test ! -f "/home/kampr/dev/minishell/ncurses/man_alias.sed" ; then
-cat >>/home/kampr/dev/minishell/ncurses/man_alias.sed <<-CF_EOF2
+	if test ! -f "/home/kampr/Downloads/ncurses/ncurses-6.3/man_alias.sed" ; then
+cat >>/home/kampr/Downloads/ncurses/ncurses-6.3/man_alias.sed <<-CF_EOF2
 		s,@DATADIR@,$datadir,g
 		s,@TERMINFO@,${TERMINFO:="no default value"},g
 		s,@TERMINFO_DIRS@,${TERMINFO_DIRS:="no default value"},g
@@ -80,7 +80,7 @@ s,@TOE@,toe,g
 s,@TPUT@,tput,g
 s,@TSET@,tset,g
 CF_EOF2
-		echo "...made /home/kampr/dev/minishell/ncurses/man_alias.sed"
+		echo "...made /home/kampr/Downloads/ncurses/ncurses-6.3/man_alias.sed"
 	fi
 
 	aliases=
@@ -93,14 +93,14 @@ CF_EOF2
 	fi
 	nCurses=ignore.3x
 	test "yes" = yes && nCurses=ncurses.3x
-	aliases=`sed -f "$top_srcdir/man/manlinks.sed" "$inalias" |sed -f "/home/kampr/dev/minishell/ncurses/man_alias.sed" | sort -u; test "$inalias" = "$nCurses" && echo curses`
+	aliases=`sed -f "$top_srcdir/man/manlinks.sed" "$inalias" |sed -f "/home/kampr/Downloads/ncurses/ncurses-6.3/man_alias.sed" | sort -u; test "$inalias" = "$nCurses" && echo curses`
 	# perform program transformations for section 1 man pages
 	if test $section = 1 ; then
 		cf_target=$cf_subdir${section}/`echo $cf_source|sed "${transform}"`
 	else
 		cf_target=$cf_subdir${section}/$cf_source
 	fi
-	sed	-f "/home/kampr/dev/minishell/ncurses/man_alias.sed" \
+	sed	-f "/home/kampr/Downloads/ncurses/ncurses-6.3/man_alias.sed" \
 		< "$i" >$TMP
 if test $cf_tables = yes ; then
 	tbl $TMP >$TMP.out

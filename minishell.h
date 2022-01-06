@@ -1,16 +1,18 @@
-#ifndef MINI_SHELL_H
-# define MINI_SHELL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/types.h>
+#include <sys/wait.h>
 # include <dirent.h>
-# include "libft/libft.h"
+# include "parsing/parsing.h"
 # include "readline/readline.h"
 # include "readline/history.h"
 # include "jobs/jobs.h"
 # include "executing/executing.h"
-# include "parsing/parsing.h"
+# include "eval/eval.h"
+# include "libft/libft.h"
 
 # define GREEN "\002\e[0;32m\002"
 # define RESET   "\001\e[0m\002"
@@ -21,7 +23,7 @@ int		type_string(char *str,size_t *len);
 char	*ft_strend(char *base, char *to_find);
 char		*ft_str3join(const char *first, const char *second, const char *third);
 char		*findpath(char **environ);
-char		freelist(char **list);
+void		freelist(char **list);
 int			path_resolver(char *path_bin, char **program_args, char **envp);
 int			find_token(char *line, char *token);
 int			exit_please(char **tokens,char *trimed);
@@ -44,5 +46,9 @@ t_dlist		*ft_lst_nextnode(t_dlist *currlist);
 t_dlist		*ft_lstnewl(void *content);
 void		free_list(t_dlist *head);
 void		ft_lstdclear(t_dlist **lst, void (*del)(void*));
-
+void		ft_lstonlyhead(t_dlist **lst);
+void		free_nodes(t_dlist *head);
+void		quick_parser(char *str);
+int			same_len (char *str ,char *str2);
+void		start_job(t_jobs *job,t_dlist *lst,t_jobs *head);
 #endif 

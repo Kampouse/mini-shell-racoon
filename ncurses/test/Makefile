@@ -99,7 +99,7 @@ CFLAGS_DEFAULT	= $(CFLAGS_NORMAL)
 
 REL_VERSION	= 6.3
 ABI_VERSION	= 6
-LOCAL_LIBDIR	= /home/kampr/dev/minishell/ncurses/lib
+LOCAL_LIBDIR	= /home/kampr/Downloads/ncurses/ncurses-6.3/lib
 LOCAL_LIBS	= ../lib/libform.a ../lib/libmenu.a ../lib/libpanel.a ../lib/libncurses.a 
 MATH_LIB	= -lm
 TEST_LIBS	= -lutil 

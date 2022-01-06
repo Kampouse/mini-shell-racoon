@@ -85,12 +85,9 @@ t_dlist *line_parser(char *trimed)
 	t_dlist *lst;
 
 	lst  = NULL;
-	//bad stuff here
 	if(!trimed)
 		return(NULL);
 	tokens_lst(trimed,ft_strlen(trimed),&lst);
-	free(trimed);
-	// this (token peek is  little implementation of what exec will be */
 	tokens_peek(lst);
 	return(lst);
 }

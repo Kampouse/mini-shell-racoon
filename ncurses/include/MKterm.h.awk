@@ -88,7 +88,7 @@ BEGIN {
 	print  ""
 	print  "#if 1"
 	print  "#undef  NCURSES_SP_FUNCS"
-	print  "#define NCURSES_SP_FUNCS 20211030"
+	print  "#define NCURSES_SP_FUNCS 20211021"
 	print  "#undef  NCURSES_SP_NAME"
 	print  "#define NCURSES_SP_NAME(name) name##_sp"
 	print  ""

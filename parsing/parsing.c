@@ -1,50 +1,120 @@
 #include "../minishell.h"
 
-/* this will chop string in substring until it find a a pipe or other  a redirection... */
-
-/* this  will  function yet to be functionnal will
-determine a index that  will excute a set function such as exit_please */
-int find_token(char *line, char *token) 
+/* evaluate each job one after the  other */
+int same_len(char *str ,char *str2)
 {
-	const int len = ft_strlen(line);
-
-	if(ft_strnstr(line,token,len))
-		return(1);
-
-	return(0);
+	if(str && str2)
+	{
+		if(ft_strlen(str) == ft_strlen(str2))
+			return(0);
+		else
+			return(1);
+	}
+	return(-1);
 }
 
-/* main  entry point of minishell where jobs  
-will be created(yet to be implemented) and  (executed WORKING)  */
-void parsing()
+int pipe_counter(t_dlist *lst)
+{
+	t_dlist *tmp;
+	int count;
+
+	count = 0;
+	tmp = lst;
+	while(tmp)
+	{
+		if(tmp->type == 4)
+		count += 2;
+		tmp = tmp->next;
+	}
+	return(count);
+}
+
+void eval_loop(t_jobs *job, int len)
+{
+	t_jobs *temp;
+	temp  = job;
+
+	if(len == 0)
+	{
+		eval(temp);
+			return;
+	}
+
+	while(temp)
+	{
+		eval(temp);
+		temp = temp->next;
+	}
+}
+
+void parser_core(t_dlist *lst)
+{
+	t_jobs *job = job_lsting(lst);
+	t_jobs *temp;
+
+	temp = NULL;	
+	temp = (t_jobs*)job;
+	if(job)
+	{
+		pre_val_redir((t_jobs*)job);
+		pipe_counter(lst);
+		while(temp)
+		{
+			eval(temp);
+			temp = temp->next;
+		}
+		temp = (t_jobs *)job;
+		while(temp)
+		{
+			start_job(temp,lst,job);
+			temp = temp->next;
+		}
+		free_jobs((t_jobs *)job,0);
+	}
+}
+/* start readline and tokenize the string */
+
+
+void quick_parser(char *str)
+{
+	const char *trimed = ft_strtrim(str," ");
+	t_dlist *lst;
+
+	if(trimed && ft_strlen(trimed) > 0)
+	{
+		lst = line_parser((char *)trimed);
+		free((char *)trimed);
+		if(lst != NULL)
+		{
+			parser_core(lst);			
+			free_nodes(lst);
+		}
+	}	
+}
+
+void parsing(void)
 {
 	char *line;
 	char *trimed;
 	t_dlist *lst;
-	t_jobs *job;
-	
-	job = NULL;
+
     lst = NULL;
 	while(1)
 	{
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line," ");
-	    free(line);
-	
+		free(line);
 		if(trimed && ft_strlen(trimed) > 0)
 		{
-			lst = line_parser(trimed); 	
-			job = job_lsting(lst);
-			if(job)
+			lst = line_parser(trimed);
+			free(trimed);
+			if(lst != NULL)
 			{
-				if(job->cmd[0])
-					check_bultin(job);
-				printf("%s\n",job->cmd[0]);
+				parser_core(lst);			
+				free_nodes(lst);
 			}
-			//free_list(lst);
-			//jobs_lst(lst);
 		}
-		else if(trimed)
+		else
 			free(trimed);
 	}
 }

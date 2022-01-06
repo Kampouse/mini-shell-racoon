@@ -28,6 +28,7 @@ SRCS = ft_atoi.c \
 		ft_putstr_fd.c \
 		ft_putstr_int.c \
 		ft_split.c \
+		ft_strchr_int.c \
 		ft_strchr.c \
 		ft_strdup.c \
 		ft_strjoin.c \
@@ -67,7 +68,7 @@ CFLAGS 	= -Wall -Wextra -Werror
 all: 		${NAME}
 
 .c.o:
-					${CC} ${CFLAGS} -I ${HEADER} -c $< -o ${<:.c=.o} 
+					${CC} ${CFLAGS}  -c $< -o ${<:.c=.o} 
 
 $(NAME):	${OBJS}
 					ar rc ${NAME} ${OBJS}

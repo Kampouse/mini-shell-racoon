@@ -208,7 +208,7 @@ TEST_PROGS = \
 	link_test$x \
 	report_hashing$x
 
-LOCAL_LIBDIR	= /home/kampr/dev/minishell/ncurses/lib
+LOCAL_LIBDIR	= /home/kampr/Downloads/ncurses/ncurses-6.3/lib
 
 base	 = $(srcdir)/base
 serial	 = $(srcdir)/tty

@@ -3,120 +3,38 @@
 
 int valid_redir(t_dlist *redir)
 {
-		if(redir->type >= 0 &&  redir->type <= 3)
+	if(redir->type >= 0 &&  redir->type <= 3)
 	{
-			if(redir->next &&  redir->next->type != 4)	
-			{
-				if(!(redir->next->type >= 0 &&  redir->next->type <= 3))
-			{
-					 return(0);
-			}
-			}
-			else
-				return(-1);
+		if(redir->next && !(redir->next->type >=0 && redir->next->type <= 4))
+			return(1);
 	}
-	return (0);
+	if(!(redir->type >= 0 &&  redir->type <= 3))
+		return(0);
+	return (-1);
 }
 
-int redir_counter(t_dlist *redir)
+t_redir *redir_creator(t_dlist *redir, int *status)
 {
-	
 	t_dlist *temp;
-	int counter;
-	int tmp;
-	
+	t_redir *redir_lst;
+
+	redir_lst = NULL;
 	temp = redir;
-	counter = 0;
-	while(temp && temp->type != 4)
+	while (temp)
 	{
-		 tmp  = valid_redir(temp);
-		if(tmp == -1)	
+		if(valid_redir(temp) == 1)		
+			  redir_addback(&redir_lst,node_redir(temp->next->content,temp->type));
+		else if(valid_redir(temp) < 0)
 		{
-			printf("syntax error near unexpected token `newline'\n");
-			return(-1);
+			*status = -1;
+			printf("error as newLine\n");
+			free_redir(redir_lst);
+			return(NULL);
 		}
+		if(temp->next && temp->next->type != 4)
+			temp = temp->next;
 		else 
-			counter+= tmp;
-		temp = temp->next;
+			break;
 	}
-	return(counter);
-}
-
-char **redir_creator(t_dlist *redir, int len)
-{
-	t_dlist *temp;
-	char **redir_lst;
-	int inc;
-
-	inc = 0;
-	temp = redir;
-		if (len < 0)
-			return (NULL);
-		redir_lst = malloc(sizeof(char **) * (len * 2) + 1);
-	while (temp && temp->type != 4)
-	{
-		if (temp->type >= 0 && temp->type <= 3)
-		{
-			redir_lst[inc] = ft_itoa(temp->type);		
-			redir_lst[inc + 1] = temp->next->content;
-			inc +=2;
-		}
-		temp = temp->next;
-	}
-	//#debug
-//	redir_lst[inc + 1] = 0;
 	return (redir_lst);
 }
-
-int  any_heredoc(char **lst)
-{
-	int count;
-
-	count = 0;
-	if(lst)
-	{
-		while(lst[count])	
-		{
-				if(atoi(lst[count]) == 1)
-				  return (1);
-			count += 2;
-		}
-	}
-	return (0);
-}
-
-int redirector(char **redirs)
-{
-	int inc;
-
-
-	inc = 0;
-	while(redirs[inc])
-	{
-		if(ft_atoi(redirs[inc]) == 0)
-	{
-			printf("found: >> ");
-	}
-		if(ft_atoi(redirs[inc]) == 2)
-		{
-			printf("found: < ");
-		}
-		if(ft_atoi(redirs[inc]) == 3)
-		{
-			printf("found: > ");
-	}
-	inc+= 2;
-		}
-		if(ft_atoi(redirs[inc]) == 0)
-		{
-			printf("found: >> ");
-			
-		}
-		inc+= 2;
-
-return(0);
-	}
-
-
-
-

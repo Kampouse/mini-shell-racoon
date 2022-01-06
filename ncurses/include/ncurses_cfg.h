@@ -52,7 +52,7 @@
 
 #define PACKAGE "ncurses"
 #define NCURSES_VERSION "6.3"
-#define NCURSES_PATCHDATE 20211030
+#define NCURSES_PATCHDATE 20211021
 #define SYSTEM_NAME "linux-gnu"
 #if 0
 #include <stdlib.h>
@@ -201,7 +201,7 @@
 #define HAVE_FORM_H 1
 #define HAVE_LIBFORM 1
 #define NCURSES_PATHSEP ':'
-#define NCURSES_VERSION_STRING "6.3.20211030"
+#define NCURSES_VERSION_STRING "6.3.20211021"
 #define NCURSES_OSPEED_COMPAT 1
 #define HAVE_CURSES_DATA_BOOLNAMES 1
 
