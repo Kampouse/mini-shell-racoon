@@ -87,4 +87,9 @@ char **remove_of_list(char *to_remove, char **old_list);
 void do_echo(t_jobs *jobs);
 //start jobs
 void start_jobs(t_jobs *job);
+
+// redir handle
+int redir_handler(t_jobs *job);
+
+
 #endif

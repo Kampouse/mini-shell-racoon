@@ -6,6 +6,7 @@ void eval_cmds(t_jobs *job)
 	char *temp;
 	char **output;	
 
+    temp = NULL;
 	len = 0;
 	if(job->cmd && job->cmd[0])	
 	{
