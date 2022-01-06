@@ -75,31 +75,27 @@ int ft_tab_len(char **tab)
 //Cette fonction trie un tableau de char en ordre ascii
 char **ft_sort_tab(char **tab)
 {
+    char *temp;
     int i;
     int j;
-    char **temp_tab;
-    char **tab_sorted;
-    
-    temp_tab = alloc_tab(tab);
-    tab_sorted = tab;
+
     i = 0;
-    while (i < ft_tab_len(tab))
+    while(tab[i])
     {
-        j = 0;
-        while (j < ft_tab_len(tab))
+        j = i + 1;
+        while(tab[j])
         {
-            if (ft_strncmp(tab_sorted[i], tab[j], ft_strlen(tab_sorted[i])) < 0)
+                if(ft_strncmp(tab[i],tab[j],ft_strlen(tab[i])) > 0)
             {
-                temp_tab[i] = tab_sorted[i];
-                tab_sorted[i] = tab[j];
-                tab[j] = temp_tab[i];
-            }
+                    temp = tab[i];
+                    tab[i] = tab[j];
+                    tab[j] = temp;
+                }
             j++;
         }
         i++;
     }
-	// free(temp_tab);
-    return (tab_sorted);
+    return (tab);
 }
 
 //Cette fonction ajoute un nouvelle element a la liste "export"
@@ -119,6 +115,7 @@ char **add_to_list(char *new_exprt, char **old_list, int type)
     new_list[i] = ft_strdup(new_exprt);
     i++;
     new_list[i] = NULL;
+    freelist(old_list);
 	if (type)
     	return (ft_sort_tab(new_list));
     //freelist(old_list);
