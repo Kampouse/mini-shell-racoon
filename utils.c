@@ -144,7 +144,6 @@ char **remove_of_list(char *to_remove, char **old_list)
 		}
 		else
 		{
-		
 			new_list[j] = ft_strdup(old_list[i]);
 			i++;
 			j++;

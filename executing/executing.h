@@ -3,30 +3,8 @@
 
 #include "../jobs/jobs.h"
 
-// typedef struct s_env_lst
-// {
-//     char                *data;
-//     int                 id;
-//     int                 type;
-//     int                 len;
-//     struct s_env_lst    *next;
-//     struct s_env_lst    *prev;
-// }   t_env_lst;
-
-// typedef struct s_exp_lst
-// {
-//     char                *data;
-//     int                 id;
-//     int                 type;
-//     int                 len;
-//     struct s_env_lst    *next;
-//     struct s_env_lst    *prev;
-// }   t_exp_lst;
-
 typedef struct s_exec
 {
-    // t_exp_lst       **exprt;
-    // t_env_lst       **env;
     char            **exprt;
     char            **env;
     int             stdin;
@@ -41,7 +19,7 @@ void    get_exp_env(char **envp);
 void    create_env(char **envp);
 
 //EXPORT
-void do_export(char **args);
+void    do_export(char **args);
 
 void    create_export(char **envp);
 

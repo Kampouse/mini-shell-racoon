@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 11:49:42 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/05 13:24:13 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/05 22:53:12 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,3 @@ void get_exp_env(char **envp)
     create_env(envp);
     create_export(envp);
 }
-
-
