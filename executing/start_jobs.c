@@ -73,7 +73,8 @@ void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 		//{
           //  redir_handler(job);
             //does not work on nixos
-            path_resolver(findpath(g_state.env),job->cmd,g_state.env);
+			//printf(" hello %s",job->cmd[0]);
+            g_state.output = path_resolver(job,lst);
 			//free_nodes(lst);
 			//free_jobs(head,0);
 			//freelist(g_state.env);
