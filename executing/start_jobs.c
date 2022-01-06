@@ -53,30 +53,31 @@ int check_nb_of_cmd(t_jobs *job)
 * */
 void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 {
-	pid_t child;
-	int status;
-
+	//pid_t child;
+	//int status;
+    (void)lst;
+    (void)head;
 	if(check_bultin(job) == 0)
 	{
-    
         printf("%d\n",redir_handler(job));
 		printf("builtin as been handled\n");
 		return;
 	}
 	else if(check_bultin(job) == 1)
 	{
-		child = fork();
-		(void)lst;
-		if(child == 0)
-		{
-            redir_handler(job);
+        printf("tst");
+	//	child = fork();
+		//(void)lst;
+		//if(child == 0)
+		//{
+          //  redir_handler(job);
             //does not work on nixos
-            printf("%s\n",findpath(g_state.env));
-			free_nodes(lst);
-			free_jobs(head,0);
-			freelist(g_state.env);
-			exit(0);
-		}
-		waitpid(-1,&status,0);
+            //printf("%s\n",findpath(g_state.env));
+			//free_nodes(lst);
+			//free_jobs(head,0);
+			//freelist(g_state.env);
+			//exit(0);
+		//}
+		//waitpid(-1,&status,0);
 	}
 }

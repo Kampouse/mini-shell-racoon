@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/03 13:28:27 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/06 16:24:35 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void create_env(char **envp)
         g_state.env[i] = ft_strdup(envp[i]);
         i++;
     }
+
 }
 
 void print_env(int tab_len)
@@ -66,11 +67,13 @@ void update_env_list(char *var, char *val, int type)
     {
         new_env = var;
         g_state.env = add_to_list(new_env, g_state.env, 0);
+        //free(new_env);
     }
     if (type == 3)
     {
         new_env = ft_strjoin(var, val);
         g_state.env = add_to_list(new_env, g_state.env, 0);
+        free(new_env);
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 15:18:35 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/02 00:06:46 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/06 16:13:27 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char *before_equal(char *var_cmd)
     int i;
     char *var_str = NULL;
 
-    var_str = malloc(sizeof(char) * ft_strlen(var_cmd) + 1);
+    //var_str = malloc(sizeof(char) * ft_strlen(var_cmd) + 1);
     i = 0;
     while (var_cmd[i] != '=')
         i++;
@@ -31,7 +31,7 @@ char *afther_equal(char *val_cmd)
 {
     int i;
     char *val_str = NULL;
-    val_str = malloc(sizeof(char) * ft_strlen(val_cmd) + 1);
+    //val_str = malloc(sizeof(char) * ft_strlen(val_cmd) + 1);
     i = 0;
     while (val_cmd[i] != '=')
         i++;
