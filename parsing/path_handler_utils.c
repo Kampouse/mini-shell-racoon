@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 10:50:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/05 18:11:59 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:30:13 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,17 @@ char	*findpath(char **envp)
 
 	path = NULL;
 	i = 0;
-	while (envp[i])
+	while(envp[i])
+	{
+		i++;
+	}
+		i--;
+	while (i != 0)
 	{
 		if (path)
 			break ;
 		path = ft_strend(envp[i], "PATH=/");
-		i++;
+		i--;
 	}
 	path += ft_strlen("PATH=");
 	return (path);
