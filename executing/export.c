@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/06 16:35:15 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/06 17:02:17 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void update_export_list(char *var, char *val, int type)
     {
         new_exprt = ft_strjoin(var, val);
         g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
+        free(new_exprt);
     }
     if (type == 2)
     {
@@ -57,7 +58,6 @@ void update_export_list(char *var, char *val, int type)
         free(val); 
         temp = add_to_list(new_exprt,g_state.exprt, 1);
         free(new_exprt);
-        //free(g_state.exprt);
         g_state.exprt = temp;
     }
 }
@@ -84,9 +84,11 @@ void parse_export(char **to_export)
         }
         else if (!no_equal(to_export[i]))
         {
-            variable[j] = "' '";
-            valeur[j] = to_export[i];
+            variable[j] = ft_strdup("' '");
+            valeur[j] = ft_strdup(to_export[i]);
             update_export_list(variable[j], valeur[j], 2);
+            free(variable[j]);
+            free(valeur[j]);
         }
         else
         {
@@ -94,12 +96,14 @@ void parse_export(char **to_export)
             valeur[j] = afther_equal(to_export[i]);
             update_export_list(variable[j], valeur[j], 3);
             update_env_list(variable[j], valeur[j], 3);
+            free(valeur[j]);
+            free(variable[j]);
         }
         j++;
         i++;
     }
-    free(valeur);
     free(variable);
+    free(valeur);
 }
 
 void do_export(t_jobs *job)
