@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/06 16:12:12 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/06 16:17:03 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ void parse_export(char *to_export)
     free(variable);
 }
     
-
 void do_export(t_jobs *job)
 {
     int i;
