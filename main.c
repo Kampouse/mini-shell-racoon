@@ -21,6 +21,7 @@ int main(int argc, char **argv, char **envp)
 		init_exec(envp);
 		quick_parser(argv[2]);
 		freelist(g_state.env);
+		freelist(g_state.exprt);
 	}
 	else
 	{

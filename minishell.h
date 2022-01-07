@@ -24,7 +24,7 @@ char	*ft_strend(char *base, char *to_find);
 char		*ft_str3join(const char *first, const char *second, const char *third);
 char		*findpath(char **environ);
 void		freelist(char **list);
-int			path_resolver(char *path_bin, char **program_args, char **envp);
+int path_resolver(t_jobs *job,t_dlist *lst);
 int			find_token(char *line, char *token);
 int			exit_please(char **tokens,char *trimed);
 int			until_space(char *str);

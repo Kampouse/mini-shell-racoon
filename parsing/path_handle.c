@@ -4,46 +4,70 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
+	int any_executable(char **path,t_jobs *job)
+{
+	char *temp;
+	int inc;
+	struct stat sa; 
+
+	temp = NULL;	
+	inc = 0;
+	while(path[inc])
+	{
+		temp = ft_str3join(path[inc],"/",job->eval[0]);
+		if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
+			{
+				free(temp);
+				return(inc);
+			}
+		free(temp);
+		inc++;
+	}
+	freelist(path);
+	printf("command not found %s\n", job->eval[0]);
+	return(-1);
+}
+
+
 
 /* last stage of execution of the command if not built in */
-int exec_the_bin(char **paths,char **program, char **envp)
+int exec_the_bin(char *paths,t_jobs *job, char **envp,t_dlist *lst)
 {
-	int inc;
-	char *temp;
+	(void)envp;
 
-	inc = -1;
-	execve(program[0],program,envp);
-	while(paths[++inc])
-	{
-		temp = ft_str3join(paths[inc],"/",program[0]);
-		if(execve(temp,program,envp) == -1) 
-		{
-			free(temp);
-			temp = NULL;
-		}
-		if(temp)
-			free(temp);
-	}
-	printf("command not found %s\n", program[0]);
-	exit(0);
+	free_list(lst);
+	freelist(g_state.exprt);
+	if(execve(paths,job->eval,g_state.env) == -1) 
+	free_jobs(job,0);
+	free(paths);
+	freelist(g_state.env);
+	exit(127);
 	return(0);
 }
 
 /* fork the process  before exectuion  and wait for the child */
-int path_resolver(char *path_bin, char **program_args, char **envp) 
+int path_resolver(t_jobs *job,t_dlist *lst) 
 {
 	char **paths;
 	int pid;
 	int status;
+	char *temp;
 
-	paths = ft_split(path_bin,':');
+	paths = ft_split(findpath(g_state.env),':');
+	if(any_executable(paths,job) == -1)
+		return(127);
+	else
+	{
+		temp = ft_str3join(paths[any_executable(paths,job)], "/", job->eval[0]);
+		freelist(paths);
+	}
 	pid = fork();
 	if(pid < 0)
 		return(-1);
 	if(pid == 0)
-		exec_the_bin(paths, program_args, envp);
+		exec_the_bin(temp, job, g_state.env,lst);
 	waitpid(pid,&status,0);
-	freelist(paths);
-	return(1);
+	free(temp);
+	return(WEXITSTATUS(status));
 }
 

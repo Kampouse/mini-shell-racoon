@@ -1,4 +1,5 @@
 #include "eval.h"
+#include "../minishell.h"
 
 /* return variable from env else NULL */
 char	*find_env(char **envp, char *str, int type)
@@ -9,18 +10,19 @@ char	*find_env(char **envp, char *str, int type)
 	inc = -1;
 	if(!str)
 		return(NULL);
+	// dont evalute  this 
+	if(same_len(str,"$?") == 0 && ft_strncmp(str,"$?",ft_strlen(str)) == 0)
+		return(str);
 	if(ft_strlen(str) == 1 && str[0] == '$')
 		return(str);
 	while(envp[++inc] != 0)
 	{
-		if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0)
+		if(ft_strncmp(envp[inc],str + 1,ft_strlen(str + 1)) == 0 && *(envp[inc
+			] + ft_strlen(str + 1)) == '=')
 		{
-			if(	*(envp[inc] + ft_strlen(str + 1)) == '=')	
-			{
 				temp =  ft_strdup(envp[inc] + ft_strlen(str + 1) + 1);
 					free(str);
 				return(temp);	
-			}
 		}
 	}
 	if(type == 1)
@@ -79,9 +81,9 @@ char *find_varutil(char *str, int **len, int until)
 	if(until < 0 )
 	{
 		**len += until_this(str,"\"") + 1;
-		return( ft_substr(str ,0,until_this(str,"\"")));
+		return(ft_substr(str ,0,until_this(str,"\"")));
 	}
-	if( until > 0 )
+	if(until > 0)
 	{
 		**len += until_this(str + 1," $") + 1;
 		return(ft_substr(str,0, until_this(str + 1," $") + 1)); 

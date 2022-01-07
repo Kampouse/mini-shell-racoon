@@ -65,13 +65,14 @@ void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
 	}
 	else if(check_bultin(job) == 1)
 	{
-        printf("tst");
 	//	child = fork();
 		//(void)lst;
 		//if(child == 0)
 		//{
           //  redir_handler(job);
             //does not work on nixos
+			//printf(" hello %s",job->cmd[0]);
+            g_state.output = path_resolver(job,lst);
             //printf("%s\n",findpath(g_state.env));
 			//free_nodes(lst);
 			//free_jobs(head,0);

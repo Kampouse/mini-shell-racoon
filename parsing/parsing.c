@@ -29,23 +29,7 @@ int pipe_counter(t_dlist *lst)
 	return(count);
 }
 
-void eval_loop(t_jobs *job, int len)
-{
-	t_jobs *temp;
-	temp  = job;
 
-	if(len == 0)
-	{
-		eval(temp);
-			return;
-	}
-
-	while(temp)
-	{
-		eval(temp);
-		temp = temp->next;
-	}
-}
 
 void parser_core(t_dlist *lst)
 {
@@ -57,7 +41,6 @@ void parser_core(t_dlist *lst)
 	if(job)
 	{
 		pre_val_redir((t_jobs*)job);
-		pipe_counter(lst);
 		while(temp)
 		{
 			eval(temp);
@@ -69,6 +52,7 @@ void parser_core(t_dlist *lst)
 			start_job(temp,lst,job);
 			temp = temp->next;
 		}
+		printf("test");
 		free_jobs((t_jobs *)job,0);
 	}
 }
