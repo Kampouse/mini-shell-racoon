@@ -3,6 +3,7 @@
 int check_bultin(t_jobs *job)
 {
     job->cmd = job->eval;
+
 		if(job->cmd_type == -2)
 			return(1);
 		if (job->cmd_type == 6)
@@ -51,34 +52,19 @@ int check_nb_of_cmd(t_jobs *job)
 * we should try to clear all the  the memory of the other jobs
 * otherwise it will counted as still reachable(leaks)
 * */
-void start_job(t_jobs *job, t_dlist *lst,t_jobs *head)
+void start_job(t_jobs *job, t_dlist *lst)
 {
 	//pid_t child;
-	//int status;
-    (void)lst;
-    (void)head;
-	if(check_bultin(job) == 0)
+	int oldstdin;
+	if(job->cmd_type >= 0)
 	{
-        printf("%d\n",redir_handler(job));
+		oldstdin = dup(0);
+        redir_handler(job);
+		check_bultin(job);
+		dup2(oldstdin,0);
 		printf("builtin as been handled\n");
 		return;
 	}
 	else if(check_bultin(job) == 1)
-	{
-	//	child = fork();
-		//(void)lst;
-		//if(child == 0)
-		//{
-          //  redir_handler(job);
-            //does not work on nixos
-			//printf(" hello %s",job->cmd[0]);
             g_state.output = path_resolver(job,lst);
-            //printf("%s\n",findpath(g_state.env));
-			//free_nodes(lst);
-			//free_jobs(head,0);
-			//freelist(g_state.env);
-			//exit(0);
-		//}
-		//waitpid(-1,&status,0);
-	}
 }

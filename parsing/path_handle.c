@@ -31,9 +31,8 @@
 
 
 /* last stage of execution of the command if not built in */
-int exec_the_bin(char *paths,t_jobs *job, char **envp,t_dlist *lst)
+int exec_the_bin(char *paths,t_jobs *job,t_dlist *lst)
 {
-	(void)envp;
 
 	free_list(lst);
 	freelist(g_state.exprt);
@@ -65,7 +64,10 @@ int path_resolver(t_jobs *job,t_dlist *lst)
 	if(pid < 0)
 		return(-1);
 	if(pid == 0)
-		exec_the_bin(temp, job, g_state.env,lst);
+	{
+		redir_handler(job);
+		exec_the_bin(temp, job,lst);
+	}
 	waitpid(pid,&status,0);
 	free(temp);
 	return(WEXITSTATUS(status));

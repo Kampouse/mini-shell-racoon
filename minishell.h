@@ -50,5 +50,5 @@ void		ft_lstonlyhead(t_dlist **lst);
 void		free_nodes(t_dlist *head);
 void		quick_parser(char *str);
 int			same_len (char *str ,char *str2);
-void		start_job(t_jobs *job,t_dlist *lst,t_jobs *head);
+void		start_job(t_jobs *job,t_dlist *lst);
 #endif 
