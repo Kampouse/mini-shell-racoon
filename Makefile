@@ -63,9 +63,9 @@ leak: all
 		./$(NAME)
 
 val: all
-	valgrind  --leak-check=full --track-origins=yes -s --trace-children=yes ./$(NAME)
+	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes  ./$(NAME)
 test: all
-	valgrind  --leak-check=full --track-origins=yes ./$(NAME) "-c" 'vo -l | ro'
+	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes  ./$(NAME) "-c" 'vo -l | ro'
 
 
 clean:

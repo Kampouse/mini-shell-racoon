@@ -6,16 +6,30 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/06 17:02:17 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/06 16:33:11 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int got_good_args(char *cmd)
+{
+    int i;
+
+    i = 0;
+    if (!ft_isalpha(cmd[i]) && cmd[i] != '_')
+        return (1);
+    while (cmd[++i] && cmd[i] != '=')
+        if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
+            return(1);
+    return (0);
+}
+
 void create_export(char **envp)
 {
     int i; 
-     i = 0;
+    
+    i = 0;
     g_state.exprt = alloc_tab(envp);
     while (envp[i])
     {
@@ -40,16 +54,12 @@ void update_export_list(char *var, char *val, int type)
 {
     char *new_exprt;
     char **temp;
+    
     if (type == 1)
     {
         new_exprt = ft_strjoin(var, val);
         g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
         free(new_exprt);
-    }
-    if (type == 2)
-    {
-        new_exprt = val;
-         g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
     }
     if (type == 3)
     {
@@ -62,59 +72,52 @@ void update_export_list(char *var, char *val, int type)
     }
 }
 
-void parse_export(char **to_export)
+void parse_export(char *to_export)
 {
-    char **variable = NULL;
-    char **valeur = NULL;
-    int i;
-    int j;
+    char *variable = NULL;
+    char *valeur = NULL;
     
-    i = 1;
-    j = 0;
-    variable = malloc(sizeof(char *) * (ft_tab_len(to_export) + 1));
-    valeur = malloc(sizeof(char *) * (ft_tab_len(to_export) + 1));
-    while (to_export[i])
+    if (last_is_equal(to_export))
     {
-        if (last_is_equal(to_export[i]))
+        update_export_list(to_export, "\"\"", 1);
+        update_env_list(to_export, "\"\"", 1);
+    }
+    else
+    {
+        if (!no_equal(to_export))
         {
-            variable[j] = to_export[i];
-            valeur[j] = "\"\"";
-            update_export_list(variable[j], valeur[j], 1);
-            update_env_list(variable[j], valeur[j], 1);
-        }
-        else if (!no_equal(to_export[i]))
-        {
-            variable[j] = ft_strdup("' '");
-            valeur[j] = ft_strdup(to_export[i]);
-            update_export_list(variable[j], valeur[j], 2);
-            free(variable[j]);
-            free(valeur[j]);
+            variable = ft_strdup("' '");
+            valeur = ft_strdup(to_export);
+            g_state.exprt = add_to_list(valeur, g_state.exprt, 1);
         }
         else
         {
-            variable[j] = before_equal(to_export[i]);
-            valeur[j] = afther_equal(to_export[i]);
-            update_export_list(variable[j], valeur[j], 3);
-            update_env_list(variable[j], valeur[j], 3);
-            free(valeur[j]);
-            free(variable[j]);
+            variable = before_equal(to_export);
+            valeur = afther_equal(to_export);
+            update_export_list(variable, valeur, 3);
+            update_env_list(variable, valeur, 3);
         }
-        j++;
-        i++;
+        free(valeur);
+        free(variable);
     }
-    free(variable);
-    free(valeur);
+        
 }
-
+    
 void do_export(t_jobs *job)
 {
+    int i;
+    
     if (ft_tab_len(job->cmd) == 1)
         print_exprt(ft_tab_len(g_state.exprt));
     if (ft_tab_len(job->cmd) > 1)
     {
-        if (got_good_args(job->cmd))
-            printf("Not a valid export\n");
-        else 
-            parse_export(job->cmd);
+        i = 0;
+        while (job->cmd[++i])
+        {
+            if (got_good_args(job->cmd[i]))
+                printf("Not a valid export\n");
+            else 
+                parse_export(job->cmd[i]);
+        }
     }
 }
