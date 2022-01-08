@@ -52,7 +52,6 @@ void parser_core(t_dlist *lst)
 			start_job(temp,lst,job);
 			temp = temp->next;
 		}
-		printf("test");
 		free_jobs((t_jobs *)job,0);
 	}
 }
