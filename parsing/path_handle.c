@@ -65,7 +65,10 @@ int path_resolver(t_jobs *job,t_dlist *lst)
 		return(-1);
 	if(pid == 0)
 	{
-		redir_handler(job);
+		if(redir_handler(job) == -1)
+		{
+			exit(-1);
+		}
 		exec_the_bin(temp, job,lst);
 	}
 	waitpid(pid,&status,0);

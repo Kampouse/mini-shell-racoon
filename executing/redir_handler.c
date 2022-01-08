@@ -39,7 +39,13 @@ int redir_handler(t_jobs *job)
             else if(temp->type == 1 && redir_bool(temp->eval))
                 printf("cq\n");
             else if(temp->type == 2 && redir_bool(temp->eval))
-				input_redir(temp->eval);
+			{
+				if(input_redir(temp->eval) == -1)
+				{
+					printf(" minishell  ->>> invalid file %s\n",temp->eval);
+					return(-1);
+				}
+			}
             else if(temp->type == 3 && redir_bool(temp->eval))
                 printf("rageur\n");
             temp = temp->next;
