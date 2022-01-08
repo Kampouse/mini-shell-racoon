@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/06 16:33:11 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/07 14:14:21 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void create_export(char **envp)
     {
         g_state.exprt[i] = ft_strdup(envp[i]);
         i++;
-
     }
     ft_sort_tab(g_state.exprt);
 }
@@ -77,30 +76,21 @@ void parse_export(char *to_export)
     char *variable = NULL;
     char *valeur = NULL;
     
-    if (last_is_equal(to_export))
+    if (!no_equal(to_export))
     {
-        update_export_list(to_export, "\"\"", 1);
-        update_env_list(to_export, "\"\"", 1);
+        variable = ft_strdup("' '");
+        valeur = ft_strdup(to_export);
+        g_state.exprt = add_to_list(valeur, g_state.exprt, 1);
     }
     else
     {
-        if (!no_equal(to_export))
-        {
-            variable = ft_strdup("' '");
-            valeur = ft_strdup(to_export);
-            g_state.exprt = add_to_list(valeur, g_state.exprt, 1);
-        }
-        else
-        {
-            variable = before_equal(to_export);
-            valeur = afther_equal(to_export);
-            update_export_list(variable, valeur, 3);
-            update_env_list(variable, valeur, 3);
-        }
-        free(valeur);
-        free(variable);
+        variable = before_equal(to_export);
+        valeur = afther_equal(to_export);
+        update_export_list(variable, valeur, 3);
+        update_env_list(variable, valeur, 3);
     }
-        
+    free(valeur);
+    free(variable);
 }
     
 void do_export(t_jobs *job)
@@ -116,6 +106,11 @@ void do_export(t_jobs *job)
         {
             if (got_good_args(job->cmd[i]))
                 printf("Not a valid export\n");
+            else if (last_is_equal(job->cmd[i]))
+            {
+                update_export_list(job->cmd[i], "\"\"", 1);
+                update_env_list(job->cmd[i], "\"\"", 1);
+            }
             else 
                 parse_export(job->cmd[i]);
         }
