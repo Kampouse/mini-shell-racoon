@@ -37,7 +37,7 @@ int exec_the_bin(char *paths,t_jobs *job,t_dlist *lst)
 	free_list(lst);
 	freelist(g_state.exprt);
 	if(execve(paths,job->eval,g_state.env) == -1) 
-	free_jobs(job,0);
+        free_jobs(job,0);
 	free(paths);
 	freelist(g_state.env);
 	exit(127);

@@ -56,12 +56,12 @@ void start_job(t_jobs *job, t_dlist *lst)
 {
 	//pid_t child;
 	int oldstdin;
+
+    (void)oldstdin;
 	if(job->cmd_type >= 0)
 	{
-		oldstdin = dup(0);
         redir_handler(job);
 		check_bultin(job);
-		dup2(oldstdin,0);
 		printf("builtin as been handled\n");
 		return;
 	}
