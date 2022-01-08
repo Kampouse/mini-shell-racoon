@@ -1,4 +1,5 @@
 #include "executing.h"
+#include "fcntl.h"
 
 int redir_bool(char *str)
 {
@@ -7,6 +8,21 @@ int redir_bool(char *str)
     else
         return (0);
 }
+
+
+int input_redir(char  *temp)
+{
+
+int  fd;
+
+fd = open(temp,O_RDONLY);
+	if(fd < 0)
+		return(-1);
+	dup2(fd,0);
+	close(fd);
+return(0);
+}
+
 
 int redir_handler(t_jobs *job)
 {
@@ -19,13 +35,13 @@ int redir_handler(t_jobs *job)
         while(temp)
         {
             if(temp->type == 0 && redir_bool(temp->eval))
-                printf("am over");
+                printf("am over\n");
             else if(temp->type == 1 && redir_bool(temp->eval))
-                printf("cq");
+                printf("cq\n");
             else if(temp->type == 2 && redir_bool(temp->eval))
-                printf("svp");
+				input_redir(temp->eval);
             else if(temp->type == 3 && redir_bool(temp->eval))
-                printf("rageur");
+                printf("rageur\n");
             temp = temp->next;
         }
     }
