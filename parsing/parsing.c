@@ -49,7 +49,7 @@ void parser_core(t_dlist *lst)
 		temp = (t_jobs *)job;
 		while(temp)
 		{
-			start_job(temp,lst,job);
+			start_job(temp,lst);
 			temp = temp->next;
 		}
 		printf("test");
