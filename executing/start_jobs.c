@@ -4,18 +4,19 @@ int check_bultin(t_jobs *job)
 {
     job->cmd = job->eval;
 
-		if(job->cmd_type == -2)
-			return(1);
-		if (job->cmd_type == 6)
-            do_export(job);
-    	if (job->cmd_type == 5)
-			do_env(job);
-    	if (job->cmd_type == 9)
-			do_unset(job);
-    	if (job->cmd_type == 8)
-			do_echo(job);
+	if(job->cmd_type == -2)
+		return(1);
+	if (job->cmd_type == 6)
+		do_export(job);
+	if (job->cmd_type == 5)
+		do_env(job);
+	if (job->cmd_type == 9)
+		do_unset(job);
+	if (job->cmd_type == 8)
+		do_echo(job);
+    if (job->cmd_type == 10)
+		do_pwd();
 			//exit =7
-//     if (!(ft_strncmp(job->cmd[0], "pwd", ft_strlen(trimed))))
 //PATH DANS READLINE
 //     if (!(ft_strncmp(job->cmd[0], "cd", ft_strlen(trimed))))
 //     if (!(ft_strncmp(job->cmd[0], "exit", ft_strlen(trimed))))
@@ -47,6 +48,18 @@ int check_nb_of_cmd(t_jobs *job)
 	return (i);
 }
 
+void add_his(t_jobs *job)
+{
+	int i;
+
+	i = 0;
+	while (job->eval[i])
+	{
+		add_history(job->eval[i]);
+		printf("%s\n", job->eval[i++]);
+	}
+	history_list();
+}
 /* function that should fork the process and execute what inside 
 *  since the process duplicate all the memory in the process
 * we should try to clear all the  the memory of the other jobs

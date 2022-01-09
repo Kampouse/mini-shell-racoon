@@ -3,7 +3,7 @@
 
 int token_scanner_ext(const char *trimed,size_t *token_size,int inc)
 {
-	const char *tokens[12] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset","cd",NULL};
+	const char *tokens[13] = {">>", "<<","<", ">","|","env","export","exit","echo","unset","pwd","cd",NULL};
 
 	if( ft_strncmp(trimed,(char *)tokens[inc],ft_strlen(tokens[inc])) == 0)
 	{
@@ -20,7 +20,7 @@ int token_scanner(char *str,size_t *token_size)
 {
 	int inc;
 	const char *trimed  = ft_substr(str,0,until_space(str));
-	const char *tokens[11] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset",NULL};
+	const char *tokens[12] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset","pwd",NULL};
 
 	inc = -1;
 	if(!str)

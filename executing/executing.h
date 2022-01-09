@@ -25,8 +25,10 @@ void    do_env(t_jobs *job);
 void    create_export(char **envp);
 void    print_exprt(int tab_len);
 void    do_export(t_jobs *jobb);
-
-// VARIABLE
+//history
+void add_his(t_jobs *job);
+//PWD
+int	do_pwd(void);
 
 // UTILS FUNCTION
 char    **alloc_tab(char **old_tab);
