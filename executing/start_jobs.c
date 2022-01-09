@@ -52,12 +52,11 @@ void add_his(t_jobs *job)
 {
 	int i;
 
-	i = 0;
-	while (job->eval[i])
-	{
+	i = -1;
+	while (job->eval[++i])
+    {
 		add_history(job->eval[i]);
-		printf("%s\n", job->eval[i++]);
-	}
+    }
 	history_list();
 }
 /* function that should fork the process and execute what inside 
