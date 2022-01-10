@@ -9,7 +9,6 @@ int redir_bool(char *str)
         return (0);
 }
 
-
 int input_redir(char  *temp)
 {
 
@@ -18,9 +17,7 @@ int  fd;
 fd = open(temp,O_RDONLY);
 	if(fd < 0)
     {
-        perror("invalid file: ");
         perror(temp);
-        perror("\n");
 		return(-1);
     }
 	dup2(fd,0);

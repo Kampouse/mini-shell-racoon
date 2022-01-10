@@ -54,9 +54,7 @@ void add_his(t_jobs *job)
 
 	i = -1;
 	while (job->eval[++i])
-    {
 		add_history(job->eval[i]);
-    }
 	history_list();
 }
 /* function that should fork the process and execute what inside 
@@ -64,19 +62,19 @@ void add_his(t_jobs *job)
 * we should try to clear all the  the memory of the other jobs
 * otherwise it will counted as still reachable(leaks)
 * */
-void start_job(t_jobs *job, t_dlist *lst)
+void start_job(t_jobs *job, t_dlist *lst,int pipes[],int state)
 {
 	//pid_t child;
-	int oldstdin;
+    //should we if there more than one?
 
-    (void)oldstdin;
 	if(job->cmd_type >= 0)
 	{
+        pipe_handler(pipes,state);
         redir_handler(job);
 		check_bultin(job);
 		printf("builtin as been handled\n");
 		return;
 	}
 	else if(check_bultin(job) == 1)
-            g_state.output = path_resolver(job,lst);
+            g_state.output = path_resolver(job,lst,pipes,state);
 }

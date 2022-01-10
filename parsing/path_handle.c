@@ -44,31 +44,45 @@ int exec_the_bin(char *paths,t_jobs *job,t_dlist *lst)
 	return(0);
 }
 
-/* fork the process  before exectuion  and wait for the child */
-int path_resolver(t_jobs *job,t_dlist *lst) 
+
+char *make_executable(t_jobs *job,int *status)
 {
-	char **paths;
+const char **paths = (const char **)ft_split(findpath(g_state.env), ':');
+int location;
+char *temp;
+
+location = 0;
+temp = NULL;
+    if(any_executable((char **)paths, job) == -1)
+    {
+        *status = 127;
+        return(NULL);
+    }
+    location = any_executable((char **)paths,job);
+    temp = ft_str3join(paths[location], "/", job->eval[0]);
+    freelist((char **)paths);
+return (temp);
+}
+/* fork the process  before exectuion  and wait for the child */
+int path_resolver(t_jobs *job, t_dlist *lst,int pipes[],int state) 
+{
 	int pid;
 	int status;
 	char *temp;
 
-	paths = ft_split(findpath(g_state.env),':');
-	if(any_executable(paths,job) == -1)
+    status = 0;
+    temp = make_executable(job, &status);
+	if(status == 127)
 		return(127);
-	else
-	{
-		temp = ft_str3join(paths[any_executable(paths,job)], "/", job->eval[0]);
-		freelist(paths);
-	}
 	pid = fork();
 	if(pid < 0)
 		return(-1);
 	if(pid == 0)
 	{
+        pipe_handler(pipes,state);
+        //handle pipe ?
 		if(redir_handler(job) == -1)
-		{
-			exit(-1);
-		}
+			exit(1);
 		exec_the_bin(temp, job,lst);
 	}
 	waitpid(pid,&status,0);
