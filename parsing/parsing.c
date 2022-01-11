@@ -29,8 +29,6 @@ int pipe_counter(t_dlist *lst)
 	return(count);
 }
 
-
-
 void parser_core(t_dlist *lst)
 {
 	t_jobs *job = job_lsting(lst);
@@ -56,9 +54,8 @@ void parser_core(t_dlist *lst)
 		free_jobs((t_jobs *)job,0);
 	}
 }
+
 /* start readline and tokenize the string */
-
-
 void quick_parser(char *str)
 {
 	const char *trimed = ft_strtrim(str," ");

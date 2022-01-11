@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/07 14:14:21 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/10 13:15:13 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void update_export_list(char *var, char *val, int type)
     {
         val = ft_str3join("\"", val, "\"");
         new_exprt = ft_strjoin(var, val);
-        free(val); 
         temp = add_to_list(new_exprt,g_state.exprt, 1);
-        free(new_exprt);
         g_state.exprt = temp;
+        free(val); 
+        free(new_exprt);
     }
 }
 

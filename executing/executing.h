@@ -28,7 +28,8 @@ void    do_export(t_jobs *jobb);
 //history
 void add_his(t_jobs *job);
 //PWD
-int	do_pwd(void);
+int	do_pwd(char **args);
+int do_cd(char **args);
 
 // UTILS FUNCTION
 char    **alloc_tab(char **old_tab);

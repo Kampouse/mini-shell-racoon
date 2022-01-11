@@ -1,6 +1,5 @@
 #include "../minishell.h"
 
-
 int token_scanner_ext(const char *trimed,size_t *token_size,int inc)
 {
 	const char *tokens[13] = {">>", "<<","<", ">","|","env","export","exit","echo","unset","pwd","cd",NULL};
@@ -20,7 +19,7 @@ int token_scanner(char *str,size_t *token_size)
 {
 	int inc;
 	const char *trimed  = ft_substr(str,0,until_space(str));
-	const char *tokens[12] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset","pwd",NULL};
+	const char *tokens[13] = { ">>", "<<","<", ">","|","env","export","exit","echo","unset","pwd","cd",NULL};
 
 	inc = -1;
 	if(!str)
