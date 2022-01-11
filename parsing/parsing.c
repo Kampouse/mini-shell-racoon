@@ -87,9 +87,8 @@ void parser_core(t_dlist *lst)
         parser_muduled(job,lst,inc);
 	}
 }
+
 /* start readline and tokenize the string */
-
-
 void quick_parser(char *str)
 {
 	const char *trimed = ft_strtrim(str," ");

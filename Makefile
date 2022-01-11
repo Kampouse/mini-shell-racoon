@@ -21,6 +21,7 @@ SRCS =  main.c \
 		./executing/exec.c \
 		./executing/export_utils.c \
 		./executing/unset.c \
+		./executing/cd.c \
 		./executing/pwd.c \
 		./executing/echo.c \
 		./executing/start_jobs.c \
