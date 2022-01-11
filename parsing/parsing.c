@@ -1,6 +1,21 @@
 #include "../minishell.h"
 
 /* evaluate each job one after the  other */
+void sig_c(int signum)
+{
+    (void)signum;
+    ft_putstr("\n");
+    rl_replace_line("\n",0);
+    rl_on_new_line();
+    rl_redisplay();
+}
+
+void sig_d(int signum)
+{
+    printf("%d\n",signum);
+}
+
+
 int same_len(char *str ,char *str2)
 {
 	if(str && str2)
@@ -101,8 +116,11 @@ void parsing(void)
     lst = NULL;
 	while(1)
 	{
+        signal(SIGINT,sig_c);
+
+        signal(SIGQUIT,sig_d);
 		line = readline(GREEN"minishell:>"RESET);
-		trimed = ft_strtrim(line," ");
+		trimed = ft_strtrim(line,"\n ");
 		free(line);
 		if(trimed && ft_strlen(trimed) > 0)
 		{
