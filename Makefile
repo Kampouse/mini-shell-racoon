@@ -67,7 +67,7 @@ leak: all
 val: all
 	valgrind   --leak-check=full --track-origins=yes -s --trace-children=yes  ./$(NAME)
 test: all
-	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes  ./$(NAME) "-c" './ls'
+	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes  ./$(NAME) "-c" 'cd .. cd ..'
 
 clean:
 		@echo "\033[0;31m Cleaning..."
