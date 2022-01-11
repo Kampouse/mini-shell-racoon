@@ -29,13 +29,37 @@ int pipe_counter(t_dlist *lst)
 	return(count);
 }
 
+void parser_muduled(t_jobs *job,t_dlist *lst,int inc)
+{
+	t_jobs *temp;
+    int pipes[2];
+    int state = 0;
+
+    temp = job;
+    if(inc > 1)
+        pipe(pipes);
+    else
+        state = -1;
+		while(temp)
+		{
+			add_his(temp);
+			start_job(temp, lst,pipes,state);
+			temp = temp->next;
+		}
+		free_jobs((t_jobs *)job,0);
+}
+
+
 void parser_core(t_dlist *lst)
 {
 	t_jobs *job = job_lsting(lst);
 	t_jobs *temp;
+    int inc;
 
 	temp = NULL;	
 	temp = (t_jobs*)job;
+    inc = 0;
+    
 	if(job)
 	{
 		pre_val_redir((t_jobs*)job);
@@ -43,15 +67,9 @@ void parser_core(t_dlist *lst)
 		{
 			eval(temp);
 			temp = temp->next;
+            inc++;
 		}
-		temp = (t_jobs *)job;
-		while(temp)
-		{
-			add_his(temp);
-			start_job(temp, lst);
-			temp = temp->next;
-		}
-		free_jobs((t_jobs *)job,0);
+        parser_muduled(job,lst,inc);
 	}
 }
 
