@@ -1,20 +1,37 @@
 #include "../minishell.h"
+#include "parsing.h"
 
 /* evaluate each job one after the  other */
-void sig_c(int signum)
+void sig_c(int signum,siginfo_t *info , void *unsed)
 {
-    (void)signum;
-    ft_putstr("\n");
-    rl_replace_line("\n",0);
-    rl_on_new_line();
-    rl_redisplay();
+    (void)info;
+    (void)unsed;
+
+    if(signum == SIGINT)
+    {
+        ft_putstr("\b\b\n");
+        rl_replace_line("",0);
+        rl_on_new_line();
+        rl_redisplay();
+    }
+    else if(signum == SIGQUIT)
+        ft_putstr("\b\b \b\b");
+        
 }
 
-void sig_d(int signum)
+void start_signal(void)
 {
-    printf("%d\n",signum);
-}
 
+struct sigaction sa_sig;
+
+sa_sig.sa_flags = SA_SIGINFO;
+sa_sig.sa_sigaction = sig_c;
+sigemptyset(&sa_sig.sa_mask);
+if(sigaction(SIGINT,&sa_sig,NULL) ==  -1)
+    perror("SIGACTION ERROR\n");
+if(sigaction(SIGINT,&sa_sig,NULL) ==  -1)
+    perror("SIGACTION ERROR\n");
+}
 
 int same_len(char *str ,char *str2)
 {
@@ -112,10 +129,10 @@ void parsing(void)
 	t_dlist *lst;
 
     lst = NULL;
+
+    start_signal();
 	while(1)
 	{
-        signal(SIGINT,sig_c);
-        signal(SIGQUIT,sig_d);
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line,"\n ");
 		add_history(trimed);

@@ -63,9 +63,7 @@ void start_job(t_jobs *job, t_dlist *lst,int pipes[],int state)
         pipe_handler(pipes,state);
         redir_handler(job);
 		check_bultin(job);
-		printf("builtin as been handled\n");
 		return;
 	}
-	else if(check_bultin(job) == 1)
-            g_state.output = path_resolver(job,lst,pipes,state);
+        g_state.output = path_resolver(job,lst,pipes,state);
 }
