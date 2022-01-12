@@ -1,4 +1,5 @@
 #include "eval.h"
+#include "../minishell.h"
 #include "../readline/readline.h"
 #include <sys/types.h>
 
@@ -92,20 +93,20 @@ char *eval_docc(t_redir *temp)
 	return(outcome);
 }
 
-void pre_val_redir(t_jobs *jobs)
-{
-	t_redir *temp;
-	char *outcome;
 
-	outcome = NULL;
-	temp =	NULL;
-	if(jobs && jobs->redir)
-	{
-		temp = jobs->redir;
-		while(temp)
+void pre_val_redir_help(t_jobs *jobs ,t_redir *temp)
+{
+
+char *outcome;
+outcome = NULL;
+while(temp)
 		{
 			if(temp->type == 1 && jobs->status == 0)
+        {
+                start_signal(2);
 				outcome = eval_docc(temp);
+                start_signal(0);
+        }
 			if(outcome)
 			{
 				jobs->status = 0;
@@ -115,6 +116,19 @@ void pre_val_redir(t_jobs *jobs)
 			}
 			temp = temp->next;
 		}
+
+}
+
+
+void pre_val_redir(t_jobs *jobs)
+{
+	t_redir *temp;
+
+	temp =	NULL;
+	if(jobs && jobs->redir)
+	{
+		temp = jobs->redir;
+	    pre_val_redir_help(jobs,temp);	
 	}
 	if(jobs && jobs->next)
 		pre_val_redir(jobs->next);

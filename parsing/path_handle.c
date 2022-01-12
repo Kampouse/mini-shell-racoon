@@ -12,7 +12,7 @@ int any_executable(char **path, t_jobs *job)
 	struct stat sa; 
 
 	inc = 0;
-	while(path[inc])
+	while(path[inc] && job->eval)
 	{
 		temp = ft_str3join(path[inc], "/", job->eval[0]);
 		if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
@@ -42,9 +42,13 @@ int exec_the_bin(char *paths, t_jobs *job, t_dlist *lst)
 
 void command_not_found(t_jobs *job)
 {
-    ft_putstr_fd("command not found:",2);
-    ft_putstr_fd(job->eval[0],2);
-    ft_putstr_fd("\n", 2);
+    if(job->eval)
+    {
+        ft_putstr_fd("command not found:",2);
+
+        ft_putstr_fd(job->eval[0],2);
+        ft_putstr_fd("\n", 2);
+    }
 }
 
 char *make_executable(t_jobs *job)
@@ -79,7 +83,7 @@ char * local_exec(t_jobs *job)
     struct stat sa; 
 
 getcwd(cwd,1024);
-if(ft_strncmp(job->eval[0],"./", 2) == 0)    
+if(job->eval && ft_strncmp(job->eval[0],"./", 2) == 0)    
     {
         temp = job->eval[0];
         temp = ft_str3join(cwd, "/", temp);
@@ -89,7 +93,7 @@ if(ft_strncmp(job->eval[0],"./", 2) == 0)
         }
         free(temp);
     }
-        if (stat(job->eval[0], &sa) == 0 && sa.st_mode & S_IXUSR)
+        if (job->eval && stat(job->eval[0], &sa) == 0 && sa.st_mode & S_IXUSR)
     {
             return(ft_strdup(job->eval[0]));
     }
