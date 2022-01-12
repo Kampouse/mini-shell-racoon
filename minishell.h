@@ -51,4 +51,5 @@ void		quick_parser(char *str);
 int			same_len (char *str ,char *str2);
 void		start_job(t_jobs *job, t_dlist *lst, int pipes[], int state);
 int pipe_handler(int pipe[],int state);
+void start_signal(int type);
 #endif 

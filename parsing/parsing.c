@@ -18,14 +18,32 @@ void sig_c(int signum,siginfo_t *info , void *unsed)
         ft_putstr("\b\b \b\b");
         
 }
+void sig_child(int signum,siginfo_t *info , void *unsed)
+{
+    (void)info;
+    (void)unsed;
 
-void start_signal(void)
+    if(signum == SIGINT)
+    {
+        ft_putstr("\b\b\n");
+        rl_replace_line("",0);
+        rl_on_new_line();
+
+    }
+    else if(signum == SIGQUIT)
+        ft_putstr("\b\b \b\b");
+        
+}
+void start_signal(int type)
 {
 
 struct sigaction sa_sig;
 
 sa_sig.sa_flags = SA_SIGINFO;
+if(type == 0)
 sa_sig.sa_sigaction = sig_c;
+if(type == 1)
+sa_sig.sa_sigaction = sig_child;
 sigemptyset(&sa_sig.sa_mask);
 if(sigaction(SIGINT,&sa_sig,NULL) ==  -1)
     perror("SIGACTION ERROR\n");
@@ -130,15 +148,16 @@ void parsing(void)
 
     lst = NULL;
 
-    start_signal();
 	while(1)
 	{
+        start_signal(0);
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line,"\n ");
 		add_history(trimed);
 		free(line);
 		if(trimed && ft_strlen(trimed) > 0)
 		{
+            start_signal(0);
 			lst = line_parser(trimed);
 			free(trimed);
 			if(lst != NULL)
