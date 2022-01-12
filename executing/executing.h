@@ -45,6 +45,8 @@ int no_equal(char *cmd);
 int last_is_equal(char *cmd);
 //ENV UTILS
 void update_env_list(char *var, char *val, int type);
+void print_env(int tab_len);
+
 //UNSET
 void do_unset(t_jobs *job);
 char **remove_of_list(char *to_remove, char **old_list);
