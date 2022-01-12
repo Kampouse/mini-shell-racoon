@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/06 16:24:35 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/11 14:03:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,12 @@ void print_env(int tab_len)
         printf("%s\n", g_state.env[i++]);
 }
 
-
-void do_env(t_jobs *job)
+int do_env(t_jobs *job)
 {
-    if (ft_tab_len(job->cmd) == 1)
-        print_env(ft_tab_len(g_state.env));
+    if (ft_tab_len(job->cmd) != 1)
+        return (1);
+    print_env(ft_tab_len(g_state.env));
+    return (0);
 }
 
 void update_env_list(char *var, char *val, int type)
@@ -67,7 +68,6 @@ void update_env_list(char *var, char *val, int type)
     {
         new_env = var;
         g_state.env = add_to_list(new_env, g_state.env, 0);
-        //free(new_env);
     }
     if (type == 3)
     {

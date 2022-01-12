@@ -10,5 +10,5 @@ int pipe_handler(int pipe[],int state)
         dup2(1,pipe[1]);
     if(state == 1) 
         dup2(pipe[0],0);
-return(0);
+    return(0);
 }

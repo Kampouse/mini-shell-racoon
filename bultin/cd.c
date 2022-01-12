@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 08:47:19 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/10 21:00:15 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/12 09:42:00 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,38 @@ int    update_path(char *old, char *new)
     g_state.env = add_to_list(to_remove, g_state.env, 0);
     g_state.exprt = add_to_list(to_remove, g_state.exprt, 1);
     free(to_remove);
-    
+    if (g_state.env == NULL || g_state.exprt == NULL)
+        return (1);
+    return (0);
+}
+
+int go_home(void)
+{
+    char **line;
+    int i;
+    bool found;
+
+    i = -1;
+    found = false;
+    while (g_state.env[++i])
+    {
+        if (!ft_strncmp("HOME=", g_state.env[i], ft_strlen("HOME=")))
+        {
+            found = true;
+            line = ft_split(g_state.env[i], '=');
+            if (chdir(line[1]))
+            {
+                printf("cd: no such file or directory: %s\n", line[1]);
+                return (1);
+            }
+        }
+    }
+    if (!found)
+    {
+        printf("minishell: cd: HOME not set\n");
+        return (1);
+    }
+    freelist(line);
     return (0);
 }
 
@@ -43,7 +74,13 @@ int do_cd(char **args)
 {
     char cwd[4096];
     char cwd2[4096];
-
+    
+    if (ft_tab_len(args) == 1)
+    {
+        if (go_home())
+            return (1);
+        return (0);        
+    }
     if (ft_tab_len(args) > 2)
     {
         printf("cd: too many arguments\n");

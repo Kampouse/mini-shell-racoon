@@ -64,8 +64,8 @@ void tokens_peek(t_dlist *lst)
 			// printf("at :token_typer:48 please find a correct place for it \n");
 			exit(0);
 		}
-		if(temp->type == 5)
-			print_env(ft_tab_len(g_state.env));
+		//if(temp->type == 5)
+			//print_env(ft_tab_len(g_state.env));
 		temp = temp->next;	
 	}
 }

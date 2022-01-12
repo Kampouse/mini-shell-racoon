@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 11:49:42 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/06 15:28:37 by jemartel         ###   ########.fr       */
+/*   Created: 2022/01/08 21:55:44 by olabrecq          #+#    #+#             */
+/*   Updated: 2022/01/11 13:35:03 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// Cette fonction cree et init la struct s_exec: ENV & EXPORT
-void init_exec(char **envp)
+int	do_pwd(char **args)
 {
-    create_env(envp);
-    create_export(envp);
-	g_state.output = 0;
+	char	cwd[4096];
+	
+	if (ft_tab_len(args) > 1)
+	{
+		printf("pwd: too many arguments\n");
+		return  (1);
+	}
+	else
+	{
+		if (!getcwd(cwd, sizeof(cwd)))
+			return (1);
+		printf("%s\n", cwd);
+	}
+	return (0);
 }
-
 
