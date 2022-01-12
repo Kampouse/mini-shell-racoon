@@ -16,14 +16,14 @@ SRCS =  main.c \
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
 		\
-		./executing/env.c \
-		./executing/export.c \
-		./executing/exec.c \
-		./executing/export_utils.c \
-		./executing/unset.c \
-		./executing/cd.c \
-		./executing/pwd.c \
-		./executing/echo.c \
+		./bultin/env.c \
+		./bultin/export.c \
+		./bultin/export_utils.c \
+		./bultin/unset.c \
+		./bultin/cd.c \
+		./bultin/pwd.c \
+		./bultin/echo.c \
+		\
 		./executing/start_jobs.c \
 		./executing/redir_handler.c \
 		./executing/pipe.c \

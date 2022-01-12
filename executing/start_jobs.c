@@ -48,16 +48,6 @@ int check_nb_of_cmd(t_jobs *job)
 	return (i);
 }
 
-void add_his(t_jobs *job)
-{
-	int i;
-
-	i = -1;
-	while (job->eval[++i])
-		add_history(job->eval[i]);
-	history_list();
-}
-
 /*function that should fork the process and execute what inside 
 * since the process duplicate all the memory in the process
 * we should try to clear all the  the memory of the other jobs

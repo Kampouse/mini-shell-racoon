@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 22:49:52 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/07 12:36:08 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/11 14:10:27 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 #include "../minishell.h"
 
-void do_echo(t_jobs *jobs)
+
+
+
+int do_echo(t_jobs *jobs)
 {
     int n;
     int i;
@@ -37,6 +40,9 @@ void do_echo(t_jobs *jobs)
                 printf("%s", jobs->eval[i++]);
         }
     }
+    else
+        return (1);
     if (!n)
         printf("\n");
+    return (0);
 }

@@ -57,7 +57,6 @@ void parser_muduled(t_jobs *job,t_dlist *lst,int inc)
         state = -1;
 		while(temp)
 		{
-			add_his(temp);
 			start_job(temp, lst,pipes,state);
 			temp = temp->next;
 		}
@@ -116,10 +115,10 @@ void parsing(void)
 	while(1)
 	{
         signal(SIGINT,sig_c);
-
         signal(SIGQUIT,sig_d);
 		line = readline(GREEN"minishell:>"RESET);
 		trimed = ft_strtrim(line,"\n ");
+		add_history(trimed);
 		free(line);
 		if(trimed && ft_strlen(trimed) > 0)
 		{

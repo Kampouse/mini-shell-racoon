@@ -13,7 +13,9 @@ determine a index that  will excute a set function such as exit_please */
 
 int main(int argc, char **argv, char **envp)
 {
-	(void)argv;
+	create_env(envp);
+    create_export(envp);
+	g_state.output = 0;
 	if (argc > 3)
 	{
 		ft_putstr("Invalid number of arguments\n");
@@ -21,15 +23,11 @@ int main(int argc, char **argv, char **envp)
 	}
 	if (argc == 3 &&  ft_strncmp("-c",argv[1],ft_strlen("-c")) == 0)
 	{
-		init_exec(envp);
 		quick_parser(argv[2]);
 		freelist(g_state.env);
 		freelist(g_state.exprt);
 	}
 	else
-	{
-		init_exec(envp);
 		parsing();
-	}
 }
 
