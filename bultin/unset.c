@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/10 13:51:24 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/12 13:24:08 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,11 @@ char **parse_unset(char **to_unset)
     return (to_delete);
 }
 
-void do_unset(t_jobs *job)
+int do_unset(t_jobs *job)
 {
     char    **to_delete;
-    // char    **temp;
-    // char    **temp_b;
     int i;
     
-    // si to_delete fini par '=' : bash: unset: `jean=': not a valid identifier
     to_delete = parse_unset(job->cmd);
     i = 0;
     while (to_delete[i])
@@ -53,7 +50,11 @@ void do_unset(t_jobs *job)
         g_state.env = remove_of_list(to_delete[i], g_state.env);
         i++;
     }
-	// g_state.env = temp;
-	// g_state.exprt = ft_sort_tab(temp_b);
+    if (!to_delete)
+    {
+        free(to_delete);
+        return (1);
+    }
 	free(to_delete);
+    return (0);
 }

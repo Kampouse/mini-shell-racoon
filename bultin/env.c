@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/11 14:03:59 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/12 13:15:06 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void create_env(char **envp)
         g_state.env[i] = ft_strdup(envp[i]);
         i++;
     }
-
 }
 
 void print_env(int tab_len)

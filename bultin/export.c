@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/10 13:15:13 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/12 13:18:46 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void update_export_list(char *var, char *val, int type)
         new_exprt = ft_strjoin(var, val);
         temp = add_to_list(new_exprt,g_state.exprt, 1);
         g_state.exprt = temp;
-        free(val); 
         free(new_exprt);
+        free(val); 
     }
 }
 
@@ -89,8 +89,8 @@ void parse_export(char *to_export)
         update_export_list(variable, valeur, 3);
         update_env_list(variable, valeur, 3);
     }
-    free(valeur);
     free(variable);
+    free(valeur);
 }
     
 void do_export(t_jobs *job)

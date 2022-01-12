@@ -48,7 +48,7 @@ void update_env_list(char *var, char *val, int type);
 void print_env(int tab_len);
 
 //UNSET
-void do_unset(t_jobs *job);
+int do_unset(t_jobs *job);
 char **remove_of_list(char *to_remove, char **old_list);
 //ECHO
 int do_echo(t_jobs *jobs);
