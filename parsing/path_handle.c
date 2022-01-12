@@ -129,9 +129,11 @@ int path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 
 	if(!local || is_folder(job, (char *)local))
 		return(127);
+
 	pid = fork();
 	if(pid < 0)
 		return(-1);
+    start_signal(1); 
 	if(pid == 0)
 	{
         pipe_handler(pipes, state);
@@ -142,6 +144,7 @@ int path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 	}
 	waitpid(pid,&status,0);
 	free((char *)local);
+    start_signal(0); 
 	return(WEXITSTATUS(status));
 }
 
