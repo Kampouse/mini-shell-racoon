@@ -28,7 +28,6 @@ char  *line_handler(char *str, size_t *len)
 /* determine if it read all the  line */
  int token_bool(char *str, size_t *len)
 {
-
 	const char *temp = (const char *)line_handler(str,len);
 		
 	if(temp)

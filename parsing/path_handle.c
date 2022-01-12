@@ -4,8 +4,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-char * local_exec(t_jobs *job );
-
+char * local_exec(t_jobs *job);
 int any_executable(char **path, t_jobs *job)
 {
 	char *temp;
@@ -56,7 +55,10 @@ char *temp;
 
     location = 0;
     if(any_executable((char **)paths, job) == -1)
+    {
+        //freelist((char **)paths);
         return(local_exec(job));
+    }
     location = any_executable((char **)paths,job);
     temp = ft_str3join(paths[location], "/", job->eval[0]);
     if(strncmp(job->eval[0], "./", 2) == 0)
@@ -82,12 +84,22 @@ if(ft_strncmp(job->eval[0],"./", 2) == 0)
         temp = job->eval[0];
         temp = ft_str3join(cwd, "/", temp);
         if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
+        {
             return(temp);
+        }
         free(temp);
+    }
+        if (stat(job->eval[0], &sa) == 0 && sa.st_mode & S_IXUSR)
+    {
+            return(ft_strdup(job->eval[0]));
     }
     command_not_found(job);
     return(NULL);
 }
+
+
+
+
 
 int is_folder(t_jobs *jobs, char *local)
 {
@@ -95,7 +107,7 @@ int is_folder(t_jobs *jobs, char *local)
     if(local)
     {
         stat(local, &stats);
-        if(S_ISREG(stats.st_mode) == 0) 
+        if(S_ISREG(stats.st_mode) == 0 && ft_strlen(jobs->eval[0]) != 0) 
         {
             ft_putstr_fd("IS a directory: ", 2);
             ft_putstr_fd(jobs->eval[0], 2);
@@ -104,6 +116,7 @@ int is_folder(t_jobs *jobs, char *local)
             return(1);
         }
     }
+    ft_putstr("\n");
     return(0);
 }
 
