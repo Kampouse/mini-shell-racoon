@@ -46,7 +46,6 @@ return (0);
 
 int out_put_redir(char *temp)
 {
-
     int fd = open(temp,O_TRUNC | O_CREAT | O_RDWR , 0644);
     if(fd < 0)
     {
@@ -54,7 +53,6 @@ int out_put_redir(char *temp)
         return(-1);
     }
     dup2(fd,1);
-    close(fd);
 
 return(0);
 }

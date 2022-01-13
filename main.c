@@ -15,7 +15,8 @@ int main(int argc, char **argv, char **envp)
 {
 	create_env(envp);
     create_export(envp);
-	g_state.output = 0;
+    g_state.stdin = dup(0);
+    g_state.stdout = dup(1);
 	if (argc > 3)
 	{
 		ft_putstr("Invalid number of arguments\n");

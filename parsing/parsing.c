@@ -55,7 +55,11 @@ struct sigaction sa_sig;
 
 sa_sig.sa_flags = SA_SIGINFO;
 if(type == 0)
-sa_sig.sa_sigaction = sig_c;
+{
+    dup2(g_state.stdin,1);
+    dup2(g_state.stdout,0);
+    sa_sig.sa_sigaction = sig_c;
+}
 if(type == 1)
 sa_sig.sa_sigaction = sig_child;
 if(type == 2)

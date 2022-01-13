@@ -65,5 +65,6 @@ void start_job(t_jobs *job, t_dlist *lst,int pipes[],int state)
 		check_bultin(job);
 		return;
 	}
+        redir_handler(job);
         g_state.output = path_resolver(job,lst,pipes,state);
 }
