@@ -148,6 +148,7 @@ int path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 	}
 	waitpid(pid,&status,0);
 	free((char *)local);
+    unlink("/tmp/here_docced");
     start_signal(0); 
 	return(WEXITSTATUS(status));
 }

@@ -1,4 +1,5 @@
 #include "eval.h"
+#include "fcntl.h"
 #include "../minishell.h"
 #include "../readline/readline.h"
 
@@ -68,49 +69,33 @@ int redir_poll(char *line,char *cmp)
 	}
 }
 
-
-char *eva_docc_wrapper(t_redir *temp)
+void eva_docc_wrapper(t_redir *temp)
 {
 int pid; 
 int status; 
-int pipes[2];
 char *str;
+int fd;
 
 str = NULL;
- if(pipe(pipes) < 0)
-    {
-        return(NULL); 
-    }
-    pid = fork();
-
+pid = fork();
     if(pid < 0)
-    {
-        return(NULL);
-    }
+        return; 
     if(pid == 0) 
     {
-    signal(SIGINT,SIG_DFL);
+        signal(SIGINT,SIG_DFL);
        str =  eval_docc(temp);
-
+            start_signal(1);
         if(str != NULL) 
         {
-            write(pipes[1],str,ft_strlen(str) + 1);
-            close(pipes[1]);
+            fd = open("/tmp/here_docced",O_TRUNC | O_CREAT | O_RDWR , 0644);
+            write(fd,str,ft_strlen(str));
+            free(str);
             exit(0);
         }
         else
-        {
-           write(pipes[1],"\n",1);
-           close(pipes[1]); 
             exit(130);
-        }
-        free(str);
     }
-    waitpid(pid,&status,-1);
-    start_signal(1);
-    if(get_next_line(pipes[0],&str) < 0)
-    close(pipes[0]);  
-return(str);
+    waitpid(pid,&status,0);
 }
 
 char *eval_docc(t_redir *temp)
@@ -140,25 +125,14 @@ char *eval_docc(t_redir *temp)
 
 void pre_val_redir_help(t_jobs *jobs ,t_redir *temp)
 {
-
-char *outcome;
-outcome = NULL;
 while(temp)
 		{
 			if(temp->type == 1 && jobs->status == 0)
         {
-				outcome = eva_docc_wrapper(temp);
-        }
-			if(outcome)
-			{
-				jobs->status = 0;
-				if(jobs->hereduc)
-					free(jobs->hereduc);
-				jobs->hereduc = outcome;
-			}
-			temp = temp->next;
+				eva_docc_wrapper(temp);
+                temp = temp->next;
 		}
-
+}
 }
 
 void pre_val_redir(t_jobs *jobs)
