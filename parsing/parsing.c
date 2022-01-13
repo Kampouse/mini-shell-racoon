@@ -131,6 +131,7 @@ void parser_core(t_dlist *lst)
     
 	if(job)
 	{
+        job->lst = lst;
 		pre_val_redir((t_jobs*)job);
 		while(temp)
 		{

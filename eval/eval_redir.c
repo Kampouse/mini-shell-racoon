@@ -69,35 +69,46 @@ int redir_poll(char *line,char *cmp)
 	}
 }
 
-void eva_docc_wrapper(t_redir *temp)
+void eva_docc_wrapper(t_jobs *job ,t_redir *temp)
 {
-int pid; 
-int status; 
-char *str;
-int fd;
+    int pid; 
+    int status; 
+    char *str;
+    int fd;
 
-str = NULL;
-pid = fork();
+    str = NULL;
+    pid = fork();
     if(pid < 0)
         return; 
     if(pid == 0) 
     {
+        job->eval = job->cmd;
         signal(SIGINT,SIG_DFL);
        str =  eval_docc(temp);
-            start_signal(1);
+        start_signal(1);
+        job->eval = job->cmd;
         if(str != NULL) 
         {
             fd = open("/tmp/here_docced",O_TRUNC | O_CREAT | O_RDWR , 0644);
             write(fd,str,ft_strlen(str));
             free(str);
+            free_jobs(job,0);
+            freelist(g_state.env);
+            freelist(g_state.exprt);
+            close(fd);
             exit(0);
         }
         else
+        {
+            free_jobs(job,0);
+            freelist(g_state.env);
+            freelist(g_state.exprt);
             exit(130);
+        }
     }
+    g_state.output = 130;
     waitpid(pid,&status,0);
 }
-
 char *eval_docc(t_redir *temp)
 {
 	char *docc;
@@ -129,7 +140,7 @@ while(temp)
 		{
 			if(temp->type == 1 && jobs->status == 0)
         {
-				eva_docc_wrapper(temp);
+				eva_docc_wrapper(jobs,temp);
                 temp = temp->next;
 		}
 }
