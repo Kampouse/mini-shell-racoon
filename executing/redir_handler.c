@@ -52,7 +52,7 @@ int out_put_redir(char *temp)
         return(-1);
     }
     dup2(fd,1);
-
+    close(fd);
 return(0);
 }
 

@@ -68,20 +68,8 @@ int redir_poll(char *line,char *cmp)
 		return(1);
 	}
 }
-
-void eva_docc_wrapper(t_jobs *job ,t_redir *temp)
+void squash_delete(t_jobs *job,t_redir *temp, int fd, char *str)
 {
-    int pid; 
-    int status; 
-    char *str;
-    int fd;
-
-    str = NULL;
-    pid = fork();
-    if(pid < 0)
-        return; 
-    if(pid == 0) 
-    {
         job->eval = job->cmd;
         signal(SIGINT,SIG_DFL);
        str =  eval_docc(temp);
@@ -105,9 +93,23 @@ void eva_docc_wrapper(t_jobs *job ,t_redir *temp)
             freelist(g_state.exprt);
             exit(130);
         }
-    }
-    g_state.output = 130;
+}
+void docc_out(t_jobs *job ,t_redir *temp)
+{
+    int pid; 
+    int status; 
+    char *str;
+    int fd;
+
+    fd = 0;
+    str = NULL;
+    pid = fork();
+    if(pid < 0)
+        return; 
+    if(pid == 0)
+        squash_delete(job,temp,fd,str);
     waitpid(pid,&status,0);
+    g_state.output = status;
 }
 char *eval_docc(t_redir *temp)
 {
@@ -134,16 +136,14 @@ char *eval_docc(t_redir *temp)
 	return(outcome);
 }
 
-void pre_val_redir_help(t_jobs *jobs ,t_redir *temp)
+void pre_val_redir_help(t_jobs *jobs, t_redir *temp)
 {
-while(temp)
-		{
-			if(temp->type == 1 && jobs->status == 0)
-        {
-				eva_docc_wrapper(jobs,temp);
-                temp = temp->next;
-		}
-}
+    while(temp)
+    {
+        if(temp->type == 1 && jobs->status == 0)
+            docc_out(jobs, temp);
+            temp = temp->next;
+    }
 }
 
 void pre_val_redir(t_jobs *jobs)
@@ -154,7 +154,7 @@ void pre_val_redir(t_jobs *jobs)
 	if(jobs && jobs->redir)
 	{
 		temp = jobs->redir;
-	    pre_val_redir_help(jobs,temp);	
+	    pre_val_redir_help(jobs, temp);	
 	}
 	if(jobs && jobs->next)
 		pre_val_redir(jobs->next);
@@ -172,7 +172,7 @@ void eval_redir(t_jobs *job)
 		while(temp)
 		{
 			if(temp->type != 1 && job->status == 0)
-				temp->eval = eval_line(temp->cmd,outcome,0,0);
+				temp->eval = eval_line(temp->cmd, outcome,0,0);
 			temp = temp->next;
 		}
 	}
