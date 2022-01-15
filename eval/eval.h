@@ -15,5 +15,6 @@ char *eval_line(char *str,char *output,int lon,int type);
 void eval_cmds(t_jobs *job);
 char *eval_noquote(char *str,int *append,int type);
 void pre_val_redir(t_jobs *jobs);
-
+char	*quote_eval(char *str, int left, char *outcome, int type);
+int	redir_poll(char *line, char *cmp);
 #endif 

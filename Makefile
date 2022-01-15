@@ -40,6 +40,7 @@ SRCS =  main.c \
 		./eval/eval.c \
 		./eval/eval_util.c \
 		./eval/eval_redir.c \
+		./eval/pre_eval_redir.c \
 		./eval/eval_cmd.c \
 
 		

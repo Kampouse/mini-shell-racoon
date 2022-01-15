@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   path_handler_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 10:50:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 16:12:52 by jemartel         ###   ########.fr       */
+/*   Created: 2022/01/15 16:47:54 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/15 16:48:16 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../libft/libft.h"
 
 char	*ft_str3join(const char *first, const char *second, const char *third)
