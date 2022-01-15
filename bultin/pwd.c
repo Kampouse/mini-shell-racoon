@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 21:55:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/11 13:35:03 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/13 11:51:07 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int	do_pwd(char **args)
 	char	cwd[4096];
 	
 	if (ft_tab_len(args) > 1)
-	{
-		printf("pwd: too many arguments\n");
-		return  (1);
-	}
+		return  (error_message("pwd: too many arguments\n"));
 	else
 	{
 		if (!getcwd(cwd, sizeof(cwd)))

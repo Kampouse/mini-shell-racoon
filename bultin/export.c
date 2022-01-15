@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/12 13:18:46 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/13 11:49:53 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void parse_export(char *to_export)
     free(valeur);
 }
     
-void do_export(t_jobs *job)
+int do_export(t_jobs *job)
 {
     int i;
     
@@ -105,7 +105,7 @@ void do_export(t_jobs *job)
         while (job->cmd[++i])
         {
             if (got_good_args(job->cmd[i]))
-                printf("Not a valid export\n");
+                return (error_message("Not a valid export\n"));
             else if (last_is_equal(job->cmd[i]))
             {
                 update_export_list(job->cmd[i], "\"\"", 1);
@@ -115,4 +115,5 @@ void do_export(t_jobs *job)
                 parse_export(job->cmd[i]);
         }
     }
+    return (0);
 }
