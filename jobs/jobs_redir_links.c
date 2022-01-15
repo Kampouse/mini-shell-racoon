@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   jobs_redir_links.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/16 00:28:10 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/16 00:29:14 by jemartel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "jobs.h"
 
-t_redir	*node_redir(char *cmd,int type)
+t_redir	*node_redir(char *cmd, int type)
 {
 	t_redir	*link;
 
@@ -13,15 +25,12 @@ t_redir	*node_redir(char *cmd,int type)
 	link->cmd = cmd;
 	link->type = type;
 	link->here_status = 0;
-
-	// link->nb_dolla = check_cashtoken(link);
-	// printf("nb  de dollar = %d\n", link->nb_dolla);
 	return (link);
 }
 
 t_redir	*last_redir(t_redir *currlist)
 {
-	if( currlist && currlist->next)
+	if (currlist && currlist->next)
 	{
 		while (currlist->next)
 		{
@@ -57,9 +66,8 @@ void	free_redir(t_redir *head)
 	if (head)
 	{
 		next = head->next;
-		if(head->eval)
+		if (head->eval)
 			free(head->eval);
-
 		free(head);
 		free_redir(next);
 	}
