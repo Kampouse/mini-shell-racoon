@@ -4,8 +4,11 @@ FLAGS =   -g -Wall -Wextra -Werror
 
 SRCS =  main.c \
 		utils.c\
+		list_operator.c\
 		\
 		./parsing/parsing.c \
+		./parsing/find_part.c \
+		./parsing/signal_docc.c \
 		./parsing/path_handler_utils.c \
 		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \
@@ -68,6 +71,9 @@ val: all
 	valgrind   --leak-check=full --track-origins=yes -s --trace-children=yes  ./$(NAME)
 test: all
 	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes  ./$(NAME) "-c" 'cd'
+norm:
+	../../bin/result/bin/norminette ${SRCS}
+
 
 clean:
 		@echo "\033[0;31m Cleaning..."

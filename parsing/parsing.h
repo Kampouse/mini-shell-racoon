@@ -2,6 +2,7 @@
 # define PARSING_H
 
 #include <stdio.h>
+#include <signal.h>
 
 typedef struct t_dlist
 {
@@ -26,4 +27,8 @@ int     is_quoted(char *str);
 int     token_valid(char **tokens,char *trimed,int type);
 int     token_scanner(char *str,size_t *token_size);
 int     redir_counter(t_dlist *redir);
+void	sig_c(int signum, siginfo_t *info, void *unsed);
+void	sig_child(int signum, siginfo_t *info, void *unsed);
+void	sig_docc(int signum, siginfo_t *info, void *unsed);
+void	start_signal(int type);
 #endif

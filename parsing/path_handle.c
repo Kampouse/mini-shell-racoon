@@ -4,104 +4,101 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-char * local_exec(t_jobs *job);
-int any_executable(char **path, t_jobs *job)
+char	*local_exec(t_jobs *job);
+
+int	any_executable(char **path, t_jobs *job)
 {
-	char *temp;
-	int inc;
-	struct stat sa; 
+	char			*temp;
+	int				inc;
+	struct stat		sa;
 
 	inc = 0;
-	while(path[inc])
+	while (path[inc] && job->eval)
 	{
 		temp = ft_str3join(path[inc], "/", job->eval[0]);
 		if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
-			{
-				free(temp);
-				return(inc);
-			}
-        free(temp);
+		{
+			free(temp);
+			return (inc);
+		}
+		free(temp);
 		inc++;
 	}
 	freelist(path);
-	return(-1);
+	return (-1);
 }
 
 /* last stage of execution of the command if not built in */
-int exec_the_bin(char *paths, t_jobs *job, t_dlist *lst)
+int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst)
 {
 	free_list(lst);
 	freelist(g_state.exprt);
-	execve(paths,job->eval, g_state.env);
-    free_jobs(job, 0);
+	execve(paths, job->eval, g_state.env);
+	free_jobs(job, 0);
 	free(paths);
 	freelist(g_state.env);
 	exit(127);
-	return(0);
+	return (0);
 }
 
-void command_not_found(t_jobs *job)
+void	command_not_found(t_jobs *job)
 {
-    ft_putstr_fd("command not found:",2);
-    ft_putstr_fd(job->eval[0],2);
-    ft_putstr_fd("\n", 2);
+	if (job->eval)
+	{
+		ft_putstr_fd("command not found:", 2);
+		ft_putstr_fd(job->eval[0], 2);
+		ft_putstr_fd("\n", 2);
+	}
 }
 
-char *make_executable(t_jobs *job)
+char	*make_executable(t_jobs *job)
 {
-const char **paths = (const char **)ft_split(findpath(g_state.env), ':');
-int location;
-char *temp;
+	const char	**paths = (const char **)ft_split(findpath(g_state.env), ':');
+	int			location;
+	char		*temp;
 
-    location = 0;
-    if(any_executable((char **)paths, job) == -1)
-    {
-        //freelist((char **)paths);
-        return(local_exec(job));
-    }
-    location = any_executable((char **)paths,job);
-    temp = ft_str3join(paths[location], "/", job->eval[0]);
-    if(strncmp(job->eval[0], "./", 2) == 0)
-    {
-        freelist((char **)paths);
-        command_not_found(job);
-        free(temp); 
-        return(NULL);
-    }
-    freelist((char **)paths);
-return (temp);
+	location = 0;
+	if (any_executable((char **)paths, job) == -1)
+		return (local_exec(job));
+	location = any_executable((char **)paths, job);
+	temp = ft_str3join(paths[location], "/", job->eval[0]);
+	if (strncmp(job->eval[0], "./", 2) == 0)
+	{
+		freelist((char **)paths);
+		command_not_found(job);
+		free(temp);
+		return (NULL);
+	}
+	freelist((char **)paths);
+	return (temp);
 }
 
-char * local_exec(t_jobs *job)
+char	*local_exec(t_jobs *job)
 {
-    char cwd[1024];
-    char *temp;
-    struct stat sa; 
+	char			cwd[1024];
+	char			*temp;
+	struct stat		sa;
 
-getcwd(cwd,1024);
-if(ft_strncmp(job->eval[0],"./", 2) == 0)    
-    {
-        temp = job->eval[0];
-        temp = ft_str3join(cwd, "/", temp);
-        if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
-        {
-            return(temp);
-        }
-        free(temp);
-    }
-        if (stat(job->eval[0], &sa) == 0 && sa.st_mode & S_IXUSR)
-    {
-            return(ft_strdup(job->eval[0]));
-    }
-    command_not_found(job);
-    return(NULL);
+	getcwd(cwd, 1024);
+	if (job->eval && ft_strncmp(job->eval[0], "./", 2) == 0)
+	{
+		temp = job->eval[0];
+		temp = ft_str3join(cwd, "/", temp);
+		if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
+		{
+			return (temp);
+		}
+		free(temp);
+	}
+	if (job->eval && stat(job->eval[0], &sa) == 0 && sa.st_mode & S_IXUSR)
+	{
+		return (ft_strdup(job->eval[0]));
+	}
+	command_not_found(job);
+	return (NULL);
 }
 
-
-
-
-
-int is_folder(t_jobs *jobs, char *local)
+int	is_folder(t_jobs *jobs, char *local)
 {
     struct stat stats;
     if(local)
@@ -144,6 +141,7 @@ int path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 	}
 	waitpid(pid,&status,0);
 	free((char *)local);
+    unlink("/tmp/here_docced");
     start_signal(0); 
 	return(WEXITSTATUS(status));
 }

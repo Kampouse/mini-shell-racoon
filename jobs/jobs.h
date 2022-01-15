@@ -21,6 +21,7 @@ typedef struct s_redir
 
 typedef struct s_jobs
 {
+    t_dlist    *lst;
     char    **cmd;
     char    **eval;
     char    *hereduc;

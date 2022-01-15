@@ -1,101 +1,65 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/15 03:19:57 by jemartel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../minishell.h"
 #include "parsing.h"
 
 /* evaluate each job one after the  other */
-void sig_c(int signum,siginfo_t *info , void *unsed)
+
+int	same_len(char *str, char *str2)
 {
-    (void)info;
-    (void)unsed;
-
-    if(signum == SIGINT)
-    {
-        ft_putstr("\b\b\n");
-        rl_replace_line("",0);
-        rl_on_new_line();
-        rl_redisplay();
-    }
-    else if(signum == SIGQUIT)
-        ft_putstr("\b\b \b\b");
-        
-}
-void sig_child(int signum,siginfo_t *info , void *unsed)
-{
-    (void)info;
-    (void)unsed;
-
-    if(signum == SIGINT)
-    {
-        ft_putstr("\b\b\n");
-        rl_replace_line("",0);
-        rl_on_new_line();
-
-    }
-    else if(signum == SIGQUIT)
-        ft_putstr("\b\b \b\b");
-        
-}
-void start_signal(int type)
-{
-
-struct sigaction sa_sig;
-
-sa_sig.sa_flags = SA_SIGINFO;
-if(type == 0)
-sa_sig.sa_sigaction = sig_c;
-if(type == 1)
-sa_sig.sa_sigaction = sig_child;
-sigemptyset(&sa_sig.sa_mask);
-if(sigaction(SIGINT,&sa_sig,NULL) ==  -1)
-    perror("SIGACTION ERROR\n");
-if(sigaction(SIGINT,&sa_sig,NULL) ==  -1)
-    perror("SIGACTION ERROR\n");
-}
-
-int same_len(char *str ,char *str2)
-{
-	if(str && str2)
+	if (str && str2)
 	{
-		if(ft_strlen(str) == ft_strlen(str2))
-			return(0);
+		if (ft_strlen(str) == ft_strlen(str2))
+			return (0);
 		else
-			return(1);
+			return (1);
 	}
-	return(-1);
+	return (-1);
 }
 
-int pipe_counter(t_dlist *lst)
+int	pipe_counter(t_dlist *lst)
 {
-	t_dlist *tmp;
-	int count;
+	t_dlist	*tmp;
+	int		count;
 
 	count = 0;
 	tmp = lst;
-	while(tmp)
+	while (tmp)
 	{
-		if(tmp->type == 4)
-		count += 2;
+		if (tmp->type == 4)
+			count += 2;
 		tmp = tmp->next;
 	}
-	return(count);
+	return (count);
 }
 
-void parser_muduled(t_jobs *job,t_dlist *lst,int inc)
+void	parser_muduled(t_jobs *job, t_dlist *lst, int inc)
 {
-	t_jobs *temp;
-    int pipes[2];
-    int state = 0;
+	t_jobs		*temp;
+	int			pipes[2];
+	int			state;
 
-    temp = job;
-    if(inc > 1)
-        pipe(pipes);
-    else
-        state = -1;
-		while(temp)
-		{
-			start_job(temp, lst,pipes,state);
-			temp = temp->next;
-		}
-		free_jobs((t_jobs *)job,0);
+	state = 0;
+	temp = job;
+	if (inc > 1)
+		pipe(pipes);
+	else
+		state = -1;
+	while (temp)
+	{
+		start_job(temp, lst, pipes, state);
+		temp = temp->next;
+	}
+	free_jobs((t_jobs *)job,0);
 }
 
 
@@ -108,9 +72,9 @@ void parser_core(t_dlist *lst)
 	temp = NULL;	
 	temp = (t_jobs*)job;
     inc = 0;
-    
 	if(job)
 	{
+        job->lst = lst;
 		pre_val_redir((t_jobs*)job);
 		while(temp)
 		{
@@ -147,7 +111,6 @@ void parsing(void)
 	t_dlist *lst;
 
     lst = NULL;
-
 	while(1)
 	{
         start_signal(0);

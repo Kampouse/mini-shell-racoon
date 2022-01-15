@@ -27,26 +27,24 @@ return(0);
 
 int here_redir(char *temp)
 {
-    int fd = open("/tmp/here_docced",O_TRUNC | O_CREAT | O_RDWR , 0777);
+    int fd = open("/tmp/here_docced",O_RDONLY, 0644);
     int stdin = dup(0);
-    const int len = ft_strlen(temp);
 
+    
+    (void)temp;
     if(fd < 0)
     {
-        perror("heredocc filesytem error\n");
+        fd = open("/tmp/here_docced",O_TRUNC | O_CREAT | O_RDWR , 0644);
         return (-1);
     }
-    write(0, temp, len);
     dup2(fd,0);
-    write(fd, temp, len);
     close(fd);
-    unlink("/tmp/here_docced");
+    //unlink("/tmp/here_docced");
 return (0);
 }
 
 int out_put_redir(char *temp)
 {
-
     int fd = open(temp,O_TRUNC | O_CREAT | O_RDWR , 0644);
     if(fd < 0)
     {
@@ -55,7 +53,6 @@ int out_put_redir(char *temp)
     }
     dup2(fd,1);
     close(fd);
-
 return(0);
 }
 
