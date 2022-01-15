@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 15:12:36 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/15 22:05:56 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -25,7 +25,7 @@ int	pipe_counter(t_dlist *lst)
 	{
 		if (tmp->type == 4)
 			count += 2;
-		tmp = tmp->next;
+		tmp = (t_dlist *)tmp->next;
 	}
 	return (count);
 }

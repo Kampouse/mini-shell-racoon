@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:48:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 16:48:34 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/15 22:06:46 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ void	tokens_peek(t_dlist *lst)
 				free_list(lst);
 			exit(0);
 		}
-		temp = temp->next;
+		temp = (t_dlist *)temp->next;
 	}
 }

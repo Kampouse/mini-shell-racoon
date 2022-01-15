@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   eval.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/15 22:45:22 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/15 22:46:37 by jemartel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 char	*eval_noquote(char *str, int *append, int type)
@@ -25,7 +37,7 @@ char	*eval_noquote(char *str, int *append, int type)
 	}
 	*append += len;
 	if (middle[0] == '$' && type == 0)
-		return (find_env(g_state.env, middle, type));
+		return (find_env(g_state.env, middle, type, -1));
 	return (middle);
 }
 
@@ -40,7 +52,7 @@ char	*eval_dquote(char *str, char *output, int *append, int type)
 		temp = find_var(str + *append, &len);
 		*append += len;
 		if (temp && temp[0] == '$' && type == 0)
-			output = lazy_join(output, find_env(g_state.env, temp, type));
+			output = lazy_join(output, find_env(g_state.env, temp, type, -1));
 		else
 			output = lazy_join(output, temp);
 		output = eval_dquote(str, output, append, type);

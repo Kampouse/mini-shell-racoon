@@ -1,7 +1,7 @@
 #include "jobs.h"
 
 
-int valid_redir(t_dlist *redir)
+int valid_redir( t_dlist *redir)
 {
 	if(redir->type >= 0 &&  redir->type <= 3)
 	{

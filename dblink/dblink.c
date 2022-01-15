@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/18 13:43:39 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/14 20:53:16 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/15 22:08:08 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_lst_add_backd(t_dlist **currlist, t_dlist *node)
 		{
 			last = ft_lst_lastnode(*currlist);
 			node->prev = last;
-			last->next = node;
+			last->next =  node;
 		}
 		else
 			*currlist = node;
@@ -69,7 +69,7 @@ void	ft_clearnode(t_dlist *currlist, void (*del)(void *))
 
 void	ft_cleart_dlist(t_dlist **currlist, void (*del)(void *))
 {
-	t_dlist	*iter;
+	 t_dlist	*iter;
 
 	if (!del || !currlist || !*currlist)
 		return ;
@@ -86,7 +86,7 @@ void	free_nodes(t_dlist *head)
 
 	if (head)
 	{
-		next = head->next;
+		next = ( t_dlist *)head->next;
 		if(head->content)
 			free(head->content);
 		free(head);
