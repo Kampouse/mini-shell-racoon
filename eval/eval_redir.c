@@ -141,7 +141,9 @@ void pre_val_redir_help(t_jobs *jobs, t_redir *temp)
     while(temp)
     {
         if(temp->type == 1 && jobs->status == 0)
-            docc_out(jobs, temp);
+			{
+				docc_out(jobs, temp);
+			}
             temp = temp->next;
     }
 }

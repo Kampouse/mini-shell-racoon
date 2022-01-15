@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/14 20:54:17 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/15 03:20:41 by jemartel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /* should clean all the data structures left
@@ -18,135 +30,83 @@ int	exit_please(char **tokens, char *trimed)
 	return (0);
 }
 */
-int ft_isspace(char elm)
+int	ft_isspace(char elm)
 {
-if(!elm)
-	return(0);
-if(elm == ' ' || elm == '\t' )
-	return(1);
-else if(elm == '\n' || elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
-	return(1);
-return(0);
+	if (!elm)
+		return (0);
+	if (elm == ' ' || elm == '\t')
+		return (1);
+	else if (elm == '\n' || elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
+		return (1);
+	return (0);
 }
 
-int until_space(char *str)
+int	until_space(char *str)
 {
-	int inc;
+	int	inc;
+
 	inc = 0;
-	if(!str)
-		return(-1);
-	while(!ft_isspace(str[inc]) && str[inc])
+	if (!str)
+		return (-1);
+	while (!ft_isspace(str[inc]) && str[inc])
 	{
 		inc++;
 	}
-    return(inc);
+	return (inc);
 }
 
-void    freelist(char **list)
+void	freelist(char **list)
 {
 	int	index;
 
 	index = 0;
-	if(list)
+	if (list)
 	{
 		while (list[index])
-	    {
-			if(list[index])
+		{
+			if (list[index])
 			{
-
-			free((void *)list[index]);
+				free((void *)list[index]);
 			}
-		    index++;
+			index++;
 		}
-	free(list);
+		free(list);
 	}
 }
 
 // return la longueur d'un char**
-int ft_tab_len(char **tab)
+int	ft_tab_len(char **tab)
 {
-    int i;
-    
-    i = 0;
-    while (tab[i])
-        i++;
-    return (i);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+	return (i);
 }
 
 //Cette fonction trie un tableau de char en ordre ascii
-char **ft_sort_tab(char **tab)
+char	**ft_sort_tab(char **tab)
 {
-    char *temp;
-    int i;
-    int j;
+	char	*temp;
+	int		i;
+	int		j;
 
-    i = 0;
-    while(tab[i])
-    {
-        j = i + 1;
-        while(tab[j])
-        {
-                if(ft_strncmp(tab[i],tab[j],ft_strlen(tab[i])) > 0)
-            {
-                    temp = tab[i];
-                    tab[i] = tab[j];
-                    tab[j] = temp;
-                }
-            j++;
-        }
-        i++;
-    }
-    return (tab);
-}
-
-//Cette fonction ajoute un nouvelle element a la liste "export"
-char **add_to_list(char *new_exprt, char **old_list, int type)
-{
-    char **new_list;
-    int i;
-
-    new_list = NULL;
-    new_list = malloc(sizeof(char *) * (ft_tab_len(old_list) + 2));
-    i = 0;
-    while (old_list[i])
-    {
-        new_list[i] = ft_strdup(old_list[i]);
-        i++;
-    }
-    new_list[i] = ft_strdup(new_exprt);
-    i++;
-    new_list[i] = NULL;
-    freelist(old_list);
-	if (type)
-    	return (ft_sort_tab(new_list));
-	return (new_list);
-    // print_exprt(ft_tab_len(g_state.exprt));
-}
-
-char **remove_of_list(char *to_remove, char **old_list)
-{
-    char **new_list;
-    int i;
-    int j;
-
-    new_list = NULL;
-    new_list = malloc(sizeof(char **) * (ft_tab_len(old_list) + 1));
-    i = 0;
-    j = 0;
-    while (old_list[i])
-    {
- 		if (!ft_strncmp(old_list[i], to_remove, ft_strlen(to_remove)))
+	i = 0;
+	while (tab[i])
+	{
+		j = i + 1;
+		while (tab[j])
 		{
-		 	i++;
-		}
-		else
-		{
-			new_list[j] = ft_strdup(old_list[i]);
-			i++;
+			if (ft_strncmp(tab[i], tab[j], ft_strlen(tab[i])) > 0)
+			{
+				temp = tab[i];
+				tab[i] = tab[j];
+				tab[j] = temp;
+			}
 			j++;
 		}
-    }
-    new_list[j] = NULL;
-    freelist(old_list);
-    return (new_list);
+		i++;
+	}
+	return (tab);
 }
