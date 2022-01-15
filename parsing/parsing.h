@@ -25,7 +25,7 @@ char    *token_loop(char *result, char *str, size_t len, size_t offset);
 int     token_bool(char *str, size_t *len);
 int     is_quoted(char *str);
 int     token_valid(char **tokens,char *trimed,int type);
-int     token_scanner(char *str,size_t *token_size);
+int     token_scanner(char *str,size_t *token_size,int inc);
 int     redir_counter(t_dlist *redir);
 void	sig_c(int signum, siginfo_t *info, void *unsed);
 void	sig_child(int signum, siginfo_t *info, void *unsed);

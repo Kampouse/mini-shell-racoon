@@ -6,38 +6,11 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 10:50:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/07 10:41:21 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/15 16:12:52 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
-
-char	*ft_strend(char *base, char *to_find)
-{
-	char	*basecp;
-	char	*looking;
-	char	*ptr;
-
-	basecp = base;
-	looking = to_find;
-	if (*to_find == 0)
-		return (base);
-	while (*basecp != '\0')
-	{
-		if (*to_find == '\0')
-			return (basecp);
-		ptr = basecp;
-		while (*looking == *basecp && *looking != '\0')
-		{
-			looking++;
-			basecp++;
-		}
-		if (*looking == '\0')
-			return (ptr);
-		basecp++;
-	}
-	return (0);
-}
 
 char	*ft_str3join(const char *first, const char *second, const char *third)
 {
@@ -64,21 +37,21 @@ char	*findpath(char **envp)
 {
 	int		inc;
 	char	*path;
-	int found;
+	int		found;
 
 	path = NULL;
 	inc = 0;
-	found = 0;	
-while(envp[inc]) 
+	found = 0;
+	while (envp[inc])
 	{
-		if(ft_strncmp(envp[inc],"PATH=/",ft_strlen("PATH=/")) == 0)
+		if (ft_strncmp(envp[inc], "PATH=/", ft_strlen("PATH=/")) == 0)
 		{
 			found = 1;
-				break;
+			break ;
 		}
-				inc++;
+		inc++;
 	}
-	if(found == 1)
+	if (found == 1)
 	{
 		path = envp[inc];
 		path += ft_strlen("PATH=");
