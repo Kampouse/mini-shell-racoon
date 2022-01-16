@@ -28,7 +28,6 @@ int         path_resolver(t_jobs *job, t_dlist *lst,int pipe[],int state);
 int			find_token(char *line, char *token);
 int			exit_please(char **tokens,char *trimed);
 int			until_space(char *str);
-int 		token_scanner(char *str,size_t *token_size);
 t_dlist		*line_parser(char *trimed);
 int			ft_isspace(char elm);
 char		*find_dquoted(char *str,size_t *len);
@@ -50,8 +49,9 @@ void		free_nodes(t_dlist *head);
 void		quick_parser(char *str);
 int			same_len (char *str ,char *str2);
 void		start_job(t_jobs *job, t_dlist *lst, int pipes[], int state);
-int pipe_handler(int pipe[],int state);
-void start_signal(int type);
-char	*find_part(char *first, char *str, int inc, size_t **len);
-
+int			pipe_handler(int pipe[],int state);
+void		start_signal(int type);
+char		*find_part(char *first, char *str, int inc, size_t **len);
+int			exec_the_bin(char *paths, t_jobs *job, t_dlist *lst);
+char	*make_executable(t_jobs *job);
 #endif 

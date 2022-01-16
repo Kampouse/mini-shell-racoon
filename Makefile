@@ -36,10 +36,12 @@ SRCS =  main.c \
 		./jobs/jobs.c \
 		./jobs/jobs_links.c \
 		./jobs/jobs_lst.c \
+		./jobs/jobs_utils.c \
 		\
 		./eval/eval.c \
 		./eval/eval_util.c \
 		./eval/eval_redir.c \
+		./eval/pre_eval_redir.c \
 		./eval/eval_cmd.c \
 
 		
