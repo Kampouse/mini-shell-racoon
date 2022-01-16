@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 22:05:56 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/16 01:59:22 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -86,10 +86,7 @@ void	quick_parser(char *str)
 		lst = line_parser((char *)trimed);
 		free((char *)trimed);
 		if (lst != NULL)
-		{
 			parser_core(lst);
-			free_nodes(lst);
-		}
 	}	
 }
 
