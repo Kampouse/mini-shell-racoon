@@ -6,11 +6,12 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 21:14:01 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 21:16:11 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/17 14:21:35 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "eval.h"
+
 void	eval_cmds(t_jobs *job)
 {
 	int		len;

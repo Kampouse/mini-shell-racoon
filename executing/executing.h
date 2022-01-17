@@ -11,6 +11,7 @@ typedef struct s_exec
     int             stdin;
     int             stdout;
     unsigned int    output;
+    unsigned int    redraw;
 } t_exec;
 
 extern t_exec g_state;
