@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/18 09:56:05 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:36:00 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -122,7 +122,6 @@ char *parsing_start(void)
 	char	*line;
 	char	*prompt;
 	
-
 		prompt =prompt_eval();
 		g_state.redraw = 0;
 		start_signal(0);
@@ -152,6 +151,11 @@ void	parsing(void)
 				parser_core(lst);
 		}
 		else
+		{
 			free(trimed);
+			freelist(g_state.env);
+			freelist(g_state.exprt);
+			exit(0);
+		}
 	}
 }
