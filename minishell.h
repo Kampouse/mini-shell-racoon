@@ -53,5 +53,6 @@ int			pipe_handler(int pipe[],int state);
 void		start_signal(int type);
 char		*find_part(char *first, char *str, int inc, size_t **len);
 int			exec_the_bin(char *paths, t_jobs *job, t_dlist *lst);
-char	*make_executable(t_jobs *job);
+char		*make_executable(t_jobs *job);
+void		command_not_found(t_jobs *job);
 #endif 

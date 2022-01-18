@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/18 10:24:04 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/18 12:39:58 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,19 @@ void	command_not_found(t_jobs *job)
 	}
 }
 
+int is_file_exec(t_jobs *job)
+{
+	struct stat	stats;
+
+	if(!(strncmp(job->eval[0],"./",2)))
+	{
+			 if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
+					return (0);
+	}
+	command_not_found(job);
+return(1);
+}
+
 char	*make_executable(t_jobs *job)
 {
 	const char	**paths = (const char **)ft_split(findpath(g_state.env), ':');
@@ -85,7 +98,11 @@ char	*make_executable(t_jobs *job)
 
 	location = 0;
 	if (any_executable((char **)paths, job) == -1)
+	{
+		if(is_file_exec(job))
+			return(NULL);
 		return (local_exec(job));
+	}
 	location = any_executable((char **)paths, job);
 	temp = ft_str3join(paths[location], "/", job->eval[0]);
 	if (strncmp(job->eval[0], "./", 2) == 0)
@@ -115,7 +132,9 @@ char	*local_exec(t_jobs *job)
 		free(temp);
 	}
 	if (job->eval && stat(job->eval[0], &sa) == 0 && sa.st_mode & S_IXUSR)
-		return (ft_strdup(job->eval[0]));
+	{
+			return (ft_strdup(job->eval[0]));
+	}
 		command_not_found(job);
 	return (NULL);
 }
