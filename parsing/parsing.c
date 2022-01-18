@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/18 13:36:00 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:52:58 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -116,9 +116,8 @@ char *prompt_eval(void)
 	return(out);
 }
 
-char *parsing_start(void)
+char * parsing_start(char **trimed)
 {
-	char	*trimed;
 	char	*line;
 	char	*prompt;
 	
@@ -127,10 +126,10 @@ char *parsing_start(void)
 		start_signal(0);
 		line = readline(prompt);
 		free(prompt);
-		trimed = ft_strtrim(line, "\n ");
-		add_history(trimed);
+		*trimed = ft_strtrim(line, "\n ");
+		add_history(*trimed);
 		free(line);
-		return(trimed);
+		return(*trimed);
 }
 
 void	parsing(void)
@@ -138,12 +137,11 @@ void	parsing(void)
 	char				*trimed;
 	t_dlist				*lst;
 
+	trimed = NULL;
 	lst = NULL;
 	while (1)
 	{
-			trimed = parsing_start();	
-
-		if (trimed && ft_strlen(trimed) > 0)
+		if (parsing_start(&trimed) && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed);
 			free(trimed);
@@ -152,10 +150,13 @@ void	parsing(void)
 		}
 		else
 		{
+			if(trimed == NULL)
+			{
+				freelist(g_state.env);
+				freelist(g_state.exprt);
+				exit(0);
+			}
 			free(trimed);
-			freelist(g_state.env);
-			freelist(g_state.exprt);
-			exit(0);
 		}
 	}
 }
