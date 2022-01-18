@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_handle.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/18 10:24:04 by jemartel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft/libft.h"
 #include "../minishell.h"
 #include <stdio.h>
@@ -43,11 +55,25 @@ int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst)
 
 void	command_not_found(t_jobs *job)
 {
+	struct stat		sa;
+
+
 	if (job->eval)
 	{
+			if (strncmp(job->eval[0], "./", 2) == 0)
+			{
+				if (stat(job->eval[0], &sa) == 0 && !(sa.st_mode & S_IXUSR))
+				{
+					ft_putstr_fd("Permission Denied:", 2);
+					ft_putstr_fd(job->eval[0], 2);
+					ft_putstr_fd("\n", 2);
+					return;
+				}
+			}
 		ft_putstr_fd("command not found:", 2);
 		ft_putstr_fd(job->eval[0], 2);
 		ft_putstr_fd("\n", 2);
+
 	}
 }
 
@@ -85,15 +111,11 @@ char	*local_exec(t_jobs *job)
 		temp = job->eval[0];
 		temp = ft_str3join(cwd, "/", temp);
 		if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
-		{
 			return (temp);
-		}
 		free(temp);
 	}
 	if (job->eval && stat(job->eval[0], &sa) == 0 && sa.st_mode & S_IXUSR)
-	{
 		return (ft_strdup(job->eval[0]));
-	}
-	command_not_found(job);
+		command_not_found(job);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 03:01:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/17 16:41:42 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/18 08:38:51 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -28,7 +28,7 @@ void	sig_c(int signum, siginfo_t *info, void *unsed)
 		}
 		else
 		{
-			ft_putstr("\b\b\n");
+			//ft_putstr("\b\b\n");
 			rl_replace_line("", 0);
 			rl_on_new_line();
 		}

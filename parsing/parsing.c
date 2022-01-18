@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/17 16:41:10 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/18 09:56:05 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -90,8 +90,6 @@ void	quick_parser(char *str)
 	}	
 }
 
-
-
 char *prompt_eval(void)
 {
 
@@ -102,6 +100,8 @@ char *prompt_eval(void)
 	inc = 0;
 	str = NULL;
 	str = eval_line("$PWD",str,0,0);
+	if(!str)
+	str = ft_strdup("/minishell");
 	inc = ft_strlen(str);
 	inc--;
 	while(str[inc] != '/')
@@ -133,7 +133,6 @@ char *parsing_start(void)
 		free(line);
 		return(trimed);
 }
-
 
 void	parsing(void)
 {
