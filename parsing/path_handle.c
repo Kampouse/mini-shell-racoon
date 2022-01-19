@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/18 12:39:58 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/19 12:08:11 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,11 @@ int is_file_exec(t_jobs *job)
 
 	if(!(strncmp(job->eval[0],"./",2)))
 	{
-			 if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
-					return (0);
+		if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
+			return (0);
 	}
+		if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
+			return (0);
 	command_not_found(job);
 return(1);
 }
