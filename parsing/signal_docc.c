@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 03:01:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/17 16:41:42 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:27:47 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -20,15 +20,14 @@ void	sig_c(int signum, siginfo_t *info, void *unsed)
 	{
 		if(g_state.redraw == 0)
 		{
-			ft_putstr("\b\b\n");
+			printf("\b\b  \n");
 			rl_replace_line("", 0);
 			rl_on_new_line();
 			rl_redisplay();
-
 		}
 		else
 		{
-			ft_putstr("\b\b\n");
+			//ft_putstr("\b\b\n");
 			rl_replace_line("", 0);
 			rl_on_new_line();
 		}
@@ -59,7 +58,6 @@ void	sig_docc(int signum, siginfo_t *info, void *unsed)
 	{
 		ft_putstr("\b\b\n");
 		rl_replace_line("", 0);
-		//rl_on_new_line();
 	}
 }
 

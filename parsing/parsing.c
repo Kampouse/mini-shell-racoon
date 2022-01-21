@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/17 16:41:10 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/19 08:13:52 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -90,8 +90,6 @@ void	quick_parser(char *str)
 	}	
 }
 
-
-
 char *prompt_eval(void)
 {
 
@@ -102,6 +100,8 @@ char *prompt_eval(void)
 	inc = 0;
 	str = NULL;
 	str = eval_line("$PWD",str,0,0);
+	if(!str)
+	str = ft_strdup("/minishell");
 	inc = ft_strlen(str);
 	inc--;
 	while(str[inc] != '/')
@@ -116,36 +116,32 @@ char *prompt_eval(void)
 	return(out);
 }
 
-char *parsing_start(void)
+char * parsing_start(char **trimed)
 {
-	char	*trimed;
 	char	*line;
 	char	*prompt;
 	
-
 		prompt =prompt_eval();
 		g_state.redraw = 0;
 		start_signal(0);
 		line = readline(prompt);
 		free(prompt);
-		trimed = ft_strtrim(line, "\n ");
-		add_history(trimed);
+		*trimed = ft_strtrim(line, "\n ");
+		add_history(*trimed);
 		free(line);
-		return(trimed);
+		return(*trimed);
 }
-
 
 void	parsing(void)
 {
 	char				*trimed;
 	t_dlist				*lst;
 
+	trimed = NULL;
 	lst = NULL;
 	while (1)
 	{
-			trimed = parsing_start();	
-
-		if (trimed && ft_strlen(trimed) > 0)
+		if (parsing_start(&trimed) && ft_strlen(trimed) > 0)
 		{
 			lst = line_parser(trimed);
 			free(trimed);
@@ -153,6 +149,14 @@ void	parsing(void)
 				parser_core(lst);
 		}
 		else
+		{
+			if(trimed == NULL)
+			{
+				freelist(g_state.env);
+				freelist(g_state.exprt);
+				exit(0);
+			}
 			free(trimed);
+		}
 	}
 }
