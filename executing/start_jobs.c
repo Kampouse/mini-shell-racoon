@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/16 01:18:52 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ int	check_bultin(t_jobs *job)
 	return (0);
 }
 
-int	check_nb_of_job(t_jobs *job)
+int	job_count(t_jobs *job)
 {
 	int	i;
 
 	i = 0;
-	while (job != NULL)
+	while (job->next != NULL)
 	{
 		job = job->next;
 		i++;
@@ -66,7 +66,7 @@ void	start_job(t_jobs *job, t_dlist *lst, int pipes[], int state)
 {
 	if (job->cmd_type >= 0)
 	{
-		pipe_handler(pipes, state);
+		pipe_handler(pipes, state, job);
 		redir_handler(job);
 		check_bultin(job);
 		return ;

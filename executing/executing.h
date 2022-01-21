@@ -14,6 +14,14 @@ typedef struct s_exec
     unsigned int    redraw;
 } t_exec;
 
+typedef struct s_pipe
+{
+    int pipe_nb;
+    int pipe_g[2];
+    int pipe_gb[2];
+    int *pids;
+} t_pipe;
+
 extern t_exec g_state;
 
 // ENV
@@ -46,7 +54,7 @@ int         no_equal(char *cmd);
 int         last_is_equal(char *cmd);
 
 //ENV UTILS
-void        update_env_list(char *var, char *val, int type);
+int        update_env_list(char *var, char *val, int type);
 void        print_env(int tab_len);
 
 //UNSET
@@ -61,5 +69,9 @@ void        start_jobs(t_jobs *job);
 
 // redir handle
 int         redir_handler(t_jobs *job);
+
+// Pipe
+void ft_pipe(t_jobs *jobs);
+int	job_count(t_jobs *job);
 
 #endif

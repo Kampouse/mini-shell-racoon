@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   find_part.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:47:23 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 22:06:04 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:19:03 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../minishell.h"
+
 #include <sys/stat.h>
 #include "../minishell.h"
 #include <sys/stat.h>
@@ -77,7 +77,7 @@ int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 	start_signal(1);
 	if (pid == 0)
 	{
-		pipe_handler(pipes, state);
+		pipe_handler(pipes, state, job);
 		if (redir_handler(job) == -1)
 			exit(1);
 		exec_the_bin((char *)local, job, lst);

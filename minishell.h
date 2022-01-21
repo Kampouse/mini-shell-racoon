@@ -49,7 +49,7 @@ void		free_nodes(t_dlist *head);
 void		quick_parser(char *str);
 int			same_len (char *str ,char *str2);
 void		start_job(t_jobs *job, t_dlist *lst, int pipes[], int state);
-int			pipe_handler(int pipe[],int state);
+int			pipe_handler(int pipe[],int state, t_jobs *job);
 void		start_signal(int type);
 char		*find_part(char *first, char *str, int inc, size_t **len);
 int			exec_the_bin(char *paths, t_jobs *job, t_dlist *lst);

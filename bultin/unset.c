@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/12 13:24:08 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/18 11:02:26 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char **parse_unset(char **to_unset)
     i = 1;
     j = 0;
     to_delete = malloc(sizeof(char *) * ft_tab_len(to_unset) + 1);
+    if (!to_delete)
+        return(NULL);
     while (to_unset[i])
     {
         //si la unset variable fini par '='
@@ -32,8 +34,6 @@ char **parse_unset(char **to_unset)
         i++;
     }
     to_delete[j] = NULL;
-    for (int i = 0; to_delete[i]; i++)
-        printf("todelete = %s\n", to_delete[i]);
     return (to_delete);
 }
 
@@ -43,17 +43,19 @@ int do_unset(t_jobs *job)
     int i;
     
     to_delete = parse_unset(job->cmd);
+    if (!to_delete)
+        return (error_message("Error malloc"));
     i = 0;
+    if (!to_delete)
+    {
+        // free(to_delete); free inutile car todelete == NULL si malloc a chier
+        return (1);
+    }
     while (to_delete[i])
     {
 		g_state.exprt = remove_of_list(to_delete[i], g_state.exprt);
         g_state.env = remove_of_list(to_delete[i], g_state.env);
         i++;
-    }
-    if (!to_delete)
-    {
-        free(to_delete);
-        return (1);
     }
 	free(to_delete);
     return (0);

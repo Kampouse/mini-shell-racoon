@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_jobs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:51:53 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 22:06:22 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/20 17:10:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ t_dlist	*line_parser(char *trimed)
 	if (!trimed)
 		return (NULL);
 	tokens_lst(trimed, ft_strlen(trimed), &lst);
+	// while (lst != NULL) {
+	// 	printf("dlist content = %s\n",  lst->content);
+	// 	lst = lst->next;
+	// }
 	tokens_peek(lst);
 	return (lst);
 }
+
