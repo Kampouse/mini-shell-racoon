@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/19 12:08:11 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/21 20:45:10 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst)
 	free_list(lst);
 	freelist(g_state.exprt);
 	execve(paths, job->eval, g_state.env);
+	command_not_found(job);
 	free_jobs(job, 0);
 	free(paths);
 	freelist(g_state.env);
@@ -57,39 +58,46 @@ void	command_not_found(t_jobs *job)
 {
 	struct stat		sa;
 
-
 	if (job->eval)
 	{
-			if (strncmp(job->eval[0], "./", 2) == 0)
+		if (strncmp(job->eval[0], "./", 2) == 0 || strncmp(job->eval[0],
+				"../", 2) == 0)
+		{
+			if (stat(job->eval[0], &sa) == 0 && !(sa.st_mode & S_IXUSR))
 			{
-				if (stat(job->eval[0], &sa) == 0 && !(sa.st_mode & S_IXUSR))
-				{
-					ft_putstr_fd("Permission Denied:", 2);
-					ft_putstr_fd(job->eval[0], 2);
-					ft_putstr_fd("\n", 2);
-					return;
-				}
+				ft_putstr_fd(job->eval[0], 2);
+				ft_putstr_fd(": Permission Denied", 2);
+				ft_putstr_fd("\n", 2);
+				return ;
 			}
-		ft_putstr_fd("command not found:", 2);
+			perror(job->eval[0]);
+			return ;
+		}
+		ft_putstr_fd("command not found: ", 2);
 		ft_putstr_fd(job->eval[0], 2);
 		ft_putstr_fd("\n", 2);
-
 	}
 }
 
-int is_file_exec(t_jobs *job)
+int	is_file_exec(t_jobs *job)
 {
 	struct stat	stats;
 
-	if(!(strncmp(job->eval[0],"./",2)))
+	if (job->eval)
 	{
+		if (!(strncmp(job->eval[0], "./", 2)))
+		{
+			if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
+				return (0);
+		}
 		if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
+		{
 			return (0);
+		}
+		command_not_found(job);
+		return (1);
 	}
-		if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
-			return (0);
-	command_not_found(job);
-return(1);
+	return (0);
 }
 
 char	*make_executable(t_jobs *job)
@@ -101,8 +109,8 @@ char	*make_executable(t_jobs *job)
 	location = 0;
 	if (any_executable((char **)paths, job) == -1)
 	{
-		if(is_file_exec(job))
-			return(NULL);
+		if (is_file_exec(job))
+			return (NULL);
 		return (local_exec(job));
 	}
 	location = any_executable((char **)paths, job);
@@ -135,8 +143,8 @@ char	*local_exec(t_jobs *job)
 	}
 	if (job->eval && stat(job->eval[0], &sa) == 0 && sa.st_mode & S_IXUSR)
 	{
-			return (ft_strdup(job->eval[0]));
+		return (ft_strdup(job->eval[0]));
 	}
-		command_not_found(job);
+	command_not_found(job);
 	return (NULL);
 }
