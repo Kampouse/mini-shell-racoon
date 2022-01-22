@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 22:45:22 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/21 21:00:54 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/21 21:14:16 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*eval_noquote(char *str, int *append, int type)
 	char	*middle;
 
 	middle = NULL;
-
-
 	len = until_this(str + *append, "\n $\'\"");
 	if (len == 0)
 	{

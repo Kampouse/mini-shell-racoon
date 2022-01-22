@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:47:23 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/19 12:02:50 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/22 00:51:20 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -18,11 +18,14 @@
 char	*find_part(char *first, char *str, int inc, size_t **len)
 {
 	(void)len;
+	(void)inc;
+	(void)str;
 	if (!first)
 	{
-		printf("missid a (%c) \n", str[inc]);
+		ft_putstr_fd("you should learn how to type! :rage: \n", 2);
 		len = NULL;
 		first = NULL;
+		g_state.output = 130;
 		return (NULL);
 	}
 	len = NULL;
@@ -54,6 +57,7 @@ int	is_folder(t_jobs *jobs, char *local)
 			ft_putstr_fd(jobs->eval[0], 2);
 			ft_putstr_fd("\n", 2);
 			free(local);
+			g_state.output = 126;
 			return (1);
 		}
 	}
@@ -70,7 +74,7 @@ int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 	const char	*local = make_executable(job);
 
 	if (!local || is_folder(job, (char *)local))
-		return (127);
+		return (g_state.output);
 	pid = fork();
 	if (pid < 0)
 		return (-1);
