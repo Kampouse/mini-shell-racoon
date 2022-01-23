@@ -74,7 +74,7 @@ val: all
 test: all
 	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes  ./$(NAME) "-c" 'cd'
 norm: 
-	@norminette ${SRCS}
+	@~/bin/result/bin/norminette ${SRCS}
 
 
 clean:

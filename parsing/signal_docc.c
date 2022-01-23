@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 03:01:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/18 13:27:47 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/22 21:36:57 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -18,16 +18,16 @@ void	sig_c(int signum, siginfo_t *info, void *unsed)
 	(void)unsed;
 	if (signum == SIGINT)
 	{
-		if(g_state.redraw == 0)
+		if (g_state.redraw == 0)
 		{
-			printf("\b\b  \n");
+			printf("\b\b\n");
 			rl_replace_line("", 0);
 			rl_on_new_line();
 			rl_redisplay();
 		}
 		else
 		{
-			//ft_putstr("\b\b\n");
+			ft_putstr("\b\b\n");
 			rl_replace_line("", 0);
 			rl_on_new_line();
 		}

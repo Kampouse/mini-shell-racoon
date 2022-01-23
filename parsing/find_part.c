@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:47:23 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/22 00:51:20 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/23 16:30:50 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -61,7 +61,6 @@ int	is_folder(t_jobs *jobs, char *local)
 			return (1);
 		}
 	}
-	ft_putstr("\n");
 	return (0);
 }
 
@@ -81,9 +80,10 @@ int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 	start_signal(1);
 	if (pid == 0)
 	{
-		pipe_handler(pipes, state);
-		if (redir_handler(job) == -1)
-			exit(1);
+		(void)pipes;
+		(void)state;
+		redir_handler(job);
+		start_signal(1);
 		exec_the_bin((char *)local, job, lst);
 	}
 	waitpid(pid, &status, 0);

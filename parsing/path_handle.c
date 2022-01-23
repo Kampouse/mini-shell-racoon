@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/22 00:21:22 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/22 21:31:26 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	command_not_found(t_jobs *job)
 		ft_putstr_fd("command not found: ", 2);
 		ft_putstr_fd(job->eval[0], 2);
 		ft_putstr_fd("\n", 2);
-			g_state.output = 127;
+		g_state.output = 127;
 	}
 }
 

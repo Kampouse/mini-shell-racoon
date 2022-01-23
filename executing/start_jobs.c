@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/16 01:18:52 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/22 22:17:45 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	start_job(t_jobs *job, t_dlist *lst, int pipes[], int state)
 {
 	if (job->cmd_type >= 0)
 	{
-		pipe_handler(pipes, state);
+		//pipe_handler(pipes, state);
 		redir_handler(job);
 		check_bultin(job);
 		return ;

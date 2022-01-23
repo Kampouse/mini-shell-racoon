@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/17 16:20:59 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/22 21:33:12 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	squash_delete(t_jobs *job, t_redir *temp, int fd, char *str)
 	job->eval = job->cmd;
 	if (str != NULL)
 	{
-		//start_signal(1);
 		fd = open("/tmp/here_docced", O_TRUNC | O_CREAT | O_RDWR, 0644);
 		write(fd, str, ft_strlen(str));
 		free(str);
@@ -37,7 +36,6 @@ void	squash_delete(t_jobs *job, t_redir *temp, int fd, char *str)
 	}
 	else
 	{
-
 		free_jobs(job, 0);
 		freelist(g_state.env);
 		freelist(g_state.exprt);
@@ -54,7 +52,6 @@ void	docc_out(t_jobs *job, t_redir *temp)
 
 	fd = 0;
 	str = NULL;
-
 	g_state.redraw = 1;
 	pid = fork();
 	if (pid < 0)
@@ -101,9 +98,7 @@ void	pre_val_redir(t_jobs *jobs)
 		while (temp)
 		{
 			if (temp->type == 1 && jobs->status == 0)
-			{
 				docc_out(jobs, temp);
-			}
 			temp = temp->next;
 		}
 		if (jobs && jobs->next)
