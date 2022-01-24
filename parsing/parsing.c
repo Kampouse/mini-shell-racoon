@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/21 19:04:48 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:04:07 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -153,7 +153,7 @@ void	parsing(void)
 			{
 				freelist(g_state.env);
 				freelist(g_state.exprt);
-				exit(0);
+				exit(g_state.output);
 			}
 			free(trimed);
 		}

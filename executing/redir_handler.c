@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:50:09 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/23 18:15:40 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:08:22 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "executing.h"
@@ -85,11 +85,13 @@ int	redir_handler(t_jobs *job)
 		temp = job->redir;
 		while (temp && status == 0)
 		{
-			printf("tst\n");
 			if (temp->type == 0 && temp->eval)
 				status = out_append(temp->eval);
 			else if (temp->type == 1)
+			{
+
 				status = here_redir(job,job->hereduc);
+			}
 			else if (temp->type == 2 && temp->eval)
 				status = input_redir(temp->eval);
 			else if (temp->type == 3 && temp->eval)

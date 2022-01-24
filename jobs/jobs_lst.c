@@ -12,10 +12,27 @@ int	jobs_lst_counter(t_dlist *lst)
 	{
 		if (temp->type > 4 || temp->type == -2)
 			count++;
+
 		temp = temp->next;
 	}
 	return (count);
 }
+
+void ft_anything(t_dlist *temp ,int inc,char **commands)
+{
+
+	if( temp && temp->next && temp->next->next)
+	{
+		temp  = temp->next->next;
+		
+			while(temp && (temp->type > 4 || temp->type == -2))
+		{
+			commands[inc++] = temp->content;
+			temp  = temp->next;
+		}
+	}
+}
+
 
 /* function that create a lst of  args for exceve */
 char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
@@ -41,6 +58,10 @@ char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
 			commands[inc++] = temp->content;
 			temp = temp->next;
 		}
+		ft_anything(temp,inc,commands);
+	//	if( temp && temp->next && temp->next->next)
+		//	commands[inc++] = temp->next->next->content;
+
 	}
 	return (commands);
 }

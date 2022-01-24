@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:48:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/21 13:33:10 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:06:10 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	tokens_peek(t_dlist *lst)
 			if (lst)
 				free_list(lst);
 			write(1, "exit\n", ft_strlen("exit\n"));
+			unlink("/tmp/here_docced");
 			exit(g_state.output);
 		}
 		temp = (t_dlist *)temp->next;

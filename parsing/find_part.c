@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:47:23 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/23 16:37:15 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:27:55 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/21 13:33:28 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -84,7 +84,7 @@ int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 		(void)pipes;
 		(void)state;
 		redir_handler(job);
-		start_signal(1);
+		start_signal(2);
 		pipe_handler(pipes, state, job);
 	//	if (redir_handler(job) == -1)
 		//	exit(1);
@@ -92,7 +92,7 @@ int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 	}
 	waitpid(pid, &status, 0);
 	free((char *)local);
-	unlink("/tmp/here_docced");
-	start_signal(0);
+	//unlink("/tmp/here_docced");
+	start_signal(1);
 	return (WEXITSTATUS(status));
 }
