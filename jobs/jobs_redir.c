@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 00:23:22 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/22 00:51:22 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 01:28:31 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,32 @@ int	valid_redir( t_dlist *redir)
 	}
 	if (!(redir->type >= 0 && redir->type <= 3))
 		return (0);
+	g_state.output = 2;
 	return (-1);
+}
+
+t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)
+{
+	t_dlist	*temp;
+	int		type;
+
+	temp = lst;
+	if (!(temp && temp->next && temp->next->next))
+		return (temp);
+	else if (!(temp->type >= 0 && temp->type <= 3) || temp->type == 1)
+		return (temp);
+	else
+	{
+		type = temp->type;
+		temp = temp->next->next;
+	}
+	while (temp && !(temp->type >= 0 && temp->type <= 4))
+	{
+		redir_addback(redir_lst,
+			node_redir(temp->content, type));
+		temp = temp->next;
+	}
+	return (temp);
 }
 
 t_redir	*redir_creator(t_dlist *redir, int *status)
@@ -34,17 +59,17 @@ t_redir	*redir_creator(t_dlist *redir, int *status)
 	while (temp)
 	{
 		if (valid_redir(temp) == 1)
-			  redir_addback(&redir_lst,
-				node_redir(temp->next->content, temp->type));
+			  redir_addback(&redir_lst, node_redir(temp->next->content,
+					temp->type));
 		else if (valid_redir(temp) < 0)
 		{
 			*status = -1;
 			ft_putstr_fd("error at newLine\n", 2);
-			g_state.output = 2;
 			free_redir(redir_lst);
 			return (NULL);
 		}
-		if (temp->next && temp->next->type != 4)
+		 redir_tail(&redir_lst, temp);
+		if (temp && temp->next && temp->next->type != 4)
 			temp = temp->next;
 		else
 			break ;

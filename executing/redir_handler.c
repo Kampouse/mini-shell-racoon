@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:50:09 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/22 22:07:51 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/23 18:15:40 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "executing.h"
@@ -15,11 +15,10 @@
 int	input_redir(char *temp)
 {
 	int	fd;
-
 	fd = open(temp, O_RDONLY);
 	if (fd < 0)
 	{
-		perror("erro");
+		perror("error");
 		g_state.output = 1;
 		return (-1);
 	}
@@ -86,6 +85,7 @@ int	redir_handler(t_jobs *job)
 		temp = job->redir;
 		while (temp && status == 0)
 		{
+			printf("tst\n");
 			if (temp->type == 0 && temp->eval)
 				status = out_append(temp->eval);
 			else if (temp->type == 1)

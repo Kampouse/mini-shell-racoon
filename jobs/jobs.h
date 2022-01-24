@@ -23,7 +23,6 @@ typedef struct s_jobs
 	char				**eval;
 	char				*hereduc;
 	struct s_redir		*redir;
-	int					pipe[2];
 	int					cmd_type;
 	int					status;
 	int					stdin;

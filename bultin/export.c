@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/10 13:15:13 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/21 13:30:36 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,30 @@ void print_exprt(int tab_len)
 }
 
 //Cette fonction trie les bonne variable et valeur a ajouter a la liste export
-void update_export_list(char *var, char *val, int type)
+int update_export_list(char *var, char *val, int type)
 {
     char *new_exprt;
-    char **temp;
     
     if (type == 1)
     {
         new_exprt = ft_strjoin(var, val);
         g_state.exprt = add_to_list(new_exprt,g_state.exprt, 1);
-        free(new_exprt);
+        // free(new_exprt);
     }
     if (type == 3)
     {
         val = ft_str3join("\"", val, "\"");
         new_exprt = ft_strjoin(var, val);
-        temp = add_to_list(new_exprt,g_state.exprt, 1);
-        g_state.exprt = temp;
+        g_state.exprt = add_to_list(new_exprt, g_state.exprt, 1);
         free(val); 
-        free(new_exprt);
     }
+    if (g_state.exprt == NULL)
+        return (1);
+    free(new_exprt);
+    return (0);
 }
 
-void parse_export(char *to_export)
+int parse_export(char *to_export)
 {
     char *variable = NULL;
     char *valeur = NULL;
@@ -81,19 +82,22 @@ void parse_export(char *to_export)
         variable = ft_strdup("' '");
         valeur = ft_strdup(to_export);
         g_state.exprt = add_to_list(valeur, g_state.exprt, 1);
+        if (g_state.exprt == NULL)
+            return (1);
     }
     else
     {
         variable = before_equal(to_export);
         valeur = afther_equal(to_export);
-        update_export_list(variable, valeur, 3);
-        update_env_list(variable, valeur, 3);
+        if (update_export_list(variable, valeur, 3) || update_env_list(variable, valeur, 3))
+            return (1);
     }
-    free(valeur);
     free(variable);
+    free(valeur);
+    return (0);
 }
     
-void do_export(t_jobs *job)
+int do_export(t_jobs *job)
 {
     int i;
     
@@ -105,14 +109,17 @@ void do_export(t_jobs *job)
         while (job->cmd[++i])
         {
             if (got_good_args(job->cmd[i]))
-                printf("Not a valid export\n");
+                return (error_message("Not a valid export\n"));
             else if (last_is_equal(job->cmd[i]))
             {
-                update_export_list(job->cmd[i], "\"\"", 1);
-                update_env_list(job->cmd[i], "\"\"", 1);
+                if (update_export_list(job->cmd[i], "\"\"", 1) || \
+                update_env_list(job->cmd[i], "\"\"", 1))
+                    return (1);
             }
             else 
-                parse_export(job->cmd[i]);
+                if (parse_export(job->cmd[i]))
+                    return (1);
         }
     }
+    return (0);
 }

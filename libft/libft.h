@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 10:19:17 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/16 15:05:41 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/13 11:45:14 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void				ft_lstadd_back(t_list **alst, t_list *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void*));
 void				ft_lstclear(t_list **lst, void (*del)(void*));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
-void				error_message(int code_error);
 
+int					error_message(char *error_message);
 int					ft_putnbr_long(long nb);
 int 				ft_putchar_int(char c);
 int 				ft_putstr_int(char *str);

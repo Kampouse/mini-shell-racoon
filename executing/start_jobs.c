@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   start_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/22 22:17:45 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 01:25:45 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +33,16 @@ int	check_bultin(t_jobs *job)
 	return (0);
 }
 
-int	check_nb_of_job(t_jobs *job)
+int	job_count(t_jobs *job)
 {
-	int	i;
+	int		i;
+	t_jobs	*temp;
 
 	i = 0;
-	while (job != NULL)
+	temp = job;
+	while (temp->next != NULL)
 	{
-		job = job->next;
+		temp = temp->next;
 		i++;
 	}
 	return (i);
@@ -66,11 +69,10 @@ void	start_job(t_jobs *job, t_dlist *lst, int pipes[], int state)
 {
 	if (job->cmd_type >= 0)
 	{
-		//pipe_handler(pipes, state);
 		redir_handler(job);
 		check_bultin(job);
 		return ;
 	}
-	redir_handler(job);
-	g_state.output = path_resolver(job, lst, pipes, state);
+	if(redir_handler(job) >= 0)
+		g_state.output = path_resolver(job, lst, pipes, state);
 }

@@ -6,7 +6,8 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/23 16:28:53 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/23 16:37:26 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/21 13:28:16 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -37,7 +38,6 @@ void create_env(char **envp)
         g_state.env[i] = ft_strdup(envp[i]);
         i++;
     }
-
 }
 
 void print_env(int tab_len)
@@ -57,7 +57,7 @@ int do_env(t_jobs *job)
     return (0);
 }
 
-void update_env_list(char *var, char *val, int type)
+int update_env_list(char *var, char *val, int type)
 {
     char *new_env;
 
@@ -72,5 +72,8 @@ void update_env_list(char *var, char *val, int type)
         g_state.env = add_to_list(new_env, g_state.env, 0);
         free(new_env);
     }
+    if (g_state.env == NULL)
+         return (1);
+    return (0);
 }
 

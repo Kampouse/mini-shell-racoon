@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 20:54:17 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 03:20:41 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/21 08:53:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	freelist(char **list)
 	}
 }
 
-// return la longueur d'un char**
+// return la longueur d'un char** devrais s'appler list_len
 int	ft_tab_len(char **tab)
 {
 	int	i;
