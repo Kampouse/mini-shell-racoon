@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:50:09 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/16 01:55:07 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/22 00:34:25 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "executing.h"
@@ -20,6 +20,7 @@ int	input_redir(char *temp)
 	if (fd < 0)
 	{
 		perror(temp);
+		g_state.output = 1;
 		return (-1);
 	}
 	dup2(fd, 0);

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/19 08:13:52 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/22 14:59:19 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../minishell.h"
 #include "parsing.h"
 
@@ -44,6 +45,8 @@ void	parser_muduled(t_jobs *job, t_dlist *lst, int inc)
 		state = -1;
 	while (temp)
 	{
+		// printf("exec stdin = %d, exec sdout = %d\n", g_state.stdin, g_state.stdout);
+		// printf("job stdin = %d, job stdout = %d\n", temp->stdin, temp->stdout);
 		start_job(temp, lst, pipes, state);
 		temp = temp->next;
 	}
@@ -90,46 +93,45 @@ void	quick_parser(char *str)
 	}	
 }
 
-char *prompt_eval(void)
+char	*prompt_eval(void)
 {
-
-	char *str;
-	char *out;
-	int  inc;
+	char	*str;
+	char	*out;
+	int		inc;
 
 	inc = 0;
 	str = NULL;
-	str = eval_line("$PWD",str,0,0);
-	if(!str)
-	str = ft_strdup("/minishell");
+	str = eval_line("$PWD", str, 0, 0);
+	if (!str)
+		str = ft_strdup("/minishell");
 	inc = ft_strlen(str);
 	inc--;
-	while(str[inc] != '/')
+	while (str[inc] != '/')
 		inc--;
 	inc++;
 	out = ft_strdup(&str[inc]);
 	free(str);
-	str = ft_strjoin(out,":>");
+	str = ft_strjoin(out, ":>");
 	free(out);
-	out  = ft_str3join(GREEN,str,RESET);
+	out = ft_str3join(GREEN, str, RESET);
 	free(str);
-	return(out);
+	return (out);
 }
 
-char * parsing_start(char **trimed)
+char	*parsing_start(char **trimed)
 {
 	char	*line;
 	char	*prompt;
-	
-		prompt =prompt_eval();
-		g_state.redraw = 0;
-		start_signal(0);
-		line = readline(prompt);
-		free(prompt);
-		*trimed = ft_strtrim(line, "\n ");
-		add_history(*trimed);
-		free(line);
-		return(*trimed);
+
+	prompt = prompt_eval();
+	g_state.redraw = 0;
+	start_signal(0);
+	line = readline(prompt);
+	free(prompt);
+	*trimed = ft_strtrim(line, "\n ");
+	add_history(*trimed);
+	free(line);
+	return (*trimed);
 }
 
 void	parsing(void)
@@ -150,7 +152,7 @@ void	parsing(void)
 		}
 		else
 		{
-			if(trimed == NULL)
+			if (trimed == NULL)
 			{
 				freelist(g_state.env);
 				freelist(g_state.exprt);

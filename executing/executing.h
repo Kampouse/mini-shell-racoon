@@ -28,6 +28,7 @@ extern t_exec g_state;
 int         do_env(t_jobs *job);
 void        create_env(char **envp);
 // void    print_env(int tab_len);
+int	pipe_counter(t_dlist *lst);
 
 //EXPORT
 int         do_export(t_jobs *jobb);

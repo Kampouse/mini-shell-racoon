@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 22:45:22 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/19 14:36:24 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/21 21:14:16 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,9 @@ int	eval(t_jobs *jobs)
 	{
 		temp = jobs;
 		if (temp->cmd)
+		{
 			eval_cmds(temp);
+		}
 		else
 			temp->eval = NULL;
 		if (temp->redir)
