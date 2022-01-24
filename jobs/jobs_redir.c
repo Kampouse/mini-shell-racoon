@@ -5,13 +5,26 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/24 14:52:17 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/24 14:57:35 by jemartel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   jobs_redir.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 00:23:22 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 01:28:31 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:52:15 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "jobs.h"
 #include "../minishell.h"
+
 int	valid_redir( t_dlist *redir)
 {
 	if (redir->type >= 0 && redir->type <= 3)
@@ -59,7 +72,7 @@ t_redir	*redir_creator(t_dlist *redir, int *status)
 	while (temp)
 	{
 		if (valid_redir(temp) == 1)
-			  redir_addback(&redir_lst, node_redir(temp->next->content,
+			redir_addback(&redir_lst, node_redir(temp->next->content,
 					temp->type));
 		else if (valid_redir(temp) < 0)
 		{
@@ -68,7 +81,7 @@ t_redir	*redir_creator(t_dlist *redir, int *status)
 			free_redir(redir_lst);
 			return (NULL);
 		}
-		 redir_tail(&redir_lst, temp);
+		redir_tail(&redir_lst, temp);
 		if (temp && temp->next && temp->next->type != 4)
 			temp = temp->next;
 		else

@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 03:01:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 12:22:29 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:39:20 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -47,10 +47,7 @@ void	sig_child(int signum, siginfo_t *info, void *unsed)
 		rl_on_new_line();
 	}
 	else if (signum == SIGQUIT)
-	{
-
 		ft_putstr("\b\b \b\b");
-	}
 }
 
 void	sig_docc(int signum, siginfo_t *info, void *unsed)
@@ -71,7 +68,7 @@ void	start_signal(int type)
 	sa_sig.sa_flags = SA_SIGINFO;
 	if (type == 0)
 	{
-		//dup2(g_state.stdin, 1);
+		dup2(g_state.stdin, 1);
 		dup2(g_state.stdout, 0);
 		sa_sig.sa_sigaction = sig_c;
 	}

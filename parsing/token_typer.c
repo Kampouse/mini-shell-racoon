@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:48:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 14:06:10 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:37:41 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	token_scanner(char *str, size_t *token_size, int inc)
 		{
 			*token_size = ft_strlen(trimed);
 			free((char *) trimed);
-
 			return (inc);
 		}
 	}
@@ -66,10 +65,9 @@ void	tokens_peek(t_dlist *lst)
 	temp = NULL;
 	if (lst)
 		temp = lst;
-	// check seulement la premiere node te add free_jobs
 	while (temp && temp->type != 4)
 	{
-		if (temp->type == 7)//&& temp->prev->type != 8
+		if (temp->type == 7)
 		{
 			freelist(g_state.env);
 			freelist(g_state.exprt);

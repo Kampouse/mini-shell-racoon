@@ -7,10 +7,9 @@ SRCS =  main.c \
 		list_operator.c\
 		\
 		./parsing/parsing.c \
+		./parsing/prompt_eval.c \
 		./parsing/find_part.c \
 		./parsing/signal_docc.c \
-		./parsing/path_handler_utils.c \
-		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \
 		./parsing/tokens_precursors.c \
 		./parsing/token_typer.c \
@@ -29,6 +28,9 @@ SRCS =  main.c \
 		\
 		./executing/start_jobs.c \
 		./executing/redir_handler.c \
+		./executing/path_handler_utils.c \
+		./executing/path_handle.c \
+		./executing/command_not_found.c \
 		./executing/pipe.c \
 		\
 		./jobs/jobs_redir.c \

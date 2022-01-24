@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:58:34 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/23 16:56:03 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 17:14:18 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_pipe(t_jobs *jobs)
 
 	data = malloc(sizeof(t_pipe));
 	data->pipe_nb = job_count(jobs);
-	printf("nb de pipe = %d\n", data->pipe_nb);
+	//printf("nb de pipe = %d\n", data->pipe_nb);
 	free(data);
 }
 
