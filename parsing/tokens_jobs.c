@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:51:53 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 15:38:28 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:20:21 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,6 @@ t_dlist	*line_parser(char *trimed)
 	if (!trimed)
 		return (NULL);
 	tokens_lst(trimed, ft_strlen(trimed), &lst);
-	tokens_peek(lst);
+	// tokens_peek(lst);
 	return (lst);
 }

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/25 15:07:08 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:21:35 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int	do_exit(t_jobs *job)
 {
-		(void)job;
-		freelist(g_state.env);
-		freelist(g_state.exprt);
-		//free_list(lst);x
-		exit(g_state.output);
+	(void)job;
+	freelist(g_state.env);
+	freelist(g_state.exprt);
+	//free_list(lst);x
+	//need clear history
+	printf("exit\n");
+	exit(g_state.output);
 }
 
 //Note Exit
