@@ -6,13 +6,21 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 22:49:52 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/24 11:19:27 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 09:52:04 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	minus_n(char *echo_arg)
+{
+	if (!ft_strncmp(echo_arg, "-n", (size_t)(sizeof(char) * 2)) && \
+		ft_strlen(echo_arg) == 2)
+		return (1);
+	return (0);
+}
 
 int	do_echo(t_jobs *jobs)
 {
@@ -23,8 +31,7 @@ int	do_echo(t_jobs *jobs)
 	i = 1;
 	if (ft_tab_len(jobs->eval) > 1)
 	{
-		if (!ft_strncmp(jobs->eval[1], "-n", (size_t)(sizeof(char) * 2)) && \
-		ft_strlen(jobs->eval[1]) == 2)
+		if (minus_n(jobs->eval[1]))
 		{
 			n++;
 			i++;

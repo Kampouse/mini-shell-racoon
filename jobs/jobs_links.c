@@ -6,11 +6,12 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 23:37:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/16 00:23:01 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:01:50 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
 t_jobs	*node_job(char **cmd)
 {
 	t_jobs	*link;
