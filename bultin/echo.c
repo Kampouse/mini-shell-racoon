@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/02 22:49:52 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/17 21:17:17 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/24 18:50:07 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 #include "../minishell.h"
 
+// int check_minus_n(char *echo_arg)
+// {
+//     if (!ft_strncmp(jobs->eval[1], "-n", (size_t)(sizeof(char) * 2)) && \
+//         ft_strlen(jobs->eval[1]) == 2)
+//         {
+//             n++;
+//             i++;
+//         }
+// }
 int do_echo(t_jobs *jobs)
 {
     int n;
@@ -25,10 +34,8 @@ int do_echo(t_jobs *jobs)
     {
         if (!ft_strncmp(jobs->eval[1], "-n", (size_t)(sizeof(char) * 2)) && \
         ft_strlen(jobs->eval[1]) == 2)
-        {
             n++;
-            i++;
-        }
+        i++;
         while (jobs->eval[i])
         {
             if (jobs->eval[i + 1])

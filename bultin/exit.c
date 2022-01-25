@@ -6,15 +6,11 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/22 18:05:58 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/24 18:36:09 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
-
-//exit return g_state_status
-// exit 
-//
 
 void	tokens_peek(t_dlist *lst)
 {
