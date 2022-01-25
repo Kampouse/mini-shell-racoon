@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 15:32:58 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 14:22:17 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,8 @@ int			redir_handler(t_jobs *job);
 // Pipe
 void		ft_pipe(t_jobs *jobs);
 int			job_count(t_jobs *job);
+
+// Exit
+int		do_exit(t_jobs *job);
 
 #endif

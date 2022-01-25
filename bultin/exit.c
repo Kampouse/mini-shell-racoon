@@ -6,31 +6,33 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/25 11:18:56 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:07:08 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-void	tokens_peek(t_dlist *lst)
+int	do_exit(t_jobs *job)
 {
-	t_dlist	*temp;
-
-	temp = NULL;
-	if (lst)
-		temp = lst;
-	// check seulement la premiere node te add free_jobs
-	while (temp && temp->type != 4)
-	{
-		if (temp->type == 7)//&& temp->prev->type != 8
-		{
-			freelist(g_state.env);
-			freelist(g_state.exprt);
-			if (lst)
-				free_list(lst);
-			write(1, "exit\n", ft_strlen("exit\n"));
-			exit(g_state.output);
-		}
-		temp = (t_dlist *)temp->next;
-	}
+		(void)job;
+		freelist(g_state.env);
+		freelist(g_state.exprt);
+		//free_list(lst);x
+		exit(g_state.output);
 }
+
+//Note Exit
+// -> si premier argument est valid et deuxiemen non on exit pas
+// affiche message derreur 
+//si exit sans arg exit(g_state_output)
+//si on envoi un nombre < 256 g_State.output aka $? = ce nombre
+
+//  int do_exit(t_jobs *job)
+//  {
+// 	 (void)job;
+// 	freelist(g_state.env);
+// 	freelist(g_state.exprt);
+// 	// freelist(g_state.output);
+// 	printf("exit\n");
+// 	return (0);
+//  }

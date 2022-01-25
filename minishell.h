@@ -14,7 +14,7 @@
 # include "eval/eval.h"
 # include "libft/libft.h"
 
-# define GREEN "\002\e[0;32m\002"
+# define GREEN "\001\e[0;32m\002"
 # define RESET   "\001\e[0m\002"
 
 
