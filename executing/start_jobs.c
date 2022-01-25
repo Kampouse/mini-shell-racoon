@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 15:02:24 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:22:02 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -18,17 +18,19 @@ int	check_bultin(t_jobs *job)
 	job->cmd = job->eval;
 	if (job->cmd_type == -2)
 		return (1);
-	if (job->cmd_type == 5)
+	else if (job->cmd_type == 5)
 		do_env(job);
-	if (job->cmd_type == 6)
+	else if (job->cmd_type == 6)
 		do_export(job);
-	if (job->cmd_type == 8)
+	else if (job->cmd_type == 7)
 		do_echo(job);
-	if (job->cmd_type == 9)
+	else if (job->cmd_type == 8)
+		do_echo(job);
+	else if (job->cmd_type == 9)
 		do_unset(job);
-	if (job->cmd_type == 10)
+	else if (job->cmd_type == 10)
 		do_pwd(job->cmd);
-	if (job->cmd_type == 11)
+	else if (job->cmd_type == 11)
 		do_cd(job->cmd);
 	return (0);
 }
