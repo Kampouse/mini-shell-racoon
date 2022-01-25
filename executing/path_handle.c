@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 16:02:35 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:09:13 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst)
 	free_jobs(job, 0);
 	free(paths);
 	freelist(g_state.env);
+	rl_clear_history();
 	exit(127);
 	return (0);
 }

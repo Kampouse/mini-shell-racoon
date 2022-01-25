@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 09:38:21 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:21:36 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	parsing(void)
 			{
 				freelist(g_state.env);
 				freelist(g_state.exprt);
+				rl_clear_history();
 				exit(g_state.output);
 			}
 			free(trimed);

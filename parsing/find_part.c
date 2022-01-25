@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/15 16:47:23 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 09:38:27 by olabrecq         ###   ########.fr       */
+/*   Created: 2022/01/25 12:23:49 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/25 13:21:42 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 		(void)pipes;
 		(void)state;
 		redir_handler(job);
+		rl_clear_history();
 		start_signal(2);
 		pipe_handler(pipes, state, job);
 		exec_the_bin((char *)local, job, lst);
