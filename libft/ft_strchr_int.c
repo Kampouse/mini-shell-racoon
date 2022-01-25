@@ -6,17 +6,17 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 15:06:46 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/16 15:09:00 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 10:06:30 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int     ft_strchr_int(const char *str, int ch)
+/*  verif  si le premier est pas un le chr */
+int	ft_strchr_int(const char *str, int ch)
 {
-    int i;
+	int	i;
 
-    i = 0;
+	i = 0;
 	while (str[i] != ch)
 		i++;
 	return (i);

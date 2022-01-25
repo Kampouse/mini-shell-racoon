@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/18 11:37:40 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/13 11:50:09 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 09:43:54 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@
 int	error_message(char *error_message)
 {
 	printf("%s\n", error_message);
-	return(1);
+	return (1);
 }
