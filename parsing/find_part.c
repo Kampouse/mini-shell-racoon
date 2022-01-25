@@ -3,11 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_part.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/15 16:47:23 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 15:35:41 by jemartel         ###   ########.fr       */
-/*   Updated: 2022/01/21 13:33:28 by olabrecq         ###   ########.fr       */
+/*   Created: 2022/01/25 12:23:49 by jemartel          #+#    #+#             */
+/*   Updated: 2022/01/25 12:23:50 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +83,7 @@ int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 		(void)pipes;
 		(void)state;
 		redir_handler(job);
+		rl_clear_history();
 		start_signal(2);
 		pipe_handler(pipes, state, job);
 		exec_the_bin((char *)local, job, lst);
