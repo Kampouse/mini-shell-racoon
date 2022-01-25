@@ -3,50 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 12:06:00 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:21:04 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../minishell.h"
 #include "parsing.h"
 
-/* evaluate each job one after the  other */
-
-int	pipe_counter(t_dlist *lst)
-{
-	t_dlist	*tmp;
-	int		count;
-
-	count = 0;
-	tmp = lst;
-	while (tmp)
-	{
-		if (tmp->type == 4)
-			count += 2;
-		tmp = (t_dlist *)tmp->next;
-	}
-	return (count);
-}
-
-void	parser_muduled(t_jobs *job, t_dlist *lst, int inc)
+/* loop that  evalute   entire  line that it as read */
+void	parser_muduled(t_jobs *job, t_dlist *lst)
 {
 	t_jobs		*temp;
-	int			pipes[2];
-	int			state;
+	t_pipe 			*pipes;
 
-	state = 0;
 	temp = job;
-	if (inc > 1)
-		pipe(pipes);
-	else
-		state = -1;
+	pipes = ft_pipe(job);
 	while (temp)
 	{
-		start_job(temp, lst, pipes, state);
+		start_job(temp, lst, pipes);
 		temp = temp->next;
 	}
+	delete_pipe(pipes,1);
 	free_jobs((t_jobs *)job, 0);
 }
 
@@ -70,7 +50,7 @@ void	parser_core(t_dlist *lst)
 			temp = temp->next;
 			inc++;
 		}
-		parser_muduled(job, lst, inc);
+		parser_muduled(job, lst);
 		free_nodes(lst);
 	}
 }
@@ -106,16 +86,13 @@ void	parsing(void)
 			if (lst != NULL)
 				parser_core(lst);
 		}
-		else
+		else if (trimed)
 		{
-			if (trimed == NULL)
-			{
-				freelist(g_state.env);
-				freelist(g_state.exprt);
-				rl_clear_history();
-				exit(g_state.output);
-			}
+			freelist(g_state.env);
+			freelist(g_state.exprt);
+			rl_clear_history();
 			free(trimed);
+			exit(g_state.output);
 		}
 	}
 }

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   find_part.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:23:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 12:23:50 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:03:06 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include <sys/stat.h>
 #include "../minishell.h"
@@ -66,7 +67,7 @@ int	is_folder(t_jobs *jobs, char *local)
 
 /* fork the process  before exectuion  and wait for the child */
 
-int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
+int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
 {
 	int			pid;
 	int			status;
@@ -81,11 +82,10 @@ int	path_resolver(t_jobs *job, t_dlist *lst, int pipes[], int state)
 	if (pid == 0)
 	{
 		(void)pipes;
-		(void)state;
 		redir_handler(job);
 		rl_clear_history();
 		start_signal(2);
-		pipe_handler(pipes, state, job);
+		 //pipe_handler(pipes, state, job);
 		exec_the_bin((char *)local, job, lst);
 	}
 	waitpid(pid, &status, 0);

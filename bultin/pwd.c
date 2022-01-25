@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 21:55:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/13 11:51:07 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 11:06:22 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	do_pwd(char **args)
 {
 	char	cwd[4096];
-	
+
 	if (ft_tab_len(args) > 1)
-		return  (error_message("pwd: too many arguments\n"));
+		return (error_message("pwd: too many arguments\n"));
 	else
 	{
 		if (!getcwd(cwd, sizeof(cwd)))
@@ -26,4 +26,3 @@ int	do_pwd(char **args)
 	}
 	return (0);
 }
-

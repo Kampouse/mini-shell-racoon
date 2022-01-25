@@ -6,8 +6,9 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 13:22:02 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:35:40 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:20:34 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +20,20 @@ int	check_bultin(t_jobs *job)
 	if (job->cmd_type == -2)
 		return (1);
 	else if (job->cmd_type == 5)
-		do_env(job);
+		g_state.output = do_env(job);
 	else if (job->cmd_type == 6)
-		do_export(job);
-	else if (job->cmd_type == 7)
-		do_echo(job);
+		g_state.output = do_export(job);
+	//else if (job->cmd_type == 7)
+		//g_state.output = do_exit(job);
 	else if (job->cmd_type == 8)
-		do_echo(job);
+		g_state.output = do_echo(job);
 	else if (job->cmd_type == 9)
-		do_unset(job);
+		g_state.output = do_unset(job);
 	else if (job->cmd_type == 10)
-		do_pwd(job->cmd);
+		g_state.output = do_pwd(job->cmd);
 	else if (job->cmd_type == 11)
-		do_cd(job->cmd);
-	return (0);
+		g_state.output = do_cd(job->cmd);
+	return (g_state.output);
 }
 
 int	job_count(t_jobs *job)
@@ -67,14 +68,21 @@ int	check_nb_of_cmd(t_jobs *job)
 * we should try to clear all the  the memory of the other jobs
 * otherwise it will counted as still reachable(leaks)
 * */
-void	start_job(t_jobs *job, t_dlist *lst, int pipes[], int state)
+void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 {
+	int inc;
+	
+	inc = 0;
 	if (job->cmd_type >= 0)
 	{
 		redir_handler(job);
 		check_bultin(job);
 		return ;
 	}
+	if(pipes)
+	{
+		//printf("%d",pipes->pipes[inc][0]);
+	}
 	if (redir_handler(job) >= 0)
-		g_state.output = path_resolver(job, lst, pipes, state);
+		g_state.output = path_resolver(job, lst, pipes);
 }

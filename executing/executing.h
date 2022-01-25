@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 15:32:58 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:26:21 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ typedef struct s_exec
 
 typedef struct s_pipe
 {
-	int	pipe_nb;
-	int	pipe_g[2];
-	int	pipe_gb[2];
-	int	*pids;
+	int				pipe_nbr;
+	int				**pipes;
+	int				*pids;
 }	t_pipe;
 
 extern t_exec	g_state;
@@ -40,6 +39,7 @@ extern t_exec	g_state;
 int			do_env(t_jobs *job);
 void		create_env(char **envp);
 // void    print_env(int tab_len);
+int			pipe_counter(t_dlist *lst);
 
 //EXPORT
 int			do_export(t_jobs *jobb);
@@ -83,7 +83,7 @@ void		start_jobs(t_jobs *job);
 int			redir_handler(t_jobs *job);
 
 // Pipe
-void		ft_pipe(t_jobs *jobs);
+t_pipe		*ft_pipe(t_jobs *jobs);
 int			job_count(t_jobs *job);
 
 #endif
