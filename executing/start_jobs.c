@@ -6,10 +6,11 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 17:45:43 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:20:22 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/* ************************************************************************** */
 
 #include "../minishell.h"
 
@@ -67,14 +68,19 @@ int	check_nb_of_cmd(t_jobs *job)
 * we should try to clear all the  the memory of the other jobs
 * otherwise it will counted as still reachable(leaks)
 * */
-void	start_job(t_jobs *job, t_dlist *lst, int pipes[], int state)
+void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 {
+	
 	if (job->cmd_type >= 0)
 	{
 		redir_handler(job);
 		check_bultin(job);
 		return ;
 	}
+	if(pipes)
+	{
+		//printf("%d",pipes->pipes[inc][0]);
+	}
 	if (redir_handler(job) >= 0)
-		g_state.output = path_resolver(job, lst, pipes, state);
+		g_state.output = path_resolver(job, lst, pipes);
 }
