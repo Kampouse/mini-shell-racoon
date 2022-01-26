@@ -60,8 +60,8 @@ all: ${NAME}
 ${NAME}:${OBJS}
 		@echo "\033[0;33m Compiling..."
 		@$(MAKE) -C libft
-		@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}  -L ./ncurses/lib 
-# @${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
+# @${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}  -L ./ncurses/lib 
+		@${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
 		@echo "\033[0m"
 		@echo "\n\033[32m\033[1m  Minishell Compiled\n\033[0m"
 run: all

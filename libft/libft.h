@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 10:19:17 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/25 10:14:47 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 12:26:30 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int					ft_putchar_int(char c);
 int					ft_putstr_int(char *str);
 int					ft_memcmp(const void *str1, const void *str2, size_t n);
 int					ft_isalpha(int c);
+int					ft_isalpha_word(char *str);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
 int					ft_isascii(int c);
