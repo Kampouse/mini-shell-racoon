@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 17:35:40 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 02:58:08 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
 /*   Updated: 2022/01/25 13:20:34 by olabrecq         ###   ########.fr       */
 /*                                                                            */
@@ -70,9 +70,7 @@ int	check_nb_of_cmd(t_jobs *job)
 * */
 void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 {
-	int inc;
 	
-	inc = 0;
 	if (job->cmd_type >= 0)
 	{
 		redir_handler(job);

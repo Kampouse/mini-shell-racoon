@@ -56,13 +56,17 @@ CC = gcc
 
 all: ${NAME}
 
+DETECTED_OS := $(shell uname -s)
 ${NAME}:${OBJS}
-		@echo "\033[0;33m Compiling..."
 		@$(MAKE) -C libft
-		@${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
+ifeq ($(DETECTED_OS), Darwin)
+	@${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
+endif
+ifeq ($(DETECTED_OS), Linux)
+	@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}  -L ./ncurses/lib 
+endif
 		@echo "\033[0m"
-		@echo "\n\033[32m\033[1m  Minishell Compiled\n\033[0m"
-# @${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}  -L ./ncurses/lib 
+		@echo "\n\033[32m\033[1m  Minishell Compiled  for $(DETECTED_OS) \n\033[0m"
 run: all
 		./$(NAME)
 
