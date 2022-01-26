@@ -60,7 +60,7 @@ DETECTED_OS := $(shell uname -s)
 ${NAME}:${OBJS}
 		@$(MAKE) -C libft
 ifeq ($(DETECTED_OS), Darwin)
-	@${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
+	@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
 endif
 ifeq ($(DETECTED_OS), Linux)
 	@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}  -L ./ncurses/lib 
