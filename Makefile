@@ -1,16 +1,14 @@
 NAME = minishell
 
-FLAGS =   -g -Wall -Wextra -Werror 
-
+FLAGS =   -g -Wall -Wextra -Werror
 SRCS =  main.c \
 		utils.c\
 		list_operator.c\
 		\
 		./parsing/parsing.c \
+		./parsing/prompt_eval.c \
 		./parsing/find_part.c \
 		./parsing/signal_docc.c \
-		./parsing/path_handler_utils.c \
-		./parsing/path_handle.c \
 		./parsing/tokens_jobs.c \
 		./parsing/tokens_precursors.c \
 		./parsing/token_typer.c \
@@ -26,9 +24,13 @@ SRCS =  main.c \
 		./bultin/cd.c \
 		./bultin/pwd.c \
 		./bultin/echo.c \
+		./bultin/exit.c \
 		\
 		./executing/start_jobs.c \
 		./executing/redir_handler.c \
+		./executing/path_handler_utils.c \
+		./executing/path_handle.c \
+		./executing/command_not_found.c \
 		./executing/pipe.c \
 		\
 		./jobs/jobs_redir.c \
@@ -58,10 +60,10 @@ all: ${NAME}
 ${NAME}:${OBJS}
 		@echo "\033[0;33m Compiling..."
 		@$(MAKE) -C libft
-		@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  ./libft/libft.a  -L ./ncurses/lib -lncurses -o ${NAME}
+		@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}  -L ./ncurses/lib 
+# @${CC} ${OBJS} ${FLAGS} -L./lib -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
 		@echo "\033[0m"
 		@echo "\n\033[32m\033[1m  Minishell Compiled\n\033[0m"
-# @${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}
 run: all
 		./$(NAME)
 
@@ -74,7 +76,7 @@ val: all
 test: all
 	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes  ./$(NAME) "-c" 'cd'
 norm: 
-	@norminette ${SRCS}
+	@~/bin/result/bin/norminette ${SRCS}
 
 
 clean:

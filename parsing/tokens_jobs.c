@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:51:53 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/21 13:33:43 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:20:21 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*until_separator(char *str)
 	len = 0;
 	inc = 0;
 	if (str)
-		 inc = is_quoted(str);
+		inc = is_quoted(str);
 	else
 		return (NULL);
 	created = ft_substr(str, 0, inc);
@@ -101,11 +101,6 @@ t_dlist	*line_parser(char *trimed)
 	if (!trimed)
 		return (NULL);
 	tokens_lst(trimed, ft_strlen(trimed), &lst);
-	// while (lst != NULL) {
-	// 	printf("dlist content = %s\n",  lst->content);
-	// 	lst = lst->next;
-	// }
-	tokens_peek(lst);
+	// tokens_peek(lst);
 	return (lst);
 }
-

@@ -6,31 +6,30 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:58:34 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/22 17:57:21 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 09:38:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void ft_pipe(t_jobs *jobs)
+void	ft_pipe(t_jobs *jobs)
 {
-    t_pipe *data;
+	t_pipe	*data;
 
-    data = malloc(sizeof(t_pipe));
-    data->pipe_nb = job_count(jobs);
-    printf("nb de pipe = %d\n",data->pipe_nb);
-    free(data);
+	data = malloc(sizeof(t_pipe));
+	data->pipe_nb = job_count(jobs);
+	//printf("nb de pipe = %d\n", data->pipe_nb);
+	free(data);
 }
 
-int pipe_handler(int pipe[], int state, t_jobs *job)
+int	pipe_handler(int pipe[], int state, t_jobs *job)
 {
-    ft_pipe(job);
-    if(state < -1)
-        return(0);
-
-    if(state == 0)
-        dup2(pipe[1], 1);
-    if(state == 1) 
-        dup2(pipe[0], 0);
-    return(0);
-}   
+	ft_pipe(job);
+	if (state < -1)
+		return (0);
+	if (state == 0)
+		dup2(pipe[1], 1);
+	if (state == 1)
+		dup2(pipe[0], 0);
+	return (0);
+}

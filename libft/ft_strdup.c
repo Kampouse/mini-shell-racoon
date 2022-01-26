@@ -6,43 +6,13 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/10 14:19:26 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/12/26 11:27:42 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 10:07:17 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* static char 	*my_memcpy(void *dest, const void *src, size_t n)
-{
-	size_t			i;
-	char			*cdest;
-	char			*csrc;
-
-	cdest = (char *) dest;
-	csrc = (char *) src;
-	i = 0;
-	while (i < n)
-	{
-		cdest[i] = csrc[i];
-		i++;
-	}
-	return (cdest);
-}
-
-char	*ft_strdup(const char *src)
-{
-	char	*dest;
-	size_t	len;
-
-	len = ft_strlen(src) + 1;
-	dest = malloc(sizeof(char) * len);
-	if (!dest)
-		return (0);
-	dest = my_memcpy(dest, src, len);
-	return (dest);
-} */
-
-char				*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s1)
 {
 	char			*s2;
 	size_t			l;

@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 23:20:57 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/15 23:52:52 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/24 14:29:24 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ t_jobs	*jobs_tail(t_dlist *lst, t_jobs *currjobs)
 	temp = job_find_pipe(lst);
 	if (temp)
 	{
-		if (jobs(temp, &tempjob) >= 0 )
+		if (jobs(temp, &tempjob) >= 0)
 		{
 			jobs_addback(&currjobs, tempjob);
 			return (jobs_tail(temp, currjobs));

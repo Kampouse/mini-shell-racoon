@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:48:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/21 13:33:10 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 15:19:30 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ int	token_scanner(char *str, size_t *token_size, int inc)
 		{
 			*token_size = ft_strlen(trimed);
 			free((char *) trimed);
-
 			return (inc);
 		}
 	}
@@ -59,25 +58,25 @@ int	token_scanner(char *str, size_t *token_size, int inc)
 }
 
 /*  exit  */
-void	tokens_peek(t_dlist *lst)
-{
-	t_dlist	*temp;
+// void	tokens_peek(t_dlist *lst)
+// {
+// 	t_dlist	*temp;
 
-	temp = NULL;
-	if (lst)
-		temp = lst;
-	// check seulement la premiere node te add free_jobs
-	while (temp && temp->type != 4)
-	{
-		if (temp->type == 7)//&& temp->prev->type != 8
-		{
-			freelist(g_state.env);
-			freelist(g_state.exprt);
-			if (lst)
-				free_list(lst);
-			write(1, "exit\n", ft_strlen("exit\n"));
-			exit(g_state.output);
-		}
-		temp = (t_dlist *)temp->next;
-	}
-}
+// 	temp = NULL;
+// 	if (lst)
+// 		temp = lst;
+// 	while (temp && temp->type != 4)
+// 	{
+// 		if (temp->type == 7)
+// 		{
+// 			freelist(g_state.env);
+// 			freelist(g_state.exprt);
+// 			if (lst)
+// 				free_list(lst);
+// 			write(1, "exit\n", ft_strlen("exit\n"));
+// 			unlink("/tmp/here_docced");
+// 			exit(g_state.output);
+// 		}
+// 		temp = (t_dlist *)temp->next;
+// 	}
+// }

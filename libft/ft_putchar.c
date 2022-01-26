@@ -6,13 +6,13 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 14:06:09 by olabrecq          #+#    #+#             */
-/*   Updated: 2021/08/03 14:04:38 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 09:51:33 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    ft_putchar(char c)
+void	ft_putchar(char c)
 {
-    write(1, &c, 1);
+	write(1, &c, 1);
 }

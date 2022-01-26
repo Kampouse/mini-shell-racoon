@@ -14,7 +14,7 @@
 # include "eval/eval.h"
 # include "libft/libft.h"
 
-# define GREEN "\002\e[0;32m\002"
+# define GREEN "\001\e[0;32m\002"
 # define RESET   "\001\e[0m\002"
 
 
@@ -54,5 +54,7 @@ void		start_signal(int type);
 char		*find_part(char *first, char *str, int inc, size_t **len);
 int			exec_the_bin(char *paths, t_jobs *job, t_dlist *lst);
 char		*make_executable(t_jobs *job);
+void		command_not_found(t_jobs *job);
+int			is_file_exec(t_jobs *job);
 void		command_not_found(t_jobs *job);
 #endif 

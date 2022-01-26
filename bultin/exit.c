@@ -6,31 +6,47 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/24 18:36:09 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 18:43:06 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../minishell.h"
 
-void	tokens_peek(t_dlist *lst)
+void quit_shell()
 {
-	t_dlist	*temp;
-
-	temp = NULL;
-	if (lst)
-		temp = lst;
-	// check seulement la premiere node te add free_jobs
-	while (temp && temp->type != 4)
-	{
-		if (temp->type == 7)//&& temp->prev->type != 8
-		{
-			freelist(g_state.env);
-			freelist(g_state.exprt);
-			if (lst)
-				free_list(lst);
-			write(1, "exit\n", ft_strlen("exit\n"));
-			exit(g_state.output);
-		}
-		temp = (t_dlist *)temp->next;
-	}
+	freelist(g_state.env);
+	freelist(g_state.exprt);
+	rl_clear_history();
+	printf("exit\n");
+	exit(g_state.output);
 }
+
+int chek_arg(char *arg)
+{
+	
+}
+
+int	do_exit(char **exit_arg)
+{
+	int i;
+
+	i = 0;
+	while (exit_arg[i])
+	{
+		if (chek_arg(exit_arg[i++]))
+			return (1);
+	}
+	quit_shell();
+	return (0);
+}
+
+//Note Exit
+// -> si premier argument est valid et deuxiemen non on exit pas
+// affiche message derreur 
+//si exit sans arg exit(g_state_output)
+//si on envoi un nombre < 256 g_State.output aka $? = ce nombre
+
+// comme premier arg 0 a 255 on affiche 
+//256 = 0
+//257 = 1
+//

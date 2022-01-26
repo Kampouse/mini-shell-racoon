@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/22 21:31:26 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:09:13 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,56 +50,8 @@ int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst)
 	free_jobs(job, 0);
 	free(paths);
 	freelist(g_state.env);
+	rl_clear_history();
 	exit(127);
-	return (0);
-}
-
-void	command_not_found(t_jobs *job)
-{
-	struct stat		sa;
-
-	if (job->eval)
-	{
-		if (strncmp(job->eval[0], "./", 2) == 0 || strncmp(job->eval[0],
-				"../", 2) == 0)
-		{
-			if (stat(job->eval[0], &sa) == 0 && !(sa.st_mode & S_IXUSR))
-			{
-				ft_putstr_fd(job->eval[0], 2);
-				ft_putstr_fd(": Permission Denied", 2);
-				ft_putstr_fd("\n", 2);
-				g_state.output = 126;
-				return ;
-			}
-			perror(job->eval[0]);
-			g_state.output = 126;
-			return ;
-		}
-		ft_putstr_fd("command not found: ", 2);
-		ft_putstr_fd(job->eval[0], 2);
-		ft_putstr_fd("\n", 2);
-		g_state.output = 127;
-	}
-}
-
-int	is_file_exec(t_jobs *job)
-{
-	struct stat	stats;
-
-	if (job->eval)
-	{
-		if (!(strncmp(job->eval[0], "./", 2)))
-		{
-			if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
-				return (0);
-		}
-		if (stat(job->eval[0], &stats) == 0 && stats.st_mode & S_IXUSR)
-		{
-			return (0);
-		}
-		command_not_found(job);
-		return (1);
-	}
 	return (0);
 }
 
@@ -131,11 +83,11 @@ char	*make_executable(t_jobs *job)
 
 char	*local_exec(t_jobs *job)
 {
-	char			cwd[1024];
+	char			cwd[4096];
 	char			*temp;
 	struct stat		sa;
 
-	getcwd(cwd, 1024);
+	getcwd(cwd, 4096);
 	if (job->eval && ft_strncmp(job->eval[0], "./", 2) == 0)
 	{
 		temp = job->eval[0];
