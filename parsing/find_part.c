@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 12:23:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 17:03:06 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:31:40 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,15 @@ int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
 	pid = fork();
 	if (pid < 0)
 		return (-1);
-	start_signal(1);
+	//start_signal(1);
 	if (pid == 0)
 	{
-		(void)pipes;
+
+		pipe_handler(pipes);
 		redir_handler(job);
 		rl_clear_history();
-		start_signal(2);
-		 //pipe_handler(pipes, state, job);
 		exec_the_bin((char *)local, job, lst);
+	//	start_signal(0);
 	}
 	waitpid(pid, &status, 0);
 	free((char *)local);
