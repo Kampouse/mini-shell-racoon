@@ -6,9 +6,10 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/26 20:45:45 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:49:29 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
 /*   Updated: 2022/01/25 13:20:34 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:20:22 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +24,8 @@ int	check_bultin(t_jobs *job)
 		g_state.output = do_env(job);
 	else if (job->cmd_type == 6)
 		g_state.output = do_export(job);
-	//else if (job->cmd_type == 7)
-		//g_state.output = do_exit(job);
+	else if (job->cmd_type == 7)
+		g_state.output = do_exit(job->cmd);
 	else if (job->cmd_type == 8)
 		g_state.output = do_echo(job);
 	else if (job->cmd_type == 9)
@@ -73,7 +74,7 @@ void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	
 	if (job->cmd_type >= 0)
 	{
-		pipe_handler(pipes);
+		//pipe_handler(pipes);
 		redir_handler(job);
 		check_bultin(job);
 		//start_signal(0);

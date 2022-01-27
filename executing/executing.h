@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/26 21:01:06 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:45:59 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:19:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTING_H
 # define EXECUTING_H
-
 # include "../jobs/jobs.h"
 # include <stdbool.h>
 
@@ -88,5 +88,8 @@ int			redir_handler(t_jobs *job);
 // Pipe
 t_pipe		*ft_pipe(t_jobs *jobs);
 int			job_count(t_jobs *job);
+
+// Exit
+int		do_exit(char **exit_arg);
 
 #endif
