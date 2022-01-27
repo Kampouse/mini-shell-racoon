@@ -7,7 +7,6 @@ SRCS =  main.c \
 		\
 		./parsing/parsing.c \
 		./parsing/prompt_eval.c \
-		./parsing/find_part.c \
 		./parsing/signal_docc.c \
 		./parsing/tokens_jobs.c \
 		./parsing/tokens_precursors.c \
@@ -29,6 +28,7 @@ SRCS =  main.c \
 		./executing/redir_handler.c \
 		./executing/path_handler_utils.c \
 		./executing/path_handle.c \
+		./executing/find_part.c \
 		./executing/command_not_found.c \
 		./executing/pipe.c \
 		\
