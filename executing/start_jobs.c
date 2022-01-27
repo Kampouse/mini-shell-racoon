@@ -6,12 +6,11 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/27 13:09:57 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:54:15 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* ************************************************************************** */
-
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
@@ -75,7 +74,7 @@ void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	
 	if (job->cmd_type >= 0)
 	{
-		pipe_handler(pipes);
+		//pipe_handler(pipes);
 		redir_handler(job);
 		check_bultin(job);
 		//start_signal(0);

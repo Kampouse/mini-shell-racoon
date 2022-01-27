@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/27 13:53:10 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:54:09 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "parsing.h"
 
 /* loop that  evalute   entire  line that it as read */
+
+
 void	parser_muduled(t_jobs *job, t_dlist *lst)
 {
 	t_jobs		*temp;

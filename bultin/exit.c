@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/27 13:41:00 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:09:30 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,13 @@ int	check_arg(char *arg)
 	int	i;
 
 	i = 0;
+	printf("arg = %d\n", ft_atoi(arg));
 	while (arg[i])
-		if (!ft_isdigit(arg[i++]))
+	{
+		if (!ft_isdigit(arg[i]))
 			return (2);
+		i++;		
+	}
 	g_state.output = ft_atoi(arg);
 	if (g_state.output > 255)
 		g_state.output = ((ft_atoi(arg) % 255) - 1);
@@ -48,7 +52,7 @@ int	do_exit(char **exit_arg)
 	}
 	else if (ft_tab_len(exit_arg) == 2)
 	{
-		if (check_arg(exit_arg[1]) == 2)
+		if (check_arg(exit_arg[1]) == 2 && ft_atoi(exit_arg[1]) != 2)
 		{
 			type = 1;
 			g_state.output = 2;

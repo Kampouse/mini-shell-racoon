@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:48:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/26 14:18:52 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:50:13 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,28 +56,3 @@ int	token_scanner(char *str, size_t *token_size, int inc)
 	free((char *) trimed);
 	return (-2);
 }
-
-/*  exit  */
-// void	tokens_peek(t_dlist *lst)
-// {
-// 	t_dlist	*temp;
-
-// 	temp = NULL;
-// 	if (lst)
-// 		temp = lst;
-// 	while (temp && temp->type != 4)
-// 	{
-// 		if (temp->type == 7)
-// 		{
-// 			freelist(g_state.env);
-// 			freelist(g_state.exprt);
-// 			if (lst)
-// 				free_list(lst);
-// 			write(1, "exit\n", ft_strlen("exit\n"));
-// 			unlink("/tmp/here_docced");
-// 			exit(g_state.output);
-// 		}
-// 		temp = (t_dlist *)temp->next;
-// 	}
-// }
-
