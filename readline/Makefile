@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /home/olabrecq/projet42/mini-shell-racoon/readline
+BUILD_DIR = /Users/olabrecq/Project/mini-shell-racoon/readline
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}

@@ -6,13 +6,13 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/27 11:48:21 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:41:00 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+#	include "../minishell.h"
 
-void quit_shell(int type)
+void	quit_shell(int type)
 {
 	if (!type)
 		printf("exit\n");
@@ -22,12 +22,12 @@ void quit_shell(int type)
 	exit(g_state.output);
 }
 
-int check_arg(char *arg)
+int	check_arg(char *arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(arg[i])
+	while (arg[i])
 		if (!ft_isdigit(arg[i++]))
 			return (2);
 	g_state.output = ft_atoi(arg);
@@ -38,7 +38,7 @@ int check_arg(char *arg)
 
 int	do_exit(char **exit_arg)
 {
-	int type;
+	int	type;
 
 	type = 0;
 	if (ft_tab_len(exit_arg) > 2)
@@ -52,10 +52,10 @@ int	do_exit(char **exit_arg)
 		{
 			type = 1;
 			g_state.output = 2;
-			printf("exit\nmini-shell-recoon: %s: numeric argument required\n", exit_arg[1]);
+			printf("exit\nmini-shell-recoon: %s: numeric argument required\n", \
+			exit_arg[1]);
 		}
 	}
 	quit_shell(type);
 	return (0);
 }
-

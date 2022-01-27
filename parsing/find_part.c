@@ -1,18 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   find_part.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/25 12:23:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 17:03:06 by jemartel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 
 #include <sys/stat.h>
 #include "../minishell.h"
+#include <stdio.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
 
@@ -75,21 +64,36 @@ int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
 
 	if (!local || is_folder(job, (char *)local))
 		return (g_state.output);
+
 	pid = fork();
 	if (pid < 0)
 		return (-1);
-	start_signal(1);
+//	start_signal(1);
 	if (pid == 0)
 	{
-		(void)pipes;
+		if(pipes->state == 0)
+		{
+			ft_putnbr_fd(STDOUT_FILENO,2);
+			dup2(pipes->test[1],STDOUT_FILENO);
+			ft_putnbr_fd(STDOUT_FILENO,2);
+			close(pipes->test[1]);
+			close(pipes->test[0]);
+
+		}
+		if(pipes->state == 1)
+		{
+			ft_putnbr_fd(STDOUT_FILENO,2);
+		}
 		redir_handler(job);
 		rl_clear_history();
-		start_signal(2);
-		 //pipe_handler(pipes, state, job);
 		exec_the_bin((char *)local, job, lst);
+		//start_signal(0);
 	}
 	waitpid(pid, &status, 0);
+		dup2(pipes->test[0],STDIN_FILENO);
+			close(pipes->test[1]);
+			close(pipes->test[0]);
 	free((char *)local);
-	start_signal(1);
+	//start_signal(1);
 	return (WEXITSTATUS(status));
 }

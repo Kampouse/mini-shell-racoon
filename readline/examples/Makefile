@@ -32,7 +32,7 @@ datadir = ${datarootdir}
 
 top_srcdir = ..
 #BUILD_DIR = .
-BUILD_DIR = /home/olabrecq/projet42/mini-shell-racoon/readline
+BUILD_DIR = /Users/olabrecq/Project/mini-shell-racoon/readline
 installdir = $(datadir)/readline
 
 INSTALL = /usr/bin/install -c

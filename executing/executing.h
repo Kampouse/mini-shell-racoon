@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/26 14:19:59 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:09:50 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,11 @@ typedef struct s_exec
 typedef struct s_pipe
 {
 	int				pipe_nbr;
+	int				state;
+	int				state_b;
 	int				**pipes;
 	int				*pids;
+	int				*test;
 }	t_pipe;
 
 extern t_exec	g_state;

@@ -6,8 +6,10 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/26 14:20:22 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:09:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
+/* ************************************************************************** */
+
 /* ************************************************************************** */
 
 /* ************************************************************************** */
@@ -73,14 +75,15 @@ void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	
 	if (job->cmd_type >= 0)
 	{
+		pipe_handler(pipes);
 		redir_handler(job);
 		check_bultin(job);
+		//start_signal(0);
+		pipes->state++;
 		return ;
 	}
-	if(pipes)
-	{
-		//printf("%d",pipes->pipes[inc][0]);
-	}
 	if (redir_handler(job) >= 0)
+	{
 		g_state.output = path_resolver(job, lst, pipes);
+	}
 }
