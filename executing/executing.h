@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/26 15:57:51 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 21:01:06 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ typedef struct s_pipe
 	int				state;
 	int				state_b;
 	int				**pipes;
-	int				test[2];
 	int				*pids;
+	int				*test;
 }	t_pipe;
 
 extern t_exec	g_state;

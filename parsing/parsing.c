@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/26 17:12:17 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 21:38:17 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,30 @@ void	parser_muduled(t_jobs *job, t_dlist *lst)
 	t_jobs		*temp;
 	t_pipe 			*pipes;
 	int counter;
+	int hello[2];
 	
 	counter = 0;
 	temp = job;
-	pipes = ft_pipe(job);
-	pipe(pipes->test);
-	while (temp)
+	pipes = ft_calloc(sizeof(t_pipe ),1);
+	if(pipes)
+	{
+		pipes->state = 0;
+		pipes->test = NULL;
+		pipes->test = hello;
+		pipe(pipes->test);
+	}
+		while (temp)
 	{
 		start_job(temp, lst, pipes);
 		temp = temp->next;
-		if(counter == 1)
-		{
-			printf("reset\n");
-			//pipe(pipes->test);
-			pipes->state = -1;
-			counter =  -1;
-		}
 		pipes->state++;
-		counter++;
 	}
+	if(pipes)
+		{
+			printf("%d\n",pipes->state);
+		}
+		counter++;
+	
 	delete_pipe(pipes,1);
 	free_jobs((t_jobs *)job, 0);
 }
@@ -98,7 +103,7 @@ void	parsing(void)
 			if (lst != NULL)
 				parser_core(lst);
 		}
-		else if (trimed)
+		else if (!trimed)
 		{
 			freelist(g_state.env);
 			freelist(g_state.exprt);

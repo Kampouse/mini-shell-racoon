@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:58:34 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/26 17:53:21 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 20:21:21 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_pipe	*init_pipes(t_pipe *pipes, int len)
 	inc = 0;
 	pipes->state = 0;
 //	pipes->read_location = 0;
-	pipe(pipes->test);
+//	pipe(pipes->test);
 	while (inc != len)
 	{
 		if (pipe(pipes->pipes[inc]) < 0)
@@ -86,7 +86,7 @@ int	pipe_handler(t_pipe *pipes)
 	}
 	else
 	{
-		printf("%d",dup2(pipes->test[0],0));
+		printf("%d hello",dup2(pipes->test[0],0));
 		close(pipes->test[1]);
 	}
 	return (0);

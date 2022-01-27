@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/26 17:07:15 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 20:45:45 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
 /*   Updated: 2022/01/25 13:20:34 by olabrecq         ###   ########.fr       */
 /*                                                                            */
@@ -83,7 +83,5 @@ void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	if (redir_handler(job) >= 0)
 	{
 		g_state.output = path_resolver(job, lst, pipes);
-		if(pipes)
-			pipes->state++;
 	}
 }
