@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/27 15:17:11 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/28 11:53:06 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct s_pipe
 	int				pipe_nbr;
 	int				state;
 	int				state_b;
-	int				**pipes;//
+	int				**pipes;
 	int				*pids;
 	int				*test;
 }	t_pipe;
