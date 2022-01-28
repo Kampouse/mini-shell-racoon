@@ -90,9 +90,9 @@ int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
 		//start_signal(0);
 	}
 	waitpid(pid, &status, 0);
-		dup2(pipes->test[0],STDIN_FILENO);
-			close(pipes->test[1]);
-			close(pipes->test[0]);
+	dup2(pipes->test[0],STDIN_FILENO);
+	close(pipes->test[1]);
+	close(pipes->test[0]);
 	free((char *)local);
 	//start_signal(1);
 	return (WEXITSTATUS(status));

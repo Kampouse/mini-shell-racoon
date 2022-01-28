@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 18:48:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 14:03:07 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:29:12 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	create_export(envp);
 	g_state.stdin = dup(0);
 	g_state.stdout = dup(1);
+	start_signal(0);
 	int fd;
 	if (argc > 3)
 	{

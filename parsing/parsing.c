@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/28 11:49:09 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:33:01 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,30 @@
 /* loop that  evalute   entire  line that it as read */
 
 
+void copy_pipe(t_pipe *pipes)
+{
+	pipes->old_pipe[1] = pipes->piped[1];
+	pipes->old_pipe[0] = pipes->piped[0];
+}
+void close_pipe(t_pipe *pipes)
+{
+	close(pipes->piped[1]);
+	close(pipes->piped[0]);
+}
+void refresh_pipe(t_pipe *pipes,int pipe0,int pipe1)
+{
+	pipes->piped[0] = pipe0;
+	pipes->piped[1] = pipe1;
+}
+
+
+
+
 void	parser_muduled(t_jobs *job, t_dlist *lst)
 {
 	t_jobs		*temp;
 	t_pipe 			*pipes;
 	int counter;
-	int hello[2];
 	
 	counter = 0;
 	temp = job;
@@ -29,15 +47,32 @@ void	parser_muduled(t_jobs *job, t_dlist *lst)
 	if(pipes)
 	{
 		pipes->state = 0;
-		pipes->test = NULL;
-		pipes->test = hello;
-		pipe(pipes->test);
+		pipes->old_pipe[1] = -1;
+		pipes->old_pipe[0] = -1;
+		pipe(pipes->piped);
 	}
 		while (temp)
 	{
+			if(pipes->state == 1)
+		{
+
+			//close(pipes->piped[0]);
+			//close(pipes->piped[1]);
+		}
 		start_job(temp, lst, pipes);
 		temp = temp->next;
 		pipes->state++;
+	}
+	int inc;
+
+	inc = 0;
+	while(inc < pipes->state)
+	{
+	
+		wait(&counter);
+		inc++;
+
+
 	}
 	if(pipes)
 		{

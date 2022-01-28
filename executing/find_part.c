@@ -55,6 +55,34 @@ int	is_folder(t_jobs *jobs, char *local)
 }
 
 /* fork the process  before exectuion  and wait for the child */
+/*
+int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
+{
+	int			pid;
+	int			status;
+	const char	*local = make_executable(job);
+
+	if (!local || is_folder(job, (char *)local))
+		return (g_state.output);
+	pid = fork();
+	if (pid < 0)
+		return (-1);
+	start_signal(1);
+	if (pid == 0)
+	{
+		(void)pipes;
+		redir_handler(job);
+		rl_clear_history();
+		start_signal(2);
+		 //pipe_handler(pipes, state, job);
+		exec_the_bin((char *)local, job, lst);
+	}
+	waitpid(pid, &status, 0);
+	free((char *)local);
+	start_signal(1);
+	return (WEXITSTATUS(status));
+	}
+	*/
 
 int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
 {
@@ -68,26 +96,31 @@ int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
 	pid = fork();
 	if (pid < 0)
 		return (-1);
-//	start_signal(1);
+	start_signal(1);
 	if (pid == 0)
 	{
-		printf("%d",pipes->state);
-		dup2(pipes->test[1],STDOUT_FILENO);
-		redir_handler(job);
-		rl_clear_history();
-		exec_the_bin((char *)local, job, lst);
-		//start_signal(0);
+	if(pipes->state == 0)
+		dup2(pipes->piped[1],STDOUT_FILENO);
+	if(pipes->old_pipe[1] != -1)
+	{
+		dup2(pipes->old_pipe[0],STDIN_FILENO);
 	}
-	waitpid(pid, &status, 0);
+	redir_handler(job);
+	rl_clear_history();
+	//signal(SIGINT, SIG_DFL);
+	exec_the_bin((char *)local, job, lst);
+	}
 	if(pipes->state == 0 || pipes->state % 2 == 0)
 	{
-		dup2(pipes->test[0],STDIN_FILENO);
-		close(pipes->test[1]);
+		dup2(pipes->piped[0],STDIN_FILENO);
+		close(pipes->piped[1]);
 		if(pipes->state == 1)
 		{
-			pipe(pipes->test);	
+			//pipe(pipes->test);	
 		}
 	}
 	free((char *)local);
+	//start_signal(1);
 	return (WEXITSTATUS(status));
 }
+
