@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/27 17:16:36 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/28 14:20:33 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,17 @@ void	parser_muduled(t_jobs *job, t_dlist *lst)
 		start_job(temp, lst, pipes);
 		temp = temp->next;
 		pipes->state++;
+	}
+	int inc;
+
+	inc = 0;
+	while(inc < pipes->state)
+	{
+	
+		wait(&counter);
+		inc++;
+
+
 	}
 	if(pipes)
 		{

@@ -110,7 +110,6 @@ int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
 	//signal(SIGINT, SIG_DFL);
 	exec_the_bin((char *)local, job, lst);
 	}
-	waitpid(pid, &status, 0);
 	if(pipes->state == 0 || pipes->state % 2 == 0)
 	{
 		dup2(pipes->piped[0],STDIN_FILENO);
