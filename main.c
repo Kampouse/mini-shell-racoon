@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 18:48:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/27 14:29:12 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 04:09:11 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ t_exec	g_state = {0};
 
 int	main(int argc, char **argv, char **envp)
 {
+
+	int fd;
+
 	create_env(envp);
 	create_export(envp);
 	g_state.stdin = dup(0);
 	g_state.stdout = dup(1);
-	start_signal(0);
-	int fd;
+	//start_signal(0);
 	if (argc > 3)
 	{
 		ft_putstr("Invalid number of arguments\n");

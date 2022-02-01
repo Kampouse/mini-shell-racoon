@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 10:46:47 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/16 01:05:40 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:46:19 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,5 @@ void	free_list(t_dlist *head)
 		free(head);
 		free_list(next);
 	}
+	head = NULL;
 }

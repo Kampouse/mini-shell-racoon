@@ -50,13 +50,17 @@ void		quick_parser(char *str);
 int			same_len (char *str ,char *str2);
 void		start_job(t_jobs *job, t_dlist *lst,t_pipe *pipes);
 
-void	delete_pipe(t_pipe *pipes, int should_delete);
+void		delete_pipe(t_pipe *pipes, int should_delete);
 int			pipe_handler(t_pipe *pipes);
 void		start_signal(int type);
 char		*find_part(char *first, char *str, int inc, size_t **len);
-int			exec_the_bin(char *paths, t_jobs *job, t_dlist *lst);
+int			exec_the_bin(char *paths, t_jobs *job, t_dlist *lst,t_pipe *pipes);
 char		*make_executable(t_jobs *job);
 void		command_not_found(t_jobs *job);
 int			is_file_exec(t_jobs *job);
 void		command_not_found(t_jobs *job);
+int			restore_signal(const int signum);
+void	sig_cc(int signum); 
+void	sig_chi(int signum);
+
 #endif 

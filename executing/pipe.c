@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:58:34 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/27 15:15:35 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/01 02:18:56 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,25 +71,4 @@ t_pipe	*ft_pipe(t_jobs *jobs)
 		inc++;
 	}
 	return (init_pipes(data, len));
-}
-
-int	pipe_handler(t_pipe *pipes)
-{
-	if(pipes)
-	{
-
-	
-	if(pipes->state == 0)
-	{
-		printf("stdin:%d\n",pipes->state);
-		dup2(pipes->test[1],1);
-	}
-	else
-	{
-		printf("%d hello",dup2(pipes->test[0],0));
-		close(pipes->test[1]);
-	}
-	return (0);
-	}
-	return (0);
 }
