@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_part.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/02/01 15:16:10 by jemartel          #+#    #+#             */
+/*   Updated: 2022/02/01 17:46:02 by jemartel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <sys/stat.h>
 #include "../minishell.h"
@@ -53,31 +64,26 @@ int	is_folder(t_jobs *jobs, char *local)
 	}
 	return (0);
 }
- void handle_fd(t_pipe *pipes)
+
+void	delete_builtin(t_jobs *job, t_pipe *pipes, const char *local)
 {
-	if (pipes && pipes->state < pipes->pipe_nbr)
-		{
-			dup2(pipes->pipes[pipes->state][1],1);
-			close( pipes->pipes[pipes->state][1]);
-			close( pipes->pipes[pipes->state][0]);
-		}
-	if (pipes && pipes->state != 0)
+	if (job->cmd_type >= 0)
 	{
-		dup2(pipes->pipes[pipes->state - 1][0],STDIN_FILENO);
-		close(pipes->pipes[pipes->state - 1][1]);
-		close(pipes->pipes[pipes->state - 1][0]);
-	}
-}
- void handle_fd_main(t_pipe *pipes)
-{
-	if (pipes && pipes->state > 0)
-	{
-		close(pipes->pipes[pipes->state - 1][0]);
-		close(pipes->pipes[pipes->state - 1][1]);
+		check_bultin(job);
+		job->status = g_state.output;
+		while (job->prev)
+			job = job->prev;
+		free_jobs(job, 0);
+		freelist(g_state.exprt);
+		freelist(g_state.env);
+		rl_clear_history();
+		delete_pipe(pipes, 1);
+		free((void *) local);
+		exit(g_state.output);
 	}
 }
 
-int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
+int	path_resolver(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 {
 	int			pid;
 	int			status;
@@ -86,36 +92,19 @@ int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
 	if (!local || is_folder(job, (char *)local))
 		return (g_state.output);
 	pid = -1;
-//restore_signal(SIGINT);
-//restore_signal(SIGQUIT);
-
 	pid = fork();
 	if (pid < 0)
 		return (-1);
 	if (pid == 0)
 	{
-			handle_fd(pipes);
-			redir_handler(job);
-			rl_clear_history();
-			signal(SIGINT, SIG_DFL);
-			signal(SIGQUIT, SIG_DFL);
-			if(job->cmd_type >= 0)
-		{
-			check_bultin(job);	
-			job->status = g_state.output;
-			while(job->prev)
-				job = job->prev;
-			free_jobs(job, 0);
-			freelist(g_state.exprt);
-			free_list(lst);
-			freelist(g_state.env);
-			rl_clear_history();
-			delete_pipe(pipes,1);
-			free((void*) local);
-			exit(g_state.output);
-		}
-			job->status = g_state.output;
-			exec_the_bin((char *)local, job, lst,pipes);
+		handle_fd(pipes);
+		redir_handler(job);
+		rl_clear_history();
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		delete_builtin(job, pipes, local);
+		job->status = g_state.output;
+		exec_the_bin((char *)local, job, lst, pipes);
 	}
 	handle_fd_main(pipes);
 	free((char *)local);

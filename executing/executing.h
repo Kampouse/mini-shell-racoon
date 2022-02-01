@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 13:44:26 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 17:44:55 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/26 14:19:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -80,6 +80,7 @@ t_pipe		*ft_pipe(t_jobs *jobs);
 int			job_count(t_jobs *job);
 
 // Exit
-int		do_exit(t_jobs *job);
-
+int			do_exit(t_jobs *job);
+void		handle_fd(t_pipe *pipes);
+void		handle_fd_main(t_pipe *pipes);
 #endif

@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 16:02:07 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/31 17:08:05 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:14:37 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	is_file_exec(t_jobs *job)
 		{
 			return (0);
 		}
-		if(check_bultin(job) == 1)
+		if (check_bultin(job) == 1)
 			command_not_found(job);
 		return (1);
 	}

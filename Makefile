@@ -12,6 +12,7 @@ SRCS =  main.c \
 		./parsing/tokens_precursors.c \
 		./parsing/token_typer.c \
 		./parsing/token_loop.c \
+		./parsing/start_signal.c \
 		\
 		./dblink/dblink.c \
 		./dblink/dblink_utils.c \
@@ -32,6 +33,7 @@ SRCS =  main.c \
 		./executing/find_part.c \
 		./executing/command_not_found.c \
 		./executing/pipe.c \
+		./executing/fd.c \
 		\
 		./jobs/jobs_redir.c \
 		./jobs/jobs_redir_links.c \
@@ -78,9 +80,10 @@ leak: all
 val: all
 	valgrind   --leak-check=full --track-origins=yes -s --trace-children=yes  ./$(NAME)
 test: all
-	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes --show-reachable=yes  ./$(NAME) -c "echo this | echo this | exit | echo ls"
+	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes --show-reachable=yes  ./$(NAME) -c "ls | echo this | exit | echo ls"
 norm: 
-	@~/bin/result/bin/norminette ${SRCS}
+	norminette ${SRCS}  | grep "Error!"
+	norminette ${SRCS}  | grep "Error:"
 
 
 clean:

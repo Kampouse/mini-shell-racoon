@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 05:10:27 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:13:28 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	docc_out(t_jobs *job, t_redir *temp)
 	if (pid == 0)
 		squash_delete(job, temp, fd, str);
 	waitpid(pid, &status, 0);
-
 	g_state.output = status;
 }
 

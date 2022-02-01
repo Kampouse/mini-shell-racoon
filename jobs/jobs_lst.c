@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:30:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 05:20:00 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:19:10 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ int	jobs_lst_counter(t_dlist *lst)
 	}
 	return (count);
 }
+
 /* might breaks something */
 void	ft_anything(t_dlist *temp, int inc, char**commands)
 {
 	if (temp && temp->next && temp->next->next)
 	{
-		if(temp->type == 4)
-			return;
+		if (temp->type == 4)
+			return ;
 		temp = temp->next->next;
 		while (temp && (temp->type > 4 || temp->type == -2))
 		{

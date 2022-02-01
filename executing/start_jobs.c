@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 10:48:21 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:17:36 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
 /*   Updated: 2022/01/25 13:20:34 by olabrecq         ###   ########.fr       */
 /*   Updated: 2022/01/26 14:20:22 by olabrecq         ###   ########.fr       */
@@ -21,8 +21,8 @@ int	check_bultin(t_jobs *job)
 	job->cmd = job->eval;
 	if (job->cmd_type == -2)
 	{
-		if(ft_strncmp(job->eval[0],"exit",ft_strlen(job->eval[0]) == 0))
-			return(g_state.output = do_exit(job));
+		if (ft_strncmp(job->eval[0], "exit", ft_strlen(job->eval[0]) == 0))
+			return (g_state.output = do_exit(job));
 		return (1);
 	}
 	else if (job->cmd_type == 5)
@@ -76,13 +76,12 @@ int	check_nb_of_cmd(t_jobs *job)
 * */
 void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 {
-
-	if(pipes == NULL && job->cmd_type != -2)
+	if (pipes == NULL && job->cmd_type != -2)
 	{
-			redir_handler(job);
-			check_bultin(job);	
-			start_signal(0);
-			return;	
+		redir_handler(job);
+		check_bultin(job);
+		start_signal(0);
+		return ;
 	}
 		g_state.output = path_resolver(job, lst, pipes);
 }

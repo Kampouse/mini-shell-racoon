@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:58:56 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 13:43:54 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:18:39 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_pipe
 	int				piped[2];
 }	t_pipe;
 
-
 typedef struct s_redir
 {
 	char			*cmd;
@@ -39,7 +38,6 @@ typedef struct s_redir
 	struct s_redir	*prev;
 
 }		t_redir;
-
 
 typedef struct s_jobs
 {
