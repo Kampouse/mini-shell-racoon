@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 23:37:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/31 16:10:24 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 13:47:07 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_jobs	*node_job(char **cmd)
 	if (!link)
 		return (NULL);
 	link->prev = NULL;
+	link->piped = NULL;
 	link->next = NULL;
 	link->hereduc = NULL;
 	link->redir = NULL;

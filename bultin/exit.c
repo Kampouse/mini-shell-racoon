@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/01 10:57:20 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 13:50:55 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	quit_shell(t_jobs *jobs,int type)
 
 	while(jobs->prev)
 		jobs = jobs->prev;
-	if(job_count(jobs) == 0)
-		free_list(jobs->lst);
-	free_jobs(jobs,0);
+	if(jobs->piped != NULL)
+		delete_pipe(jobs->piped,1);
+	free_jobs(jobs,0); 
 	freelist(g_state.env);
 	freelist(g_state.exprt);
 	rl_clear_history();

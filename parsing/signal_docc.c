@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 03:01:33 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 04:47:24 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 12:34:03 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -24,11 +24,11 @@ void	sig_cc(int signum)
 	if (signum == SIGINT)
 	{
 		rl_on_new_line();
-	rl_redisplay();
-	write(1, "  \n", 3);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
+		rl_redisplay();
+		write(1, "  \n", 3);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 	}
 	else if (signum == SIGQUIT)
 		ft_putstr("\b\b \b\b");
@@ -48,7 +48,12 @@ void	sig_c(int signum, siginfo_t *info, void *unsed)
 
 	}
 	else if (signum == SIGQUIT)
+	{
+
 		ft_putstr("\b\b \b\b");
+		rl_redisplay();
+		
+	}
 }
 
 void	sig_child(int signum, siginfo_t *info, void *unsed)

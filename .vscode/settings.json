@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "minishell.h": "c",
-        "history.h": "c",
-        "types.h": "c",
-        "libft.h": "c",
-        "parsing.h": "c"
-    }
-}

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/31 14:34:31 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 13:44:26 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/26 14:19:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -25,17 +25,6 @@ typedef struct s_exec
 	unsigned int	output;
 	unsigned int	redraw;
 }	t_exec;
-
-typedef struct s_pipe
-{
-	int				pipe_nbr;
-	int				state;
-	int				old_pipe[2];
-	int				state_b;
-	int				**pipes;
-	int				*pids;
-	int				piped[2];
-}	t_pipe;
 
 extern t_exec	g_state;
 

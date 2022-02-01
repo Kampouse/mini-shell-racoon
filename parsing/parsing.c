@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 11:25:54 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 13:49:43 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ void	parser_muduled(t_jobs *job, t_dlist *lst)
 	int status;
 
 	temp = job;
-	
+	temp->piped = NULL;
 	pipes = ft_pipe(job);
+	free_list(lst);
+	lst = NULL;
 		while (temp)
 		{
+			temp->piped = pipes;	
 			start_job(temp, lst, pipes);
 			if(pipes)
 				pipes->state++;
@@ -36,7 +39,7 @@ void	parser_muduled(t_jobs *job, t_dlist *lst)
 		while(pipes->state)
 		{
 			start_signal(0);
-			waitpid(0,&status,0);
+			waitpid(-1,&status,0);
 			status = WEXITSTATUS(status);
 			pipes->state--;
 		}
@@ -44,11 +47,11 @@ void	parser_muduled(t_jobs *job, t_dlist *lst)
 	}
 	else
 	{
-		waitpid(0,&status,0);
+		waitpid(-1,&status,0);
 		status = WEXITSTATUS(status);
 	}
 		 g_state.output = status;
-	free_list(lst);
+	lst = NULL;
 	free_jobs((t_jobs *)job, 0);
 }
 
@@ -64,7 +67,6 @@ void	parser_core(t_dlist *lst)
 	inc = 0;
 	if (job)
 	{
-		job->lst = lst;
 		pre_val_redir(job);
 		while (temp)
 		{
@@ -91,6 +93,7 @@ void	quick_parser(char *str)
 			parser_core(lst);
 			//freelist(g_state.env);
 			//freelist(g_state.exprt);
+			free_list(lst);
 		}
 	}	
 }
@@ -105,7 +108,6 @@ void	parsing(void)
 	while (1)
 	{
 			signal(SIGINT, sig_cc);
-			signal(SIGQUIT, SIG_IGN);
 		if (parsing_start(&trimed) && ft_strlen(trimed) > 0)
 		{
 
