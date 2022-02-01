@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/31 17:54:40 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 05:14:14 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst,t_pipe *pipes)
 	free_jobs(job, 0);
 	free(paths);
 	freelist(g_state.env);
-	//rl_clear_history();
+	rl_clear_history();
 	exit(127);
 
 	return (0);
