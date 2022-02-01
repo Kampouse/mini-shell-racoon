@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/28 14:33:01 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:46:51 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void refresh_pipe(t_pipe *pipes,int pipe0,int pipe1)
 	pipes->piped[0] = pipe0;
 	pipes->piped[1] = pipe1;
 }
-
-
 
 
 void	parser_muduled(t_jobs *job, t_dlist *lst)
