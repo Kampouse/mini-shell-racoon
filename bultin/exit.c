@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/31 17:00:15 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:57:20 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,30 +44,30 @@ int	check_arg(char *arg)
 	}
 	g_state.output = ft_atoi(arg);
 	if (g_state.output > 255)
-		g_state.output = ((ft_atoi(arg) % 255) - 1);
-	return (g_state.output);
+		g_state.output = ((ft_atoi(arg) % 256));
+return (g_state.output);
 }
 
 int	do_exit(t_jobs *job)
 {
-	int	type;
+int	type;
 
-	type = 0;
-	if (ft_tab_len(job->eval) > 2)
+type = 0;
+if (ft_tab_len(job->eval) > 2)
+{
+	printf("exit\nmini-shell-recoon: exit: too many arguments\n");
+	return (1);
+}
+else if (ft_tab_len(job->eval) == 2)
+{
+	if (check_arg(job->eval[1]) == 2 && ft_atoi(job->eval[1]) != 2)
 	{
-		printf("exit\nmini-shell-recoon: exit: too many arguments\n");
-		return (1);
+		type = 1;
+		g_state.output = 2;
+		printf("exit\nmini-shell-recoon: %s: numeric argument required\n", \
+		job->eval[1]);
 	}
-	else if (ft_tab_len(job->eval) == 2)
-	{
-		if (check_arg(job->eval[1]) == 2 && ft_atoi(job->eval[1]) != 2)
-		{
-			type = 1;
-			g_state.output = 2;
-			printf("exit\nmini-shell-recoon: %s: numeric argument required\n", \
-			job->eval[1]);
-		}
-	}
-	quit_shell(job, type);
-	return (0);
+}
+quit_shell(job, type);
+return (0);
 }
