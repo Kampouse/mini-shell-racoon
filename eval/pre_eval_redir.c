@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 16:13:28 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 04:33:52 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,13 @@ void	docc_out(t_jobs *job, t_redir *temp)
 
 	fd = 0;
 	str = NULL;
-	g_state.redraw = 1;
 	pid = fork();
 	if (pid < 0)
 		return ;
 	if (pid == 0)
 		squash_delete(job, temp, fd, str);
 	waitpid(pid, &status, 0);
-	g_state.output = status;
+	g_state.error = 130;
 }
 
 char	*eval_docc(t_redir *temp)

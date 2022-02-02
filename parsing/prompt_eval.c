@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 16:08:47 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 16:21:54 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 04:29:15 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -43,7 +43,6 @@ char	*parsing_start(char **trimed)
 	char	*prompt;
 
 	prompt = prompt_eval();
-	g_state.redraw = 0;
 	line = readline(prompt);
 	free(prompt);
 	*trimed = ft_strtrim(line, "\n ");

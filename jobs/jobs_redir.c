@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:52:17 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 17:41:52 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:09:59 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	valid_redir( t_dlist *redir)
 t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)
 {
 	t_dlist	*temp;
-	int		type;
 
 	temp = lst;
 	if (!(temp && temp->next && temp->next->next))
@@ -50,13 +49,17 @@ t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)
 		return (temp);
 	else
 	{
-		type = temp->type;
-		temp = temp->next->next;
+		if (!temp->prev && temp->next->next)
+		{
+			redir_addback(redir_lst,
+				node_redir(temp->next->content, temp->type));
+		}
+		temp = temp->next->next->next;
 	}
 	while (temp && !(temp->type >= 0 && temp->type <= 4))
 	{
 		redir_addback(redir_lst,
-			node_redir(temp->content, type));
+			node_redir(temp->content, temp->type));
 		temp = temp->next;
 	}
 	return (temp);

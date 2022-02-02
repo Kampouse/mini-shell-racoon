@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:17:06 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/01 20:55:03 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:12:17 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_isalpha_word(char *str)
 		if ((str[i] >= 'A' && str[i] <= 'Z'))
 			i++;
 		else if ((str[i] >= 'a' && str[i] <= 'z' ))
-				i++;
+			i++;
 		else
 			return (1);
 	}

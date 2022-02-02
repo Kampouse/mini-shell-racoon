@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/01 14:45:48 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 14:11:08 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	do_exit(t_jobs *job)
 {
 	int	type;
 
-type = 0;
+	type = 0;
 	if (ft_tab_len(job->eval) > 2)
 	{
 		printf("exit\nmini-shell-recoon: exit: too many arguments\n");
