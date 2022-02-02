@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 16:38:52 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:45:38 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	squash_delete(t_jobs *job, t_redir *temp, int fd, char *str)
 		freelist(g_state.env);
 		freelist(g_state.exprt);
 		exit(130);
-
 	}
 }
 

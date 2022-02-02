@@ -6,16 +6,15 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 23:20:57 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 16:16:58 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 11:42:33 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /* verify  if the | symbol is  between two element of the right type */
-int	pipe_return(t_dlist *current,int status)
+int	pipe_return(t_dlist *current, int status)
 {
-
 	if (status == -1)
 	{
 		free_nodes(current);

@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:52:17 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 16:14:11 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 12:22:07 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,7 @@ t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)
 				node_redir(temp->next->content, temp->type));
 		}
 		temp = temp->next->next->next;
-	}
-	while (temp && !(temp->type >= 0 && temp->type <= 4))
-	{
-		redir_addback(redir_lst,
-			node_redir(temp->content, temp->type));
-		temp = temp->next;
+		return(redir_tail(redir_lst,temp));
 	}
 	return (temp);
 }
