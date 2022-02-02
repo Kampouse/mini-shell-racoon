@@ -6,17 +6,19 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 23:20:57 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 14:29:24 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:16:58 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /* verify  if the | symbol is  between two element of the right type */
-int	pipe_return(int status)
+int	pipe_return(t_dlist *current,int status)
 {
+
 	if (status == -1)
 	{
+		free_nodes(current);
 		printf("syntax error near unexpected token `|'\n");
 		return (-1);
 	}
@@ -33,11 +35,11 @@ int	piping_verif(t_dlist *lst)
 		if (temp->type == 4)
 		{
 			if (temp->prev && (temp->prev->type >= 0 && temp->prev->type <= 4))
-				return (pipe_return(-1));
+				return (pipe_return(temp, -1));
 			if (temp->next && temp->next->type == 4)
-				return (pipe_return(-1));
+				return (pipe_return(temp, -1));
 			if (!temp->prev || !temp->next)
-				return (pipe_return(-1));
+				return (pipe_return(temp, -1));
 		}
 		temp = temp->next;
 	}

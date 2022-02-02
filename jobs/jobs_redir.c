@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:52:17 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 14:09:59 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:14:11 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_redir	*redir_creator(t_dlist *redir, int *status)
 			*status = -1;
 			ft_putstr_fd("error at newLine\n", 2);
 			free_redir(redir_lst);
+			free_nodes(temp);
 			return (NULL);
 		}
 		redir_tail(&redir_lst, temp);
