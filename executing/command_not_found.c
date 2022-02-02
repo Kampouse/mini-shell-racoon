@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 16:02:07 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 16:14:37 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 21:17:02 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ void	command_not_found(t_jobs *job)
 				ft_putstr_fd(job->eval[0], 2);
 				ft_putstr_fd(": Permission Denied", 2);
 				ft_putstr_fd("\n", 2);
-				g_state.output = 126;
+				g_state.error = 126;
 				return ;
 			}
 			perror(job->eval[0]);
-			g_state.output = 126;
+			g_state.error = 126;
 			return ;
 		}
 		ft_putstr_fd("command not found: ", 2);
 		ft_putstr_fd(job->eval[0], 2);
 		ft_putstr_fd("\n", 2);
-		g_state.output = 127;
+		g_state.error = 127;
 	}
 }
 

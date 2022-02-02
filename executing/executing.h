@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 17:44:55 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 21:15:40 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/26 14:19:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -23,7 +23,7 @@ typedef struct s_exec
 	int				stdin;
 	int				stdout;
 	unsigned int	output;
-	unsigned int	redraw;
+	unsigned int	error;
 }	t_exec;
 
 extern t_exec	g_state;
