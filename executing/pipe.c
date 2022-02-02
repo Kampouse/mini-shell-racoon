@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:58:34 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/01 15:52:55 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 19:37:38 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	delete_pipe(t_pipe *pipes, int should_delete)
 	{
 		while (inc < pipes->pipe_nbr)
 		{
+			close(pipes->pipes[inc][0]);
+			close(pipes->pipes[inc][1]);
 			free(pipes->pipes[inc]);
 			inc++;
 		}
