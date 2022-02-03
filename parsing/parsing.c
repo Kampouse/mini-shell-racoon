@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 08:12:46 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 16:56:22 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	parser_muduled(t_jobs *job, t_dlist *lst)
 	t_pipe	*pipes;
 
 	temp = job;
+	g_state.output = 0;
 	pipes = ft_pipe(job);
 	free_list(lst);
 	lst = NULL;

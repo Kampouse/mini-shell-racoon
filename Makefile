@@ -99,7 +99,7 @@ git:
 		./eval/eval.h
 
 fclean: 
-		@echo "\033[0;31m Removing executable..."
+		@echo "\033[0;31m NUKED everything and may our sanity rest..."
 		@${RM} ${NAME} 
 	    @rm -rf ${OBJS} > /tmp/out
 		@make -C libft fclean > /tmp/out
