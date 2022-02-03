@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:52:17 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 14:57:35 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:28:21 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 int	valid_redir( t_dlist *redir)
 {
+	if(redir)
+	{
 	if (redir->type >= 0 && redir->type <= 3)
 	{
 		if (redir->next && !(redir->next->type >= 0 && redir->next->type <= 4))
@@ -36,12 +38,13 @@ int	valid_redir( t_dlist *redir)
 		return (0);
 	g_state.output = 2;
 	return (-1);
+	}
+	return(-2);
 }
 
 t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)
 {
 	t_dlist	*temp;
-	int		type;
 
 	temp = lst;
 	if (!(temp && temp->next && temp->next->next))
@@ -50,14 +53,13 @@ t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)
 		return (temp);
 	else
 	{
-		type = temp->type;
-		temp = temp->next->next;
-	}
-	while (temp && !(temp->type >= 0 && temp->type <= 4))
-	{
-		redir_addback(redir_lst,
-			node_redir(temp->content, type));
-		temp = temp->next;
+		if (!temp->prev && temp->next->next)
+		{
+			redir_addback(redir_lst,
+				node_redir(temp->next->content, temp->type));
+		}
+		temp = temp->next->next->next;
+		return(redir_tail(redir_lst,temp));
 	}
 	return (temp);
 }
@@ -79,6 +81,7 @@ t_redir	*redir_creator(t_dlist *redir, int *status)
 			*status = -1;
 			ft_putstr_fd("error at newLine\n", 2);
 			free_redir(redir_lst);
+			free_nodes(temp);
 			return (NULL);
 		}
 		redir_tail(&redir_lst, temp);

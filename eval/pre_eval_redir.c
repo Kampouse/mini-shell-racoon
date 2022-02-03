@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 05:10:27 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:13:06 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,51 +17,48 @@
 
 char	*eval_docc(t_redir *temp);
 
-void	squash_delete(t_jobs *job, t_redir *temp, int fd, char *str)
+void	squash_delete(t_jobs *job, t_redir *temp, t_dlist *lst, char *str)
 {
-	job->eval = job->cmd;
+	int fd;
+
 	signal(SIGINT, SIG_DFL);
 	str = eval_docc(temp);
-	job->eval = job->cmd;
 	if (str != NULL)
 	{
 		fd = open("/tmp/here_docced", O_TRUNC | O_CREAT | O_RDWR, 0644);
 		write(fd, str, ft_strlen(str));
 		free(str);
+		while(job->prev)
+			job = job->prev;
 		free_jobs(job, 0);
+		free_nodes(lst);
 		freelist(g_state.env);
 		freelist(g_state.exprt);
 		rl_clear_history();
-		close(fd);
 		exit(0);
 	}
 	else
 	{
-		free_jobs(job, 0);
 		freelist(g_state.env);
 		freelist(g_state.exprt);
 		exit(130);
 	}
 }
 
-void	docc_out(t_jobs *job, t_redir *temp)
+void	docc_out(t_jobs *job, t_redir *temp,t_dlist *lst)
 {
 	int		pid;
 	int		status;
 	char	*str;
-	int		fd;
 
-	fd = 0;
 	str = NULL;
-	g_state.redraw = 1;
 	pid = fork();
 	if (pid < 0)
 		return ;
 	if (pid == 0)
-		squash_delete(job, temp, fd, str);
+		squash_delete(job, temp, lst, str);
 	waitpid(pid, &status, 0);
-
-	g_state.output = status;
+		WEXITSTATUS(status);
 }
 
 char	*eval_docc(t_redir *temp)
@@ -89,21 +86,22 @@ char	*eval_docc(t_redir *temp)
 	return (outcome);
 }
 
-void	pre_val_redir(t_jobs *jobs)
+void	pre_val_redir(t_jobs *jobs,t_dlist *lst)
 {
 	t_redir	*temp;
 
 	temp = NULL;
+	 jobs->status = 0;
 	if (jobs && jobs->redir)
 	{
 		temp = jobs->redir;
 		while (temp)
 		{
 			if (temp->type == 1 && jobs->status == 0)
-				docc_out(jobs, temp);
+				docc_out(jobs, temp,lst);
 			temp = temp->next;
 		}
 		if (jobs && jobs->next)
-			pre_val_redir(jobs->next);
+			pre_val_redir(jobs->next,lst);
 	}
 }

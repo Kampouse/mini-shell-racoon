@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
+/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 18:48:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 10:58:26 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/03 13:41:21 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,14 @@ t_exec	g_state = {0};
 
 int	main(int argc, char **argv, char **envp)
 {
-
-	int fd;
+	int	fd;
 
 	create_env(envp);
 	create_export(envp);
 	g_state.stdin = dup(0);
 	g_state.stdout = dup(1);
-	//start_signal(0);
-	if (argc > 3)
-	{
-		ft_putstr("Invalid number of arguments\n");
-		exit (-1);
-	}
+	g_state.error = 0;
+	g_state.output = 0;
 	if (argc == 3 && ft_strncmp("-c", argv[1], ft_strlen("-c")) == 0)
 	{
 		fd = open("/tmp/here_docced", O_TRUNC | O_CREAT | O_RDWR, 0644);
@@ -38,7 +33,6 @@ int	main(int argc, char **argv, char **envp)
 		quick_parser(argv[2]);
 		freelist(g_state.env);
 		freelist(g_state.exprt);
-		unlink("/tmp/here_docced");
 	}
 	else
 	{

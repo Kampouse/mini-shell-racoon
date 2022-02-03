@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/31 14:34:31 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 21:15:40 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/26 14:19:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -23,19 +23,8 @@ typedef struct s_exec
 	int				stdin;
 	int				stdout;
 	unsigned int	output;
-	unsigned int	redraw;
+	unsigned int	error;
 }	t_exec;
-
-typedef struct s_pipe
-{
-	int				pipe_nbr;
-	int				state;
-	int				old_pipe[2];
-	int				state_b;
-	int				**pipes;
-	int				*pids;
-	int				piped[2];
-}	t_pipe;
 
 extern t_exec	g_state;
 
@@ -91,6 +80,7 @@ t_pipe		*ft_pipe(t_jobs *jobs);
 int			job_count(t_jobs *job);
 
 // Exit
-int		do_exit(t_jobs *job);
-
+int			do_exit(t_jobs *job);
+void		handle_fd(t_pipe *pipes);
+void		handle_fd_main(t_pipe *pipes);
 #endif

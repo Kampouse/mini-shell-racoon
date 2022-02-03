@@ -6,28 +6,27 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/01 11:19:54 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/03 13:41:08 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minishell.h"
+#include "../minishell.h"
 
-void	quit_shell(t_jobs *jobs,int type)
+void	quit_shell(t_jobs *jobs, int type)
 {
 	if (!type)
 		printf("exit\n");
 	close(g_state.stdin);
 	close(g_state.stdout);
-
-	while(jobs->prev)
+	while (jobs->prev)
 		jobs = jobs->prev;
-	if(job_count(jobs) == 0)
-		free_list(jobs->lst);
-	free_jobs(jobs,0);
+	if (jobs->piped != NULL)
+		delete_pipe(jobs->piped, 1);
+	free_jobs(jobs, 0);
 	freelist(g_state.env);
 	freelist(g_state.exprt);
 	rl_clear_history();
-	unlink("/tmp/here_docced");
+	//unlink("/tmp/here_docced");
 	exit(g_state.output);
 }
 
@@ -40,11 +39,11 @@ int	check_arg(char *arg)
 	{
 		if (!ft_isdigit(arg[i]))
 			return (2);
-		i++;		
+		i++;
 	}
 	g_state.output = ft_atoi(arg);
 	if (g_state.output > 255)
-		g_state.output = ((ft_atoi(arg) % 255) - 1);
+		g_state.output = ((ft_atoi(arg) % 256));
 	return (g_state.output);
 }
 

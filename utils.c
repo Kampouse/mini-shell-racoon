@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 20:54:17 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/21 08:53:04 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/01 16:13:18 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,14 @@
 
 /* should clean all the data structures left
  on the  heap also return a status?*/
-/*
-int	exit_please(char **tokens, char *trimed)
-{
-	if (trimed && tokens)
-	{
-		if (find_token(tokens[0], "exit"))
-		{
-			printf("exit\n");
-			free(trimed);
-			freelist(tokens);
-			return (1);
-		}
-	}
-	return (0);
-}
-*/
+
 int	ft_isspace(char elm)
 {
 	if (!elm)
 		return (0);
-	if (elm == ' ' || elm == '\t')
+	if (elm == ' ' || elm == '\t' || elm == '\n')
 		return (1);
-	else if (elm == '\n' || elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
+	else if (elm == '\v' || elm == '\v' || elm == '\f' || elm == '\r')
 		return (1);
 	return (0);
 }

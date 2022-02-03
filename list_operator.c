@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:42:10 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/22 21:31:38 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/01 15:55:00 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "minishell.h"

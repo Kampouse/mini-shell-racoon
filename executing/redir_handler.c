@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:50:09 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 05:33:13 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:57:46 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,23 @@ int	input_redir(char *temp)
 	return (0);
 }
 
-int	here_redir(t_jobs *job, char *temp)
+int	here_redir(void)
 {
 	int	fd;
-
-	(void)job;
 	fd = open("/tmp/here_docced", O_RDONLY, 0644);
-	(void) temp;
 	if (fd < 0)
 	{
+		dup2(fd, 0);
+		close(fd);
 		fd = open("/tmp/here_docced", O_TRUNC | O_CREAT | O_RDWR, 0644);
-		return (-1);
+		return (0);
 	}
-	dup2(fd, 0);
+	else
+	{
+		dup2(fd, 0);
+		close(fd);
+	}
+	unlink("/tmp/here_docced");
 	return (0);
 }
 
@@ -87,12 +91,9 @@ int	redir_handler(t_jobs *job)
 		temp = job->redir;
 		while (temp && status == 0)
 		{
+				status = here_redir();
 			if (temp->type == 0 && temp->eval)
 				status = out_append(temp->eval);
-			else if (temp->type == 1)
-			{
-				status = here_redir(job, job->hereduc);
-			}
 			else if (temp->type == 2 && temp->eval)
 				status = input_redir(temp->eval);
 			else if (temp->type == 3 && temp->eval)

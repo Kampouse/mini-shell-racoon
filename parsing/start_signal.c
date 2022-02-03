@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr_int.c                                    :+:      :+:    :+:   */
+/*   start_signal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 15:06:46 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/01 20:55:38 by jemartel         ###   ########.fr       */
+/*   Created: 2022/02/01 17:35:10 by jemartel          #+#    #+#             */
+/*   Updated: 2022/02/01 17:36:12 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "parsing.h"
+#include "../libft/libft.h"
 
-//Faut s'assurer que ch n'est pas position [0]
-int	ft_strchr_int(const char *str, int ch)
+void	sig_chi(int signum)
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != ch)
-		i++;
-	return (i);
+	if (signum == SIGINT)
+	{
+		ft_putstr("\n");
+	}
 }

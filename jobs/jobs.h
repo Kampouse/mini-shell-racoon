@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:58:56 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 14:58:59 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 00:16:56 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@
 # include "stdlib.h"
 # include "../libft/libft.h"
 # include "../parsing/parsing.h"
+
+typedef struct s_pipe
+{
+	int				pipe_nbr;
+	int				state;
+	int				old_pipe[2];
+	int				state_b;
+	int				**pipes;
+	int				*pids;
+	int				piped[2];
+}	t_pipe;
 
 typedef struct s_redir
 {
@@ -30,11 +41,11 @@ typedef struct s_redir
 
 typedef struct s_jobs
 {
-	t_dlist				*lst;
 	char				**cmd;
 	char				**eval;
 	char				*hereduc;
 	struct s_redir		*redir;
+	struct s_pipe		*piped;
 	int					cmd_type;
 	int					status;
 	int					stdin;
@@ -63,5 +74,5 @@ t_redir		*node_redir(char *cmd, int type);
 void		redir_addback(t_redir **currlist, t_redir *node);
 void		free_jobs(t_jobs *head, int type);
 void		free_redir(t_redir *head);
-
+int	valid_redir( t_dlist *redir);
 #endif 

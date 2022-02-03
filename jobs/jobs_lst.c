@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:30:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 05:20:00 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:20:56 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,39 @@ int	jobs_lst_counter(t_dlist *lst)
 	temp = lst;
 	while (temp)
 	{
-		if (temp->type > 4 || temp->type == -2)
-			count++;
-		temp = temp->next;
+		if(valid_redir(temp) == 1)
+			temp = temp->next->next;
+		else if (temp->type == 4)	
+				return(count);
+		else
+			{
+				temp = temp->next;
+				count++;
+			}
 	}
 	return (count);
 }
+
 /* might breaks something */
 void	ft_anything(t_dlist *temp, int inc, char**commands)
 {
 	if (temp && temp->next && temp->next->next)
 	{
-		if(temp->type == 4)
-			return;
+		if (temp->type == 4)
+			return ;
 		temp = temp->next->next;
 		while (temp && (temp->type > 4 || temp->type == -2))
 		{
-			commands[inc++] = temp->content;
-			temp = temp->next;
+			if(valid_redir(temp) == 1)
+				temp = temp->next->next;
+			else
+			{
+				commands[inc++] = temp->content;
+				temp = temp->next;
+			}
 		}
 	}
+
 }
 
 /* function that create a lst of  args for exceve */
@@ -54,11 +67,12 @@ char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
 	inc = 0;
 	temp = NULL;
 	commands = NULL;
-	if ((lst->type >= 0 && lst->type <= 3 && lst->next && lst->next->next))
-		temp = lst->next->next;
-	else
-		temp = lst;
-	if (temp->content && !(temp->type >= 0 && temp->type <= 3))
+	temp = lst;
+	if(jobs_lst_counter(lst) == 0)
+		return(NULL);
+	while(valid_redir(temp) == 1)
+		temp = temp->next->next;
+	if (temp && temp->content && !(temp->type >= 0 && temp->type <= 3))
 	{
 		*lst_head = temp;
 		commands = ft_calloc((size_t)jobs_lst_counter(temp) + 1,
@@ -69,6 +83,7 @@ char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
 			temp = temp->next;
 		}
 		ft_anything(temp, inc, commands);
+
 	}
 	return (commands);
 }
