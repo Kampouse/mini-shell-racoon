@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 23:37:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 13:47:07 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:29:45 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_jobs	*job_new_lst(char **cmd, t_redir *redir, t_dlist *cmd_head)
 	link->hereduc = NULL;
 	link->status = 0;
 	link->cmd = cmd;
+	link->eval = NULL;
 	if (redir)
 		link->redir = redir;
 	else

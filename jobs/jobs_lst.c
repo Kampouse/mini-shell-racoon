@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:30:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 23:21:19 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:22:09 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_anything(t_dlist *temp, int inc, char**commands)
 		if (temp->type == 4)
 			return ;
 		temp = temp->next->next;
-		while (temp)
+		while (temp && (temp->type > 4 || temp->type == -2))
 		{
 			if(valid_redir(temp) == 1)
 				temp = temp->next->next;

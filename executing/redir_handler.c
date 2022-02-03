@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:50:09 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 01:27:35 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 22:43:00 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	here_redir(void)
 		dup2(fd, 0);
 		close(fd);
 		fd = open("/tmp/here_docced", O_TRUNC | O_CREAT | O_RDWR, 0644);
-		return (-1);
+		return (0);
 	}
 	else
 	{

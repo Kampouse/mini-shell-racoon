@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 00:53:24 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:17:40 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst, t_pipe *pipes)
 		execve(paths, job->eval, g_state.env);
 		command_not_found(job);
 	}
+	printf("%d\n",g_state.output);
+	job->eval = job->cmd;
 	free_jobs(job, 0);
 	free(paths);
 	freelist(g_state.env);
