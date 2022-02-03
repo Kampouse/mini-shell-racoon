@@ -53,74 +53,71 @@ int	is_folder(t_jobs *jobs, char *local)
 	}
 	return (0);
 }
-
-/* fork the process  before exectuion  and wait for the child */
-/*
-int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
+ void handle_fd(t_pipe *pipes)
 {
-	int			pid;
-	int			status;
-	const char	*local = make_executable(job);
-
-	if (!local || is_folder(job, (char *)local))
-		return (g_state.output);
-	pid = fork();
-	if (pid < 0)
-		return (-1);
-	start_signal(1);
-	if (pid == 0)
-	{
-		(void)pipes;
-		redir_handler(job);
-		rl_clear_history();
-		start_signal(2);
-		 //pipe_handler(pipes, state, job);
-		exec_the_bin((char *)local, job, lst);
-	}
-	waitpid(pid, &status, 0);
-	free((char *)local);
-	start_signal(1);
-	return (WEXITSTATUS(status));
-	}
-	*/
-
-int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
-{
-	int			pid;
-	int			status;
-	const char	*local = make_executable(job);
-
-	if (!local || is_folder(job, (char *)local))
-		return (g_state.output);
-
-	pid = fork();
-	if (pid < 0)
-		return (-1);
-	start_signal(1);
-	if (pid == 0)
-	{
-	if(pipes->state == 0)
-		dup2(pipes->piped[1],STDOUT_FILENO);
-	if(pipes->old_pipe[1] != -1)
-	{
-		dup2(pipes->old_pipe[0],STDIN_FILENO);
-	}
-	redir_handler(job);
-	rl_clear_history();
-	//signal(SIGINT, SIG_DFL);
-	exec_the_bin((char *)local, job, lst);
-	}
-	if(pipes->state == 0 || pipes->state % 2 == 0)
-	{
-		dup2(pipes->piped[0],STDIN_FILENO);
-		close(pipes->piped[1]);
-		if(pipes->state == 1)
+	if (pipes && pipes->state < pipes->pipe_nbr)
 		{
-			//pipe(pipes->test);	
+			dup2(pipes->pipes[pipes->state][1],1);
+			close( pipes->pipes[pipes->state][1]);
+			close( pipes->pipes[pipes->state][0]);
 		}
+	if (pipes && pipes->state != 0)
+	{
+		dup2(pipes->pipes[pipes->state - 1][0],STDIN_FILENO);
+		close(pipes->pipes[pipes->state - 1][1]);
+		close(pipes->pipes[pipes->state - 1][0]);
 	}
-	free((char *)local);
-	//start_signal(1);
-	return (WEXITSTATUS(status));
+}
+ void handle_fd_main(t_pipe *pipes)
+{
+	if (pipes && pipes->state > 0)
+	{
+		close(pipes->pipes[pipes->state - 1][0]);
+		close(pipes->pipes[pipes->state - 1][1]);
+	}
 }
 
+int	path_resolver(t_jobs *job, t_dlist *lst,t_pipe *pipes)
+{
+	int			pid;
+	int			status;
+	const char	*local = make_executable(job);
+
+	if (!local || is_folder(job, (char *)local))
+		return (g_state.output);
+	pid = -1;
+//restore_signal(SIGINT);
+//restore_signal(SIGQUIT);
+
+	pid = fork();
+	if (pid < 0)
+		return (-1);
+	if (pid == 0)
+	{
+			handle_fd(pipes);
+			redir_handler(job);
+			rl_clear_history();
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
+			if(job->cmd_type >= 0)
+		{
+			check_bultin(job);	
+			job->status = g_state.output;
+			while(job->prev)
+				job = job->prev;
+			free_jobs(job, 0);
+			freelist(g_state.exprt);
+			free_list(lst);
+			freelist(g_state.env);
+			rl_clear_history();
+			delete_pipe(pipes,1);
+			free((void*) local);
+			exit(g_state.output);
+		}
+			job->status = g_state.output;
+			exec_the_bin((char *)local, job, lst,pipes);
+	}
+	handle_fd_main(pipes);
+	free((char *)local);
+	return (WEXITSTATUS(status));
+}

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:50:09 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 09:38:46 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/01 05:33:13 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int	here_redir(t_jobs *job, char *temp)
 		return (-1);
 	}
 	dup2(fd, 0);
-	close(fd);
 	return (0);
 }
 

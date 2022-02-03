@@ -6,11 +6,10 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/28 14:32:51 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/31 14:34:31 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:19:59 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef EXECUTING_H
 # define EXECUTING_H
@@ -92,6 +91,6 @@ t_pipe		*ft_pipe(t_jobs *jobs);
 int			job_count(t_jobs *job);
 
 // Exit
-int		do_exit(char **exit_arg);
+int		do_exit(t_jobs *job);
 
 #endif

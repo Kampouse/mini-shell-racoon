@@ -6,26 +6,31 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/27 13:54:15 by olabrecq         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
+/*   Updated: 2022/02/01 05:35:11 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:20:34 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/01/26 14:20:22 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+#include "fcntl.h"
 
 int	check_bultin(t_jobs *job)
 {
 	job->cmd = job->eval;
 	if (job->cmd_type == -2)
+	{
+		if(ft_strncmp(job->eval[0],"exit",ft_strlen(job->eval[0]) == 0))
+			return(g_state.output = do_exit(job));
 		return (1);
+	}
 	else if (job->cmd_type == 5)
 		g_state.output = do_env(job);
 	else if (job->cmd_type == 6)
 		g_state.output = do_export(job);
 	else if (job->cmd_type == 7)
-		g_state.output = do_exit(job->cmd);
+		g_state.output = do_exit(job);
 	else if (job->cmd_type == 8)
 		g_state.output = do_echo(job);
 	else if (job->cmd_type == 9)
@@ -71,18 +76,13 @@ int	check_nb_of_cmd(t_jobs *job)
 * */
 void	start_job(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 {
-	
-	if (job->cmd_type >= 0)
+
+	if(pipes == NULL && job->cmd_type != -2)
 	{
-		//pipe_handler(pipes);
-		redir_handler(job);
-		check_bultin(job);
-		//start_signal(0);
-		pipes->state++;
-		return ;
+			
+			redir_handler(job);
+			check_bultin(job);	
+			return;	
 	}
-	if (redir_handler(job) >= 0)
-	{
 		g_state.output = path_resolver(job, lst, pipes);
-	}
 }
