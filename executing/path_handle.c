@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 00:51:27 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:10:05 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,11 @@ int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	lst = NULL;
 	delete_pipe(pipes, 1);
 	rl_clear_history();
-	if(redir_handler(job) >= 0 && g_state.error != 2)
+	if (redir_handler(job) >= 0 && g_state.error != 2)
 	{
 		execve(paths, job->eval, g_state.env);
 		command_not_found(job);
 	}
-	printf("%d\n",g_state.output);
-	job->eval = job->cmd;
 	free_jobs(job, 0);
 	free(paths);
 	freelist(g_state.env);

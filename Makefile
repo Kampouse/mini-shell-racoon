@@ -61,7 +61,7 @@ all: ${NAME}
 
 DETECTED_OS := $(shell uname -s)
 ${NAME}:${OBJS}
-		@$(MAKE) -C libft
+		@make   -C libft > /tmp/out
 ifeq ($(DETECTED_OS), Darwin)
 	@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
 endif
@@ -82,14 +82,13 @@ val: all
 test: all
 	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes --show-reachable=yes  ./$(NAME) -c "cat << this | cat << this | exit"
 norm: 
-	norminette ${SRCS}  | grep "Error!"
-	norminette ${SRCS}  | grep "Error:"
+	@norminette ${SRCS}  | grep "Error!"
 
 
 clean:
 		@echo "\033[0;31m Cleaning..."
-	    ${RM} ${OBJS}
-		@make -C libft/ clean
+	    @rm -rf ${OBJS} > /tmp/out
+		@make -C libft/ clean > /tmp/out
 		@echo "\033[0m"
 
 git:
@@ -99,10 +98,11 @@ git:
 		./jobs/jobs.h \
 		./eval/eval.h
 
-fclean: clean
+fclean: 
 		@echo "\033[0;31m Removing executable..."
-		@${RM} ${NAME}
-		@$(MAKE) -C libft fclean
+		@${RM} ${NAME} 
+	    @rm -rf ${OBJS} > /tmp/out
+		@make -C libft fclean > /tmp/out
 		@echo "\033[0m"
 
 re: fclean all

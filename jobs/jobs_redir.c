@@ -5,20 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/24 14:52:17 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 23:28:21 by jemartel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   jobs_redir.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 00:23:22 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/24 14:52:15 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 13:49:40 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +15,19 @@
 
 int	valid_redir( t_dlist *redir)
 {
-	if(redir)
+	if (redir)
 	{
-	if (redir->type >= 0 && redir->type <= 3)
-	{
-		if (redir->next && !(redir->next->type >= 0 && redir->next->type <= 4))
-			return (1);
+		if (redir->type >= 0 && redir->type <= 3 && redir->next)
+		{
+			if (!(redir->next->type >= 0 && redir->next->type <= 4))
+				return (1);
+		}
+		if (!(redir->type >= 0 && redir->type <= 3))
+			return (0);
+		g_state.output = 2;
+		return (-1);
 	}
-	if (!(redir->type >= 0 && redir->type <= 3))
-		return (0);
-	g_state.output = 2;
-	return (-1);
-	}
-	return(-2);
+	return (-2);
 }
 
 t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)
@@ -59,7 +47,7 @@ t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)
 				node_redir(temp->next->content, temp->type));
 		}
 		temp = temp->next->next->next;
-		return(redir_tail(redir_lst,temp));
+		return (redir_tail(redir_lst, temp));
 	}
 	return (temp);
 }
