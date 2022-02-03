@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:30:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 04:44:51 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:21:19 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,15 @@ void	ft_anything(t_dlist *temp, int inc, char**commands)
 		if (temp->type == 4)
 			return ;
 		temp = temp->next->next;
-		while (temp && (temp->type > 4 || temp->type == -2))
+		while (temp)
 		{
-			commands[inc++] = temp->content;
-			temp = temp->next;
+			if(valid_redir(temp) == 1)
+				temp = temp->next->next;
+			else
+			{
+				commands[inc++] = temp->content;
+				temp = temp->next;
+			}
 		}
 	}
 }
@@ -55,11 +60,10 @@ char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
 	inc = 0;
 	temp = NULL;
 	commands = NULL;
-	if ((lst->type >= 0 && lst->type <= 3 && lst->next && lst->next->next))
-		temp = lst->next->next;
-	else
-		temp = lst;
-	if (temp->content && !(temp->type >= 0 && temp->type <= 3))
+	temp = lst;
+	while(valid_redir(temp) == 1)
+		temp = temp->next->next;
+	if (temp && temp->content && !(temp->type >= 0 && temp->type <= 3))
 	{
 		*lst_head = temp;
 		commands = ft_calloc((size_t)jobs_lst_counter(temp) + 1,

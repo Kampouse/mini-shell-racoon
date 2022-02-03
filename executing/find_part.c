@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 15:16:10 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 17:46:02 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 00:48:17 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ int	path_resolver(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	if (pid == 0)
 	{
 		handle_fd(pipes);
-		redir_handler(job);
 		rl_clear_history();
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
@@ -108,5 +107,6 @@ int	path_resolver(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	}
 	handle_fd_main(pipes);
 	free((char *)local);
+	dup2(g_state.stdin,0);
 	return (WEXITSTATUS(status));
 }

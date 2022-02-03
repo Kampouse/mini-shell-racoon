@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:52:17 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 12:22:07 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:28:21 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 int	valid_redir( t_dlist *redir)
 {
+	if(redir)
+	{
 	if (redir->type >= 0 && redir->type <= 3)
 	{
 		if (redir->next && !(redir->next->type >= 0 && redir->next->type <= 4))
@@ -36,6 +38,8 @@ int	valid_redir( t_dlist *redir)
 		return (0);
 	g_state.output = 2;
 	return (-1);
+	}
+	return(-2);
 }
 
 t_dlist	*redir_tail(t_redir **redir_lst, t_dlist *lst)

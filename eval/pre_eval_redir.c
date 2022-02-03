@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 11:45:38 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 01:16:26 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ void	squash_delete(t_jobs *job, t_redir *temp, int fd, char *str)
 		freelist(g_state.env);
 		freelist(g_state.exprt);
 		rl_clear_history();
-		close(fd);
 		exit(0);
 	}
 	else
 	{
 		close(fd);
-		unlink("/tmp/here_docced");
+	//	unlink("/tmp/here_docced");
 		free_jobs(job, 0);
 		freelist(g_state.env);
 		freelist(g_state.exprt);
@@ -61,6 +60,7 @@ void	docc_out(t_jobs *job, t_redir *temp)
 	if (pid == 0)
 		squash_delete(job, temp, fd, str);
 	waitpid(pid, &status, 0);
+		WEXITSTATUS(status);
 }
 
 char	*eval_docc(t_redir *temp)

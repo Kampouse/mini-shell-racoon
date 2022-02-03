@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 15:55:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 16:08:18 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:44:44 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,5 @@ void		command_not_found(t_jobs *job);
 int			restore_signal(const int signum);
 void		sig_cc(int signum);
 void		sig_chi(int signum);
-
+int			here_redir(void);
 #endif 
