@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 18:48:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 23:52:45 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/02 23:53:42 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv, char **envp)
 	g_state.stdin = dup(0);
 	g_state.stdout = dup(1);
 	g_state.error = 0;
+	g_state.output = 0;
 	if (argc == 3 && ft_strncmp("-c", argv[1], ft_strlen("-c")) == 0)
 	{
 		fd = open("/tmp/here_docced", O_TRUNC | O_CREAT | O_RDWR, 0644);

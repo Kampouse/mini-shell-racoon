@@ -80,7 +80,7 @@ leak: all
 val: all
 	valgrind   --leak-check=full --track-origins=yes -s --trace-children=yes  ./$(NAME)
 test: all
-	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes --show-reachable=yes  ./$(NAME) -c "ls | echo this | exit | echo ls"
+	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes --show-reachable=yes  ./$(NAME) -c "cat << this | cat << this | exit"
 norm: 
 	norminette ${SRCS}  | grep "Error!"
 	norminette ${SRCS}  | grep "Error:"

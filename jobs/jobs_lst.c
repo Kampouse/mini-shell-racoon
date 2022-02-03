@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:30:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 23:22:09 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 01:32:17 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	ft_anything(t_dlist *temp, int inc, char**commands)
 			}
 		}
 	}
+
 }
 
 /* function that create a lst of  args for exceve */
@@ -74,6 +75,7 @@ char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
 			temp = temp->next;
 		}
 		ft_anything(temp, inc, commands);
+
 	}
 	return (commands);
 }
