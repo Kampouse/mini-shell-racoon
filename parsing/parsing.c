@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 00:49:11 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:12:46 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	parser_core(t_dlist *lst)
 	inc = 0;
 	if (job)
 	{
-		pre_val_redir(job);
+		pre_val_redir(job, lst);
 		while (temp)
 		{
 			eval(temp);

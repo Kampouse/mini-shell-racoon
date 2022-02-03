@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 00:39:37 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:13:06 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,7 @@ void	docc_out(t_jobs *job, t_redir *temp,t_dlist *lst)
 	int		pid;
 	int		status;
 	char	*str;
-	int		fd;
 
-	fd = 0;
 	str = NULL;
 	pid = fork();
 	if (pid < 0)

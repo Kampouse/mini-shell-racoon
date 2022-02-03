@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:30:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 01:32:17 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:20:56 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,15 @@ int	jobs_lst_counter(t_dlist *lst)
 	temp = lst;
 	while (temp)
 	{
-		if (temp->type > 4 || temp->type == -2)
-			count++;
-		temp = temp->next;
+		if(valid_redir(temp) == 1)
+			temp = temp->next->next;
+		else if (temp->type == 4)	
+				return(count);
+		else
+			{
+				temp = temp->next;
+				count++;
+			}
 	}
 	return (count);
 }
@@ -62,6 +68,8 @@ char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
 	temp = NULL;
 	commands = NULL;
 	temp = lst;
+	if(jobs_lst_counter(lst) == 0)
+		return(NULL);
 	while(valid_redir(temp) == 1)
 		temp = temp->next->next;
 	if (temp && temp->content && !(temp->type >= 0 && temp->type <= 3))
