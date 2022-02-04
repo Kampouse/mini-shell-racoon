@@ -70,6 +70,7 @@ ifeq ($(DETECTED_OS), Linux)
 endif
 		@echo "\033[0m"
 		@echo "\n\033[32m\033[1m  Minishell Compiled  for $(DETECTED_OS) \n\033[0m"
+
 run: all
 		./$(NAME)
 
@@ -105,11 +106,21 @@ fclean:
 		@make -C libft fclean > /tmp/out
 		@echo "\033[0m"
 
+dep:
+		@echo "\n\033[32m\033[1m    \n\033[0m"
+		@echo "\033[0m"
+		@echo "\n\033[32m\033[1m  Currently compiling dependencies for $(DETECTED_OS) this will take some time \n\033[0m"
+		@sh -c "cd readline && ./configure > /tmp/out && make -q --ignore-errors "
+		@sh -c "cd ncurses && ./configure > /tmp/out && make --ignore-errors -q"
+		@echo "\033[0m"
+		@clear
+		@make run
+		@echo "\n\033[32m\033[1m   time is up \n\033[0m"
+
+
+install:
+		make  --ignore-errors dep
+
 re: fclean all
 
 .PHONY: clean fclean re all
-
-re: fclean all
-	
-.PHONY: clean fclean re all/
-
