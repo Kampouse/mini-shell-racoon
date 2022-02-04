@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 16:51:38 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/04 18:01:41 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 char	*eval_docc(t_redir *temp);
 
-void	squash_delete(t_jobs *job, t_redir *temp, t_dlist *lst, char *str)
+void	squash_output(t_jobs *job, t_redir *temp, t_dlist *lst, char *str)
 {
 	int	fd;
 
@@ -45,7 +45,7 @@ void	squash_delete(t_jobs *job, t_redir *temp, t_dlist *lst, char *str)
 	exit(130);
 }
 
-void	docc_out(t_jobs *job, t_redir *temp, t_dlist *lst)
+void	here_process(t_jobs *job, t_redir *temp, t_dlist *lst)
 {
 	int		pid;
 	int		status;
@@ -56,7 +56,7 @@ void	docc_out(t_jobs *job, t_redir *temp, t_dlist *lst)
 	if (pid < 0)
 		return ;
 	if (pid == 0)
-		squash_delete(job, temp, lst, str);
+		squash_output(job, temp, lst, str);
 	waitpid(pid, &status, 0);
 	g_state.output = status;
 }
@@ -87,7 +87,7 @@ char	*eval_docc(t_redir *temp)
 	return (outcome);
 }
 
-void	pre_val_redir(t_jobs *jobs, t_dlist *lst)
+void	 pre_val_here(t_jobs *jobs, t_dlist *lst)
 {
 	t_redir	*temp;
 
@@ -99,10 +99,10 @@ void	pre_val_redir(t_jobs *jobs, t_dlist *lst)
 		while (temp)
 		{
 			if (temp->type == 1 && jobs->status == 0)
-				docc_out(jobs, temp, lst);
+				here_process(jobs, temp, lst);
 			temp = temp->next;
 		}
 		if (jobs && jobs->next)
-			pre_val_redir(jobs->next, lst);
+			pre_val_here(jobs->next, lst);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 16:51:53 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/01 16:27:10 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/04 17:48:54 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	tokens_lst(char *trimed, size_t total_len, t_dlist **token_lst)
 }
 
 /* created  a list of token from a   string  (wrapped function)*/
-t_dlist	*line_parser(char *trimed)
+t_dlist	*parser(char *trimed)
 {
 	t_dlist	*lst;
 
@@ -101,5 +101,6 @@ t_dlist	*line_parser(char *trimed)
 	if (!trimed)
 		return (NULL);
 	tokens_lst(trimed, ft_strlen(trimed), &lst);
+	free(trimed);
 	return (lst);
 }

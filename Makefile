@@ -72,7 +72,7 @@ endif
 		@echo "\n\033[32m\033[1m  Minishell Compiled  for $(DETECTED_OS) \n\033[0m"
 
 run: all
-		./$(NAME)
+		@./$(NAME)
 
 leak: all
 		leaks --atExit -- ./$(NAME)
@@ -84,7 +84,6 @@ test: all
 	valgrind   --leak-check=full --show-leak-kinds=all --track-origins=yes -s --trace-children=yes --show-reachable=yes  ./$(NAME) -c "cat << this | cat << this | exit"
 norm: 
 	@norminette ${SRCS}  | grep "Error!"
-
 
 clean:
 		@echo "\033[0;31m Cleaning..."
@@ -110,12 +109,13 @@ dep:
 		@echo "\n\033[32m\033[1m    \n\033[0m"
 		@echo "\033[0m"
 		@echo "\n\033[32m\033[1m  Currently compiling dependencies for $(DETECTED_OS) this will take some time \n\033[0m"
-		@sh -c "cd readline && ./configure > /tmp/out && make -q --ignore-errors "
+		@sh -c "cd readline && ./configure > /tmp/out"
+		@sh -c "make  -C readline > /tmp/out"
 		@sh -c "cd ncurses && ./configure > /tmp/out && make --ignore-errors -q"
 		@echo "\033[0m"
 		@clear
 		@make run
-		@echo "\n\033[32m\033[1m   time is up \n\033[0m"
+		@echo "\n\033[32m\033[1m  Minishell  is ready \n\033[0m"
 
 
 install:

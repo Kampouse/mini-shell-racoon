@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 18:48:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 23:53:42 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/04 17:29:13 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		fd = open("/tmp/here_docced", O_TRUNC | O_CREAT | O_RDWR, 0644);
 		close(fd);
-		parsing();
+		igntion_seq();
 	}
 }
