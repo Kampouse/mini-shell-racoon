@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/04 17:50:31 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/04 22:15:14 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	quick_parser(char *str)
 
 	if (trimed && ft_strlen(trimed) > 0)
 	{
-		lst =  parser((char *)trimed);
+		lst = parser((char *)trimed);
 		free((char *)trimed);
 		if (lst != NULL)
 		{

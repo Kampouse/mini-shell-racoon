@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/04 18:01:41 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/04 22:15:33 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*eval_docc(t_redir *temp)
 	return (outcome);
 }
 
-void	 pre_val_here(t_jobs *jobs, t_dlist *lst)
+void	pre_val_here(t_jobs *jobs, t_dlist *lst)
 {
 	t_redir	*temp;
 
