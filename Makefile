@@ -1,6 +1,6 @@
 NAME = minishell
 
-FLAGS =   -g -Wall -Wextra -Werror
+FLAGS =   -g -Wall -Wextra
 SRCS =  main.c \
 		utils.c\
 		list_operator.c\
