@@ -118,8 +118,8 @@ dep:
 		@echo "\n\033[32m\033[1m  Minishell  is ready \n\033[0m"
 
 
-install:
-		make  --ignore-errors dep
+install: all
+	
 
 re: fclean all
 
