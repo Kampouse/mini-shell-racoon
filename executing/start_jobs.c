@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 01:14:16 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 16:56:35 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/06 18:51:09 by jemartel         ###   ########.fr       */
 /*   Updated: 2022/01/20 16:22:57 by olabrecq         ###   ########.fr       */
 /*   Updated: 2022/01/25 13:20:34 by olabrecq         ###   ########.fr       */
 /*   Updated: 2022/01/26 14:20:22 by olabrecq         ###   ########.fr       */
@@ -22,24 +22,24 @@ int	check_bultin(t_jobs *job)
 	if (job->cmd_type == -2)
 	{
 		if (ft_strncmp(job->eval[0], "exit", ft_strlen(job->eval[0]) == 0))
-			return (g_state.output = do_exit(job));
+			return (g_state.error = do_exit(job));
 		return (1);
 	}
 	else if (job->cmd_type == 5)
-		g_state.output = do_env(job);
+		g_state.error = do_env(job);
 	else if (job->cmd_type == 6)
-		g_state.output = do_export(job);
+		g_state.error = do_export(job);
 	else if (job->cmd_type == 7)
-		g_state.output = do_exit(job);
+		g_state.error = do_exit(job);
 	else if (job->cmd_type == 8)
-		g_state.output = do_echo(job);
+		g_state.error = do_echo(job);
 	else if (job->cmd_type == 9)
-		g_state.output = do_unset(job);
+		g_state.error = do_unset(job);
 	else if (job->cmd_type == 10)
-		g_state.output = do_pwd(job->cmd);
+		g_state.error = do_pwd(job->cmd);
 	else if (job->cmd_type == 11)
-		g_state.output = do_cd(job->cmd);
-	return (g_state.output);
+		g_state.error = do_cd(job->cmd);
+	return (g_state.error);
 }
 
 int	job_count(t_jobs *job)

@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:38:44 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/04 17:47:53 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/05 19:23:19 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_dlist
 	size_t			len;
 }		t_dlist;
 
-void		 igntion_seq(void);
+void		igntion_seq(void);
 void		tokens_peek(t_dlist *lst);
 char		*token_builder(char *str);
 char		*find_single(char *str, size_t *len);
