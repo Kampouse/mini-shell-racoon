@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 16:08:47 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/04 17:34:39 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:05:24 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -49,4 +49,11 @@ char	*prompt(char **trimed)
 	add_history(*trimed);
 	free(line);
 	return (*trimed);
+}
+
+void	sigg_quit(int signum)
+{
+	if (signum == SIGQUIT)
+	{
+	}
 }
