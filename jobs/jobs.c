@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 23:20:57 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 11:42:33 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:47:25 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	pipe_return(t_dlist *current, int status)
 	{
 		free_nodes(current);
 		printf("syntax error near unexpected token `|'\n");
+		g_state.output = 130;
 		return (-1);
 	}
 	return (0);

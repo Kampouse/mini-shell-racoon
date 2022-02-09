@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 14:45:33 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/25 11:13:03 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/06 19:34:10 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char	**parse_unset(char **to_unset)
 	while (to_unset[i])
 	{
 		if (to_unset[i][ft_strlen(to_unset[i]) - 1] == '=')
-			printf("bash: unset: `%s': not a valid identifier\n", to_unset[i++]);
+		{
+			printf("unset: `%s': not a valid identifier\n", to_unset[i++]);
+			g_state.error = 1;
+		}
 		else
 			to_delete[j++] = to_unset[i++];
 	}

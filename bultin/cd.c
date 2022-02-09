@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 08:47:19 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/01/24 11:13:13 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/06 18:52:21 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	do_cd(char **args)
 		if (chdir(args[1]))
 		{
 			printf("cd: no such file or directory: %s\n", args[1]);
-			return (1);
+			return (2);
 		}
 		getcwd(cwd2, sizeof(cwd2));
 		if (update_path(cwd, cwd2))

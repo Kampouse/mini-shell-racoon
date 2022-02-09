@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:58:56 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 00:16:56 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:42:40 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ t_redir		*node_redir(char *cmd, int type);
 void		redir_addback(t_redir **currlist, t_redir *node);
 void		free_jobs(t_jobs *head, int type);
 void		free_redir(t_redir *head);
-int	valid_redir( t_dlist *redir);
+int			valid_redir( t_dlist *redir);
 #endif 

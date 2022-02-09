@@ -6,7 +6,11 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 11:01:24 by olabrecq          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/02/03 13:41:08 by olabrecq         ###   ########.fr       */
+=======
+/*   Updated: 2022/02/03 13:41:04 by jemartel         ###   ########.fr       */
+>>>>>>> a7f0bba7c41c9851ac5b7d81c48824f2b43065f9
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +30,7 @@ void	quit_shell(t_jobs *jobs, int type)
 	freelist(g_state.env);
 	freelist(g_state.exprt);
 	rl_clear_history();
-	//unlink("/tmp/here_docced");
+	unlink("/tmp/here_docced");
 	exit(g_state.output);
 }
 
