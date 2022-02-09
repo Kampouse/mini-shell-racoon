@@ -18,6 +18,7 @@ SRCS =  main.c \
 		./dblink/dblink_utils.c \
 		\
 		./bultin/env.c \
+		./bultin/env_utils.c \
 		./bultin/export.c \
 		./bultin/export_utils.c \
 		./bultin/unset.c \

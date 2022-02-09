@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/01/25 11:02:07 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/09 15:49:54 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ int	update_env_list(char *var, char *val, int type)
 {
 	char	*new_env;
 
-	if (type == 1)
+	if (type == 1 && !check_var(var))//ajouter check si la variable est deja la
 	{
 		new_env = var;
 		g_state.env = add_to_list(new_env, g_state.env, 0);
 	}
-	if (type == 3)
+	if (type == 3 && !check_var(var))//ajouter check si la variable est deja la
 	{
 		new_env = ft_strjoin(var, val);
 		g_state.env = add_to_list(new_env, g_state.env, 0);
 		free(new_env);
 	}
-	if (g_state.env == NULL)
+	if (g_state.env == NULL)//ajouter check si la variable est deja la
 		return (1);
 	return (0);
 }
