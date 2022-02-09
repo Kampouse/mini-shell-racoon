@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/04 22:15:14 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:58:08 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ void	igntion_seq(void)
 	while (1)
 	{
 		signal(SIGINT, sig_cc);
+		signal(SIGQUIT, sig_quit);
 		if (prompt(&trimed) && ft_strlen(trimed) > 0)
 		{
 			signal(SIGINT, sig_chi);

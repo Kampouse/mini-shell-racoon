@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:38:44 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/04 17:47:53 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:57:23 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void		start_signal(int type);
 char		*prompt_eval(void);
 char		*prompt(char **trimed);
 void		sig_chi(int signum);
+void		sig_quit(int signum);
 #endif

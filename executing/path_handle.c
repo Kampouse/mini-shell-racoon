@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 14:10:05 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/09 17:05:15 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int	any_executable(char **path, t_jobs *job)
 	struct stat		sa;
 
 	inc = 0;
-	while (path[inc] && job->eval)
+
+	
+	while (path && path[inc] && job->eval)
 	{
 		temp = ft_str3join(path[inc], "/", job->eval[0]);
 		if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
@@ -36,7 +38,8 @@ int	any_executable(char **path, t_jobs *job)
 		free(temp);
 		inc++;
 	}
-	freelist(path);
+	if (path)
+		freelist(path);
 	return (-1);
 }
 
@@ -50,6 +53,7 @@ int	exec_the_bin(char *paths, t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	rl_clear_history();
 	if (redir_handler(job) >= 0 && g_state.error != 2)
 	{
+		signal(SIGQUIT,SIG_DFL);
 		execve(paths, job->eval, g_state.env);
 		command_not_found(job);
 	}
