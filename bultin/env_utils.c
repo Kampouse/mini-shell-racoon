@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:24:06 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/09 16:31:26 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/09 16:37:46 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	check_var(char	*var)
 {
 	printf("var = %s\n", var);
 	int i;
-
+	char *temp;//mettre dedans pour pas avoir de leak
 	i = 0;
 	while (g_state.env[i])//si il y a la variable a linterieur de la liste on change seulement si ya une = dans le news var
 	{
 		if (!ft_strncmp(var, g_state.env[i], ft_strlen(var)))
 		{
+			//si pas de = rien faire sinon swap value en delete old one
 			printf("Found it \n");	
 			return (1);
 		}
