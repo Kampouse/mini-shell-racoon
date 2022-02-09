@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 16:08:47 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/08 18:05:24 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/08 20:52:33 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../minishell.h"
@@ -55,5 +55,7 @@ void	sigg_quit(int signum)
 {
 	if (signum == SIGQUIT)
 	{
+		rl_on_new_line();
+		rl_redisplay();
 	}
 }
