@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 18:30:49 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 08:13:06 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/08 17:59:41 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 char	*eval_docc(t_redir *temp);
 
-void	squash_delete(t_jobs *job, t_redir *temp, t_dlist *lst, char *str)
+void	squash_output(t_jobs *job, t_redir *temp, t_dlist *lst, char *str)
 {
-	int fd;
+	int	fd;
 
 	signal(SIGINT, SIG_DFL);
 	str = eval_docc(temp);
@@ -28,24 +28,24 @@ void	squash_delete(t_jobs *job, t_redir *temp, t_dlist *lst, char *str)
 		fd = open("/tmp/here_docced", O_TRUNC | O_CREAT | O_RDWR, 0644);
 		write(fd, str, ft_strlen(str));
 		free(str);
-		while(job->prev)
+		while (job)
+		{
+			job->eval = job->cmd;
 			job = job->prev;
+		}
 		free_jobs(job, 0);
 		free_nodes(lst);
 		freelist(g_state.env);
 		freelist(g_state.exprt);
 		rl_clear_history();
-		exit(0);
+		exit(g_state.output);
 	}
-	else
-	{
-		freelist(g_state.env);
-		freelist(g_state.exprt);
-		exit(130);
-	}
+	freelist(g_state.env);
+	freelist(g_state.exprt);
+	exit(130);
 }
 
-void	docc_out(t_jobs *job, t_redir *temp,t_dlist *lst)
+void	here_process(t_jobs *job, t_redir *temp, t_dlist *lst)
 {
 	int		pid;
 	int		status;
@@ -56,9 +56,9 @@ void	docc_out(t_jobs *job, t_redir *temp,t_dlist *lst)
 	if (pid < 0)
 		return ;
 	if (pid == 0)
-		squash_delete(job, temp, lst, str);
+		squash_output(job, temp, lst, str);
 	waitpid(pid, &status, 0);
-		WEXITSTATUS(status);
+	g_state.output = status;
 }
 
 char	*eval_docc(t_redir *temp)
@@ -69,6 +69,7 @@ char	*eval_docc(t_redir *temp)
 
 	line = NULL;
 	outcome = NULL;
+	g_state.output = 130;
 	if (temp->type == 1)
 	{
 		docc = eval_line(temp->cmd, outcome, 0, 1);
@@ -86,22 +87,22 @@ char	*eval_docc(t_redir *temp)
 	return (outcome);
 }
 
-void	pre_val_redir(t_jobs *jobs,t_dlist *lst)
+void	pre_val_here(t_jobs *jobs, t_dlist *lst)
 {
 	t_redir	*temp;
 
 	temp = NULL;
-	 jobs->status = 0;
+	jobs->status = 0;
 	if (jobs && jobs->redir)
 	{
 		temp = jobs->redir;
 		while (temp)
 		{
 			if (temp->type == 1 && jobs->status == 0)
-				docc_out(jobs, temp,lst);
+				here_process(jobs, temp, lst);
 			temp = temp->next;
 		}
 		if (jobs && jobs->next)
-			pre_val_redir(jobs->next,lst);
+			pre_val_here(jobs->next, lst);
 	}
 }

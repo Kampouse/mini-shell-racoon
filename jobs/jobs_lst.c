@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 14:30:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 08:20:56 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 14:06:29 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	jobs_lst_counter(t_dlist *lst)
 	temp = lst;
 	while (temp)
 	{
-		if(valid_redir(temp) == 1)
+		if (valid_redir(temp) == 1)
 			temp = temp->next->next;
-		else if (temp->type == 4)	
-				return(count);
+		else if (temp->type == 4)
+			return (count);
 		else
-			{
-				temp = temp->next;
-				count++;
-			}
+		{
+			temp = temp->next;
+			count++;
+		}
 	}
 	return (count);
 }
@@ -45,7 +45,7 @@ void	ft_anything(t_dlist *temp, int inc, char**commands)
 		temp = temp->next->next;
 		while (temp && (temp->type > 4 || temp->type == -2))
 		{
-			if(valid_redir(temp) == 1)
+			if (valid_redir(temp) == 1)
 				temp = temp->next->next;
 			else
 			{
@@ -54,7 +54,6 @@ void	ft_anything(t_dlist *temp, int inc, char**commands)
 			}
 		}
 	}
-
 }
 
 /* function that create a lst of  args for exceve */
@@ -68,9 +67,9 @@ char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
 	temp = NULL;
 	commands = NULL;
 	temp = lst;
-	if(jobs_lst_counter(lst) == 0)
-		return(NULL);
-	while(valid_redir(temp) == 1)
+	if (jobs_lst_counter(lst) == 0)
+		return (NULL);
+	while (valid_redir(temp) == 1)
 		temp = temp->next->next;
 	if (temp && temp->content && !(temp->type >= 0 && temp->type <= 3))
 	{
@@ -83,7 +82,6 @@ char	**jobs_lst_creator(t_dlist *lst, t_dlist **lst_head)
 			temp = temp->next;
 		}
 		ft_anything(temp, inc, commands);
-
 	}
 	return (commands);
 }

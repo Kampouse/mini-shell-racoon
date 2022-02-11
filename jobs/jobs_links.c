@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 23:37:26 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 01:10:30 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/03 13:50:34 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	jobs_addback(t_jobs **currlist, t_jobs *node)
 t_jobs	*job_new_lst(char **cmd, t_redir *redir, t_dlist *cmd_head)
 {
 	t_jobs	*link;
+
 	if (!cmd && !redir)
 		return (NULL);
 	link = (t_jobs *)malloc(sizeof(*link));

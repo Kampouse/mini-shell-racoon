@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 15:16:10 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/03 00:48:17 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:06:50 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	path_resolver(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 
 	if (!local || is_folder(job, (char *)local))
 		return (g_state.output);
-	pid = -1;
+	status = 0;
 	pid = fork();
 	if (pid < 0)
 		return (-1);
@@ -107,6 +107,6 @@ int	path_resolver(t_jobs *job, t_dlist *lst, t_pipe *pipes)
 	}
 	handle_fd_main(pipes);
 	free((char *)local);
-	dup2(g_state.stdin,0);
+	dup2(g_state.stdin, 0);
 	return (WEXITSTATUS(status));
 }

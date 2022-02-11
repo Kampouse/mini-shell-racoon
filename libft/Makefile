@@ -64,7 +64,7 @@ OBJS 	= ${SRCS:.c=.o}
 HEADER	= libft.h
 
 CC 		= gcc
-CFLAGS 	= -Wall -Wextra -Werror
+CFLAGS 	= -Wall -Wextra
 
 all: 		${NAME}
 
