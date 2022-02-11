@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 15:24:06 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/10 21:05:12 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:28:47 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int just_check(char *var)
 int	check_var(char	*var, char *to_export, int type)
 {
 	int i;
-	char *temp; //mettre dedans pour pas avoir de leak
-	
+	char *temp;
+
 	temp = var;
 	if (var[ft_strlen(var) - 1] == '=')
 		var = ft_strtrim(temp, "=");
@@ -66,7 +66,7 @@ int	check_var(char	*var, char *to_export, int type)
 			{
 				printf("found it\n");
 				swap_n_free(to_export, 0, i);
-				// free(temp);
+				free(var);
 				return (1);
 			}
 			i++;

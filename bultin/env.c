@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/27 15:57:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/10 21:08:41 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:17:00 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	update_env_list(char *var, char *val, int type)
 		new_env = ft_strjoin(var, val);
 		if (check_var(var, new_env, 0))
 		{
-			// free(var);
+			free(new_env);
 			return (0);
 		}
 		g_state.env = add_to_list(new_env, g_state.env, 0);

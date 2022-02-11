@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/10 21:05:01 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:18:32 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	update_export_list(char *var, char *val, int type)
 		new_exprt = ft_strjoin(var, val);
 		if (check_var(var, new_exprt, 1))
 		{
-			// free(var);
+			free(val);
 			free(new_exprt);
 			return (0);
 		}
