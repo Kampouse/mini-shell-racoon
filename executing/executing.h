@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 15:04:06 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/09 15:32:02 by olabrecq         ###   ########.fr       */
+/*   Updated: 2022/02/10 15:49:57 by olabrecq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			last_is_equal(char *cmd);
 //ENV UTILS
 int			update_env_list(char *var, char *val, int type);
 void		print_env(int tab_len);
-int			check_var(char *var);
+int			check_var(char *var, char *to_export, int type);
 
 //UNSET
 int			do_unset(t_jobs *job);
