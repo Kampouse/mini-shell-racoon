@@ -62,12 +62,12 @@ all: ${NAME}
 DETECTED_OS := $(shell uname -s)
 ${NAME}:${OBJS}
 		@$(MAKE) -C libft
-ifeq ($(DETECTED_OS), Darwin)
-	@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
-endif
-ifeq ($(DETECTED_OS), Linux)
+# ifeq ($(DETECTED_OS), Darwin)
+# 	@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  ./libft/libft.a  -lncurses -o ${NAME}
+# endif
+# ifeq ($(DETECTED_OS), Linux)
 	@${CC} ${OBJS} ${FLAGS} -L./readline -lreadline  -L./libft -lft  -L./ncurses/lib -lncurses -o ${NAME}  -L ./ncurses/lib 
-endif
+# endif
 		@echo "\033[0m"
 		@echo "\n\033[32m\033[1m  Minishell Compiled  for $(DETECTED_OS) \n\033[0m"
 run: all
