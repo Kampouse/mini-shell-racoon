@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/11 00:58:23 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:00:42 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,36 @@ void	create_export(char **envp)
 }
 
 //Cette fonction trie les bonne variable et valeur a ajouter a la liste export
+ 
+int replace_at(char *var,char *val,int type)
+{
+	(void)val;
+	(void)val;
+	(void)type;
+	int location;
+	location = 0;
+
+	if(is_in_env_assigned(var) >= 0)
+		location = is_in_env_assigned(var); 	
+	else if(is_in_env(var) >= 0)
+	{
+		location = is_in_env(var); 
+	}
+	printf("tst");
+		g_state.exprt[location] = ft_strdup(var);
+
+return(0);
+}
+
+
 int	update_export_list(char *var, char *val, int type)
 {
 	char	*new_exprt;
+	const	int prev = is_in_env(var);
+	const	int old = is_in_env_assigned(var);
+	
+	if(prev >= 0 || old >=  0)
+		replace_at(var,val,type);
 	if (type == 1)
 	{
 		new_exprt = ft_strjoin(var, val);
@@ -54,6 +81,7 @@ int	update_export_list(char *var, char *val, int type)
 	}
 	if (type == 3)
 	{
+		printf("%s\n",var);
 		val = ft_str3join("\"", val, "\"");
 		new_exprt = ft_strjoin(var, val);
 		g_state.exprt = add_to_list(new_exprt, g_state.exprt, 1);
@@ -71,10 +99,10 @@ int	parse_export(char *to_export)
 	char	*valeur;
 	const	int prev = is_in_env(to_export);
 	const	int old = is_in_env_assigned(to_export);
+
 	(void)old;
 	variable = NULL;
 	valeur = NULL;
-
 	if(prev >= 0 || old >= 0)
 	{
 		printf("%d",old);
@@ -82,6 +110,7 @@ int	parse_export(char *to_export)
 		if(old >= 0)
 		{
 			free(g_state.exprt[old]);
+			//there an error here should be replaced 
 			g_state.exprt[old] = ft_strdup(to_export);
 			return(0);
 			//g_state.exprt = remove_of_list(g_state.exprt[old],g_state.exprt);
@@ -124,10 +153,7 @@ int is_in_env(char *str)
 {
 
 	int inc; 
-	char *temp;
-
 	inc = 0;
-	temp = NULL;
 	inc = until_this(str,"=");
 	 if(inc < 0)
 	{
@@ -192,9 +218,14 @@ int	do_export(t_jobs *job)
 			{
 				//temp fix here
 					if(is_in_env_assigned(job->cmd[i]) < 0)
-				if (update_export_list(job->cmd[i], "\"\"", 1) || \
-				update_env_list(job->cmd[i], "\"\"", 1))
-					return (1);
+				{
+					update_export_list(job->cmd[i], "\"\"", 1);
+					update_env_list(job->cmd[i], "\"\"", 1);
+				}
+				else
+					parse_export(job->cmd[i]);	
+
+				return (1);
 			}
 			else
 				if (parse_export(job->cmd[i]))
