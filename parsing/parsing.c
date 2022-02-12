@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/09 16:58:08 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 16:14:04 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	handle_pipes(t_pipe *pipes, int status)
 		while (pipes->state)
 		{
 			start_signal(0);
-			waitpid(-1, &status, 0);
+			waitpid(0, &status, 0);
 			status = WEXITSTATUS(status);
 			pipes->state--;
 		}
@@ -28,7 +28,7 @@ void	handle_pipes(t_pipe *pipes, int status)
 	}
 	else
 	{
-		waitpid(-1, &status, 0);
+		waitpid(0, &status, 0);
 		status = WEXITSTATUS(status);
 	}
 	if (g_state.error != 0)

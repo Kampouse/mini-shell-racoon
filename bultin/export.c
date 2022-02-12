@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/11 16:43:49 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:14:40 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,23 @@ void	create_export(char **envp)
  
 int replace_at(char *var,char *val,int type)
 {
-	(void)val;
-	(void)val;
-	(void)type;
 	int location;
-	location = 0;
 
-	if(is_in_env_assigned(var) >= 0)
+	location = 0;
+	(void)val;
+	(void)var;
+	(void)type;
+	if (is_in_env_assigned(var) >= 0)
+	{
 		location = is_in_env_assigned(var); 	
-	else if(is_in_env(var) >= 0)
+	}
+	else if (is_in_env(var) >= 0)
 	{
 		location = is_in_env(var); 
 	}
-	printf("tst");
-		g_state.exprt[location] = ft_strdup(var);
-
+	g_state.exprt[location] = ft_strdup(var);
 return(0);
 }
-
 
 int	update_export_list(char *var, char *val, int type)
 {
@@ -73,7 +72,7 @@ int	update_export_list(char *var, char *val, int type)
 	const	int old = is_in_env_assigned(var);
 	
 	if(prev >= 0 || old >=  0)
-		replace_at(var,val,type);
+		replace_at(var, val, type);
 	if (type == 1)
 	{
 		new_exprt = ft_strjoin(var, val);
@@ -81,7 +80,6 @@ int	update_export_list(char *var, char *val, int type)
 	}
 	if (type == 3)
 	{
-		printf("%s\n",var);
 		val = ft_str3join("\"", val, "\"");
 		new_exprt = ft_strjoin(var, val);
 		g_state.exprt = add_to_list(new_exprt, g_state.exprt, 1);
@@ -93,53 +91,66 @@ int	update_export_list(char *var, char *val, int type)
 	return (0);
 }
 
+
+
+char *wrap_input(char *str)
+{
+	char *temp;
+	char *tempb;
+	char *res;
+		
+	tempb = NULL;
+	temp = NULL;
+	temp = ft_substr(str,0,until_this(str,"=") + 1);
+	tempb  = ft_str3join("\"",str + until_this(str,"=") + 1,"\"");
+	res = ft_strjoin(temp,tempb);
+	free(temp);
+	free(tempb);
+return (res);
+}
+
+
+
+int update_this(char *to_export,char **location)
+{
+	const	int prev = is_in_env(to_export);
+	const	int old = is_in_env_assigned(to_export);
+
+	if(prev >= 0 || old >= 0)
+	{
+		if(old >= 0)
+		{
+			free(location[old]);
+			if(!last_is_equal(to_export))
+				location[old] = wrap_input(to_export);
+			else
+				location[old] = ft_strjoin(to_export,"\"\"");
+			return(0);
+		}
+		else if(prev >= 0)
+		{
+			if(ft_strchr(location[prev],'='))
+				return(0);
+			free(location[prev]);
+			location[prev] = ft_strdup(to_export);
+			return(0);
+		}
+	}
+return(1);
+}
+
 int	parse_export(char *to_export)
 {
 	char	*variable;
 	char	*valeur;
-	int len;
-	const	int prev = is_in_env(to_export);
-	const	int old = is_in_env_assigned(to_export);
 
-	(void)old;
 	variable = NULL;
 	valeur = NULL;
-	if(prev >= 0 || old >= 0)
-	{
-		printf("%d",old);
-		printf("%d",prev);
-		if(old >= 0)
-		{
-			free(g_state.exprt[old]);
-			if(!last_is_equal(to_export))
-			{
-				//bug is here
-				len = until_this(to_export,"=");		
-				printf("%s----\n",to_export + len + 2);
-			char *temp;
-				
-				temp = ft_substr(to_export,0,until_this(to_export,"=") + 1);
-				g_state.exprt[old] = ft_strjoin(temp,ft_str3join("\"",to_export + until_this(to_export,"=") + 1,"\""));
-			}
-			else
-				g_state.exprt[old] = ft_strjoin(to_export,"\"\"");
-			return(0);
-			//g_state.exprt = remove_of_list(g_state.exprt[old],g_state.exprt);
-		}
-		else if(prev >= 0)
-		{
-			printf("%s\n",g_state.exprt[prev]);
-			if(ft_strchr(g_state.exprt[prev],'='))
-				return(0);
-			free(g_state.exprt[prev]);
-			g_state.exprt[prev] = ft_strdup(to_export);
-			return(0);
-		}
-
-	}
+	if(update_this(to_export,g_state.exprt) != 1 || 
+		update_this(to_export,g_state.env) != 1)
+		return(0);
 	if (!no_equal(to_export))
 	{
-		printf("qui est tu\n");
 		variable = ft_strdup("' '");
 		valeur = ft_strdup(to_export);
 		g_state.exprt = add_to_list(valeur, g_state.exprt, 1);
@@ -148,7 +159,6 @@ int	parse_export(char *to_export)
 	}
 	else
 	{
-		
 		variable = before_equal(to_export);
 		valeur = afther_equal(to_export);
 		if (update_export_list(variable, valeur, 3) || \
