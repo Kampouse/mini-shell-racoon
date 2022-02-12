@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 08:47:19 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/12 18:20:35 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:38:06 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,10 @@ int	go_home(int i, bool found)
 			line = ft_split(g_state.env[i], '=');
 			if (line[1] && chdir(line[1]))
 			{
+				printf("minishell: cd to HOME FAILED\n");
 				freelist(line);
 				return (1);
 			}
-			else
-				printf("minishell: cd HOME set to NOTHING \n");
 		}
 	}
 	if (!found)
