@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 08:47:19 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/06 18:52:21 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 18:20:35 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,30 @@ int	update_path(char *old, char *new)
 	return (0);
 }
 
-int	go_home(void)
+int	go_home(int i, bool found)
 {
 	char	**line;
-	int		i;
-	bool	found;
 
-	i = -1;
-	found = false;
 	while (g_state.env[++i])
 	{
 		if (!ft_strncmp("HOME=", g_state.env[i], ft_strlen("HOME=")))
 		{
 			found = true;
 			line = ft_split(g_state.env[i], '=');
-			if (chdir(line[1]))
+			if (line[1] && chdir(line[1]))
 			{
-				printf("cd: no such file or directory: %s\n", line[1]);
+				freelist(line);
 				return (1);
 			}
+			else
+				printf("minishell: cd HOME set to NOTHING \n");
 		}
 	}
 	if (!found)
+	{
 		error_message("minishell: cd: HOME not set\n");
+		return (1);
+	}
 	freelist(line);
 	return (0);
 }
@@ -74,7 +75,7 @@ int	do_cd(char **args)
 
 	if (ft_tab_len(args) == 1)
 	{
-		if (go_home())
+		if (go_home(-1, false))
 			return (1);
 		return (0);
 	}

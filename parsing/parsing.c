@@ -6,7 +6,8 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/09 17:33:37 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 16:12:49 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 15:49:21 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +21,7 @@ void	handle_pipes(t_pipe *pipes, int status)
 		while (pipes->state)
 		{
 			start_signal(0);
-			waitpid(-1, &status, 0);
+			waitpid(0, &status, 0);
 			status = WEXITSTATUS(status);
 			pipes->state--;
 		}
@@ -28,7 +29,7 @@ void	handle_pipes(t_pipe *pipes, int status)
 	}
 	else
 	{
-		waitpid(-1, &status, 0);
+		waitpid(0, &status, 0);
 		status = WEXITSTATUS(status);
 	}
 	if (g_state.error != 0)
@@ -112,7 +113,7 @@ void	igntion_seq(void)
 	while (1)
 	{
 		signal(SIGINT, sig_cc);
-		signal(SIGQUIT,SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		if (prompt(&trimed) && ft_strlen(trimed) > 0)
 		{
 			signal(SIGINT, sig_chi);

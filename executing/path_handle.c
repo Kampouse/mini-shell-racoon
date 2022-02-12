@@ -6,7 +6,8 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 10:22:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/08 18:08:10 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 16:09:25 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 15:47:16 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +28,7 @@ int	any_executable(char **path, t_jobs *job)
 	inc = 0;
 	if (path)
 	{
-		while (path[inc] && job->eval)
+		while (path && path[inc] && job->eval)
 		{
 			temp = ft_str3join(path[inc], "/", job->eval[0]);
 			if (stat(temp, &sa) == 0 && sa.st_mode & S_IXUSR)
@@ -39,7 +40,8 @@ int	any_executable(char **path, t_jobs *job)
 		inc++;
 		}
 	}
-	freelist(path);
+	if (path)
+		freelist(path);
 	return (-1);
 }
 
