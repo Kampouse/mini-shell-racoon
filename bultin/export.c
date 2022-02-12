@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/17 15:57:44 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/11 16:00:42 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:43:49 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	parse_export(char *to_export)
 {
 	char	*variable;
 	char	*valeur;
+	int len;
 	const	int prev = is_in_env(to_export);
 	const	int old = is_in_env_assigned(to_export);
 
@@ -110,8 +111,18 @@ int	parse_export(char *to_export)
 		if(old >= 0)
 		{
 			free(g_state.exprt[old]);
-			//there an error here should be replaced 
-			g_state.exprt[old] = ft_strdup(to_export);
+			if(!last_is_equal(to_export))
+			{
+				//bug is here
+				len = until_this(to_export,"=");		
+				printf("%s----\n",to_export + len + 2);
+			char *temp;
+				
+				temp = ft_substr(to_export,0,until_this(to_export,"=") + 1);
+				g_state.exprt[old] = ft_strjoin(temp,ft_str3join("\"",to_export + until_this(to_export,"=") + 1,"\""));
+			}
+			else
+				g_state.exprt[old] = ft_strjoin(to_export,"\"\"");
 			return(0);
 			//g_state.exprt = remove_of_list(g_state.exprt[old],g_state.exprt);
 		}
