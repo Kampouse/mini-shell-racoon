@@ -6,7 +6,7 @@
 /*   By: jemartel <jemartel@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 15:55:52 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/02 23:44:44 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 15:29:10 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,13 @@ int			restore_signal(const int signum);
 void		sig_cc(int signum);
 void		sig_chi(int signum);
 int			here_redir(void);
+int			got_good_args(char *cmd);
+void		create_export(char **envp);
+int			parse_export(char *to_export);
+char		*wrap_input(char *str);
+int			do_export(t_jobs *job);
+int			update_this(char *to_export, char **location);
+int			update_export_list(char *var, char *val, int type);
+int			is_in_env_assigned(char *str);
+int			little_export(char *str);
 #endif 

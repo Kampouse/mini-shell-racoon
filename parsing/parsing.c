@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 02:46:42 by jemartel          #+#    #+#             */
-/*   Updated: 2022/02/12 16:14:04 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/12 15:49:21 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	quick_parser(char *str)
 	if (trimed && ft_strlen(trimed) > 0)
 	{
 		lst = parser((char *)trimed);
-		free((char *)trimed);
 		if (lst != NULL)
 		{
 			job_composer(lst);

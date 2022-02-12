@@ -25,6 +25,8 @@ SRCS =  main.c \
 		./bultin/pwd.c \
 		./bultin/echo.c \
 		./bultin/exit.c \
+		./bultin/export_update.c \
+		./bultin/do_export.c \
 		\
 		./executing/start_jobs.c \
 		./executing/redir_handler.c \
