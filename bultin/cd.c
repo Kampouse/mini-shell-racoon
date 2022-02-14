@@ -6,7 +6,7 @@
 /*   By: olabrecq <olabrecq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 08:47:19 by olabrecq          #+#    #+#             */
-/*   Updated: 2022/02/12 18:38:06 by jemartel         ###   ########.fr       */
+/*   Updated: 2022/02/14 12:07:51 by jemartel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,18 @@ int	update_path(char *old, char *new)
 	return (0);
 }
 
-int	go_home(int i, bool found)
+int	go_home(int i, bool found, char **line)
 {
-	char	**line;
+	char	pwd[4096];
 
+	getcwd(pwd, sizeof(pwd));
 	while (g_state.env[++i])
 	{
 		if (!ft_strncmp("HOME=", g_state.env[i], ft_strlen("HOME=")))
 		{
 			found = true;
 			line = ft_split(g_state.env[i], '=');
+			update_path(pwd, line[1]);
 			if (line[1] && chdir(line[1]))
 			{
 				printf("minishell: cd to HOME FAILED\n");
@@ -74,7 +76,7 @@ int	do_cd(char **args)
 
 	if (ft_tab_len(args) == 1)
 	{
-		if (go_home(-1, false))
+		if (go_home(-1, false, NULL))
 			return (1);
 		return (0);
 	}
